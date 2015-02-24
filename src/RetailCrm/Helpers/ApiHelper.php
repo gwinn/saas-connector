@@ -3,6 +3,7 @@
 namespace RetailCrm\Helpers;
 
 use RetailCrm\ApiClient;
+use RetailCrm\Component\Utils;
 use RetailCrm\Exception\CurlException;
 
 /**
@@ -23,6 +24,8 @@ class ApiHelper
     {
         $this->settings = $container->getSettings();
         $this->log = $container->getLog();
+        $this->errorLog = $container->getErrorLog();
+        $this->historyLog = $container->getHistoryLog();
 
         $this->api = new ApiClient($this->settings['api']['url'], $this->settings['api']['key']);
     }
@@ -31,16 +34,20 @@ class ApiHelper
      * Create order
      *
      * @param array $order
+     *
+     * @return bool|mixed
      */
     public function orderCreate($order)
     {
         if (isset($order['name'])) {
-            $order = array_merge($order, $this->explodeFIO($order['name']));
+            $order = array_merge($order, Utils::explodeFIO($order['name']));
         }
 
         if (!isset($order['customerId'])) {
             $order['customerId'] = $this->setCustomerId($order);
         }
+
+        $response = '';
 
         try {
             $response = $this->api->ordersCreate($order);
@@ -64,15 +71,20 @@ class ApiHelper
      */
     public function orderHistory()
     {
+        $lastSync = new \DateTime(Utils::getDate($this->historyLog));
+        $response = '';
 
         try {
-            $orders = $this->api->ordersHistory($this->getDate($this->historyLog));
-            $this->saveDate($this->date, $this->historyLog);
-
-            return $orders;
+            $response = $response = $this->api->ordersHistory($lastSync);
         } catch (CurlException $e) {
-            $this->log->addError('ApiClient::orderHistory::Curl:' . $e->getMessage());
+            $this->curlErrorHandler($e->getMessage(), 'OrderHistory::Curl:');
+        }
 
+        if ($response->isSuccessful() && 200 === $response->getStatusCode()) {
+            Utils::saveData($response->getGeneratedAt(), $this->historyLog);
+            return $response->orders;
+        } else {
+            $this->apiErrorHandler($response, 'OrderHistory::Api::Error: ');
             return false;
         }
 
@@ -80,7 +92,10 @@ class ApiHelper
 
     /**
      * Set customerId for order for deduplacate customers into CRM
+     *
      * @param array $order
+     *
+     * @return string
      */
     private function setCustomerId($order)
     {
@@ -176,6 +191,8 @@ class ApiHelper
      * Check externalId for search result
      *
      * @param array $searchResult
+     *
+     * @return array
      */
     private function defineCustomer($searchResult)
     {
