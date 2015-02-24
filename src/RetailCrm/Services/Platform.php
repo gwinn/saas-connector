@@ -68,4 +68,9 @@ class Platform
 
         return $this->$propertyName;
     }
+
+    public function setSettings($settings)
+    {
+        $this->settings = array_merge($this->settings, $settings);
+    }
 }
