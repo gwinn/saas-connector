@@ -1,4 +1,4 @@
 services:
     platform:
         class: RetailCrm\Services\Platform
-        arguments: ["%settings%"]
+        arguments: ["%settings%", "%logpath%"]

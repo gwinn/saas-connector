@@ -24,15 +24,15 @@ class Platform
     /**
      * Constructor
      * @param $settings
+     * @param $logpath
      */
-    public function __construct($settings)
+    public function __construct($settings, $logpath)
     {
-
         $this->settings = $settings;
 
-        $this->logPath    = __DIR__ . '/../../../app/' . $settings['logs']['path'];
-        $this->errorLog   = __DIR__ . '/../../../app/' . $settings['logs']['error'];
-        $this->historyLog = __DIR__ . '/../../../app/' . $settings['logs']['history'];
+        $this->logPath    = $logpath;
+        $this->errorLog   = $logpath . $settings['logs']['error'];
+        $this->historyLog = $logpath . $settings['logs']['history'];
 
         $this->initLogger();
     }
@@ -50,7 +50,12 @@ class Platform
         $stream = new RotatingFileHandler($this->errorLog, 2, Logger::INFO);
         $stream->setFormatter($stringFormatter);
 
-        $mailer = new RetailCrmMailerHandler($this->settings['mailer']['to'], 'Integration error', $this->settings['mailer']['from']);
+        $mailer = new RetailCrmMailerHandler(
+            $this->settings['mailer']['to'],
+            'Integration error: ' . $this->settings['domain'],
+            $this->settings['mailer']['from']
+        );
+
         $mailer->setFormatter($htmlFormatter);
 
         $this->log = new Logger('platform');

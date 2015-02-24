@@ -4,7 +4,6 @@ namespace RetailCrm\Helpers;
 
 use RetailCrm\ApiClient;
 use RetailCrm\Exception\CurlException;
-use RetailCrm\Component\ContainerLoader;
 
 /**
  * Class ApiHelper
@@ -18,13 +17,12 @@ class ApiHelper
     /**
      * Constructor
      *
-     * @internal param array $credentials
+     * @param object $container
      */
-    public function __construct($credentials)
+    public function __construct($container)
     {
-        $container = new ContainerLoader();
-        $this->settings = $container->getContainer()->get('platform');
-        array_merge($credentials, $this->settings);
+        $this->settings = $container->getSettings();
+        $this->log = $container->getLog();
 
         $this->api = new ApiClient($this->settings['api']['url'], $this->settings['api']['key']);
     }
@@ -33,8 +31,6 @@ class ApiHelper
      * Create order
      *
      * @param array $order
-     *
-     * @return bool|mixed
      */
     public function orderCreate($order)
     {
@@ -85,8 +81,6 @@ class ApiHelper
     /**
      * Set customerId for order for deduplacate customers into CRM
      * @param array $order
-     *
-     * @return string
      */
     private function setCustomerId($order)
     {
@@ -182,8 +176,6 @@ class ApiHelper
      * Check externalId for search result
      *
      * @param array $searchResult
-     *
-     * @return array
      */
     private function defineCustomer($searchResult)
     {

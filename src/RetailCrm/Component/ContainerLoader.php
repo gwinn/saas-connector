@@ -12,14 +12,21 @@ class ContainerLoader
 
     public $container;
 
-    public function __construct()
+    public function __construct($path = null)
     {
         $this->container = new ContainerBuilder();
+        $this->container->setParameter('logpath', dirname($path) . '/../log/');
+
         $extension = new RetailCrmExtension();
         $this->container->registerExtension($extension);
 
         $loader = new YamlFileLoader($this->container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('config.yml');
+
+        if ($path != null) {
+            $loader->load($path);
+        }
+
 
     }
 
