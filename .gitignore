@@ -1,0 +1,8 @@
+# Managed by Composer
+/vendor/
+
+# Binaries
+/bin/
+
+/composer.lock
+/composer.phar

@@ -1,0 +1,7 @@
+settings:
+  mailer:
+    from: notify@retailcrm.ru
+    to: integration@retailcrm.ru
+  logs:
+    error: log/error.log
+    history: log/history.log
