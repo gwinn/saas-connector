@@ -16,6 +16,7 @@ class Platform
 {
 
     private $log;
+    private $logPath;
     private $errorLog;
     private $historyLog;
     private $settings;
@@ -29,6 +30,7 @@ class Platform
 
         $this->settings = $settings;
 
+        $this->logPath    = __DIR__ . '/../../../app/' . $settings['logs']['path'];
         $this->errorLog   = __DIR__ . '/../../../app/' . $settings['logs']['error'];
         $this->historyLog = __DIR__ . '/../../../app/' . $settings['logs']['history'];
 
