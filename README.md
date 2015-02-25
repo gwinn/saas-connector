@@ -18,6 +18,6 @@ retailcrm-base-component
 
 ### Установка
 ```
-composer require retailcrm/api-client-php ~3.0.0
+composer require gwinn/rc-base-component dev-master
 ```
 
