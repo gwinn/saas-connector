@@ -21,6 +21,9 @@ class Platform
     private $historyLog;
     private $settings;
 
+    const GETTER = 'get';
+    const SETTER = 'set';
+
     /**
      * Constructor
      * @param $settings
@@ -65,13 +68,19 @@ class Platform
 
     public function __call($name, $arguments)
     {
+        $action = substr($name, 0, 3);
         $propertyName = strtolower(substr($name, 3, 1)) . substr($name, 4);
+        $value = empty($arguments) ? '' : $arguments[0];
 
         if (!isset($this->$propertyName)) {
             throw new \InvalidArgumentException("Method \"$name\" not found");
         }
 
-        return $this->$propertyName;
+        if ($action == self::GETTER) {
+            return $this->$propertyName;
+        } elseif ($action == self::SETTER) {
+            $this->$propertyName = $value;
+        }
     }
 
     public function setSettings($settings)
