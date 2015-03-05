@@ -12,7 +12,7 @@ use RetailCrm\Exception\CurlException;
  */
 class ApiHelper
 {
-    protected $api;
+    public $api;
     protected $settings;
 
     /**
