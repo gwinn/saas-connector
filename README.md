@@ -1,14 +1,17 @@
-retailcrm-base-component
-========================
+saas-connector
+==============
 
 Базовый компонент для интеграции с RetailCrm
+
+###Клиенты:
+* Activizm (частично)
+* Leadvertex (частично)
+* Wikimart (частично)
 
 ###Включает в себя:
 
 * api-client-php - клиент RetailCrm API
 * Monolog - инструмент для логгирования (создание и ротация логов, отправка уведомлений на email)
-* Platform - система инициализации клиент RetailCrm API и системных настроек
-
 
 ###Требования
 
@@ -18,6 +21,6 @@ retailcrm-base-component
 
 ### Установка
 ```
-composer require gwinn/rc-base-component dev-master
+composer require gwinn/saas-connector dev-master
 ```
 
