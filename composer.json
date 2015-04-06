@@ -22,6 +22,7 @@
         "symfony/config": "2.6.*",
         "symfony/dependency-injection": "2.6.*",
         "monolog/monolog": "1.12.*",
+        "wikimart/merchant-api-client": "1.2.0",
         "retailcrm/api-client-php": "3.*"
     },
     "require-dev": {
