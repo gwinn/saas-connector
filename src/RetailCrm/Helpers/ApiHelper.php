@@ -5,6 +5,7 @@ namespace RetailCrm\Helpers;
 use RetailCrm\ApiClient;
 use RetailCrm\Component\Utils;
 use RetailCrm\Exception\CurlException;
+use RetailCrm\Exception\InvalidJsonException;
 
 /**
  * Class ApiHelper
@@ -12,22 +13,26 @@ use RetailCrm\Exception\CurlException;
  */
 class ApiHelper
 {
-    public $api;
+    public    $instance;
+    protected $logger;
     protected $settings;
+    protected $errorLog;
+    protected $historyLog;
 
     /**
      * Constructor
      *
-     * @param object $container
+     * @param $settings
+     * @param $logger
      */
-    public function __construct($container)
+    public function __construct($settings, $logger)
     {
-        $this->settings = $container->getSettings();
-        $this->log = $container->getLog();
-        $this->errorLog = $container->getErrorLog();
-        $this->historyLog = $container->getHistoryLog();
+        $this->settings   = $settings->getApi();
+        $this->logger     = $logger->getLog();
+        $this->errorLog   = $logger->getErrorLog();
+        $this->historyLog = $logger->getHistoryLog();
 
-        $this->api = new ApiClient($this->settings['api']['url'], $this->settings['api']['key']);
+        $this->instance = new ApiClient($this->settings['url'], $this->settings['key']);
     }
 
     /**
@@ -43,14 +48,12 @@ class ApiHelper
             $order = array_merge($order, Utils::explodeFIO($order['name']));
         }
 
-        if (!isset($order['customerId'])) {
-            $order['customerId'] = $this->setCustomerId($order);
-        }
+        $order['customerId'] = $this->setCustomerId($order);
 
         $response = '';
 
         try {
-            $response = $this->api->ordersCreate($order);
+            $response = $this->instance->ordersCreate($order);
         } catch (CurlException $e) {
             $this->curlErrorHandler($e->getMessage(), 'OrdersCreate::Curl:');
         }
@@ -75,7 +78,7 @@ class ApiHelper
         $response = '';
 
         try {
-            $response = $response = $this->api->ordersHistory($lastSync);
+            $response = $response = $this->instance->ordersHistory($lastSync);
         } catch (CurlException $e) {
             $this->curlErrorHandler($e->getMessage(), 'OrderHistory::Curl:');
         }
@@ -134,7 +137,7 @@ class ApiHelper
     private function searchCustomer($data)
     {
         try {
-            $customers = $this->api->customersList(array('name' => isset($data['phone']) ? $data['phone'] : $data['name']), 1, 100);
+            $customers = $this->instance->customersList(array('name' => isset($data['phone']) ? $data['phone'] : $data['name']), 1, 100);
 
             if ($customers->isSuccessful()) {
                 return (count($customers['customers']) > 0)
@@ -159,7 +162,7 @@ class ApiHelper
     private function createCustomer($customer)
     {
         try {
-            $this->api->customersCreate($customer);
+            $this->instance->customersCreate($customer);
         } catch (CurlException $e) {
             $this->curlErrorHandler($e->getMessage(), 'CustomersCreate::Curl: ');
         }
@@ -174,7 +177,7 @@ class ApiHelper
     private function fixCustomer($id, $extId)
     {
         try {
-            $this->api->customersFixExternalIds(
+            $this->instance->customersFixExternalIds(
                 array(
                     array(
                         'id' => $id,
@@ -212,15 +215,52 @@ class ApiHelper
     }
 
     /**
+     * Get clean statuses
+     *
+     */
+    public function getStatuses()
+    {
+        $statuses = array();
+
+        try {
+            $response = $this->instance->statusesList();
+
+            if ($response->isSuccessful() && 200 === $response->getStatusCode()) {
+                foreach($response->statuses as $status) {
+                    $statuses[$status['code']] = $status['name'];
+                }
+            } else {
+                $this->apiErrorHandler($response, 'OrderHistory::Api::Error: ');
+                return false;
+            }
+
+        } catch(CurlException $e) {
+            $this->curlErrorHandler($e->getMessage(), 'CustomersList::Curl: ');
+        } catch(InvalidJsonException $e) {
+            $this->curlErrorHandler($e->getMessage(), 'CustomersList::Json: ');
+        }
+
+        return $statuses;
+    }
+
+    /**
+     * Get reversed statuses
+     */
+    public function getStatusesReversed()
+    {
+        return array_flip($this->getStatuses());
+    }
+
+    /**
      * API error handler
      *
      * @param mixed  $responseObject
      * @param string $method
      */
-    private function apiErrorHandler($responseObject, $method)
+    public function apiErrorHandler($responseObject, $method)
     {
         $errors = (isset($responseObject['errors'])) ? json_encode($responseObject['errors']) : '';
-        $this->log->addError($method . $responseObject->getErrorMsg() . "\n\n" . $errors);
+        $this->logger->addError($method . $responseObject->getErrorMsg() . "\n\n" . $errors);
 
     }
 
@@ -230,9 +270,9 @@ class ApiHelper
      * @param string $message
      * @param string $method
      */
-    private function curlErrorHandler($message, $method)
+    public function curlErrorHandler($message, $method)
     {
-        $this->log->addError($method . $message);
+        $this->logger->addError($method . $message);
     }
 
     /**

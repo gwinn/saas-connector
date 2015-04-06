@@ -1,4 +1,7 @@
 services:
-    platform:
-        class: RetailCrm\Services\Platform
-        arguments: ["%settings%", "%logpath%"]
+  settings:
+    class: RetailCrm\Services\SettingsService
+    arguments: ["%api%"]
+  logger:
+    class: RetailCrm\Services\LoggerService
+    arguments: ["%domain%", "%mailer%", "%logs%", "%logpath%"]

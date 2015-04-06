@@ -6,11 +6,10 @@ class ClientLoader
 {
     private $instance;
 
-    public function __construct($key)
+    public function __construct($key, $settings, $logger)
     {
         $class = "RetailCrm\\Client\\" . ucfirst($key);
-        $container = new ContainerLoader();
-        $this->instance = new $class($container->getContainer()->get('platform'));
+        $this->instance = new $class($settings, $logger);
     }
 
     public function getInstance()

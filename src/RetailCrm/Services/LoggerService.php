@@ -9,33 +9,36 @@ use Monolog\Handler\RotatingFileHandler;
 use Monolog\Handler\RetailCrmMailerHandler;
 
 /**
- * Class Platform
+ * Class LoggerService
  * @package RetailCrm
  */
-class Platform
+class LoggerService
 {
 
     private $log;
+    private $domain;
+    private $mailer;
     private $logPath;
     private $errorLog;
     private $historyLog;
-    private $settings;
 
     const GETTER = 'get';
     const SETTER = 'set';
 
     /**
      * Constructor
-     * @param $settings
+     * @param $domain
+     * @param $mailer
+     * @param $logs
      * @param $logpath
      */
-    public function __construct($settings, $logpath)
+    public function __construct($domain, $mailer, $logs, $logpath)
     {
-        $this->settings = $settings;
-
+        $this->domain     = $domain;
+        $this->mailer     = $mailer;
         $this->logPath    = $logpath;
-        $this->errorLog   = $logpath . $settings['logs']['error'];
-        $this->historyLog = $logpath . $settings['logs']['history'];
+        $this->errorLog   = $logpath . $logs['error'];
+        $this->historyLog = $logpath . $logs['history'];
 
         $this->initLogger();
     }
@@ -54,9 +57,9 @@ class Platform
         $stream->setFormatter($stringFormatter);
 
         $mailer = new RetailCrmMailerHandler(
-            $this->settings['mailer']['to'],
-            'Integration error: ' . $this->settings['domain'],
-            $this->settings['mailer']['from']
+            $this->mailer['to'],
+            'Integration error: ' . $this->domain,
+            $this->mailer['from']
         );
 
         $mailer->setFormatter($htmlFormatter);
@@ -89,10 +92,5 @@ class Platform
         }
 
         return $returnValue;
-    }
-
-    public function setSettings($settings)
-    {
-        $this->settings = array_merge($this->settings, $settings);
     }
 }

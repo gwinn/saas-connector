@@ -55,7 +55,7 @@ class Utils {
     {
         $result = file_exists($file)
             ? file_get_contents($file)
-            : date('Y-m-d H:i:s', strtotime('-1 days'));
+            : date('Y-m-d H:i:s', strtotime('-100 days'));
         ;
 
         return $result;
@@ -73,6 +73,30 @@ class Utils {
             ? file_get_contents($file)
             : false;
         ;
+
+        return $result;
+    }
+
+    /**
+     * Unset empty fields
+     *
+     * @param array
+     * @return array
+     *
+     */
+    public static function clearArray($arr)
+    {
+        if (!is_array($arr)) {
+            return $arr;
+        }
+
+        $result = array();
+        foreach ($arr as $index => $node ) {
+            $result[ $index ] = (is_array($node)) ? self::clearArray($node) : trim($node);
+            if ($result[ $index ] == '' || $result[ $index ] === null || count($result[ $index ]) < 1) {
+                unset($result[ $index ]);
+            }
+        }
 
         return $result;
     }
