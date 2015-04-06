@@ -1,5 +1,5 @@
 {
-    "name": "gwinn/rc-base-component",
+    "name": "gwinn/saas-connector",
     "description": "The RetailCRM library base component",
     "type": "library",
     "keywords": ["api", "retailCRM", "rest"],
