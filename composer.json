@@ -1,6 +1,6 @@
 {
     "name": "gwinn/saas-connector",
-    "description": "The RetailCRM library base component",
+    "description": "Set of SaaS clients to connect with RetailCRM",
     "type": "library",
     "keywords": ["api", "retailCRM", "rest"],
     "homepage": "http://www.retailcrm.ru/",
@@ -16,11 +16,11 @@
     },
     "require": {
         "php": ">=5.3",
-        "symfony/console": "2.6.*",
-        "symfony/process": "2.6.*",
-        "symfony/yaml": "2.6.*",
-        "symfony/config": "2.6.*",
-        "symfony/dependency-injection": "2.6.*",
+        "symfony/console": "2.7.*",
+        "symfony/process": "2.7.*",
+        "symfony/yaml": "2.7.*",
+        "symfony/config": "2.7.*",
+        "symfony/dependency-injection": "2.7.*",
         "monolog/monolog": "1.12.*",
         "wikimart/merchant-api-client": "1.2.0",
         "retailcrm/api-client-php": "3.*"
