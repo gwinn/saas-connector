@@ -26,6 +26,7 @@ class Wikimart implements ClientInterface
     public function getOrders()
     {
         $lastOrder = new \DateTime(Utils::getDate($this->exportLog));
+        Utils::saveData(date('Y-m-d H:i:s'), $this->exportLog);
         $_settings = $this->settings;
         $wikimartClient = new Client('http://merchant.wikimart.ru', $_settings['id'], $_settings['secret']);
         $preOrders = $wikimartClient->methodGetOrderList(20, 1, 'opened', $lastOrder, null, null)->getData()->orders;
@@ -35,8 +36,6 @@ class Wikimart implements ClientInterface
         }
 
         $orders = $wikimartClient->methodGetOrderList(20, 1, 'confirmed', $lastOrder, null, null)->getData()->orders;
-
-        Utils::saveData(date('Y-m-d H:i:s'), $this->exportLog);
 
         return $orders;
 
