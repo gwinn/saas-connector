@@ -12,16 +12,24 @@ class Icml
     protected $eCategories;
     protected $eOffers;
 
+    protected $shop;
+    protected $company;
+    protected $date;
+    protected $path;
+
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($shop, $company, $path)
     {
-        parent::__construct();
+        $this->date = date('Y-m-d H:i:s');
+        $this->shop = $shop;
+        $this->company = $company;
+        $this->path = $path;
     }
 
     /**
-     * Generate ICML file
+     * Generate Export file
      *
      * @param string $shop       shop name
      * @param string $company    company name
@@ -30,13 +38,13 @@ class Icml
      *
      * @return bool
      */
-    public function generate($shop, $company, $categories, $offers)
+    public function generate($categories, $offers)
     {
         $string = '<?xml version="1.0" encoding="UTF-8"?>
             <yml_catalog date="'.$this->date.'">
                 <shop>
-                    <name>'.$shop.'</name>
-                    <company>'.$company.'</company>
+                    <name>'.$this->shop.'</name>
+                    <company>'.$this->company.'</company>
                     <categories/>
                     <offers/>
                 </shop>
@@ -58,7 +66,7 @@ class Icml
 
         $this->dd->saveXML();
 
-        if ($this->dd->save($this->savedir . $this->params['export_file'])) {
+        if ($this->dd->save($this->path)) {
             return true;
         } else {
             return false;
@@ -79,7 +87,7 @@ class Icml
                 $this->dd->createElement('category', $category['name'])
             );
 
-            $e->setAttribute('id', $category['categoryId']);
+            $e->setAttribute('id', $category['id']);
 
             if (isset($category['parentId']) && $category['parentId'] != '') {
                 $e->setAttribute('parentId', $category['parentId']);
@@ -99,15 +107,18 @@ class Icml
         foreach ($offers as $offer) {
             $dom = $this->dd;
             $e = $this->eOffers->appendChild($this->dd->createElement('offer'));
-            $e->setAttribute('id', $offer['offerId']);
-            $e->setAttribute('productId', $offer['productcId']);
+            $e->setAttribute('id', $offer['id']);
+            $e->setAttribute('productId', $offer['productId']);
             $e->setAttribute('quantity', (int) $offer['quantity']);
 
-            $offerFields = array(
-                'categoryId', 'name', 'productName',
-                'initialPrice', 'purchasePrice',
-                'vendor', 'xmlId', 'picture', 'url'
-            );
+            $keys = array_keys($offer);
+            $offerFields = array();
+
+            foreach ($keys as $key => $value) {
+                if (!in_array($value, array('params', 'id', 'productId', 'quantity'))) {
+                    $offerFields[] = $value;
+                }
+            }
 
             array_walk(
                 $offerFields,
@@ -120,15 +131,14 @@ class Icml
             );
 
 
-            $params = array('article', 'weight', 'color', 'size');
-
             array_walk(
-                $params,
+                $offer['params'],
                 function ($param) use ($offer, &$e, &$dom) {
-                    if (isset($offer[$param]) && $offer[$param] != '') {
+                    if (!empty($offer['params'])) {
                         $elem = $this->dd->createElement('param');
-                        $elem->setAttribute('name', $param);
-                        $elem->appendChild($dom->createTextNode($offer[$param]));
+                        $elem->setAttribute('code', $param['code']);
+                        $elem->setAttribute('name', $param['name']);
+                        $elem->appendChild($dom->createTextNode($param['value']));
                         $e->appendChild($elem);
                     }
                 }

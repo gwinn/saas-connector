@@ -5,7 +5,7 @@ namespace RetailCrm\Client;
 use RetailCrm\Interfaces\ClientInterface;
 use RetailCrm\Component\Utils;
 
-class Activizm implements ClientInterface
+class Activizm
 {
 
     private $container;

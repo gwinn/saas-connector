@@ -3,7 +3,7 @@
 namespace RetailCrm\Client;
 
 use RetailCrm\Exception\CurlException;
-use RetailCrm\Response\ApiResponse;
+use RetailCrm\Response\Response;
 
 class TicketsCloud
 {
@@ -29,7 +29,7 @@ class TicketsCloud
     public function __construct($token)
     {
 
-        $this->url   = 'https://ticketscloud.org/' . self::VERSION . '/resources/';
+        $this->url   = 'https://ticketscloud.org/' . self::VERSION;
         $this->token = $token;
         $this->allowedMethods = array(
             self::METHOD_GET,
@@ -47,7 +47,7 @@ class TicketsCloud
      */
     public function eventsGet($uid)
     {
-        return $this->makeRequest('events/' . $uid, self::METHOD_GET);
+        return $this->makeRequest('/resources/events/' . $uid, self::METHOD_GET);
     }
 
     /**
@@ -57,7 +57,7 @@ class TicketsCloud
      */
     public function eventsEdit($uid)
     {
-        return $this->makeRequest('events/' . $uid, self::METHOD_PATCH);
+        return $this->makeRequest('/resources/events/' . $uid, self::METHOD_PATCH);
     }
 
     /**
@@ -67,16 +67,34 @@ class TicketsCloud
      */
     public function eventsDelete($uid)
     {
-        return $this->makeRequest('events/' . $uid, self::METHOD_DELETE);
+        return $this->makeRequest('/resources/events/' . $uid, self::METHOD_DELETE);
     }
 
     /**
      * Get events list
      * @return ApiResponse
      */
-    public function eventsList()
+    public function eventsList(array $parameters = array())
     {
-        return $this->makeRequest('events', self::METHOD_GET);
+        return $this->makeRequest('/resources/events', self::METHOD_GET, $parameters);
+    }
+
+    /**
+     * Get events list by service
+     * @return ApiResponse
+     */
+    public function eventsServiceList(array $parameters = array())
+    {
+        return $this->makeRequest('/services/simple/events', self::METHOD_GET, $parameters);
+    }
+
+    /**
+     * Get orderss list
+     * @return ApiResponse
+     */
+    public function ordersList(array $parameters = array())
+    {
+        return $this->makeRequest('/resources/orders', self::METHOD_GET, $parameters);
     }
 
     /**
@@ -135,6 +153,6 @@ class TicketsCloud
             throw new CurlException($error, $errno);
         }
 
-        return new ApiResponse($statusCode, $responseBody);
+        return new Response($statusCode, $responseBody);
     }
 }

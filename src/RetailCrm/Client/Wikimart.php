@@ -6,7 +6,7 @@ use RetailCrm\Interfaces\ClientInterface;
 use RetailCrm\Component\Utils;
 use Wikimart\MerchantAPIClient\Client;
 
-class Wikimart implements ClientInterface
+class Wikimart
 {
 
     protected $logger;

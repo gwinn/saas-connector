@@ -5,7 +5,7 @@ namespace RetailCrm\Client;
 use RetailCrm\Interfaces\ClientInterface;
 use RetailCrm\Exception\CurlException;
 
-class Leadvertex implements ClientInterface
+class Leadvertex
 {
 
     private $container;
