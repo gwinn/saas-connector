@@ -1,44 +1,28 @@
 {
     "name": "gwinn/saas-connector",
-    "description": "Set of SaaS clients to connect with RetailCRM",
+    "description": "Set of SaaS clients",
     "type": "library",
-    "keywords": ["api", "retailCRM", "rest"],
-    "homepage": "http://www.retailcrm.ru/",
+    "keywords": ["api", "saas", "rest"],
+    "homepage": "http://github.com/gwinn/saas-connector",
     "authors": [
         {
           "name": "Alex Lushpai",
-          "email": "lushpai@intaro.ru",
+          "email": "lushpai@gmail.com",
           "role": "Developer"
         }
     ],
     "support": {
-        "email": "integration@retailcrm.ru"
+        "email": "lushpai@gmail.com"
     },
     "require": {
         "php": ">=5.3",
-        "symfony/console": "2.7.*",
-        "symfony/process": "2.7.*",
-        "symfony/yaml": "2.7.*",
-        "symfony/config": "2.7.*",
-        "symfony/dependency-injection": "2.7.*",
-        "monolog/monolog": "1.12.*",
-        "wikimart/merchant-api-client": "1.2.0",
-        "retailcrm/api-client-php": "3.*"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "3.7.*",
-        "phpmd/phpmd": "2.1.*",
-        "squizlabs/php_codesniffer": "1.5.5",
-        "sebastian/phpcpd": "2.0.*",
-        "sebastian/phpdcd": "1.0.*"
+        "league/oauth2-client": "^0.12.1"
     },
     "autoload": {
         "psr-0": { "": "src/"}
     },
     "minimum-stability": "dev",
     "config": {
-        "bin-dir": "bin",
         "process-timeout": 600
     }
 }
-

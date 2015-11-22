@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="./tests/bootstrap.php"
+         colors="true"
+         convertErrorsToException="true"
+         convertNoticesToException="true"
+         convertWarningsToException="true"
+         processIsolation="false"
+         stopOnFailure="true"
+         syntaxCheck="true"
+>
+
+    <!-- Dummy values used to provide credentials. No need to change these. -->
+    <php>
+        <server name="ACTIVIZM_SECRET" value="bar" />
+        <server name="ACTIVIZM_CLIENT" value="zoo" />
+        <server name="ECWID_SECRET" value="bar" />
+        <server name="ECWID_CLIENT" value="zoo" />
+        <server name="LEADVERTEX_SECRET" value="bar" />
+        <server name="LEADVERTEX_CLIENT" value="zoo" />
+        <server name="TICKETSCLOUD_SECRET" value="bar" />
+        <server name="TICKETSCLOUD_CLIENT" value="zoo" />
+    </php>
+
+    <testsuites>
+        <testsuite name="Ecwid">
+            <directory>tests/SaaS/Connector/Tests/EcwidClient</directory>
+        </testsuite>
+        <testsuite name="TicketsCloud">
+            <directory>tests/SaaS/Connector/Tests/TicketscloudClient</directory>
+        </testsuite>
+        <testsuite name="Activizm">
+            <directory>tests/SaaS/Connector/Tests/ActivizmClient</directory>
+        </testsuite>
+        <testsuite name="LeadVertex">
+            <directory>tests/SaaS/Connector/Tests/LeadvertexClient</directory>
+        </testsuite>
+    </testsuites>
+
+</phpunit>
