@@ -1,7 +1,7 @@
 saas-connector
 ==============
 
-Set of different api clients for interact with different SaaS
+Set of different api clients for e-commerce SaaS
 
 ###Clients:
 * [Activizm](http://activizm.ru)
