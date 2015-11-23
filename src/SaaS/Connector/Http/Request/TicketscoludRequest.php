@@ -15,26 +15,28 @@ use SaaS\Connector\Exception\CurlException;
 use SaaS\Connector\Http\Response;
 
 /**
- * EcwidRequest
+ * TicketscloudRequest
  *
  * @package SaaS\Connector\Http\Request
  * @author Alex Lushpai <lushpai@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT License
  * @link http://github.com/gwinn/saas-connector
  */
-class EcwidRequest
+class TicketscloudRequest
 {
     const METHOD_GET = 'GET';
     const METHOD_POST = 'POST';
     const METHOD_PUT = 'PUT';
+    const METHOD_PATCH = 'PATCH';
     const METHOD_DELETE = 'DELETE';
 
     private $url;
+    private $token;
 
-    public function __construct(array $defaultParameters = array())
+    public function __construct($token)
     {
-        $this->url = 'https://app.ecwid.com/api/v3/';
-        $this->defaultParameters = $defaultParameters;
+        $this->url = 'https://ticketscloud.org/v1/';
+        $this->token = $token;
     }
 
     /**
@@ -43,42 +45,40 @@ class EcwidRequest
      * @param string $path
      * @param string $method (default: 'GET')
      * @param array $parameters (default: array())
-     *
-     * @return SaaS\Connector\Http\Response
+     * @return array
      */
     public function makeRequest($path, $method, array $parameters = array())
     {
-        $allowedMethods = array(
-            self::METHOD_GET,
-            self::METHOD_POST,
-            self::METHOD_PUT,
-            self::METHOD_DELETE
-        );
 
-        if (!in_array($method, $allowedMethods)) {
+        if (!in_array($method, $this->allowedMethods)) {
             throw new \InvalidArgumentException(sprintf(
                 'Method "%s" is not valid. Allowed methods are %s',
                 $method,
-                implode(', ', $allowedMethods)
+                implode(', ', $this->allowedMethods)
             ));
         }
 
-        $parameters = array_merge($this->defaultParameters, $parameters);
-
-        $url = $this->url . $path;
+        $path = $this->url . $path;
 
         if (self::METHOD_GET === $method && sizeof($parameters)) {
-            $url .= '?' . http_build_query($parameters);
+            $path .= '?' . http_build_query($parameters, '', '&');
         }
 
         $curlHandler = curl_init();
-        curl_setopt($curlHandler, CURLOPT_URL, $url);
+        curl_setopt($curlHandler, CURLOPT_URL, $path);
+        curl_setopt($curlHandler, CURLOPT_HTTPHEADER, array(
+            'Accept: application/json',
+            'Content-Type: application/json',
+            'Authorization: key ' . $this->token,
+            'User-Agent: TC-Client v.0.6.5'
+        ));
+        curl_setopt($curlHandler, CURLOPT_TIMEOUT, 180);
+        curl_setopt($curlHandler, CURLOPT_CONNECTTIMEOUT, 180);
         curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curlHandler, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($curlHandler, CURLOPT_FAILONERROR, false);
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curlHandler, CURLOPT_TIMEOUT, 30);
 
         if (self::METHOD_POST === $method) {
             curl_setopt($curlHandler, CURLOPT_POST, true);
@@ -87,7 +87,6 @@ class EcwidRequest
 
         $responseBody = curl_exec($curlHandler);
         $statusCode = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
-
         $errno = curl_errno($curlHandler);
         $error = curl_error($curlHandler);
 

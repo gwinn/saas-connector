@@ -12,8 +12,6 @@
 
 namespace SaaS\Connector\Client;
 
-use SaaS\Connector\Exception\CurlException;
-use SaaS\Connector\Http\Response;
 use SaaS\Connector\Http\Request\EcwidRequest;
 
 /**
@@ -29,7 +27,6 @@ class EcwidClient
 {
 
     private $storeId;
-    private $apiKey;
     private $client;
 
     /**
@@ -38,7 +35,6 @@ class EcwidClient
      */
     public function __construct($storeId, $apiKey)
     {
-        $this->apiKey = $apiKey;
         $this->storeId = $storeId;
         $this->client = new EcwidRequest(array('token' => $apiKey));
     }
@@ -55,7 +51,7 @@ class EcwidClient
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      *
-     * @return array|mixed
+     * @return Response
      */
     public function getCategories(
         $offset = null,
@@ -81,7 +77,7 @@ class EcwidClient
      *
      * @param string $categoryId
      *
-     * @return array|mixed
+     * @return Response
      */
     public function getCategory($categoryId)
     {
@@ -101,7 +97,7 @@ class EcwidClient
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      *
-     * @return array|mixed
+     * @return Response
      */
     public function createCategory(
         $name,

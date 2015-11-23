@@ -15,25 +15,23 @@ use SaaS\Connector\Exception\CurlException;
 use SaaS\Connector\Http\Response;
 
 /**
- * EcwidRequest
+ * LeadvertexRequest
  *
  * @package SaaS\Connector\Http\Request
  * @author Alex Lushpai <lushpai@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT License
  * @link http://github.com/gwinn/saas-connector
- */
-class EcwidRequest
+  */
+class LeadvertexRequest
 {
     const METHOD_GET = 'GET';
     const METHOD_POST = 'POST';
-    const METHOD_PUT = 'PUT';
-    const METHOD_DELETE = 'DELETE';
 
     private $url;
 
-    public function __construct(array $defaultParameters = array())
+    public function __construct($clientId, array $defaultParameters = array())
     {
-        $this->url = 'https://app.ecwid.com/api/v3/';
+        $this->url = "https://$clientId.leadvertex.ru/api/admin/";
         $this->defaultParameters = $defaultParameters;
     }
 
@@ -50,9 +48,7 @@ class EcwidRequest
     {
         $allowedMethods = array(
             self::METHOD_GET,
-            self::METHOD_POST,
-            self::METHOD_PUT,
-            self::METHOD_DELETE
+            self::METHOD_POST
         );
 
         if (!in_array($method, $allowedMethods)) {
