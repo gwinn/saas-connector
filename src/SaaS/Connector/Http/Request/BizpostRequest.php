@@ -15,28 +15,27 @@ use SaaS\Connector\Exception\CurlException;
 use SaaS\Connector\Http\Response;
 
 /**
- * TicketscloudRequest
+ * BizpostRequest
  *
  * @package SaaS\Connector\Http\Request
  * @author Alex Lushpai <lushpai@gmail.com>
  * @license http://opensource.org/licenses/MIT MIT License
  * @link http://github.com/gwinn/saas-connector
  */
-class TicketscloudRequest
+class BizpostRequest
 {
     const METHOD_GET = 'GET';
     const METHOD_POST = 'POST';
-    const METHOD_PUT = 'PUT';
-    const METHOD_PATCH = 'PATCH';
-    const METHOD_DELETE = 'DELETE';
 
     private $url;
-    private $token;
+    private $login;
+    private $password;
 
-    public function __construct($token)
+    public function __construct($login, $password)
     {
-        $this->url = 'https://ticketscloud.org/v1/';
-        $this->token = $token;
+        $this->url = 'https://bizpost.ru/';
+        $this->login = $login;
+        $this->password = $password;
     }
 
     /**
@@ -51,10 +50,7 @@ class TicketscloudRequest
     {
         $allowedMethods = array(
             self::METHOD_GET,
-            self::METHOD_POST,
-            self::METHOD_PUT,
-            self::METHOD_PATCH,
-            self::METHOD_DELETE
+            self::METHOD_POST
         );
 
         if (!in_array($method, $allowedMethods)) {
@@ -71,14 +67,17 @@ class TicketscloudRequest
             $path .= '?' . http_build_query($parameters, '', '&');
         }
 
+        // $basicAuth = base64_encode(sprintf("%s:%s", $this->login, $this->password));
+        //
+        // $headers = array(
+        //     'Content-Type: text/xml',
+        //     'Authorization: Basic ' . $basicAuth
+        // );
+
         $curlHandler = curl_init();
         curl_setopt($curlHandler, CURLOPT_URL, $path);
-        curl_setopt($curlHandler, CURLOPT_HTTPHEADER, array(
-            'Accept: application/json',
-            'Content-Type: application/json',
-            'Authorization: key ' . $this->token,
-            'User-Agent: TC-Client v.0.6.5'
-        ));
+        curl_setopt($curlHandler, CURLOPT_USERPWD, sprintf("%s:%s", $this->login, $this->password));
+        curl_setopt($curlHandler, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($curlHandler, CURLOPT_TIMEOUT, 180);
         curl_setopt($curlHandler, CURLOPT_CONNECTTIMEOUT, 180);
         curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, 1);
@@ -103,6 +102,6 @@ class TicketscloudRequest
             throw new CurlException($error, $errno);
         }
 
-        return new Response($statusCode, $responseBody);
+        return array('statusCode' => $statusCode, 'response' => $responseBody);
     }
 }
