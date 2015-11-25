@@ -118,4 +118,31 @@ class EcwidClient
 
         return $this->client->makeRequest($url, EcwidRequest::METHOD_POST, $params);
     }
+
+    /**
+     * Get products
+     *
+     * @param string  $keyword
+     * @param string  $priceFrom
+     * @param string  $priceTo
+     * @param string  $category
+     * @param string  $sortBy
+     * @param string  $offset
+     * @param string  $limit
+     * @param string  $createdFrom
+     * @param string  $createdTo
+     * @param string  $updatedFrom
+     * @param string  $updatedTo
+     * @param boolean $enabled
+     * @param boolean $inStock
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+     *
+     * @return Response
+     */
+    public function getProducts() {
+        $url = $this->storeId . "/products";
+        return $this->client->makeRequest($url, EcwidRequest::METHOD_GET);
+    }
 }
