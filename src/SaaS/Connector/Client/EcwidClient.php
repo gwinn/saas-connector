@@ -42,32 +42,13 @@ class EcwidClient
     /**
      * Get product categories
      *
-     * @param string $offset
-     * @param string $limit
-     * @param string $parent
-     * @param mixed  $hidden
-     * @param mixed  $productIds
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+     * @param array $params
      *
      * @return Response
      */
-    public function getCategories(
-        $offset = null,
-        $limit = null,
-        $parent = null,
-        $hidden = true,
-        $productIds = false
-    ) {
+    public function getCategories(array $params = array())
+    {
         $url = $this->storeId . "/categories";
-        $params = array(
-            'offset' => $offset,
-            'limit' => $limit,
-            'parent' => $parent,
-            'hidden' => $hidden,
-            'productIds' => $productIds
-        );
 
         return $this->client->makeRequest($url, EcwidRequest::METHOD_GET, $params);
     }
@@ -88,33 +69,13 @@ class EcwidClient
     /**
      * Create product category
      *
-     * @param string $offset
-     * @param string $limit
-     * @param string $parent
-     * @param mixed  $hidden
-     * @param mixed  $productIds
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+     * @param array $params
      *
      * @return Response
      */
-    public function createCategory(
-        $name,
-        $parentId = null,
-        $orderBy = null,
-        $description = null,
-        $enabled = true,
-        array $productIds = array()
-    ) {
+    public function createCategory(array $params = array())
+    {
         $url = $this->storeId . '/categories';
-        $params = array(
-            'name' => $name,
-            'parentId' => $parentId,
-            'orderBy' => $orderBy,
-            'description' => $description,
-            'productIds' => $productIds
-        );
 
         return $this->client->makeRequest($url, EcwidRequest::METHOD_POST, $params);
     }
@@ -122,27 +83,88 @@ class EcwidClient
     /**
      * Get products
      *
-     * @param string  $keyword
-     * @param string  $priceFrom
-     * @param string  $priceTo
-     * @param string  $category
-     * @param string  $sortBy
-     * @param string  $offset
-     * @param string  $limit
-     * @param string  $createdFrom
-     * @param string  $createdTo
-     * @param string  $updatedFrom
-     * @param string  $updatedTo
-     * @param boolean $enabled
-     * @param boolean $inStock
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+     * @param array $filter
      *
      * @return Response
      */
-    public function getProducts() {
+    public function getProducts(array $filter = array())
+    {
         $url = $this->storeId . "/products";
+
+        return $this->client->makeRequest($url, EcwidRequest::METHOD_GET, $filter);
+    }
+
+    /**
+     * Get orders
+     *
+     * @param array $filter
+     *
+     * @return Response
+     */
+    public function getOrders(array $filter = array())
+    {
+        $url = $this->storeId . "/orders";
+
+        return $this->client->makeRequest($url, EcwidRequest::METHOD_GET, $filter);
+    }
+
+    /**
+     * Get order details
+     *
+     * @param string $orderId
+     *
+     * @return Response
+     */
+    public function getOrder($orderId)
+    {
+        $url = $this->storeId . "/orders/" . $orderId;
+
         return $this->client->makeRequest($url, EcwidRequest::METHOD_GET);
+    }
+
+    /**
+     * Create order
+     *
+     * @param array $order
+     *
+     * @return Response
+     */
+    public function createOrder($order)
+    {
+        $url = $this->storeId . "/orders";
+
+        $params = array('order' => json_decode($order));
+
+        return $this->client->makeRequest($url, EcwidRequest::METHOD_POST, $params);
+    }
+
+    /**
+     * Update order
+     *
+     * @param array $order
+     *
+     * @return Response
+     */
+    public function updateOrder($orderId, $order)
+    {
+        $url = $this->storeId . "/orders/" . $orderId;
+
+        $params = array('order' => json_decode($order));
+
+        return $this->client->makeRequest($url, EcwidRequest::METHOD_PUT, $params);
+    }
+
+    /**
+     * Delete order
+     *
+     * @param array $orderId
+     *
+     * @return Response
+     */
+    public function deleteOrder($orderId)
+    {
+        $url = $this->storeId . "/orders/" . $orderId;
+
+        return $this->client->makeRequest($url, EcwidRequest::METHOD_DELETE);
     }
 }
