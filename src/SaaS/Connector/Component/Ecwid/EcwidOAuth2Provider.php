@@ -16,4 +16,7 @@ class EcwidOAuth2Provider extends AbstractProvider
     {
         return 'https://my.ecwid.com/api/oauth/token';
     }
+
+    public function urlUserDetails(AccessToken $token) {}
+    public function userDetails($response, AccessToken $token) {}
 }
