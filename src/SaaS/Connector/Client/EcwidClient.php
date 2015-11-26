@@ -9,7 +9,6 @@
  * @link http://github.com/gwinn/saas-connector
  * @see http://api.ecwid.com/
  */
-
 namespace SaaS\Connector\Client;
 
 use SaaS\Connector\Http\Request\EcwidRequest;
@@ -133,7 +132,7 @@ class EcwidClient
     {
         $url = $this->storeId . "/orders";
 
-        $params = array('order' => json_decode($order));
+        $params = array('data' => json_decode($order));
 
         return $this->client->makeRequest($url, EcwidRequest::METHOD_POST, $params);
     }
@@ -148,8 +147,7 @@ class EcwidClient
     public function updateOrder($orderId, $order)
     {
         $url = $this->storeId . "/orders/" . $orderId;
-
-        $params = array('order' => json_decode($order));
+        $params = array('data' => json_encode($order));
 
         return $this->client->makeRequest($url, EcwidRequest::METHOD_PUT, $params);
     }

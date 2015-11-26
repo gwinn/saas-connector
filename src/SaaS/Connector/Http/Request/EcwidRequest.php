@@ -63,12 +63,13 @@ class EcwidRequest
             ));
         }
 
-        $parameters = array_merge($this->defaultParameters, $parameters);
-
         $url = $this->url . $path;
 
         if (self::METHOD_GET === $method && sizeof($parameters)) {
+            $parameters = array_merge($this->defaultParameters, $parameters);
             $url .= '?' . http_build_query($parameters);
+        } else {
+            $url .= '?' . http_build_query($this->defaultParameters);
         }
 
         $curlHandler = curl_init();
@@ -81,9 +82,25 @@ class EcwidRequest
         curl_setopt($curlHandler, CURLOPT_TIMEOUT, 30);
 
         if (self::METHOD_POST === $method) {
+            $request_headers = array();
+            $request_headers[] = 'Content-Type: application/json';
+            $request_headers[] = 'Cache-Control: no-cache';
+
+            curl_setopt($curlHandler, CURLOPT_HTTPHEADER, $request_headers);
             curl_setopt($curlHandler, CURLOPT_POST, true);
-            curl_setopt($curlHandler, CURLOPT_POSTFIELDS, $parameters);
+            curl_setopt($curlHandler, CURLOPT_POSTFIELDS, $parameters['data']);
         }
+
+        if (self::METHOD_PUT === $method) {
+            $request_headers = array();
+            $request_headers[] = 'Content-Type: application/json';
+            $request_headers[] = 'Cache-Control: no-cache';
+
+            curl_setopt($curlHandler, CURLOPT_HTTPHEADER, $request_headers);
+            curl_setopt($curlHandler, CURLOPT_CUSTOMREQUEST, "PUT");
+            curl_setopt($curlHandler, CURLOPT_POSTFIELDS, $parameters['data']);
+        }
+
 
         $responseBody = curl_exec($curlHandler);
         $statusCode = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
