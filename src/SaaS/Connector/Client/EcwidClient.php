@@ -131,8 +131,8 @@ class EcwidClient
     public function createOrder($order)
     {
         $url = $this->storeId . "/orders";
-
-        $params = array('data' => json_decode($order));
+        $data = $this->normalizeFields(json_encode($order, JSON_UNESCAPED_UNICODE));
+        $params = array('data' => $data);
 
         return $this->client->makeRequest($url, EcwidRequest::METHOD_POST, $params);
     }
@@ -147,7 +147,8 @@ class EcwidClient
     public function updateOrder($orderId, $order)
     {
         $url = $this->storeId . "/orders/" . $orderId;
-        $params = array('data' => json_encode($order));
+        $data = $this->normalizeFields(json_encode($order, JSON_UNESCAPED_UNICODE));
+        $params = array('data' => $data);
 
         return $this->client->makeRequest($url, EcwidRequest::METHOD_PUT, $params);
     }
@@ -164,5 +165,15 @@ class EcwidClient
         $url = $this->storeId . "/orders/" . $orderId;
 
         return $this->client->makeRequest($url, EcwidRequest::METHOD_DELETE);
+    }
+
+    private function normalizeFields($json)
+    {
+         $json = preg_replace("/(subtotal|total\"\:)(\")([0-9.]*)(\")(,)/", "$1$3$5",  $json);
+         $json = preg_replace("/(shippingRate\"\:)(\")([0-9.]*)(\")(,)/", "$1$3$5",  $json);
+         $json = preg_replace("/(price\"\:)(\")([0-9.]*)(\")(,)/", "$1$3$5",  $json);
+         $json = preg_replace("/(quantity\"\:)(\")([0-9.]*)(\")(,)/", "$1$3$5",  $json);
+
+         return $json;
     }
 }
