@@ -170,6 +170,7 @@ class EcwidClient
     private function normalizeFields($json)
     {
          $json = preg_replace("/(subtotal|total\"\:)(\")([0-9.]*)(\")(,)/", "$1$3$5",  $json);
+         $json = preg_replace("/(discount\"\:)(\")([0-9.]*)(\")(,)/", "$1$3$5",  $json);
          $json = preg_replace("/(shippingRate\"\:)(\")([0-9.]*)(\")(,)/", "$1$3$5",  $json);
          $json = preg_replace("/(price\"\:)(\")([0-9.]*)(\")(,)/", "$1$3$5",  $json);
          $json = preg_replace("/(quantity\"\:)(\")([0-9.]*)(\")(,)/", "$1$3$5",  $json);
