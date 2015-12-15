@@ -1,6 +1,6 @@
 <?php
 
-namespace RetailCrm\Exception;
+namespace SaaS\Connector\Exception;
 
 class CurlException extends \RuntimeException
 {
