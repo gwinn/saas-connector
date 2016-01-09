@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="./tests/bootstrap.php"
-         colors="true"
-         convertErrorsToException="true"
-         convertNoticesToException="true"
-         convertWarningsToException="true"
-         processIsolation="false"
-         stopOnFailure="true"
-         syntaxCheck="true"
->
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="phpunit.xsd"
+    bootstrap="./tests/bootstrap.php"
+    colors="true"
+    processIsolation="false"
+    stopOnFailure="true"
+    syntaxCheck="true">
 
     <!-- Dummy values used to provide credentials. No need to change these. -->
     <php>
