@@ -5,8 +5,10 @@ Set of different api clients for e-commerce SaaS
 
 ###Clients:
 * [Activizm](http://activizm.ru)
-* [Leadvertex](http://leadvertex.ru)
+* [BizPost](http://bizpost.ru)
 * [Ecwid](http://ecwid.com)
+* [Leadvertex](http://leadvertex.ru)
+* [Orderino](http://orderino.com/)
 * [TicketsCloud](http://ticketscloud.org)
 
 ###Requirements
@@ -23,7 +25,6 @@ composer require gwinn/saas-connector dev-master
 ###Maybe
 * [ABCP](http://abcp.ru)
 * [AdClever](http://adclever.ru)
-* [BizPost](http://bizpost.ru)
 * [Fresh Logic](http://www.fresh-logic.ru/)
 * [AdvertStar](http://advertstar.net)
 * [Intercom.io](http://intercom.io)

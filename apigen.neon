@@ -1,32 +1,32 @@
 extensions:
-	- php
-	
+    - php
+    
 source:
-	- src
-	
+    - src
+    
 exclude:
-	- tests/
-	- vendor/
-	- bin/
-	- docs/
-	
+    - tests/
+    - vendor/
+    - bin/
+    - docs/
+    
 charset:
-	- auto
-	- UTF-8
-	- Windows-1251
-	
+    - auto
+    - UTF-8
+    - Windows-1251
+    
 title: SaaS Connector - API client collection
 templateTheme: bootstrap
 groups: auto
 autocomplete:
-	- classes
-	- constants
-	- methods
-	- classconstants
-	
+    - classes
+    - constants
+    - methods
+    - classconstants
+    
 accessLevels:
-	- public
-	
+    - public
+    
 internal: true
 php: false
 tree: true
