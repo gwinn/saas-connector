@@ -22,6 +22,9 @@
         <server name="ORDERINO_COMPANY" value="zoo" />
         <server name="TICKETSCLOUD_SECRET" value="bar" />
         <server name="TICKETSCLOUD_CLIENT" value="zoo" />
+        <server name="INSALES_API_KEY" value="bar" />
+        <server name="INSALES_PASSWORD" value="zoo" />
+        <server name="INSALES_DOMAIN" value="foo" />
     </php>
 
     <testsuites>
@@ -29,7 +32,7 @@
             <directory>tests/SaaS/Tests/Activizm</directory>
         </testsuite>
         <testsuite name="Bizpost">
-            <directory>tests/SaaS/Tests/Activizm</directory>
+            <directory>tests/SaaS/Tests/Bizpost</directory>
         </testsuite>
         <testsuite name="Ecwid">
             <directory>tests/SaaS/Tests/Ecwid</directory>
@@ -42,6 +45,9 @@
         </testsuite>
         <testsuite name="TicketsCloud">
             <directory>tests/SaaS/Tests/Ticketscloud</directory>
+        </testsuite>
+        <testsuite name="Insales">
+            <directory>tests/SaaS/Tests/Insales</directory>
         </testsuite>
     </testsuites>
 
