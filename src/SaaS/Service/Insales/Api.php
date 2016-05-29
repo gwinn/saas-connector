@@ -50,9 +50,9 @@ class Api
      *
      * @return Response
      */
-    public function getCategories()
+    public function categoriesList()
     {
-        $url = "/admin/categories.json";
+        $url = '/admin/categories.json';
 
         return $this->client->makeRequest($url, Request::METHOD_GET);
     }
@@ -64,10 +64,62 @@ class Api
      *
      * @return Response
      */
-    public function getCategory($categoryId)
+    public function categoriesGet($categoryId)
     {
-        $url = "/admin/categories/$categoryId.json";
+        $url = sprintf('/admin/categories/%s.json', $categoryId);
 
         return $this->client->makeRequest($url, Request::METHOD_GET);
+    }
+
+    /**
+     * Create catalog category
+     *
+     * @param array $category category data
+     *
+     * @return Response
+     */
+    public function categoriesCreate($category)
+    {
+        $url = '/admin/categories.json';
+        $parameters = array('category' => $category);
+
+        return $this->client->makeRequest($url, Request::METHOD_POST, $parameters);
+    }
+
+    /**
+     * Update catalog category
+     *
+     * @param array $category category data
+     *
+     * @return Response
+     */
+    public function categoriesUpdate($category)
+    {
+        if (empty($category['id'])) {
+            throw new \InvalidArgumentException("Category id must be set");
+        }
+
+        $url = '/admin/categories.json';
+        $parameters = array('category' => $category);
+
+        return $this->client->makeRequest($url, Request::METHOD_PUT, $parameters);
+    }
+
+    /**
+     * Delete catalog category
+     *
+     * @param string $categoryId category id
+     *
+     * @return Response
+     */
+    public function categoriesDelete($categoryId)
+    {
+        if (empty($categoryId)) {
+            throw new \InvalidArgumentException("Category id must be set");
+        }
+
+        $url = sprintf('/admin/categories/%s.json', $categoryId);
+
+        return $this->client->makeRequest($url, Request::METHOD_DELETE);
     }
 }
