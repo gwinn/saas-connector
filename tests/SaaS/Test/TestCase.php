@@ -12,7 +12,7 @@
  */
 namespace SaaS\Test;
 
-use SaaS\Service\Insales\Api;
+use SaaS\Service\Insales\Api as InSalesApi;
 
 /**
  * Class TestCase
@@ -33,7 +33,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
      * @param null $apiKey   token
      * @param null $password password
      *
-     * @return Api
+     * @return InSalesApi
      */
     public static function getInsalesApiClient(
         $domain = null, $apiKey = null, $password = null
@@ -43,6 +43,6 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $testApiKey = $apiKey ?: $_SERVER['INSALES_API_KEY'];
         $testPassword = $password ?: $_SERVER['INSALES_PASSWORD'];
 
-        return new Api($testApiKey, $testPassword, $testDomain);
+        return new InSalesApi($testApiKey, $testPassword, $testDomain);
     }
 }
