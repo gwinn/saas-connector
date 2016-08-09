@@ -1,11 +1,28 @@
 <?php
 
+/**
+ * PHP version 5.3
+ *
+ * @category SaaS
+ * @package  SaaS
+ * @author   Alex Lushpai <lushpai@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT License
+ * @link     http://github.com/gwinn/saas-connector
+ * @see      http://github.com/gwinn/saas-connector
+ */
 namespace SaaS\Http;
 
 use SaaS\Exception\InvalidJsonException;
 
 /**
- * Response from API
+ * Response
+ *
+ * @category SaaS
+ * @package  SaaS
+ * @author   Alex Lushpai <lushpai@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT License
+ * @link     http://github.com/gwinn/saas-connector
+ * @see      http://github.com/gwinn/saas-connector
  */
 class Response implements \ArrayAccess
 {
@@ -15,8 +32,8 @@ class Response implements \ArrayAccess
     /**
      * Response constructor.
      *
-     * @param      $statusCode
-     * @param null $responseBody
+     * @param integer $statusCode   status code
+     * @param mixed   $responseBody response body content
      */
     public function __construct($statusCode, $responseBody = null)
     {
@@ -69,8 +86,8 @@ class Response implements \ArrayAccess
     /**
      * Allow to access for the property throw class method
      *
-     * @param  string $name
-     * @param  array  $arguments
+     * @param string $name      method name
+     * @param array  $arguments method arguments
      *
      * @return mixed
      */
@@ -89,7 +106,7 @@ class Response implements \ArrayAccess
     /**
      * Allow to access for the property throw object property
      *
-     * @param  string $name
+     * @param string $name property name
      *
      * @return mixed
      */
@@ -103,8 +120,12 @@ class Response implements \ArrayAccess
     }
 
     /**
-     * @param mixed $offset
-     * @param mixed $value
+     * Set offset
+     *
+     * @param mixed $offset offset value
+     * @param mixed $value  value
+     *
+     * @return void
      */
     public function offsetSet($offset, $value)
     {
@@ -114,7 +135,11 @@ class Response implements \ArrayAccess
     }
 
     /**
-     * @param mixed $offset
+     * Unset offset
+     *
+     * @param mixed $offset offset value
+     *
+     * @return void
      */
     public function offsetUnset($offset)
     {
@@ -124,7 +149,9 @@ class Response implements \ArrayAccess
     }
 
     /**
-     * @param mixed $offset
+     * Check offset
+     *
+     * @param mixed $offset offset value
      *
      * @return bool
      */
@@ -134,7 +161,9 @@ class Response implements \ArrayAccess
     }
 
     /**
-     * @param mixed $offset
+     * Get offset
+     *
+     * @param mixed $offset offset value
      *
      * @return mixed
      */

@@ -3,34 +3,38 @@
 /**
  * PHP version 5.3
  *
- * @package SaaS\Service\Ecwid
- * @author Alex Lushpai <lushpai@gmail.com>
- * @license http://opensource.org/licenses/MIT MIT License
- * @link http://github.com/gwinn/saas-connector
- * @see http://api.ecwid.com/
+ * @category Ecwid
+ * @package  SaaS
+ * @author   Alex Lushpai <lushpai@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT License
+ * @link     http://github.com/gwinn/saas-connector
+ * @see      http://api.ecwid.com/
  */
 namespace SaaS\Service\Ecwid;
 
 use SaaS\Http\Response;
 
 /**
- * EcwidClient
+ * Ecwid api class
  *
- * @package SaaS\Service\Ecwid
- * @author Alex Lushpai <lushpai@gmail.com>
- * @license http://opensource.org/licenses/MIT MIT License
- * @link http://github.com/gwinn/saas-connector
- * @see http://api.ecwid.com/
+ * @category Ecwid
+ * @package  SaaS
+ * @author   Alex Lushpai <lushpai@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT License
+ * @link     http://github.com/gwinn/saas-connector
+ * @see      http://api.ecwid.com/
  */
 class Api
 {
 
-    private $storeId;
-    private $client;
+    protected $storeId;
+    protected $client;
 
     /**
-     * @param string $storeId
-     * @param string $apiKey
+     * Constructor
+     *
+     * @param string $storeId shop id
+     * @param string $apiKey  api key
      */
     public function __construct($storeId, $apiKey)
     {
@@ -41,7 +45,7 @@ class Api
     /**
      * Get product categories
      *
-     * @param array $params
+     * @param array $params input params
      *
      * @return Response
      */
@@ -55,7 +59,7 @@ class Api
     /**
      * Get product category
      *
-     * @param string $categoryId
+     * @param string $categoryId category ID
      *
      * @return Response
      */
@@ -68,7 +72,7 @@ class Api
     /**
      * Create product category
      *
-     * @param array $params
+     * @param array $params input params
      *
      * @return Response
      */
@@ -82,7 +86,7 @@ class Api
     /**
      * Get products
      *
-     * @param array $filter
+     * @param array $filter search filter
      *
      * @return Response
      */
@@ -96,7 +100,7 @@ class Api
     /**
      * Get orders
      *
-     * @param array $filter
+     * @param array $filter search filter
      *
      * @return Response
      */
@@ -110,7 +114,7 @@ class Api
     /**
      * Get order details
      *
-     * @param string $orderId
+     * @param string $orderId order ID
      *
      * @return Response
      */
@@ -124,7 +128,7 @@ class Api
     /**
      * Create order
      *
-     * @param array $order
+     * @param array $order order data
      *
      * @return Response
      */
@@ -140,7 +144,8 @@ class Api
     /**
      * Update order
      *
-     * @param array $order
+     * @param string $orderId order ID
+     * @param array  $order   order data
      *
      * @return Response
      */
@@ -156,7 +161,7 @@ class Api
     /**
      * Delete order
      *
-     * @param array $orderId
+     * @param array $orderId order ID
      *
      * @return Response
      */
@@ -168,11 +173,13 @@ class Api
     }
 
     /**
-     * @param $json
+     * Field normalization
+     *
+     * @param string $json input data
      *
      * @return mixed
      */
-    private function normalizeFields($json)
+    protected function normalizeFields($json)
     {
          $json = preg_replace(
              "/(subtotal|total\"\:)(\")([0-9.]*)(\")(,)/",
