@@ -3,38 +3,40 @@
 /**
  * PHP version 5.3
  *
- * @package SaaS\Service\Activizm
- * @author Alex Lushpai <lushpai@gmail.com>
- * @license http://opensource.org/licenses/MIT MIT License
- * @link http://github.com/gwinn/saas-connector
+ * @category Activizm
+ * @package  SaaS
+ * @author   Alex Lushpai <lushpai@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT License
+ * @link     http://github.com/gwinn/saas-connector
+ * @see      http://activizm.ru
  */
-
 namespace SaaS\Service\Activizm;
 
-use SaaS\Exception\CurlException;
 use SaaS\Http\Response;
 
 /**
  * Activizm request class
  *
- * @package SaaS\Service\Activizm
- * @author Alex Lushpai <lushpai@gmail.com>
- * @license http://opensource.org/licenses/MIT MIT License
- * @link http://github.com/gwinn/saas-connector
+ * @category Activizm
+ * @package  SaaS
+ * @author   Alex Lushpai <lushpai@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT License
+ * @link     http://github.com/gwinn/saas-connector
+ * @see      http://activizm.ru
  */
 class Request
 {
     const METHOD_POST = 'POST';
 
-    private $url;
-    private $token;
-    private $client;
+    protected $url;
+    protected $token;
+    protected $client;
 
     /**
      * Request constructor.
      *
-     * @param $clientId
-     * @param $token
+     * @param string $clientId client ID
+     * @param string $token    secret token
      */
     public function __construct($clientId, $token)
     {
@@ -47,7 +49,7 @@ class Request
      * Make HTTP request
      *
      * @param string $method API method
-     * @param array $params (default: array())
+     * @param array  $params (default: array())
      *
      * @todo rewrite with curl
      *

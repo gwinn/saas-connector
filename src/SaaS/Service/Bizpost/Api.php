@@ -3,34 +3,34 @@
 /**
  * PHP version 5.3
  *
- * @package SaaS\Service\Bizpost
- * @author Alex Lushpai <lushpai@gmail.com>
- * @license http://opensource.org/licenses/MIT MIT License
- * @link http://github.com/gwinn/saas-connector
- * @see https://bizpost.ru/doc/bizpost_API_current.zip
+ * @category BizPost
+ * @package  SaaS
+ * @author   Alex Lushpai <lushpai@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT License
+ * @link     http://github.com/gwinn/saas-connector
+ * @see      https://bizpost.ru/doc/bizpost_API_current.zip
  */
-
 namespace SaaS\Service\Bizpost;
 
 use SaaS\Http\Response;
 
 /**
- * BizpostClient
+ * BizPost api class
  *
- * @package SaaS\Service\Bizpost
- * @author Alex Lushpai <lushpai@gmail.com>
- * @license http://opensource.org/licenses/MIT MIT License
- * @link http://github.com/gwinn/saas-connector
- * @see https://bizpost.ru/doc/bizpost_API_current.zip
+ * @category BizPost
+ * @package  SaaS
+ * @author   Alex Lushpai <lushpai@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT License
+ * @link     http://github.com/gwinn/saas-connector
+ * @see      https://bizpost.ru/doc/bizpost_API_current.zip
  */
-
 class Api
 {
     /**
      * Api constructor.
      *
-     * @param $login
-     * @param $password
+     * @param string $login    user login
+     * @param string $password user password
      */
     public function __construct($login, $password)
     {
@@ -40,8 +40,8 @@ class Api
     /**
      * Get orders changes
      *
-     * @param string $from
-     * @param string $till
+     * @param string $from oldest changes date
+     * @param string $till newest changes date
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
@@ -70,8 +70,8 @@ class Api
     /**
      * Get orders statuses
      *
-     * @param string $from
-     * @param array  $ids
+     * @param string $from from date
+     * @param array  $ids  ids sequence
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
@@ -95,8 +95,8 @@ class Api
     /**
      * Upload orders
      *
-     * @param string $filepath
-     * @param string $create possible values: logistic, pickup
+     * @param string $filepath file with orders
+     * @param string $create   (logistic, pickup)
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
@@ -125,7 +125,7 @@ class Api
     /**
      * Upload store items
      *
-     * @param string $filepath
+     * @param string $filepath file with ites
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
@@ -200,8 +200,13 @@ class Api
      *
      * @return Response
      */
-    public function uploadInvoice($filepath, $invoice, $contractor = null, $date = null, $create = 'debit')
-    {
+    public function uploadInvoice(
+        $filepath,
+        $invoice,
+        $contractor = null,
+        $date = null,
+        $create = 'debit'
+    ) {
         if (empty($filepath)) {
             throw new \InvalidArgumentException("Date parameter must be not empty");
         }

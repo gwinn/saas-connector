@@ -3,34 +3,37 @@
 /**
  * PHP version 5.3
  *
- * @package SaaS\Service\Activizm
- * @author Alex Lushpai <lushpai@gmail.com>
- * @license http://opensource.org/licenses/MIT MIT License
- * @link http://github.com/gwinn/saas-connector
+ * @category Activizm
+ * @package  SaaS
+ * @author   Alex Lushpai <lushpai@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT License
+ * @link     http://github.com/gwinn/saas-connector
+ * @see      http://activizm.ru
  */
-
 namespace SaaS\Service\Activizm;
 
 use SaaS\Http\Response;
 
 /**
- * Activizm api client
+ * Activizm api class
  *
- * @package SaaS\Service\Activizm
- * @author Alex Lushpai <lushpai@gmail.com>
- * @license http://opensource.org/licenses/MIT MIT License
- * @link http://github.com/gwinn/saas-connector
+ * @category Activizm
+ * @package  SaaS
+ * @author   Alex Lushpai <lushpai@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT License
+ * @link     http://github.com/gwinn/saas-connector
+ * @see      http://activizm.ru
  */
 class Api
 {
 
-    private $client;
+    protected $client;
 
     /**
      * Api constructor.
      *
-     * @param $clientId
-     * @param $secret
+     * @param string $clientId client ID
+     * @param string $secret   secret token
      */
     public function __construct($clientId, $secret)
     {
@@ -50,13 +53,14 @@ class Api
     /**
      * Get order by id
      *
-     * @param string $id
+     * @param string $uid order ID
      *
      * @return Response
      */
     public function getOrder($uid)
     {
-        return $this->client->makeRequest('getOrderDetails', array('orderNumber' => $uid));
+        return $this->client
+            ->makeRequest('getOrderDetails', array('orderNumber' => $uid));
     }
 
     /**
