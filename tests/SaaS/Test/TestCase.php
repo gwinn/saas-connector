@@ -8,7 +8,7 @@
  * @author   Alex Lushpai <lushpai@gmail.com>
  * @license  http://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
- * @see      http://insales.ru/
+ * @see      http://github.com/gwinn/saas-connector
  */
 namespace SaaS\Test;
 
@@ -22,7 +22,7 @@ use SaaS\Service\Insales\Api;
  * @author   Alex Lushpai <lushpai@gmail.com>
  * @license  http://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
- * @see      http://insales.ru/
+ * @see      http://github.com/gwinn/saas-connector
  */
 class TestCase extends \PHPUnit_Framework_TestCase
 {
