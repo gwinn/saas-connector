@@ -12,6 +12,7 @@
  */
 namespace SaaS\Http;
 
+use InvalidArgumentException;
 use SaaS\Exception\InvalidJsonException;
 
 /**
@@ -41,8 +42,23 @@ class Response implements \ArrayAccess
 
         if (!empty($responseBody)) {
             $response = json_decode($responseBody, true);
+            $message = array();
+            if ($this->statusCode >= 400 && $this->statusCode < 500) {
+                if (is_array($response)) {
+                    foreach ($response as $key =>  $value) {
+                        $message[] =  "ErrorResponce#$this->statusCode [$key] "
+                            . (is_array($value) ? implode(' ', $value) : $value);
+                    }
+                    throw new InvalidArgumentException(
+                        implode(' ', $message),
+                        $this->statusCode
+                    );
 
-            if (!$response && JSON_ERROR_NONE !== ($error = json_last_error())) {
+                } else {
+                    throw new InvalidArgumentException("ErrorResponce #$this->statusCode $responseBody", $this->statusCode);
+                }
+            }
+            if (!$response && $this->statusCode != 200 && JSON_ERROR_NONE !== ($error = json_last_error())) {
                 throw new InvalidJsonException(
                     "Invalid JSON in the API response body. Error code #$error",
                     $error

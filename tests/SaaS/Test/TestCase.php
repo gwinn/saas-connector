@@ -12,6 +12,7 @@
  */
 namespace SaaS\Test;
 
+use SaaS\Http\Response;
 use SaaS\Service\Insales\Api as InSalesApi;
 
 /**
@@ -44,5 +45,15 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $testPassword = $password ?: $_SERVER['INSALES_PASSWORD'];
 
         return new InSalesApi($testApiKey, $testPassword, $testDomain);
+    }
+
+    /**
+     * @param Response $response
+     */
+    public static function checkResponse(Response $response)
+    {
+        self::assertInstanceOf('SaaS\Http\Response', $response);
+        self::assertTrue(in_array($response->getStatusCode(), array(200, 201)));
+        self::assertTrue($response->isSuccessful());
     }
 }
