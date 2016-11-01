@@ -5,10 +5,9 @@
  *
  * @category Tiu
  * @package  SaaS
- * @author   Alex Lushpai <lushpai@gmail.com>
+ * @author   Sergey <sergeygv1990@mail.ru>
  * @license  http://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
- * @see      https://bizpost.ru/doc/Tiu_API_current.zip
  */
 namespace SaaS\Service\Tiu;
 
@@ -20,7 +19,7 @@ use SaaS\Http\Response;
  *
  * @category Tiu
  * @package  SaaS
- * @author   Alex Lushpai <lushpai@gmail.com>
+ * @author   Sergey <sergeygv1990@mail.ru>
  * @license  http://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
  * @see      https://bizpost.ru/doc/bizpost_API_current.zip
@@ -74,7 +73,7 @@ class Request
         $path = $this->url . $path;
         
         if (self::METHOD_GET === $method) {
-            $path .= '?' . http_build_query($parameters);
+            $path .= '?' . http_build_query($parameters, '', '&');
         }
         
         $curlHandler = curl_init();
@@ -83,11 +82,10 @@ class Request
         
         if (strtoupper($method) == 'POST') {
             curl_setopt($curlHandler, CURLOPT_POST, true);
-        }
-        
-        if (!empty($parameters)) {
             curl_setopt($curlHandler, CURLOPT_POSTFIELDS, json_encode($parameters));
         }
+        
+        
         
         curl_setopt($curlHandler, CURLOPT_TIMEOUT, 30);
         curl_setopt($curlHandler, CURLOPT_CONNECTTIMEOUT, 30);

@@ -5,7 +5,7 @@
  *
  * @category ApiClient
  * @package  SaaS\Service\Tiu
- * @author   Alex Lushpai <lushpai@gmail.com>
+ * @author   Segey <sergeygv1990@mail.ru>
  * @license  http://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
  * 
@@ -19,7 +19,7 @@ use SaaS\Http\Response;
  *
  * @category ApiClient
  * @package  SaaS\Service\Tiu
- * @author   Alex Lushpai <lushpai@gmail.com>
+ * @author   Sergey <sergeygv1990@mail.ru>
  * @license  http://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
  * 
@@ -52,6 +52,22 @@ class Api
         return $this->client->makeRequest(
             '/orders/list',
             Request::METHOD_GET,
+            $parameters
+        );
+    }
+    
+    /**
+     * Set orders status
+     *
+     * @param array $parameters
+     *
+     * @return Response
+     */
+    public function ordersSetStatus(array $parameters = array())
+    {
+        return $this->client->makeRequest(
+            '/orders/set_status',
+            Request::METHOD_POST,
             $parameters
         );
     }
@@ -99,8 +115,9 @@ class Api
         return $this->client->makeRequest($path, Request::METHOD_GET);
         
     }
+    
     /**
-     * Get clients list
+     * Get prodicts list
      *
      * @param array $parameters
      *
@@ -114,6 +131,7 @@ class Api
             $parameters
         );
     }
+    
     /**
      * Get products by id
      *
@@ -140,6 +158,70 @@ class Api
 
         return $this->client->makeRequest($path, Request::METHOD_GET);
     }
+    
+    /**
+     * Edit product list
+     *
+     * @param array $parameters
+     *
+     * @return Response
+     */
+    public function productEdit(array $parameters = array())
+    {
+        return $this->client->makeRequest(
+            '/products/edit',
+            Request::METHOD_POST,
+            $parameters
+        );
+    }
+    
+    
+    /**
+     * Edit product by externalId
+     *
+     * @param array $parameters
+     *
+     * @return Response
+     */
+    public function productEditExternalId(array $parameters = array())
+    {
+        return $this->client->makeRequest(
+            '/products/edit_by_external_id',
+            Request::METHOD_POST,
+            $parameters
+        );
+    }
+    
+    /**
+     * Import products by reference to the Excel file
+     *
+     * @param array $parameters
+     *
+     * @return Response
+     */
+    public function productsImportExel(array $parameters = array())
+    {
+        return $this->client->makeRequest(
+            '/products/import_url',
+            Request::METHOD_POST,
+            $parameters
+        );
+    }
+    
+   /**
+     * check status imports product 
+     *
+     * @param $importId
+     *
+     * @return Response
+     */
+    public function checkImportStatus($importId)
+    {
+        $path = sprintf('/products/import/status/%s', $importId);
+
+        return $this->client->makeRequest($path, Request::METHOD_GET);
+    }
+
     /**
      * Get groups list
      *
@@ -167,6 +249,67 @@ class Api
         return $this->client->makeRequest(
             '/payment_options/list',
             Request::METHOD_GET,
+            $parameters
+        );
+    }
+    
+    
+    /**
+     * Get message list
+     *
+     * @param array $parameters
+     *
+     * @return Response
+     */
+    public function getMessagesList(array $parameters = array())
+    {
+        return $this->client->makeRequest(
+            '/messages/list',
+            Request::METHOD_GET,
+            $parameters
+        );
+    }
+    
+    /**
+     * Get message by id
+     *
+     * @param $id
+     *
+     * @return Response
+     */
+    public function getMessagesId($id)
+    {
+        $path = sprintf('/messages/%s', $id);
+
+        return $this->client->makeRequest($path, Request::METHOD_GET);
+    }
+    /**
+     * Set messages status
+     *
+     * @param array $parameters
+     *
+     * @return Response
+     */
+    public function messagesSetStatus(array $parameters = array())
+    {
+        return $this->client->makeRequest(
+            '/messages/set_status',
+            Request::METHOD_POST,
+            $parameters
+        );
+    }
+     /**
+     * Send reply for message id
+     *
+     * @param array $parameters
+     *
+     * @return Response
+     */
+    public function messagesReply(array $parameters = array())
+    {
+        return $this->client->makeRequest(
+            '/messages/reply',
+            Request::METHOD_POST,
             $parameters
         );
     }
