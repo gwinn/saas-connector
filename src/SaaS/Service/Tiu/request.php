@@ -80,9 +80,12 @@ class Request
         curl_setopt($curlHandler, CURLOPT_URL, $path);
         curl_setopt($curlHandler, CURLOPT_HTTPHEADER, $headers);
         
-        if (strtoupper($method) == 'POST') {
-            curl_setopt($curlHandler, CURLOPT_POST, true);
+        if (!empty($parameters)){
             curl_setopt($curlHandler, CURLOPT_POSTFIELDS, json_encode($parameters));
+        }
+        
+        if (strtoupper($method) == 'POST') {
+            curl_setopt($curlHandler, CURLOPT_POST, true);    
         }
         
         
