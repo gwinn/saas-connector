@@ -22,7 +22,6 @@ use SaaS\Http\Response;
  * @author   Sergey <sergeygv1990@mail.ru>
  * @license  http://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
- * @see      https://bizpost.ru/doc/bizpost_API_current.zip
  */
 class Request
 {
@@ -35,12 +34,12 @@ class Request
     /**
      * Request constructor.
      *
-     * @param string $login    user login
-     * @param string $password user password
+     * @param string $token   shop token
      */
     public function __construct($token)
     {
-        $this->url = 'https://my.tiu.ru/api/v1';
+        $this->url = $url . '/api/v1';
+        //$this->url = 'https://my.tiu.ru/api/v1';
         $this->token = $token;
     }
 
@@ -80,16 +79,13 @@ class Request
         curl_setopt($curlHandler, CURLOPT_URL, $path);
         curl_setopt($curlHandler, CURLOPT_HTTPHEADER, $headers);
         
-        if (!empty($parameters)){
+        
+        if (self::METHOD_POST === $method) {
+            curl_setopt($curlHandler, CURLOPT_POST, true);    
             curl_setopt($curlHandler, CURLOPT_POSTFIELDS, json_encode($parameters));
         }
         
-        if (strtoupper($method) == 'POST') {
-            curl_setopt($curlHandler, CURLOPT_POST, true);    
-        }
-        
-        
-        
+           
         curl_setopt($curlHandler, CURLOPT_TIMEOUT, 30);
         curl_setopt($curlHandler, CURLOPT_CONNECTTIMEOUT, 30);
         curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, true);
@@ -99,7 +95,7 @@ class Request
         
         
         $responseBody = json_decode(curl_exec($curlHandler));
-        $statusCode = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
+        $statusCode   = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
         
         $errno = curl_errno($curlHandler);
         $error = curl_error($curlHandler);

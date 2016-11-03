@@ -32,12 +32,13 @@ class Api
      * Ticketscloud creating
      *
      * @param  string $token
+     * @param  string $token
      *
      * @return mixed
      */
-    public function __construct($token)
+    public function __construct($token,$url)
     {
-        $this->client = new Request($token);
+        $this->client = new Request($token, $url);
     }
     
     /**
