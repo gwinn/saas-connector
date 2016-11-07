@@ -39,7 +39,6 @@ class Request
     public function __construct($token)
     {
         $this->url = $url . '/api/v1';
-        //$this->url = 'https://my.tiu.ru/api/v1';
         $this->token = $token;
     }
 
@@ -57,6 +56,11 @@ class Request
         $headers = array (
             'Authorization: Bearer ' . $this->token,
             'Content-Type: application/json'
+        );
+        
+        $allowedMethods = array(
+            self::METHOD_GET,
+            self::METHOD_POST
         );
         
         if (!in_array($method, $allowedMethods)) {

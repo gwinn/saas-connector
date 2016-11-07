@@ -29,10 +29,10 @@ class Api
     private $client;
     
     /**
-     * Ticketscloud creating
+     * Tiu creating
      *
      * @param  string $token
-     * @param  string $token
+     * @param  string $url
      *
      * @return mixed
      */
