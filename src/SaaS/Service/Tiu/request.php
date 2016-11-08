@@ -36,7 +36,7 @@ class Request
      *
      * @param string $token   shop token
      */
-    public function __construct($token)
+    public function __construct($token, $url)
     {
         $this->url = $url . '/api/v1';
         $this->token = $token;
