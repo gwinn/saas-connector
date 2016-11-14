@@ -14,6 +14,7 @@ namespace SaaS\Test;
 
 use SaaS\Http\Response;
 use SaaS\Service\Insales\Api as InSalesApi;
+use SaaS\Service\Tiu\Api as TiuApi;
 
 /**
  * Class TestCase
@@ -45,6 +46,25 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $testPassword = $password ?: $_SERVER['INSALES_PASSWORD'];
 
         return new InSalesApi($testApiKey, $testPassword, $testDomain);
+    }
+    
+    /**
+     * Get Tiu API clent
+     *
+     * @param string $token token
+     * @param string $url   internal url
+     * 
+     *
+     * @return TiuApi
+     */
+    public static function getTiuApiClient( 
+        $token = null,
+        $url = null
+    ) {
+        $testToken = !is_null($token) ? $token : $_SERVER['TIU_TOKEN'];
+        $testUrl =  !is_null($url) ? $url : $_SERVER['TIU_URL'];
+        
+        return new TiuApi($testToken, $testUrl);
     }
 
     /**
