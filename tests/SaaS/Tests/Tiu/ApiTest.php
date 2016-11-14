@@ -101,7 +101,7 @@ class ApiTest extends TestCase
             "presence"=> "available",
             "price"=> 99999,
             "status"=> "on_display"
-                )
+            )
       );
         $client = static::getTiuApiClient();
         $response = $client->productEdit($parameters);
@@ -115,8 +115,15 @@ class ApiTest extends TestCase
       */
     public function testClientsList()
     {
+        
+        $parameters = array(
+            'limit'=>1,
+            'last_id'=>8240087,
+            'search_term'=>'790000000'
+        );
+        
         $client = static::getTiuApiClient();
-        $response = $client->clientsList();
+        $response = $client->clientsList($parameters);
         var_dump($response);
     }
     
