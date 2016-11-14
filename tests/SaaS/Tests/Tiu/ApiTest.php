@@ -31,32 +31,38 @@ class ApiTest extends TestCase
       */
     public function testPaymentList()
     {
-        $client = static::getTiuApiClient();
+        $client   = static::getTiuApiClient();
         $response = $client->paymentList();
+        
         var_dump($response);
     }
     
     /**
       * Test using the method productsList
       * 
-      * @group productList
+      * @group product
       */
     public function testProductsList()
     {
+        $parameters = array(
+            'limit'    => 1,
+            'group_id' => 15281654
+        );
         
-        $client = static::getTiuApiClient();
+        $client   = static::getTiuApiClient();
         $response = $client->productsList();
+        
         var_dump($response);
     }
     
     /**
       * Test using the method getProductId
       * 
-      * @group productId
+      * @group product
       */
     public function testGetProductsId()
     {
-        $client = static::getTiuApiClient();
+        $client   = static::getTiuApiClient();
         $response = $client->getProductsId(247402196);
         var_dump($response);
     }
@@ -69,8 +75,9 @@ class ApiTest extends TestCase
     public function testGetProductsExternalId()
     {
 
-        $client = static::getTiuApiClient();
+        $client   = static::getTiuApiClient();
         $response = $client->getProductsExternalId();
+        
         var_dump($response);
     }
     
@@ -81,45 +88,50 @@ class ApiTest extends TestCase
      */
     public function testProductEditExternalId()
     {
-        
-        
-        $client = static::getTiuApiClient();
+         
+        $client   = static::getTiuApiClient();
         $response = $client->productEditExternalId();
+        
         var_dump($response);
     }
     
     /**
      * Test using the method productEdit
      *
-     * @group productEdit
+     * @var parameters array
+     * 
+     * @group product
      */
     public function testProductEdit()
     {
         $parameters = array(
             array(
-            "id"=> 247402196,
-            "presence"=> "available",
-            "price"=> 99999,
-            "status"=> "on_display"
+            "id"       => 247402196,
+            "presence" => "available",
+            "price"    => 99999,
+            "status"   => "on_display"
             )
       );
-        $client = static::getTiuApiClient();
+        $client   = static::getTiuApiClient();
         $response = $client->productEdit($parameters);
+        
         var_dump($response);
     }
     
     /**
       * Test using the method clientsList
       * 
+      * @var parameters array 
+      *      
       * @group client 
       */
     public function testClientsList()
     {
         
         $parameters = array(
-            'limit'=>1,
-            'last_id'=>8240087,
-            'search_term'=>'790000000'
+            'limit'       => 1,
+            'last_id'     => 8240087,
+            'search_term' => '790000000'
         );
         
         $client = static::getTiuApiClient();
@@ -134,8 +146,9 @@ class ApiTest extends TestCase
       */
     public function testGetClientsId()
     {
-        $client = static::getTiuApiClient();
+        $client   = static::getTiuApiClient();
         $response = $client->getClientsId(8240086);
+        
         var_dump($response);
     }
     
@@ -146,39 +159,49 @@ class ApiTest extends TestCase
       */
     public function testgroupsList()
     {
-        $client = static::getTiuApiClient();
+        $client   = static::getTiuApiClient();
         $response = $client->groupsList();
+        
         var_dump($response);
     }
 
     /**
      * Test using the method ordersSetStatus
-     *
+     * 
+     * @var parameters array
+     * 
      * @group order
      */
     public function testOrdersSetStatus()
     {
         $parameters= array (
-            "status" => "pending",
-            'ids' => array(5993155),
+            "status"              => "delivered",
+            'ids'                 => array(5993155),
             "cancellation_reason" => "not_available",
-            "cancellation_text" => "string"
+            "cancellation_text"   => "string"
         );
-        $client = static::getTiuApiClient();
+        $client   = static::getTiuApiClient();
         $response = $client->ordersSetStatus($parameters);
+        
         var_dump($response);
     }
 
     /**
      * Test using the method ordersList
      *
+     * 
+     * 
      * @group order
      */
     public function testOrdersList()
     {
-
-        $client = static::getTiuApiClient();
+        $parameters = array(
+            'status' => 'delivered',
+            'limit'  => 2
+        );
+        $client   = static::getTiuApiClient();
         $response = $client->ordersList();
+        
         var_dump($response);
     }
 
@@ -190,8 +213,9 @@ class ApiTest extends TestCase
     public function testGetOrderId()
     {
 
-        $client = static::getTiuApiClient();
+        $client   = static::getTiuApiClient();
         $response = $client->getOrderId(5993155);
+        
         var_dump($response);
     }
 
@@ -203,8 +227,9 @@ class ApiTest extends TestCase
     public function testProductsImportExel()
     {
 
-        $client = static::getTiuApiClient();
+        $client   = static::getTiuApiClient();
         $response = $client->productsImportExel();
+        
         var_dump($response);
     }
 
@@ -216,7 +241,7 @@ class ApiTest extends TestCase
     public function testCheckImportStatus()
     {
 
-        $client = static::getTiuApiClient();
+        $client   = static::getTiuApiClient();
         $response = $client->checkImportStatus();
         
         var_dump($response);
@@ -231,7 +256,7 @@ class ApiTest extends TestCase
     public function testGetMessagesList()
     {
 
-        $client = static::getTiuApiClient();
+        $client   = static::getTiuApiClient();
         $response = $client->getMessagesList();
         
         var_dump($response);
@@ -246,7 +271,7 @@ class ApiTest extends TestCase
     public function testGetMessagesId()
     {
 
-        $client = static::getTiuApiClient();
+        $client   = static::getTiuApiClient();
         $response = $client->getMessagesId(4008157);
         
         var_dump($response);
@@ -261,11 +286,12 @@ class ApiTest extends TestCase
     public function testMessagesSetStatus()
     {
         $parameters = array(
-            "status"=> "read",
+            "status"=> "unread",
             "ids"=> array(4008157)
         );
-        $client = static::getTiuApiClient();
+        $client   = static::getTiuApiClient();
         $response = $client->messagesSetStatus($parameters);
+        
         var_dump($response);
     }
 
@@ -277,11 +303,12 @@ class ApiTest extends TestCase
     public function testMessagesReply()
     {
         $parameters = array(
-            "id"=> 4008157,
-            "message"=> "Ваше сообщение очень важно для нас. С вами свяжется наш оператор"
+            "id"      => 4008157,
+            "message" => "Ваше сообщение очень важно для нас. С вами свяжется наш оператор"
         );
-        $client = static::getTiuApiClient();
+        $client   = static::getTiuApiClient();
         $response = $client->messagesReply($parameters);
+        
         var_dump($response);
     }
 }
