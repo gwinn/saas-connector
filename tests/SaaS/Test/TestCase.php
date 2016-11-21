@@ -14,6 +14,7 @@ namespace SaaS\Test;
 
 use SaaS\Http\Response;
 use SaaS\Service\Insales\Api as InSalesApi;
+use Saas\Service\Inpost\Api as InPostApi;
 
 /**
  * Class TestCase
@@ -45,6 +46,16 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $testPassword = $password ?: $_SERVER['INSALES_PASSWORD'];
 
         return new InSalesApi($testApiKey, $testPassword, $testDomain);
+    }
+
+    /**
+     * Get InPost API clent
+     *
+     * @return InpostApi
+     */
+    public static function getInpostApiClient()
+    {
+        return new InPostApi();
     }
 
     /**
