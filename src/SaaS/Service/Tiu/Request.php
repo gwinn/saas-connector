@@ -98,7 +98,7 @@ class Request
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYHOST, false);
         
         
-        $responseBody = json_decode(curl_exec($curlHandler));
+        $responseBody = curl_exec($curlHandler);
         $statusCode   = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
         
         $errno = curl_errno($curlHandler);

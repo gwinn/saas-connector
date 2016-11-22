@@ -175,7 +175,7 @@ class ApiTest extends TestCase
     public function testOrdersSetStatus()
     {
         $parameters= array (
-            "status"              => "delivered",
+            "status"              => "canceled",
             'ids'                 => array(5993155),
             "cancellation_reason" => "not_available",
             "cancellation_text"   => "string"
@@ -286,8 +286,8 @@ class ApiTest extends TestCase
     public function testMessagesSetStatus()
     {
         $parameters = array(
-            "status"=> "unread",
-            "ids"=> array(4008157)
+            "status" => "unread",
+            "ids"    => array(4008157)
         );
         $client   = static::getTiuApiClient();
         $response = $client->messagesSetStatus($parameters);

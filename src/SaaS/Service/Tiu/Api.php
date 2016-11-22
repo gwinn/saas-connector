@@ -36,7 +36,7 @@ class Api
      *
      * @return mixed
      */
-    public function __construct($token,$url)
+    public function __construct($token, $url)
     {
         $this->client = new Request($token, $url);
     }
@@ -285,12 +285,11 @@ class Api
      *
      * @return Response
      */
-    public function paymentList(array $parameters = array())
+    public function paymentList()
     {
         return $this->client->makeRequest(
             '/payment_options/list',
-            Request::METHOD_GET,
-            $parameters
+            Request::METHOD_GET
         );
     }
     
@@ -338,7 +337,7 @@ class Api
      */
     public function messagesSetStatus(array $parameters = array())
     {
-        
+         
         if (empty($parameters)) {
             throw new \InvalidArgumentException("Date parameter must be not empty");
         }
