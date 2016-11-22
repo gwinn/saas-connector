@@ -19,6 +19,11 @@
         "php": ">=5.3",
         "league/oauth2-client": "1.4.2"
     },
+    "require-dev": {
+        "phpunit/phpunit": "5.0.0",
+        "phpmd/phpmd": "2.4.*",
+        "squizlabs/php_codesniffer": "2.7.*"
+    },
     "autoload": {
         "psr-0": { "": "src/"}
     },
