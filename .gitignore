@@ -3,4 +3,5 @@
 
 /composer.phar
 /*.xml
+/nbproject
 /.idea
