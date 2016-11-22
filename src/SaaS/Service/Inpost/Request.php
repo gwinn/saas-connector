@@ -49,7 +49,7 @@ class Request
             }
         }
 
-        $this->url = 'http://wt.inpost.ru/';
+        $this->url = 'https://wt.inpost.ru/';
     }
 
     /**
@@ -65,9 +65,7 @@ class Request
     {
         $allowedMethods = array(
             self::METHOD_GET,
-            self::METHOD_POST,
-            self::METHOD_PUT,
-            self::METHOD_DELETE
+            self::METHOD_POST
         );
 
         if (!in_array($method, $allowedMethods)) {
@@ -95,28 +93,9 @@ class Request
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curlHandler, CURLOPT_TIMEOUT, 30);
 
-        if (self::METHOD_POST === $method
-            || self::METHOD_PUT === $method
-            || self::METHOD_DELETE === $method
-        ) {
-            $request_headers = array();
-            $request_headers[] = 'Content-Type: application/json';
-            $request_headers[] = 'Cache-Control: no-cache';
-            curl_setopt($curlHandler, CURLOPT_HTTPHEADER, $request_headers);
-        }
-
         if (self::METHOD_POST === $method) {
             curl_setopt($curlHandler, CURLOPT_POST, true);
-            curl_setopt($curlHandler, CURLOPT_POSTFIELDS, json_encode($parameters));
-        }
-
-        if (self::METHOD_PUT === $method) {
-            curl_setopt($curlHandler, CURLOPT_CUSTOMREQUEST, "PUT");
-            curl_setopt($curlHandler, CURLOPT_POSTFIELDS, json_encode($parameters));
-        }
-
-        if (self::METHOD_DELETE === $method) {
-            curl_setopt($curlHandler, CURLOPT_CUSTOMREQUEST, "DELETE");
+            curl_setopt($curlHandler, CURLOPT_POSTFIELDS, $parameters);
         }
 
         $responseBody = curl_exec($curlHandler);

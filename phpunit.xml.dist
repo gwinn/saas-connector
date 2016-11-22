@@ -9,41 +9,13 @@
 
     <!-- Dummy values used to provide credentials. No need to change these. -->
     <php>
-        <server name="ACTIVIZM_SECRET" value="bar" />
-        <server name="ACTIVIZM_CLIENT" value="zoo" />
-        <server name="BIZPOST_LOGIN" value="bar" />
-        <server name="BIZPOST_PASSWORD" value="zoo" />
-        <server name="ECWID_SECRET" value="bar" />
-        <server name="ECWID_CLIENT" value="zoo" />
-        <server name="LEADVERTEX_SECRET" value="bar" />
-        <server name="LEADVERTEX_CLIENT" value="zoo" />
-        <server name="ORDERINO_APIKEY" value="bar" />
-        <server name="ORDERINO_CLIENT" value="zoo" />
-        <server name="ORDERINO_COMPANY" value="zoo" />
-        <server name="TICKETSCLOUD_SECRET" value="bar" />
-        <server name="TICKETSCLOUD_CLIENT" value="zoo" />
         <server name="INSALES_API_KEY" value="bar" />
         <server name="INSALES_PASSWORD" value="zoo" />
         <server name="INSALES_DOMAIN" value="foo" />
     </php>
 
     <testsuites>
-        <testsuite name="Activizm">
-            <directory>tests/SaaS/Tests/Activizm</directory>
-        </testsuite>
-        <testsuite name="Bizpost">
-            <directory>tests/SaaS/Tests/Bizpost</directory>
-        </testsuite>
-        <testsuite name="Ecwid">
-            <directory>tests/SaaS/Tests/Ecwid</directory>
-        </testsuite>
-        <testsuite name="LeadVertex">
-            <directory>tests/SaaS/Tests/Leadvertex</directory>
-        </testsuite>
-        <testsuite name="Orderino">
-            <directory>tests/SaaS/Tests/Activizm</directory>
-        </testsuite>
-        <testsuite name="TicketsCloud">
+        <testsuite name="Inpost">
             <directory>tests/SaaS/Tests/Ticketscloud</directory>
         </testsuite>
         <testsuite name="Insales">
