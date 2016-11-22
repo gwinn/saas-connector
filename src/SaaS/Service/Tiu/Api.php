@@ -8,7 +8,7 @@
  * @author   Segey <sergeygv1990@mail.ru>
  * @license  http://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
- * 
+ *
  */
 namespace SaaS\Service\Tiu;
 
@@ -22,25 +22,23 @@ use SaaS\Http\Response;
  * @author   Sergey <sergeygv1990@mail.ru>
  * @license  http://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
- * 
+ *
  */
 class Api
 {
     private $client;
-    
+
     /**
      * Tiu creating
      *
      * @param  string $token
      * @param  string $url
-     *
-     * @return mixed
      */
     public function __construct($token, $url)
     {
         $this->client = new Request($token, $url);
     }
-    
+
     /**
      * Get orders list
      *
@@ -56,7 +54,7 @@ class Api
             $parameters
         );
     }
-    
+
     /**
      * Set orders status
      *
@@ -72,7 +70,7 @@ class Api
             $parameters
         );
     }
-    
+
     /**
      * Get orders by id
      *
@@ -82,16 +80,16 @@ class Api
      */
     public function getOrderId($id)
     {
-        
         if (empty($id)) {
             throw new \InvalidArgumentException("Order id must be not empty");
         }
-        
+
         $path = sprintf('/orders/%s', $id);
 
         return $this->client->makeRequest($path, Request::METHOD_GET);
-        
+
     }
+
     /**
      * Get clients list
      *
@@ -107,6 +105,7 @@ class Api
             $parameters
         );
     }
+
     /**
      * Get clients by id
      *
@@ -116,17 +115,16 @@ class Api
      */
     public function getClientsId($id)
     {
-        
         if (empty($id)) {
             throw new \InvalidArgumentException("Client id must be not empty");
         }
-        
+
         $path = sprintf('/clients/%s', $id);
 
         return $this->client->makeRequest($path, Request::METHOD_GET);
-        
+
     }
-    
+
     /**
      * Get prodicts list
      *
@@ -142,7 +140,7 @@ class Api
             $parameters
         );
     }
-    
+
     /**
      * Get products by id
      *
@@ -152,15 +150,15 @@ class Api
      */
     public function getProductsId($id)
     {
-        
         if (empty($id)) {
             throw new \InvalidArgumentException("Id product must be not empty");
         }
-        
+
         $path = sprintf('/products/%s', $id);
 
         return $this->client->makeRequest($path, Request::METHOD_GET);
     }
+
     /**
      * Get products by externalId
      *
@@ -170,16 +168,15 @@ class Api
      */
     public function getProductsExternalId($externalId)
     {
-        
         if (empty($externalId)) {
             throw new \InvalidArgumentException("External id product must be not empty");
         }
-        
-        $path = sprintf('/products/by_external_id/%s', $id);
+
+        $path = sprintf('/products/by_external_id/%s', $externalId);
 
         return $this->client->makeRequest($path, Request::METHOD_GET);
     }
-    
+
     /**
      * Edit product list
      *
@@ -189,19 +186,18 @@ class Api
      */
     public function productEdit(array $parameters = array())
     {
-        
         if (empty($parameters)) {
             throw new \InvalidArgumentException("Date parameter must be not empty");
         }
-        
+
         return $this->client->makeRequest(
             '/products/edit',
             Request::METHOD_POST,
             $parameters
         );
     }
-    
-    
+
+
     /**
      * Edit product by externalId
      *
@@ -211,18 +207,17 @@ class Api
      */
     public function productEditExternalId(array $parameters = array())
     {
-        
         if (empty($parameters)) {
             throw new \InvalidArgumentException("Date parameter must be not empty");
         }
-        
+
         return $this->client->makeRequest(
             '/products/edit_by_external_id',
             Request::METHOD_POST,
             $parameters
         );
     }
-    
+
     /**
      * Import products by reference to the Excel file
      *
@@ -232,36 +227,34 @@ class Api
      */
     public function productsImportExel(array $parameters = array())
     {
-        
         if (empty($parameters)) {
             throw new \InvalidArgumentException("Date parameter must be not empty");
         }
-        
+
         return $this->client->makeRequest(
             '/products/import_url',
             Request::METHOD_POST,
             $parameters
         );
     }
-    
-   /**
-     * check status imports product 
-     *
-     * @param $importId
-     *
-     * @return Response
-     */
-    public function checkImportStatus($importId)
-    {
-        
-        if (empty($importId)) {
-            throw new \InvalidArgumentException("Id import must be not empty");
-        }
-        
-        $path = sprintf('/products/import/status/%s', $importId);
 
-        return $this->client->makeRequest($path, Request::METHOD_GET);
-    }
+   /**
+    * check status imports product
+    *
+    * @param $importId
+    *
+    * @return Response
+    */
+   public function checkImportStatus($importId)
+   {
+       if (empty($importId)) {
+           throw new \InvalidArgumentException("Id import must be not empty");
+       }
+
+       $path = sprintf('/products/import/status/%s', $importId);
+
+       return $this->client->makeRequest($path, Request::METHOD_GET);
+   }
 
     /**
      * Get groups list
@@ -278,10 +271,10 @@ class Api
             $parameters
         );
     }
+
     /**
      * Get payment list
      *
-     * @param array $parameters
      *
      * @return Response
      */
@@ -292,8 +285,8 @@ class Api
             Request::METHOD_GET
         );
     }
-    
-    
+
+
     /**
      * Get message list
      *
@@ -309,7 +302,7 @@ class Api
             $parameters
         );
     }
-    
+
     /**
      * Get message by id
      *
@@ -319,15 +312,15 @@ class Api
      */
     public function getMessagesId($id)
     {
-        
         if (empty($id)) {
             throw new \InvalidArgumentException("Message id must be not empty");
         }
-        
+
         $path = sprintf('/messages/%s', $id);
 
         return $this->client->makeRequest($path, Request::METHOD_GET);
     }
+
     /**
      * Set messages status
      *
@@ -337,18 +330,18 @@ class Api
      */
     public function messagesSetStatus(array $parameters = array())
     {
-         
         if (empty($parameters)) {
             throw new \InvalidArgumentException("Date parameter must be not empty");
         }
-        
+
         return $this->client->makeRequest(
             '/messages/set_status',
             Request::METHOD_POST,
             $parameters
         );
     }
-     /**
+
+    /**
      * Send reply for message id
      *
      * @param array $parameters
@@ -364,4 +357,3 @@ class Api
         );
     }
 }
- 

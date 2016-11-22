@@ -25,152 +25,136 @@ use SaaS\Test\TestCase;
 class ApiTest extends TestCase
 {
     /**
-      * Test using the method paimentList
-      * 
-      * @group tiu
-      */
+     * Test using the method paimentList
+     *
+     * @group tiu
+     */
     public function testPaymentList()
     {
         $client   = static::getTiuApiClient();
         $response = $client->paymentList();
-        
-        var_dump($response);
+        static::checkResponse($response);
     }
-    
+
     /**
-      * Test using the method productsList
-      * 
-      * @group product
-      */
+     * Test using the method productsList
+     *
+     * @group tiu
+     */
     public function testProductsList()
     {
-        $parameters = array(
-            'limit'    => 1,
-            'group_id' => 15281654
-        );
-        
         $client   = static::getTiuApiClient();
         $response = $client->productsList();
-        
-        var_dump($response);
+        static::checkResponse($response);
     }
-    
+
     /**
-      * Test using the method getProductId
-      * 
-      * @group product
-      */
+     * Test using the method getProductId
+     *
+     * @expectedException \InvalidArgumentException
+     *
+     * @group tiu
+     */
     public function testGetProductsId()
     {
-        $client   = static::getTiuApiClient();
-        $response = $client->getProductsId(247402196);
-        var_dump($response);
+        $client = static::getTiuApiClient();
+        $client->getProductsId(null);
     }
-    
-     /**
+
+    /**
      * Test using the method getProductsExternalId
      *
-     * @group productExternalId
+     * @expectedException \InvalidArgumentException
+     *
+     * @group tiu
      */
     public function testGetProductsExternalId()
     {
-
-        $client   = static::getTiuApiClient();
-        $response = $client->getProductsExternalId();
-        
-        var_dump($response);
+        $client = static::getTiuApiClient();
+        $client->getProductsExternalId(null);
     }
-    
-     /**
+
+    /**
      * Test using the method productEditExternalId
      *
-     * @group productExternalId
+     * @expectedException \InvalidArgumentException
+     *
+     * @group tiu
      */
     public function testProductEditExternalId()
     {
-         
-        $client   = static::getTiuApiClient();
-        $response = $client->productEditExternalId();
-        
-        var_dump($response);
+        $client = static::getTiuApiClient();
+        $client->productEditExternalId();
     }
-    
+
     /**
      * Test using the method productEdit
      *
-     * @var parameters array
-     * 
-     * @group product
+     * @group tiu
      */
     public function testProductEdit()
     {
         $parameters = array(
             array(
-            "id"       => 247402196,
-            "presence" => "available",
-            "price"    => 99999,
-            "status"   => "on_display"
+                "id"       => 247402196,
+                "presence" => "available",
+                "price"    => 150,
+                "status"   => "on_display"
             )
-      );
+        );
+
         $client   = static::getTiuApiClient();
         $response = $client->productEdit($parameters);
-        
-        var_dump($response);
+        static::checkResponse($response);
     }
-    
+
     /**
       * Test using the method clientsList
-      * 
-      * @var parameters array 
-      *      
-      * @group client 
+      *
+      * @group tiu
       */
     public function testClientsList()
     {
-        
+
         $parameters = array(
             'limit'       => 1,
             'last_id'     => 8240087,
             'search_term' => '790000000'
         );
-        
+
         $client = static::getTiuApiClient();
         $response = $client->clientsList($parameters);
-        var_dump($response);
+        static::checkResponse($response);
     }
-    
+
     /**
       * Test using the method getClientsId
-      * 
-      * @group client
+      *
+      * @group tiu
       */
     public function testGetClientsId()
     {
         $client   = static::getTiuApiClient();
         $response = $client->getClientsId(8240086);
-        
-        var_dump($response);
+        static::checkResponse($response);
     }
-    
+
     /**
       * Test using the method groupsList
-      * 
-      * @group tiu 
+      *
+      * @group tiu
       */
     public function testgroupsList()
     {
         $client   = static::getTiuApiClient();
         $response = $client->groupsList();
-        
-        var_dump($response);
+        static::checkResponse($response);
     }
 
     /**
      * Test using the method ordersSetStatus
-     * 
-     * @var parameters array
-     * 
-     * @group order
+     *
+     * @group tiu
      */
     public function testOrdersSetStatus()
     {
@@ -180,18 +164,17 @@ class ApiTest extends TestCase
             "cancellation_reason" => "not_available",
             "cancellation_text"   => "string"
         );
+
         $client   = static::getTiuApiClient();
         $response = $client->ordersSetStatus($parameters);
-        
-        var_dump($response);
+        static::checkResponse($response);
+
     }
 
     /**
      * Test using the method ordersList
      *
-     * 
-     * 
-     * @group order
+     * @group tiu
      */
     public function testOrdersList()
     {
@@ -199,89 +182,53 @@ class ApiTest extends TestCase
             'status' => 'delivered',
             'limit'  => 2
         );
+
         $client   = static::getTiuApiClient();
         $response = $client->ordersList();
-        
-        var_dump($response);
+        static::checkResponse($response);
+
     }
 
     /**
      * Test using the method getOrderId
      *
-     * @group order
+     * @group tiu
      */
     public function testGetOrderId()
     {
-
         $client   = static::getTiuApiClient();
         $response = $client->getOrderId(5993155);
-        
-        var_dump($response);
-    }
-
-    /**
-     * Test using the method productsImportExel
-     *
-     * @group imports
-     */
-    public function testProductsImportExel()
-    {
-
-        $client   = static::getTiuApiClient();
-        $response = $client->productsImportExel();
-        
-        var_dump($response);
-    }
-
-    /**
-     * Test using the method productsList
-     *
-     * @group imports
-     */
-    public function testCheckImportStatus()
-    {
-
-        $client   = static::getTiuApiClient();
-        $response = $client->checkImportStatus();
-        
-        var_dump($response);
-        
+        static::checkResponse($response);
     }
 
     /**
      * Test using the method getMessagesList
      *
-     * @group message
+     * @group tiu
      */
     public function testGetMessagesList()
     {
-
         $client   = static::getTiuApiClient();
         $response = $client->getMessagesList();
-        
-        var_dump($response);
-        
+        static::checkResponse($response);
     }
 
     /**
      * Test using the method getMessagesId
      *
-     * @group message
+     * @group tiu
      */
     public function testGetMessagesId()
     {
-
         $client   = static::getTiuApiClient();
         $response = $client->getMessagesId(4008157);
-        
-        var_dump($response);
-        
+        static::checkResponse($response);
     }
 
     /**
      * Test using the method messagesSetStatus
      *
-     * @group message
+     * @group tiu
      */
     public function testMessagesSetStatus()
     {
@@ -289,16 +236,16 @@ class ApiTest extends TestCase
             "status" => "unread",
             "ids"    => array(4008157)
         );
+
         $client   = static::getTiuApiClient();
         $response = $client->messagesSetStatus($parameters);
-        
-        var_dump($response);
+        static::checkResponse($response);
     }
 
     /**
      * Test using the method messagesReply
      *
-     * @group message
+     * @group tiu
      */
     public function testMessagesReply()
     {
@@ -306,9 +253,9 @@ class ApiTest extends TestCase
             "id"      => 4008157,
             "message" => "Ваше сообщение очень важно для нас. С вами свяжется наш оператор"
         );
+
         $client   = static::getTiuApiClient();
         $response = $client->messagesReply($parameters);
-        
-        var_dump($response);
+        static::checkResponse($response);
     }
 }

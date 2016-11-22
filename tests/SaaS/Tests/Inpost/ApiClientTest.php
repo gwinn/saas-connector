@@ -81,7 +81,7 @@ class ApiClientTest extends TestCase
     public function testParselStatusException()
     {
         $client = static::getInpostApiClient();
-        $response = $client->parselStatus(null);
+        $client->parselStatus(null);
     }
 
     /**
