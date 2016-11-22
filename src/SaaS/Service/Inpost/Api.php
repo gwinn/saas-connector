@@ -180,6 +180,6 @@ class Api
             }
         }
 
-        return $this->client->makeRequest($url, Request::METHOD_GET, $parameters);
+        return $this->client->makeRequest($url, $method, $parameters);
     }
 }
