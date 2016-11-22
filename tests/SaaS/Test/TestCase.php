@@ -54,11 +54,11 @@ class TestCase extends \PHPUnit_Framework_TestCase
      *
      * @param string $token token
      * @param string $url   internal url
-     * 
+     *
      *
      * @return TiuApi
      */
-    public static function getTiuApiClient( 
+    public static function getTiuApiClient(
         $token = null,
         $url = null
     ) {
@@ -71,7 +71,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
     /**
      * Get InPost API clent
      *
-     * @return InpostApi
+     * @return InPostApi
      */
     public static function getInpostApiClient()
     {

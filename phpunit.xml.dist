@@ -14,6 +14,9 @@
         <server name="INSALES_DOMAIN" value="foo" />
         <server name="TIU_TOKEN" value="foo" />
         <server name="TIU_URL" value="foo" />
+        <server name="INPOST_KEY" value="foo" />
+        <server name="INPOST_LOGIN" value="foo" />
+        <server name="INPOST_PASSWORD" value="foo" />
     </php>
 
     <testsuites>
