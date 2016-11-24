@@ -38,7 +38,7 @@ class ApiTest extends TestCase
         $client = static::getCourieristApiClient();
         $this->assertInstanceOf('SaaS\Service\Courierist\Api', $client);
     }
-    
+
     /**
      * Test successfull Api client init
      *
@@ -50,7 +50,6 @@ class ApiTest extends TestCase
     {
         $client = static::getCourieristApiClient();
         $response = $client->getToken();
-
         return $response;
         static::checkResponse($response);
     }
@@ -69,21 +68,15 @@ class ApiTest extends TestCase
             Array
                 (
                     'address' => 'Новый Арбат 2,Москва',
-                    'delivery_date' => '2016-05-11',
-                    'delivery_from' => '18:00',
-                    'delivery_to' => '20:00'
+                    'delivery_date' => '2016-05-11'
                 ),
-
              Array
                 (
                     'address' => 'Красная площадь, Москва',
                     'latitude' => '55.822470175511',
                     'longitude' => '37.46910618045',
-                    'delivery_date' => '2016-05-12',
-                    'delivery_from' => '18:00',
-                    'delivery_to' => '20:00'
+                    'delivery_date' => '2016-05-12'
                 )
-
         ),
 
     'shipment' => Array
@@ -93,7 +86,6 @@ class ApiTest extends TestCase
                     'weight' => '1',
                     'length' => '10'
                 ),
-
             Array
                 (
                     'price' => '100',
@@ -102,7 +94,6 @@ class ApiTest extends TestCase
                     'value' => '100',
                     'unit' => '2'
                 )
-
         ));
         $token = $this->testGetToken();
         $client = static::getCourieristApiClient();
@@ -140,7 +131,6 @@ class ApiTest extends TestCase
                                     'note' =>'',
                                     'type' => '1'
                                 ),
-
                             'assignments' => Array
                                 (
                                      Array
@@ -155,11 +145,8 @@ class ApiTest extends TestCase
                                             'type' => '2',
                                             'price' => '1000'
                                         ),
-
                                 )
-
                         ),
-
                     Array
                         (
                             'address' => 'Красная площадь, Москва',
@@ -176,11 +163,8 @@ class ApiTest extends TestCase
                                     'note' => 'злой',
                                     'type' => '2'
                                 )
-
                         )
-
                 ),
-
             'shipment' => Array
                 (
                      Array
@@ -188,7 +172,6 @@ class ApiTest extends TestCase
                             'weight' => '1',
                             'length' => '10'
                         ),
-
                      Array
                         (
                             'name' => 'Кирпичи',
@@ -199,11 +182,8 @@ class ApiTest extends TestCase
                             'value' => '100',
                             'unit' => '2'
                         ),
-
                 )
-
         ));
-
         $token = $this->testGetToken();
         $client = static::getCourieristApiClient();
         $response = $client->orderCreate($token, $parameters);
@@ -211,7 +191,7 @@ class ApiTest extends TestCase
         static::checkResponse($response);
         return $testId;
     }
-    
+
     /**
      * Test successfull Api client init
      *
@@ -228,7 +208,7 @@ class ApiTest extends TestCase
         $response = $client->orderStatus($token, $id, $parameters);
         static::checkResponse($response);
     }
-    
+
     /**
      * Test successfull Api client init
      *
