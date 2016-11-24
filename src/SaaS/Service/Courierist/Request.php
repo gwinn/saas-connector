@@ -33,6 +33,7 @@ class Request
     {
         $this->url = 'http://my.courierist.com/api/v1/';    
     }
+
     /**
      * Make HTTP request
      *
