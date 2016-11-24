@@ -23,5 +23,5 @@ Set of different api clients for e-commerce SaaS
 
 ###Setup
 ```
-composer require gwinn/saas-connector dev-master
+composer require gwinn/saas-connector
 ```

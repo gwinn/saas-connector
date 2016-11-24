@@ -14,7 +14,6 @@
 namespace SaaS\Tests\Inpost;
 
 use SaaS\Test\TestCase;
-use SaaS\Http\Response;
 
 /**
  * Class ApiClientTest
@@ -38,7 +37,7 @@ class ApiClientTest extends TestCase
     public function testConstruct()
     {
         $client = static::getInpostApiClient();
-        $this->assertInstanceOf('SaaS\Service\Inpost\Api', $client);
+        static::assertInstanceOf('SaaS\Service\Inpost\Api', $client);
     }
 
     /**
@@ -114,5 +113,45 @@ class ApiClientTest extends TestCase
             )
         );
         static::checkResponse($response);
+    }
+
+    /**
+     * Test calc
+     *
+     * @group inpost
+     *
+     * @return void
+     */
+    public function testCalculate()
+    {
+        $client = static::getInpostApiClient();
+        $response = $client->calculate(
+            array(
+                'key' => 'e388c1c5df4933fa01f6da9f9259558951cc134d50b4d',
+                'city' => 'Москва',
+                'city_from' => 'Ростов-на-Дону',
+                'cost' => 3500,
+            )
+        );
+        static::checkResponse($response);
+    }
+
+    /**
+     * Test calcException
+     *
+     * @group inpost
+     *
+     * @expectedException \InvalidArgumentException
+     *
+     * @return void
+     */
+    public function testCalculateException()
+    {
+        $client = static::getInpostApiClient();
+        $client->calculate(
+            array(
+                'key' => 'e388c1c5df4933fa01f6da9f9259558951cc134d50b4d'
+            )
+        );
     }
 }
