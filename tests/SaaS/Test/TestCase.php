@@ -16,6 +16,7 @@ use SaaS\Http\Response;
 use SaaS\Service\Insales\Api as InSalesApi;
 use SaaS\Service\Tiu\Api as TiuApi;
 use Saas\Service\Inpost\Api as InPostApi;
+use SaaS\Service\Courierist\Api as CourieristApi;
 
 /**
  * Class TestCase
@@ -76,6 +77,26 @@ class TestCase extends \PHPUnit_Framework_TestCase
     public static function getInpostApiClient()
     {
         return new InPostApi();
+    }
+
+    /**
+     * Get Courieris API clent
+     *
+     * @param string $login login
+     * @param string $pass  password
+     * 
+     *
+     * @return CourieristApi
+     */
+    public static function getCourieristApiClient( 
+        $login = null,
+        $pass = null
+    ) {
+        $testLogin = !is_null($login) ? $login : $_SERVER['COURIERIST_LOGIN'];
+        $testPass =  !is_null($pass) ? $pass : $_SERVER['COURIERIST_PASS'];
+
+        return new CourieristApi($testLogin, $testPass);
+        
     }
 
     /**

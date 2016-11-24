@@ -44,10 +44,14 @@ class Request
      */
     public function makeRequest($token, $path, $method, array $parameters = array())
     {
-
-        $headers = array (
-            'Authorization: Bearer ' . $token
-        );
+        $headers = array();
+        
+        if(!empty($token)){
+            
+            $headers = array (
+                'Authorization: Bearer ' . $token
+            );
+        }
 
         $allowedMethods = array(
             self::METHOD_GET,
@@ -77,7 +81,7 @@ class Request
             $headers = array_merge($headers, array('Content-Type: application/json'));
             curl_setopt($curlHandler, CURLOPT_HTTPHEADER, $headers);
             curl_setopt($curlHandler, CURLOPT_POST, true);
-            curl_setopt($curlHandler, CURLOPT_POSTFIELDS, $parameters);
+            curl_setopt($curlHandler, CURLOPT_POSTFIELDS, json_encode($parameters));
         }
 
         curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, 1);

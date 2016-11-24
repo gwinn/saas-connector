@@ -4,7 +4,7 @@
  *
  * @category ApiClient
  * @package  SaaS\Service\Courierist
- * @author   Segey <sergeygv1990@mail.ru>
+ * @author   Sergey <sergeygv1990@mail.ru>
  * @license  http://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
  * 
@@ -14,7 +14,7 @@ namespace SaaS\Service\Courierist;
 use SaaS\Http\Response;
 
 /**
- * Tiu API Client
+ * Courierist API Client
  *
  * @category ApiClient
  * @package  SaaS\Service\Courierist
@@ -26,7 +26,7 @@ use SaaS\Http\Response;
 class Api {
 
     protected $token;
-    protected $request;   
+    protected $request;
 
     /**
      * Client constructor.
@@ -41,13 +41,11 @@ class Api {
                 "login & password must be not empty"
             );
         }
-
-        $auth = $this->auth($login, $password);
-        $data = json_decode($auth, true);
-        $token = $data['access_token'];
-
-        $this->token = $token;
         $this->request = new Request();
+        $auth = $this->auth($login, $password)->getResponse();
+        $token = $auth['access_token'];
+        
+        $this->token = $token;
     }
 
     /**
@@ -72,8 +70,8 @@ class Api {
     {
         $path = 'access/login';
         $parameters = array('login' => $login, 'password' => $password);
-
-        return $this->request->makeRequest($path, 'POST', $parameters);
+        
+        return $this->request->makeRequest(null, $path, 'POST', $parameters);
     }
 
     /**
@@ -154,7 +152,7 @@ class Api {
      * Get order
      *
      * @param string $token  security token
-     * @param string $id     order
+     * @param string $id     order id
      *
      * @return Response
      */
