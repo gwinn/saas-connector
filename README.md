@@ -6,6 +6,7 @@ Set of different api clients for e-commerce SaaS
 ###Clients:
 * [Activizm](http://activizm.ru)
 * [BizPost](http://bizpost.ru)
+* [Курьерист](http://courierist.ru)
 * [Ecwid](http://ecwid.com)
 * [Horoshop](http://goo.gl/gBlC0T)
 * [InSales](http://insales.ru)
