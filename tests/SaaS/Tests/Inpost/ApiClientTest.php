@@ -127,7 +127,7 @@ class ApiClientTest extends TestCase
         $client = static::getInpostApiClient();
         $response = $client->calculate(
             array(
-                'key' => 'e388c1c5df4933fa01f6da9f9259558951cc134d50b4d',
+                'key' => $_SERVER['INPOST_KEY'],
                 'city' => 'Москва',
                 'city_from' => 'Ростов-на-Дону',
                 'cost' => 3500,
@@ -151,6 +151,87 @@ class ApiClientTest extends TestCase
         $client->calculate(
             array(
                 'key' => 'e388c1c5df4933fa01f6da9f9259558951cc134d50b4d'
+            )
+        );
+    }
+
+    /**
+     * Test parsel create
+     *
+     * @group inpost
+     *
+     * @return void
+     */
+    public function testParselCreate()
+    {
+        $client = static::getInpostApiClient();
+        $response = $client->parselCreate(
+            array(
+                'telephonenumber' => $_SERVER['INPOST_LOGIN'],
+                'password' => $_SERVER['INPOST_PASSWORD'],
+                'parcels' => $_SERVER['INPOST_PARSEL'],
+                'packcodes' => 1,
+            )
+        );
+        static::checkResponse($response);
+    }
+
+    /**
+     * Test parsel create exception
+     *
+     * @group inpost
+     *
+     * @expectedException \InvalidArgumentException
+     *
+     * @return void
+     */
+    public function testParselCreateException()
+    {
+        $client = static::getInpostApiClient();
+        $client->parselCreate(
+            array(
+                'parcels' => $_SERVER['INPOST_PARSEL'],
+                'packcodes' => 1,
+            )
+        );
+    }
+
+    /**
+     * Test parsel printout
+     *
+     * @group inpost
+     *
+     * @return void
+     */
+    public function testParselPrintout()
+    {
+        $client = static::getInpostApiClient();
+        $response = $client->parselPrintout(
+            array(
+                'telephonenumber' => $_SERVER['INPOST_LOGIN'],
+                'password' => $_SERVER['INPOST_PASSWORD'],
+                'parcels' => json_encode(array($_SERVER['INPOST_PARSELS']))
+            )
+        );
+
+        static::checkResponse($response);
+    }
+
+    /**
+     * Test parsel printout exception
+     *
+     * @group inpost
+     *
+     * @expectedException \InvalidArgumentException
+     *
+     * @return void
+     */
+    public function testParselPrintoutException()
+    {
+        $client = static::getInpostApiClient();
+        $client->parselPrintout(
+            array(
+                'parcels' => json_encode(array($_SERVER['INPOST_PARSELS']))
             )
         );
     }

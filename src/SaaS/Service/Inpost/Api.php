@@ -182,4 +182,70 @@ class Api
 
         return $this->client->makeRequest($url, $method, $parameters);
     }
+
+    /**
+     * Create parsel
+     *
+     * @param array   $params
+     * @param string  $type
+     *
+     * @see https://wt.inpost.ru/doc/createdeliverypacks
+     *
+     * @return \SaaS\Http\Response
+     */
+    public function parselCreate($params, $type = 'json')
+    {
+        if (empty($params['telephonenumber']) || empty($params['password']) || empty($params['parcels'])) {
+            throw new \InvalidArgumentException(
+                'Parameters `telephonenumber`, `password` and `parcels` must not be empty'
+            );
+        }
+
+        $url = 'createdeliverypacks';
+
+        $parameters = array(
+            'type' => $type
+        );
+
+        foreach ($params as $key => $value) {
+            if (!empty($params[$key])) {
+                $parameters[$key] = $value;
+            }
+        }
+
+        return $this->client->makeRequest($url, Request::METHOD_POST, $parameters);
+    }
+
+    /**
+     * Get parsel printout
+     *
+     * @param array   $params
+     * @param string  $type
+     *
+     * @see https://wt.inpost.ru/doc/confirmprintout
+     *
+     * @return \SaaS\Http\Response
+     */
+    public function parselPrintout($params, $type = 'json')
+    {
+        if (empty($params['telephonenumber']) || empty($params['password']) || empty($params['parcels'])) {
+            throw new \InvalidArgumentException(
+                'Parameters `telephonenumber`, `password` and `parcels` must not be empty'
+            );
+        }
+
+        $url = 'confirmprintout';
+
+        $parameters = array(
+            'type' => $type
+        );
+
+        foreach ($params as $key => $value) {
+            if (!empty($params[$key])) {
+                $parameters[$key] = $value;
+            }
+        }
+
+        return $this->client->makeRequest($url, Request::METHOD_POST, $parameters);
+    }
 }
