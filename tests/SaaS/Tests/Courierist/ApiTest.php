@@ -26,6 +26,8 @@ use SaaS\Http\Response;
  */
 class ApiTest extends TestCase
 {
+    private $testId;
+
     /**
      * Test successfull Api client init
      *
@@ -49,12 +51,11 @@ class ApiTest extends TestCase
     public function testGetToken()
     {
         $client = static::getCourieristApiClient();
-        $response = $client->getToken();
-        return $response;
-        static::checkResponse($response);
+        $token = $client->getToken();
+        $this->assertNotEmpty($token);
     }
 
-   /**
+    /**
      * Test successfull Api client init
      *
      * @group courierist
@@ -63,149 +64,134 @@ class ApiTest extends TestCase
      */
     public function testOrderCost()
     {
-        $parameters = array('locations' => Array
-        (
-            Array
-                (
+        $parameters = array(
+            'locations' => array(
+                array(
                     'address' => 'Новый Арбат 2,Москва',
                     'delivery_date' => '2016-05-11'
                 ),
-             Array
-                (
+                array(
                     'address' => 'Красная площадь, Москва',
                     'latitude' => '55.822470175511',
                     'longitude' => '37.46910618045',
                     'delivery_date' => '2016-05-12'
                 )
-        ),
-
-    'shipment' => Array
-        (
-            Array
-                (
+            ),
+            'shipment' => array(
+                array(
                     'weight' => '1',
                     'length' => '10'
                 ),
-            Array
-                (
+                array(
                     'price' => '100',
                     'weight' => '1',
                     'length' => '10',
                     'value' => '100',
                     'unit' => '2'
                 )
-        ));
-        $token = $this->testGetToken();
-        $client = static::getCourieristApiClient();
-        $response = $client->orderCost($token, $parameters);
+            )
+        );
 
+        $client = static::getCourieristApiClient();
+        $token = $client->getToken();
+        $response = $client->orderCost($token, $parameters);
         static::checkResponse($response);
-    }
+}
 
     /**
-     * Test successfull Api client init
-     *
-     * @group courierist
-     *
-     * @return void
-     */
+    * Test successfull Api client init
+    *
+    * @group courierist
+    *
+    * @return void
+    */
     public function testOrderCreate()
     {
-        $parameters = Array(Array
-        (
-            'comment' => 'Выполнить быстро!',
-            'locations' => Array
-                (
-                     Array
-                        (
-                            'address' => 'Новый Арбат 2, Москва',
-                            'delivery_date' => '2016-05-11',
-                            'delivery_from' => '18:00',
-                            'delivery_to' => '20:00',
-                            'comment' => 'Test',
-                            'external_id' => 'MY14124',
-                            'contact' => Array
-                                (
-                                    'name' => 'офис 1',
-                                    'phone' =>'', 
-                                    'note' =>'',
-                                    'type' => '1'
-                                ),
-                            'assignments' => Array
-                                (
-                                     Array
-                                        (
-                                            'name' => 'test owners patience',
-                                            'price' => '1000'
-                                        ),
-
-                                     Array
-                                        (
-                                            'name' => 'praise owners humility',
-                                            'type' => '2',
-                                            'price' => '1000'
-                                        ),
-                                )
+        $parameters = array(
+            array(
+                'comment' => 'Выполнить быстро!',
+                'locations' => array(
+                    array(
+                        'address' => 'Новый Арбат 2, Москва',
+                        'delivery_date' => '2016-05-11',
+                        'delivery_from' => '18:00',
+                        'delivery_to' => '20:00',
+                        'comment' => 'Test',
+                        'external_id' => 'MY14124',
+                        'contact' => array(
+                            'name' => 'офис 1',
+                            'phone' =>'',
+                            'note' =>'',
+                            'type' => '1'
                         ),
-                    Array
-                        (
-                            'address' => 'Красная площадь, Москва',
-                            'latitude' => '55.822470175511',
-                            'longitude' => '37.46910618045',
-                            'delivery_date' => '2016-05-12',
-                            'delivery_from' => '18:00',
-                            'delivery_to' => '20:00',
-                            'external_id' => '555',
-                            'contact' => Array
-                                (
-                                    'name' => 'Клиент 1',
-                                    'phone' => '9995551122',
-                                    'note' => 'злой',
-                                    'type' => '2'
-                                )
+                        'assignments' => array(
+                            array(
+                                'name' => 'test owners patience',
+                                'price' => '1000'
+                            ),
+                            array(
+                                'name' => 'praise owners humility',
+                                'type' => '2',
+                                'price' => '1000'
+                            ),
                         )
+                    ),
+                    array(
+                        'address' => 'Красная площадь, Москва',
+                        'latitude' => '55.822470175511',
+                        'longitude' => '37.46910618045',
+                        'delivery_date' => '2016-05-12',
+                        'delivery_from' => '18:00',
+                        'delivery_to' => '20:00',
+                        'external_id' => '555',
+                        'contact' => array(
+                            'name' => 'Клиент 1',
+                            'phone' => '9995551122',
+                            'note' => 'злой',
+                            'type' => '2'
+                        )
+                    )
                 ),
-            'shipment' => Array
-                (
-                     Array
-                        (
-                            'weight' => '1',
-                            'length' => '10'
-                        ),
-                     Array
-                        (
-                            'name' => 'Кирпичи',
-                            'article' => 'а111',
-                            'price' => '100',
-                            'weight' => '1',
-                            'length' => '10',
-                            'value' => '100',
-                            'unit' => '2'
-                        ),
+                'shipment' => array(
+                    array(
+                        'weight' => '1',
+                        'length' => '10'
+                    ),
+                    array(
+                        'name' => 'Кирпичи',
+                        'article' => 'а111',
+                        'price' => '100',
+                        'weight' => '1',
+                        'length' => '10',
+                        'value' => '100',
+                        'unit' => '2'
+                    ),
                 )
-        ));
-        $token = $this->testGetToken();
+            )
+        );
+
         $client = static::getCourieristApiClient();
+        $token = $client->getToken();
         $response = $client->orderCreate($token, $parameters);
-        $testId = $response['orders'][0]['id'];
+        $responseBody = $response->getResponse();
+        $this->testId = $responseBody['orders'][0]['id'];
         static::checkResponse($response);
-        return $testId;
     }
 
     /**
      * Test successfull Api client init
      *
      * @group courierist
+     * @depends testOrderCreate
      *
      * @return void
      */
     public function testOrderStatus()
     {
         $parameters = array('status'=>'30');
-        $token = $this->testGetToken();
-        $id = $this->testOrderCreate();
         $client = static::getCourieristApiClient();
-        $response = $client->orderStatus($token, $id, $parameters);
+        $token = $client->getToken();
+        $response = $client->orderStatus($token, $this->testId, $parameters);
         static::checkResponse($response);
     }
 
@@ -213,15 +199,15 @@ class ApiTest extends TestCase
      * Test successfull Api client init
      *
      * @group courierist
+     * @depends testOrderCreate
      *
      * @return void
      */
     public function testOrder()
     {
-        $token = $this->testGetToken();
-        $id = $this->testOrderCreate();
         $client = static::getCourieristApiClient();
-        $response = $client->order($token, $id);
+        $token = $client->getToken();
+        $response = $client->order($token, $this->testId);
         static::checkResponse($response);
     }
 
@@ -234,8 +220,8 @@ class ApiTest extends TestCase
      */
     public function testOrdersAll()
     {
-        $token = $this->testGetToken();
         $client = static::getCourieristApiClient();
+        $token = $client->getToken();
         $response = $client->ordersAll($token);
         static::checkResponse($response);
     }

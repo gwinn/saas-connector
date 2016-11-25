@@ -23,7 +23,7 @@ use SaaS\Http\Response;
  * @link     http://github.com/gwinn/saas-connector
  */
 class Request
-{    
+{
     const METHOD_GET = 'GET';
     const METHOD_POST = 'POST';
 
@@ -31,24 +31,25 @@ class Request
 
     public function __construct()
     {
-        $this->url = 'http://my.courierist.com/api/v1/';    
+        $this->url = 'http://my.courierist.com/api/v1/';
     }
 
     /**
      * Make HTTP request
      *
+     * @param string $token      security token
      * @param string $path       request url
      * @param string $method     method request
      * @param array  $parameters (default: array())
      *
-     * @return Response
+     * @return \SaaS\Http\Response
      */
     public function makeRequest($token, $path, $method, array $parameters = array())
     {
         $headers = array();
-        
+
         if(!empty($token)){
-            
+
             $headers = array (
                 'Authorization: Bearer ' . $token
             );
