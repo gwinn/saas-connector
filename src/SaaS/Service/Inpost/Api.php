@@ -27,7 +27,6 @@ class Api
 
     /**
      * Constructor
-     *
      */
     public function __construct()
     {
@@ -37,8 +36,8 @@ class Api
     /**
      * Get city list
      *
-     * @param string $type
-     * @param string $encoding
+     * @param string $type     response type
+     * @param string $encoding encoding
      *
      * @see https://wt.inpost.ru/doc/citylist
      *
@@ -55,8 +54,8 @@ class Api
     /**
      * Get parsel status
      *
-     * @param string $type
-     * @param string $code
+     * @param string $code parsel code
+     * @param string $type response type
      *
      * @see https://wt.inpost.ru/doc/parcelstatus
      *
@@ -81,8 +80,8 @@ class Api
     /**
      * Get parsel statuses list
      *
-     * @param string $encoding
-     * @param string $type
+     * @param string $type     response type
+     * @param string $encoding encoding
      *
      * @see https://wt.inpost.ru/doc/parcelstatuses
      *
@@ -99,8 +98,8 @@ class Api
     /**
      * Search terminal
      *
-     * @param array  $params
-     * @param string $type
+     * @param array  $params method parameters
+     * @param string $type   response type
      *
      * @see https://wt.inpost.ru/doc/terminal_search
      *
@@ -137,9 +136,9 @@ class Api
     /**
      * Calculate delivery cost
      *
-     * @param array  $params
-     * @param string $type
-     * @param string $encoding
+     * @param array  $params   method parameters
+     * @param string $type     response type
+     * @param string $encoding encoding
      *
      * @see https://wt.inpost.ru/doc/calc
      *
@@ -186,8 +185,8 @@ class Api
     /**
      * Create parsel
      *
-     * @param array   $params
-     * @param string  $type
+     * @param array  $params method params
+     * @param string $type   response type
      *
      * @see https://wt.inpost.ru/doc/createdeliverypacks
      *
@@ -195,9 +194,17 @@ class Api
      */
     public function parselCreate($params, $type = 'json')
     {
-        if (empty($params['telephonenumber']) || empty($params['password']) || empty($params['parcels'])) {
+        if (empty($params['telephonenumber'])
+            || empty($params['password'])
+            || empty($params['parcels'])
+        ) {
             throw new \InvalidArgumentException(
-                'Parameters `telephonenumber`, `password` and `parcels` must not be empty'
+                sprintf(
+                    "Parameters `%s`, `%s` and `%s` must not be empty",
+                    "telephonenumber",
+                    "password",
+                    "parcels"
+                )
             );
         }
 
@@ -219,8 +226,8 @@ class Api
     /**
      * Get parsel printout
      *
-     * @param array   $params
-     * @param string  $type
+     * @param array  $params method params
+     * @param string $type   response type
      *
      * @see https://wt.inpost.ru/doc/confirmprintout
      *
@@ -228,9 +235,17 @@ class Api
      */
     public function parselPrintout($params, $type = 'json')
     {
-        if (empty($params['telephonenumber']) || empty($params['password']) || empty($params['parcels'])) {
+        if (empty($params['telephonenumber'])
+            || empty($params['password'])
+            || empty($params['parcels'])
+        ) {
             throw new \InvalidArgumentException(
-                'Parameters `telephonenumber`, `password` and `parcels` must not be empty'
+                sprintf(
+                    "Parameters `%s`, `%s` and `%s` must not be empty",
+                    "telephonenumber",
+                    "password",
+                    "parcels"
+                )
             );
         }
 
