@@ -171,7 +171,6 @@ class Api
             if (!empty($params[$key])) {
                 if ($key == 'dimensions') {
                     $parameters[$key] = json_encode($value);
-                    $method = Request::METHOD_POST;
                 } else {
                     $parameters[$key] = $value;
                 }
