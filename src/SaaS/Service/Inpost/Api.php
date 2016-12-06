@@ -158,27 +158,26 @@ class Api
             );
         }
 
-        $url = 'calc';
+        $data = [];
 
         $parameters = array(
             'type' => $type,
             'encoding' => $encoding
         );
 
-        $method = Request::METHOD_GET;
-
         foreach ($params as $key => $value) {
             if (!empty($params[$key])) {
                 if ($key == 'dimensions') {
-                    $parameters[$key] = json_encode($value);
+                    $data['dimensions'] = $value;
                 } else {
                     $parameters[$key] = $value;
                 }
-
             }
         }
 
-        return $this->client->makeRequest($url, $method, $parameters);
+        $url = 'calc?' . http_build_query($parameters);
+
+        return $this->client->makeRequest($url, Request::METHOD_POST, $data);
     }
 
     /**
