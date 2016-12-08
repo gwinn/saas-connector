@@ -55,10 +55,16 @@ class Response implements \ArrayAccess
                     );
 
                 } else {
-                    throw new InvalidArgumentException("ErrorResponce #$this->statusCode $responseBody", $this->statusCode);
+                    throw new InvalidArgumentException(
+                        "ErrorResponce #$this->statusCode $responseBody",
+                        $this->statusCode
+                    );
                 }
             }
-            if (!$response && $this->statusCode != 200 && JSON_ERROR_NONE !== ($error = json_last_error())) {
+            if (!$response
+                && $this->statusCode != 200
+                && JSON_ERROR_NONE !== ($error = json_last_error())
+            ) {
                 throw new InvalidJsonException(
                     "Invalid JSON in the API response body. Error code #$error",
                     $error
@@ -82,7 +88,7 @@ class Response implements \ArrayAccess
     /**
      * Return HTTP response body
      *
-     * @return int
+     * @return mixed
      */
     public function getResponse()
     {
