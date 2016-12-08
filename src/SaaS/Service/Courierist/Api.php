@@ -7,7 +7,7 @@
  * @author   Sergey <sergeygv1990@mail.ru>
  * @license  http://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
- * 
+ *
  */
 namespace SaaS\Service\Courierist;
 
@@ -21,7 +21,7 @@ use SaaS\Http\Response;
  * @author   Sergey <sergeygv1990@mail.ru>
  * @license  http://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
- * 
+ *
  */
 class Api {
 
@@ -33,6 +33,8 @@ class Api {
      *
      * @param string $login    user login
      * @param string $password user password
+     *
+     * @throws \ErrorException
      */
     public function __construct($login, $password)
     {
@@ -41,11 +43,16 @@ class Api {
                 "login & password must be not empty"
             );
         }
+
         $this->request = new Request();
-        $auth = $this->auth($login, $password)->getResponse();
-        $token = $auth['access_token'];
-        
-        $this->token = $token;
+
+        try {
+            $auth = $this->auth($login, $password)->getResponse();
+            $this->token = $auth['access_token'];
+        } catch (\InvalidArgumentException $ex)
+        {
+            throw new \ErrorException("Wrong login or password");
+        }
     }
 
     /**
@@ -70,7 +77,7 @@ class Api {
     {
         $path = 'access/login';
         $parameters = array('login' => $login, 'password' => $password);
-        
+
         return $this->request->makeRequest(null, $path, 'POST', $parameters);
     }
 
@@ -126,7 +133,7 @@ class Api {
      * @param string $token       security token
      * @param string $id          id order
      * @param array  $parameters  set of parameters
-     * 
+     *
      * @return Response
      */
     public function orderStatus($token, $id, array $parameters = array())
