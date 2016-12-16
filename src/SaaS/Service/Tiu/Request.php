@@ -3,27 +3,25 @@
 /**
  * PHP version 5.3
  *
- * @category FreshLogic
+ * @category Tiu
  * @package  SaaS
- * @author   Alex Lushpai <lushpai@gmail.com>
+ * @author   Sergey <sergeygv1990@mail.ru>
  * @license  http://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
- * @see      http://fresh-logic.ru/
  */
-namespace SaaS\Service\Freshlogic;
+namespace SaaS\Service\Tiu;
 
 use SaaS\Exception\CurlException;
 use SaaS\Http\Response;
 
 /**
- * FreshLogic request class
+ * Tiu request class
  *
- * @category FreshLogic
+ * @category Tiu
  * @package  SaaS
- * @author   Alex Lushpai <lushpai@gmail.com>
+ * @author   Sergey <sergeygv1990@mail.ru>
  * @license  http://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
- * @see      http://fresh-logic.ru/
  */
 class Request
 {
@@ -31,34 +29,40 @@ class Request
     const METHOD_POST = 'POST';
 
     protected $url;
+    protected $token;
 
     /**
      * Request constructor.
      *
-     * @param array $defaultParameters default parameters
+     * @param string $token   shop token
      */
-    public function __construct(array $defaultParameters = array())
+    public function __construct($token, $url)
     {
-        $this->url = 'http://api.fresh-logic.ru/api.svc/';
-        $this->defaultParameters = $defaultParameters;
+        $this->url = $url . '/api/v1';
+        $this->token = $token;
     }
 
     /**
      * Make HTTP request
      *
-     * @param string $path       request path
+     * @param string $path       method path
      * @param string $method     (default: 'GET')
      * @param array  $parameters (default: array())
      *
      * @return Response
      */
-    public function makeRequest($path, $method, array $parameters = array())
+     public function makeRequest($path, $method, array $parameters = array())
     {
+        $headers = array (
+            'Authorization: Bearer ' . $this->token,
+            'Content-Type: application/json'
+        );
+        
         $allowedMethods = array(
             self::METHOD_GET,
             self::METHOD_POST
         );
-
+        
         if (!in_array($method, $allowedMethods)) {
             throw new \InvalidArgumentException(
                 sprintf(
@@ -68,37 +72,35 @@ class Request
                 )
             );
         }
-
-        $url = $this->url . $path;
-
-        $parameters = array_merge($this->defaultParameters, $parameters);
-
+        
+        $path = $this->url . $path;
+        
         if (self::METHOD_GET === $method) {
-            $url .= '?' . http_build_query($parameters);
+            $path .= '?' . http_build_query($parameters, '', '&');
         }
-
+        
         $curlHandler = curl_init();
-        curl_setopt($curlHandler, CURLOPT_URL, $url);
-        curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curlHandler, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($curlHandler, CURLOPT_URL, $path);
+        curl_setopt($curlHandler, CURLOPT_HTTPHEADER, $headers);
+        
+        
+        if (self::METHOD_POST === $method) {
+            curl_setopt($curlHandler, CURLOPT_POST, true);    
+            curl_setopt($curlHandler, CURLOPT_POSTFIELDS, json_encode($parameters));
+        }
+        
+           
+        curl_setopt($curlHandler, CURLOPT_TIMEOUT, 30);
+        curl_setopt($curlHandler, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curlHandler, CURLOPT_FAILONERROR, false);
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curlHandler, CURLOPT_TIMEOUT, 30);
-
-        if (self::METHOD_POST === $method) {
-            $request_headers = array();
-            $request_headers[] = 'Content-Type: application/json';
-            $request_headers[] = 'Cache-Control: no-cache';
-
-            curl_setopt($curlHandler, CURLOPT_HTTPHEADER, $request_headers);
-            curl_setopt($curlHandler, CURLOPT_POST, true);
-            curl_setopt($curlHandler, CURLOPT_POSTFIELDS, json_encode($parameters));
-        }
-
+        
+        
         $responseBody = curl_exec($curlHandler);
-        $statusCode = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
-
+        $statusCode   = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
+        
         $errno = curl_errno($curlHandler);
         $error = curl_error($curlHandler);
 
@@ -109,5 +111,6 @@ class Request
         }
 
         return new Response($statusCode, $responseBody);
+          
     }
 }

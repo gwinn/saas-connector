@@ -3,27 +3,27 @@
 /**
  * PHP version 5.3
  *
- * @category FreshLogic
- * @package  SaaS
+ * @category ApiClient
+ * @package  SaaS\Service\Inpost
  * @author   Alex Lushpai <lushpai@gmail.com>
  * @license  http://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
- * @see      http://fresh-logic.ru/
+ * @see      https://wt.inpost.ru/
  */
-namespace SaaS\Service\Freshlogic;
+namespace SaaS\Service\Inpost;
 
 use SaaS\Exception\CurlException;
 use SaaS\Http\Response;
 
 /**
- * FreshLogic request class
+ * InpostRequest
  *
- * @category FreshLogic
- * @package  SaaS
+ * @category ApiClient
+ * @package  SaaS\Service\Inpost
  * @author   Alex Lushpai <lushpai@gmail.com>
  * @license  http://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
- * @see      http://fresh-logic.ru/
+ * @see      https://wt.inpost.ru/
  */
 class Request
 {
@@ -33,20 +33,9 @@ class Request
     protected $url;
 
     /**
-     * Request constructor.
-     *
-     * @param array $defaultParameters default parameters
-     */
-    public function __construct(array $defaultParameters = array())
-    {
-        $this->url = 'http://api.fresh-logic.ru/api.svc/';
-        $this->defaultParameters = $defaultParameters;
-    }
-
-    /**
      * Make HTTP request
      *
-     * @param string $path       request path
+     * @param string $path       exact method url
      * @param string $method     (default: 'GET')
      * @param array  $parameters (default: array())
      *
@@ -69,9 +58,11 @@ class Request
             );
         }
 
-        $url = $this->url . $path;
+        $this->url = ('calc' == $path)
+            ? 'http://wt.qiwipost.ru/'
+            : 'https://wt.inpost.ru/';
 
-        $parameters = array_merge($this->defaultParameters, $parameters);
+        $url = $this->url . $path;
 
         if (self::METHOD_GET === $method) {
             $url .= '?' . http_build_query($parameters);
@@ -80,20 +71,13 @@ class Request
         $curlHandler = curl_init();
         curl_setopt($curlHandler, CURLOPT_URL, $url);
         curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curlHandler, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($curlHandler, CURLOPT_FAILONERROR, false);
-        curl_setopt($curlHandler, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curlHandler, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curlHandler, CURLOPT_TIMEOUT, 30);
 
         if (self::METHOD_POST === $method) {
-            $request_headers = array();
-            $request_headers[] = 'Content-Type: application/json';
-            $request_headers[] = 'Cache-Control: no-cache';
-
-            curl_setopt($curlHandler, CURLOPT_HTTPHEADER, $request_headers);
             curl_setopt($curlHandler, CURLOPT_POST, true);
-            curl_setopt($curlHandler, CURLOPT_POSTFIELDS, json_encode($parameters));
+            curl_setopt($curlHandler, CURLOPT_POSTFIELDS, $parameters);
+            curl_setopt($curlHandler, CURLOPT_HEADER, 0);
         }
 
         $responseBody = curl_exec($curlHandler);

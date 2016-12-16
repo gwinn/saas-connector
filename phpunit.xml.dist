@@ -9,42 +9,29 @@
 
     <!-- Dummy values used to provide credentials. No need to change these. -->
     <php>
-        <server name="ACTIVIZM_SECRET" value="bar" />
-        <server name="ACTIVIZM_CLIENT" value="zoo" />
-        <server name="BIZPOST_LOGIN" value="bar" />
-        <server name="BIZPOST_PASSWORD" value="zoo" />
-        <server name="ECWID_SECRET" value="bar" />
-        <server name="ECWID_CLIENT" value="zoo" />
-        <server name="LEADVERTEX_SECRET" value="bar" />
-        <server name="LEADVERTEX_CLIENT" value="zoo" />
-        <server name="ORDERINO_APIKEY" value="bar" />
-        <server name="ORDERINO_CLIENT" value="zoo" />
-        <server name="ORDERINO_COMPANY" value="zoo" />
-        <server name="TICKETSCLOUD_SECRET" value="bar" />
-        <server name="TICKETSCLOUD_CLIENT" value="zoo" />
         <server name="INSALES_API_KEY" value="bar" />
         <server name="INSALES_PASSWORD" value="zoo" />
         <server name="INSALES_DOMAIN" value="foo" />
+        <server name="TIU_TOKEN" value="foo" />
+        <server name="TIU_URL" value="foo" />
+        <server name="COURIERIST_LOGIN" value="foo" />
+        <server name="COURIERIST_PASS" value="foo" />
+        <server name="INPOST_KEY" value="foo" />
+        <server name="INPOST_LOGIN" value="foo" />
+        <server name="INPOST_PASSWORD" value="foo" />
+        <server name="INPOST_PARSEL" value="foo" />
+        <server name="INPOST_PARSELS" value="foo" />
     </php>
 
     <testsuites>
-        <testsuite name="Activizm">
-            <directory>tests/SaaS/Tests/Activizm</directory>
+        <testsuite name="InPost">
+            <directory>tests/SaaS/Tests/Inpost</directory>
         </testsuite>
-        <testsuite name="Bizpost">
-            <directory>tests/SaaS/Tests/Bizpost</directory>
+        <testsuite name="Tiu">
+            <directory>tests/SaaS/Tests/Tiu</directory>
         </testsuite>
-        <testsuite name="Ecwid">
-            <directory>tests/SaaS/Tests/Ecwid</directory>
-        </testsuite>
-        <testsuite name="LeadVertex">
-            <directory>tests/SaaS/Tests/Leadvertex</directory>
-        </testsuite>
-        <testsuite name="Orderino">
-            <directory>tests/SaaS/Tests/Activizm</directory>
-        </testsuite>
-        <testsuite name="TicketsCloud">
-            <directory>tests/SaaS/Tests/Ticketscloud</directory>
+        <testsuite name="Courierist">
+            <directory>tests/SaaS/Tests/Courierist</directory>
         </testsuite>
         <testsuite name="Insales">
             <directory>tests/SaaS/Tests/Insales</directory>

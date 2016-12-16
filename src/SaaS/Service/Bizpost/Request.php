@@ -3,39 +3,42 @@
 /**
  * PHP version 5.3
  *
- * @package SaaS\Service\Bizpost
- * @author Alex Lushpai <lushpai@gmail.com>
- * @license http://opensource.org/licenses/MIT MIT License
- * @link http://github.com/gwinn/saas-connector
+ * @category BizPost
+ * @package  SaaS
+ * @author   Alex Lushpai <lushpai@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT License
+ * @link     http://github.com/gwinn/saas-connector
+ * @see      https://bizpost.ru/doc/bizpost_API_current.zip
  */
-
 namespace SaaS\Service\Bizpost;
 
 use SaaS\Exception\CurlException;
 use SaaS\Http\Response;
 
 /**
- * Bizpost request class
+ * BizPost request class
  *
- * @package SaaS\Service\Bizpost
- * @author Alex Lushpai <lushpai@gmail.com>
- * @license http://opensource.org/licenses/MIT MIT License
- * @link http://github.com/gwinn/saas-connector
+ * @category BizPost
+ * @package  SaaS
+ * @author   Alex Lushpai <lushpai@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT License
+ * @link     http://github.com/gwinn/saas-connector
+ * @see      https://bizpost.ru/doc/bizpost_API_current.zip
  */
 class Request
 {
     const METHOD_GET = 'GET';
     const METHOD_POST = 'POST';
 
-    private $url;
-    private $login;
-    private $password;
+    protected $url;
+    protected $login;
+    protected $password;
 
     /**
      * Request constructor.
      *
-     * @param $login
-     * @param $password
+     * @param string $login    user login
+     * @param string $password user password
      */
     public function __construct($login, $password)
     {
@@ -47,10 +50,11 @@ class Request
     /**
      * Make HTTP request
      *
-     * @param string $path
-     * @param string $method (default: 'GET')
-     * @param array $parameters (default: array())
-     * @return array
+     * @param string $path       method path
+     * @param string $method     (default: 'GET')
+     * @param array  $parameters (default: array())
+     *
+     * @return Response
      */
     public function makeRequest($path, $method, array $parameters = array())
     {
@@ -60,11 +64,13 @@ class Request
         );
 
         if (!in_array($method, $allowedMethods)) {
-            throw new \InvalidArgumentException(sprintf(
-                'Method "%s" is not valid. Allowed methods are %s',
-                $method,
-                implode(', ', $allowedMethods)
-            ));
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Method "%s" is not valid. Allowed methods are %s',
+                    $method,
+                    implode(', ', $allowedMethods)
+                )
+            );
         }
 
         $path = $this->url . $path;
@@ -106,6 +112,6 @@ class Request
             throw new CurlException($error, $errno);
         }
 
-        return array('statusCode' => $statusCode, 'response' => $responseBody);
+        return new Response($statusCode, $responseBody);
     }
 }

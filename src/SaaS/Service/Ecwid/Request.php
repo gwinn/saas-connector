@@ -3,24 +3,27 @@
 /**
  * PHP version 5.3
  *
- * @package SaaS\Service\Ecwid
- * @author Alex Lushpai <lushpai@gmail.com>
- * @license http://opensource.org/licenses/MIT MIT License
- * @link http://github.com/gwinn/saas-connector
+ * @category Ecwid
+ * @package  SaaS
+ * @author   Alex Lushpai <lushpai@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT License
+ * @link     http://github.com/gwinn/saas-connector
+ * @see      http://api.ecwid.com/
  */
-
 namespace SaaS\Service\Ecwid;
 
 use SaaS\Exception\CurlException;
 use SaaS\Http\Response;
 
 /**
- * EcwidRequest
+ * Ecwid request class
  *
- * @package SaaS\Service\Ecwid
- * @author Alex Lushpai <lushpai@gmail.com>
- * @license http://opensource.org/licenses/MIT MIT License
- * @link http://github.com/gwinn/saas-connector
+ * @category Ecwid
+ * @package  SaaS
+ * @author   Alex Lushpai <lushpai@gmail.com>
+ * @license  http://opensource.org/licenses/MIT MIT License
+ * @link     http://github.com/gwinn/saas-connector
+ * @see      http://api.ecwid.com/
  */
 class Request
 {
