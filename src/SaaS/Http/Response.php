@@ -6,7 +6,7 @@
  * @category SaaS
  * @package  SaaS
  * @author   Alex Lushpai <lushpai@gmail.com>
- * @license  http://opensource.org/licenses/MIT MIT License
+ * @license  http://retailcrm.ru Proprietary
  * @link     http://github.com/gwinn/saas-connector
  * @see      http://github.com/gwinn/saas-connector
  */
@@ -21,7 +21,7 @@ use SaaS\Exception\InvalidJsonException;
  * @category SaaS
  * @package  SaaS
  * @author   Alex Lushpai <lushpai@gmail.com>
- * @license  http://opensource.org/licenses/MIT MIT License
+ * @license  http://retailcrm.ru Proprietary
  * @link     http://github.com/gwinn/saas-connector
  * @see      http://github.com/gwinn/saas-connector
  */
@@ -46,8 +46,7 @@ class Response implements \ArrayAccess
             if ($this->statusCode >= 400 && $this->statusCode < 500) {
                 if (is_array($response)) {
                     foreach ($response as $key =>  $value) {
-                        $message[] =  "ErrorResponce#$this->statusCode [$key] "
-                            . (is_array($value) ? implode(' ', $value) : $value);
+                        $message[] =  (is_array($value) ? implode(', ', $value) : $value);
                     }
                     throw new InvalidArgumentException(
                         implode(' ', $message),

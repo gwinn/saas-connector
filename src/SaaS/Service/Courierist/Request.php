@@ -5,7 +5,7 @@
  * @category Courierist
  * @package  SaaS
  * @author   Sergey <sergeygv1990@mail.ru>
- * @license  http://opensource.org/licenses/MIT MIT License
+ * @license  http://retailcrm.ru Proprietary
  * @link     http://github.com/gwinn/saas-connector
  */
 namespace SaaS\Service\Courierist;
@@ -19,7 +19,7 @@ use SaaS\Http\Response;
  * @category Courierist
  * @package  SaaS
  * @author   Sergey <sergeygv1990@mail.ru>
- * @license  http://opensource.org/licenses/MIT MIT License
+ * @license  http://retailcrm.ru Proprietary
  * @link     http://github.com/gwinn/saas-connector
  */
 class Request

@@ -5,7 +5,7 @@
  * @category ApiClient
  * @package  SaaS\Service\Courierist
  * @author   Sergey <sergeygv1990@mail.ru>
- * @license  http://opensource.org/licenses/MIT MIT License
+ * @license  http://retailcrm.ru Proprietary
  * @link     http://github.com/gwinn/saas-connector
  *
  */
@@ -19,7 +19,7 @@ use SaaS\Http\Response;
  * @category ApiClient
  * @package  SaaS\Service\Courierist
  * @author   Sergey <sergeygv1990@mail.ru>
- * @license  http://opensource.org/licenses/MIT MIT License
+ * @license  http://retailcrm.ru Proprietary
  * @link     http://github.com/gwinn/saas-connector
  *
  */
@@ -33,8 +33,6 @@ class Api {
      *
      * @param string $login    user login
      * @param string $password user password
-     *
-     * @throws \ErrorException
      */
     public function __construct($login, $password)
     {
@@ -43,16 +41,11 @@ class Api {
                 "login & password must be not empty"
             );
         }
-
         $this->request = new Request();
+        $auth = $this->auth($login, $password)->getResponse();
+        $token = $auth['access_token'];
 
-        try {
-            $auth = $this->auth($login, $password)->getResponse();
-            $this->token = $auth['access_token'];
-        } catch (\InvalidArgumentException $ex)
-        {
-            throw new \ErrorException("Wrong login or password");
-        }
+        $this->token = $token;
     }
 
     /**
@@ -84,19 +77,20 @@ class Api {
     /**
      * Get cost of order
      *
-     * @param string $token      security token
      * @param array  $parameters set of parameters
      *
      * @return Response
      */
-    public function orderCost($token, array $parameters = array())
+    public function orderCost(array $parameters = array())
     {
+        $token = $this->getToken();
+
         if (empty($token)) {
             throw new \InvalidArgumentException("Access token must be not empty");
         }
 
         if (empty($parameters)) {
-            throw new \InvalidArgumentException("Parameters responce must be not empty");
+            throw new \InvalidArgumentException("Parameters response must be not empty");
         }
 
         $path = 'order/evaluate';
@@ -107,13 +101,14 @@ class Api {
     /**
      * Set orders create
      *
-     * @param string $token      security token
      * @param array  $parameters set of parameters
      *
      * @return Response
      */
-    public function orderCreate($token, array $parameters = array())
+    public function orderCreate(array $parameters = array())
     {
+        $token = $this->getToken();
+
         if (empty($token)) {
             throw new \InvalidArgumentException("Access token must be not empty");
         }
@@ -130,14 +125,15 @@ class Api {
     /**
      * Set order status
      *
-     * @param string $token       security token
      * @param string $id          id order
      * @param array  $parameters  set of parameters
      *
      * @return Response
      */
-    public function orderStatus($token, $id, array $parameters = array())
+    public function orderStatus($id, array $parameters = array())
     {
+        $token = $this->getToken();
+
         if (empty($token)) {
             throw new \InvalidArgumentException("Access token must be not empty");
         }
@@ -158,13 +154,14 @@ class Api {
     /**
      * Get order
      *
-     * @param string $token  security token
      * @param string $id     order id
      *
      * @return Response
      */
-    public function order($token, $id)
+    public function order($id)
     {
+        $token = $this->getToken();
+
         if (empty($token)) {
             throw new \InvalidArgumentException("Access token must be not empty");
         }
@@ -181,12 +178,12 @@ class Api {
     /**
      * Get all orders
      *
-     * @param string $token  security token
-     *
      * @return Response
      */
-    public function ordersAll($token)
+    public function ordersAll()
     {
+        $token = $this->getToken();
+
         if (empty($token)) {
             throw new \InvalidArgumentException("Access token must be not empty");
         }
