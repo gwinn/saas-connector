@@ -5,7 +5,7 @@
  * @category ApiClient
  * @package  SaaS\Service\Courierist
  * @author   Sergey <sergeygv1990@mail.ru>
- * @license  http://retailcrm.ru Proprietary
+ * @license http://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
  *
  */

@@ -6,7 +6,7 @@
  * @category SaaS
  * @package  SaaS
  * @author   Alex Lushpai <lushpai@gmail.com>
- * @license  http://retailcrm.ru Proprietary
+ * @license http://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
  * @see      http://github.com/gwinn/saas-connector
  */
