@@ -17,6 +17,7 @@ use SaaS\Service\Insales\Api as InSalesApi;
 use SaaS\Service\Tiu\Api as TiuApi;
 use Saas\Service\Inpost\Api as InPostApi;
 use SaaS\Service\Courierist\Api as CourieristApi;
+use SaaS\Service\Moysklad\Api as MoyskladApi;
 
 /**
  * Class TestCase
@@ -96,6 +97,25 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $testPass =  !is_null($pass) ? $pass : $_SERVER['COURIERIST_PASS'];
 
         return new CourieristApi($testLogin, $testPass);
+    }
+
+    /**
+     * Get Moysklad API clent
+     *
+     * @param string $login login
+     * @param string $pass  password
+     *
+     *
+     * @return MoyskladApi
+     */
+    public static function getMoyskladApiClient(
+        $login = null,
+        $pass = null
+    ) {
+        $testLogin = !is_null($login) ? $login : $_SERVER['MOYSKLAD_LOGIN'];
+        $testPass =  !is_null($pass) ? $pass : $_SERVER['MOYSKLAD_PASSWORD'];
+
+        return new MoyskladApi($testLogin, $testPass);
     }
 
     /**
