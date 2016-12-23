@@ -21,6 +21,8 @@
         <server name="INPOST_PASSWORD" value="foo" />
         <server name="INPOST_PARSEL" value="foo" />
         <server name="INPOST_PARSELS" value="foo" />
+        <server name="MOYSKLAD_LOGIN" value="foo" />
+        <server name="MOYSKLAD_PASSWORD" value="bar" />
     </php>
 
     <testsuites>
@@ -35,6 +37,9 @@
         </testsuite>
         <testsuite name="Insales">
             <directory>tests/SaaS/Tests/Insales</directory>
+        </testsuite>
+        <testsuite name="Moysklad">
+            <directory>tests/SaaS/Tests/Moysklad</directory>
         </testsuite>
     </testsuites>
 
