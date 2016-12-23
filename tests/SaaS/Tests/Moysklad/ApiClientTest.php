@@ -31,6 +31,8 @@ class ApiClientTest extends TestCase
     /**
      * Provider for exception get request tests
      *
+     * @group moysklad
+     *
      * @return array
      */
     public function providerGetException()
@@ -104,6 +106,8 @@ class ApiClientTest extends TestCase
 
     /**
      * Provider for exception create request tests
+     *
+     * @group moysklad
      *
      * @return array
      */
@@ -189,6 +193,8 @@ class ApiClientTest extends TestCase
     /**
      * Provider for exception update request tests
      *
+     * @group moysklad
+     *
      * @return array
      */
     public function providerUpdateException()
@@ -244,6 +250,8 @@ class ApiClientTest extends TestCase
 
     /**
      * Provider for exception delete request tests
+     *
+     * @group moysklad
      *
      * @return array
      */
