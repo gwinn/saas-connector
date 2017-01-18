@@ -390,4 +390,20 @@ class ApiClientTest extends TestCase
 
         $client->deleteData($type, $uuid);
     }
+
+    /**
+     * Test api request
+     *
+     * @group moysklad
+     *
+     * @return void
+     */
+    public function testApiRequest()
+    {
+        $client = static::getMoyskladApiClient();
+
+        $response = $client->getData(array('store'));
+
+        static::checkResponse($response);
+    }
 }

@@ -145,8 +145,7 @@ class Request
         curl_setopt($curlHandler, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($curlHandler, CURLOPT_CONNECTTIMEOUT, 60);
 
-        if (
-            !is_null($parameters) &&
+        if (!is_null($parameters) &&
             in_array($method, array(self::METHOD_POST, self::METHOD_PUT)) &&
             !empty($parameters['data'])
         ) {
@@ -268,15 +267,15 @@ class Request
     private function getError($result)
     {
         $error = "";
-        if(!empty($result['errors'])){
+        if (!empty($result['errors'])) {
             foreach ($result['errors'] as $err) {
-                if(!empty($err['parameter'])){
+                if (!empty($err['parameter'])) {
                     $error .= "[".date("Y-m-d H:i:s")."] Error ".$err['parameter'].": ".$err['error']."\n";
-                }else{
+                } else {
                     $error .= "[".date("Y-m-d H:i:s")."] Error: ".$err['error']."\n";
                 }
             }
-        }else{
+        } else {
             $error = "[".date("Y-m-d H:i:s")."] Internal server error";
         }
 
