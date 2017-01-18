@@ -14,6 +14,7 @@
 namespace SaaS\Service\Moysklad;
 
 use SaaS\Http\Response;
+use SaaS\Exception\MoySkladException;
 
 /**
  * MoySklad API Client
@@ -41,6 +42,7 @@ class Api
 
     /**
      * JsonAPI client МойСклад
+     *
      * @var client
      * @access protected
      */
@@ -48,49 +50,70 @@ class Api
 
     /**
      * Entity mapping
+     *
      * @var entity
      * @access protected
      */
     protected $entity = array(
-        "counterparty" => "entity",
-        "consignment" => "entity",
-        "currency" => "entity",
-        "productFolder" => "entity",
-        "service" => "entity",
-        "product" => "entity",
-        "contract" => "entity",
-        "variant" => "entity",
-        "project" => "entity",
-        "state" => "entity",
-        "employee" => "entity",
-        "store" => "entity",
-        "organization" => "entity",
-        "retailshift" => "entity",
-        "retailstore" => "entity",
-        "cashier" => "entity",
-        "customerOrder" => "entity",
-        "demand" => "entity",
-        "invoiceout" => "entity",
-        "retaildemand" => "entity",
-        "purchaseOrder" => "entity",
-        "supply" => "entity",
-        "invoicein" => "entity",
-        "paymentin" => "entity",
-        "paymentout" => "entity",
-        "cashin" => "entity",
-        "cashout" => "entity",
-        "companysettings" => "entity",
-        "expenseItem" => "entity",
-        "country" => "entity",
-        "uom" => "entity",
-        "customentity" => "entity",
-        "salesreturn" => "entity",
-        "purchasereturn" => "entity",
-        "stock" => "report",
-        "assortment" => "pos",
-        "openshift" => "pos",
-        "closeshift" => "pos",
-        "webhook" => "entity"
+        'salesreturn' => 'entity',
+        'counterparty' => 'report',
+        'dashboard' => 'report',
+        'dasboard' => 'report',
+        'assortment' => 'entity',
+        'currency' => 'entity',
+        'product' => 'entity',
+        'service' => 'entity',
+        'productfolder' => 'entity',
+        'variant' => 'entity',
+        'consignment' => 'entity',
+        'contract' => 'entity',
+        'project' => 'entity',
+        'companysettings' => 'entity',
+        'expenseitem' => 'entity',
+        'country' => 'entity',
+        'group' => 'entity',
+        'discount' => 'entity',
+        'uom' => 'entity',
+        'uon' => 'entity',
+        'employee' => 'entity',
+        'customentity' => 'entity',
+        'store' => 'entity',
+        'organization' => 'entity',
+        'retailstore' => 'entity',
+        'cashier' => 'entity',
+        'webhook' => 'entity',
+        'move' => 'entity',
+        'demand' => 'entity',
+        'paymentin' => 'entity',
+        'cashin' => 'entity',
+        'retailshift' => 'entity',
+        'enter' => 'entity',
+        'customerorder' => 'entity',
+        'purchaseorder' => 'entity',
+        'purchase' => 'entity',
+        'invoiceout' => 'entity',
+        'invoicein' => 'entity',
+        'paymentout' => 'entity',
+        'cashout' => 'entity',
+        'supply' => 'entity',
+        'loss' => 'entity',
+        'retaildemand' => 'entity',
+        'retailsalesreturn' => 'entity',
+        'retaildrawercashin' => 'entity',
+        'retaildrawercashout' => 'entity',
+        'purchasereturn' => 'entity',
+        'factureout' => 'entity',
+        'facturein' => 'entity',
+        'inventory' => 'entity',
+        'commissionreportin' => 'entity',
+        'commissionreportout' => 'entity',
+        'pricelist' => 'entity',
+        'processingplan' => 'entity',
+        'processingorder' => 'entity',
+        'processing' => 'entity',
+        'internalorder' => 'entity',
+        'stock' => 'report',
+        'sales' => 'report'
     );
 
     /**
@@ -118,6 +141,8 @@ class Api
      * @param string $login
      * @param string $password
      *
+     * @throws MoySkladException
+     *
      * @access public
      *
      * @return void
@@ -125,6 +150,18 @@ class Api
     public function __construct($login, $password)
     {
         $this->client = new Request($login, $password);
+    }
+    
+    /**
+     * Getter
+     *
+     * @param string $property
+     *
+     * @return Mixed
+     */
+    public function __get($property)
+    {
+        return $this->{$property};
     }
 
     /**
@@ -142,8 +179,7 @@ class Api
     public function getData(
         $params,
         $filters = array()
-    )
-    {
+    ) {
         if (empty($params) || is_null($params)) {
             throw new \InvalidArgumentException('The `params` can not be empty');
         }
@@ -156,7 +192,7 @@ class Api
             throw new \InvalidArgumentException('Wrong `type`: `type` must be a "string"');
         }
 
-        if (empty($this->entity[reset($params)])) {
+        if (empty($this->entity[strtolower(reset($params))])) {
             throw new \InvalidArgumentException('Undefined data type');
         }
 
@@ -179,7 +215,7 @@ class Api
                                 )
                             );
                         }
-                        foreach ($filters as $index=>$value) {
+                        foreach ($filters as $index => $value) {
                             $filter[$index] = $value;
                         }
                         unset($index, $value);
@@ -213,7 +249,7 @@ class Api
                 break;
         }
 
-        $uri = $this->entity[reset($params)] . '/';
+        $uri = $this->entity[strtolower(reset($params))] . '/';
 
         foreach ($params as $param) {
             $uri .= $param . '/';
@@ -265,14 +301,14 @@ class Api
             throw new \InvalidArgumentException('The `param` can not be empty');
         }
 
-        if (empty($this->entity[$type])) {
+        if (empty($this->entity[strtolower($type)])) {
             throw new \InvalidArgumentException('Undefined data type');
         }
 
         $parameters['data'] = $data;
 
         return $this->client->makeRequest(
-            $this->entity[$type] . '/' . $type . (!is_null($uuid) ? ('/'.$uuid) : ''),
+            $this->entity[strtolower($type)] . '/' . $type . (!is_null($uuid) ? ('/'.$uuid) : ''),
             Request::METHOD_POST,
             $parameters
         );
@@ -299,7 +335,7 @@ class Api
             throw new \InvalidArgumentException('Wrong `type`: `type` must be a "string"');
         }
 
-        if (empty($this->entity[$type])) {
+        if (empty($this->entity[strtolower($type)])) {
             throw new \InvalidArgumentException('Undefined data type');
         }
 
@@ -316,7 +352,7 @@ class Api
         $parameters['data'] = $data;
 
         return $this->client->makeRequest(
-            sprintf($this->entity[$type] . '/' . $type . '/%s', $uuid),
+            sprintf($this->entity[strtolower($type)] . '/' . $type . '/%s', $uuid),
             Request::METHOD_PUT,
             $parameters
         );
@@ -342,14 +378,14 @@ class Api
             throw new \InvalidArgumentException('Wrong `type`: `type` must be a "string"');
         }
 
-        if (empty($this->entity[$type])) {
+        if (empty($this->entity[strtolower($type)])) {
             throw new \InvalidArgumentException('Undefined data type');
         }
 
         $this->checkUuid($uuid);
 
         return $this->client->makeRequest(
-            sprintf($this->entity[$type] . '/' . $type . '/%s', $uuid),
+            sprintf($this->entity[strtolower($type)] . '/' . $type . '/%s', $uuid),
             Request::METHOD_DELETE
         );
     }

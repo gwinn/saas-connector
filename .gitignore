@@ -5,3 +5,5 @@
 /*.xml
 /nbproject
 /.idea
+composer
+phpunit.phar
