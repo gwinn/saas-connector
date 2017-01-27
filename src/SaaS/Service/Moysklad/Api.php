@@ -132,7 +132,8 @@ class Api
         "isDeleted",
         "limit",
         "offset",
-        "filters"
+        "filters",
+        "expand"
     );
 
     /**
@@ -210,7 +211,7 @@ class Api
                         if (!empty(array_diff(array_keys($filters), $this->main_filters))) {
                             throw new \InvalidArgumentException(
                                 sprintf(
-                                    'Wrong filters: `%s`',
+                                    'Wrong main filters: `%s`',
                                     implode(', ', array_diff(array_keys($filters), $this->main_filters))
                                 )
                             );
