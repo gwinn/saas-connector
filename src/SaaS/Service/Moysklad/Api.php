@@ -31,7 +31,15 @@ class Api
     /**
      * Requests
      */
-    const REQUEST_ATTRIBUTES_MAIN = array('metadata', 'all', 'bystore', 'byoperation');
+    const REQUEST_ATTRIBUTES_MAIN = array(
+        'metadata',
+        'all',
+        'bystore',
+        'byoperation',
+        'day',
+        'week',
+        'month'
+    );
     const REQUEST_ATTRIBUTES_SECOND = array(
         'accounts',
         'contactpersons',
