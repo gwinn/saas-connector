@@ -64,7 +64,7 @@ class Api
      */
     protected $entity = array(
         'salesreturn' => 'entity',
-        'counterparty' => 'report',
+        'counterparty' => 'entity',
         'dashboard' => 'report',
         'dasboard' => 'report',
         'assortment' => 'entity',
