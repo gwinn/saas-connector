@@ -222,7 +222,7 @@ class Request
             foreach ($parameters as $name => $value) {
                 if ($name == 'filters') {
                     if (!empty($value) & is_array($value)) {
-                        $filter = '&' . $this->buildFilter($value);
+                        $filter = $this->buildFilter($value) . '&';
                     }
                     continue;
                 }
@@ -232,7 +232,11 @@ class Request
             $params = array_merge($params, $filters);
         }
 
-        return '?' . http_build_query($params) . $filter;
+        return '?' . (
+                !empty($params) ?
+                (http_build_query($params) . '&') :
+                ''
+            ) . trim($filter, '&');
     }
 
     /**
