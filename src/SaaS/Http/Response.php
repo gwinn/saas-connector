@@ -6,7 +6,7 @@
  * @category SaaS
  * @package  SaaS
  * @author   Alex Lushpai <lushpai@gmail.com>
- * @license  http://opensource.org/licenses/MIT MIT License
+ * @license http://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
  * @see      http://github.com/gwinn/saas-connector
  */
@@ -21,7 +21,7 @@ use SaaS\Exception\InvalidJsonException;
  * @category SaaS
  * @package  SaaS
  * @author   Alex Lushpai <lushpai@gmail.com>
- * @license  http://opensource.org/licenses/MIT MIT License
+ * @license  http://retailcrm.ru Proprietary
  * @link     http://github.com/gwinn/saas-connector
  * @see      http://github.com/gwinn/saas-connector
  */
@@ -46,8 +46,7 @@ class Response implements \ArrayAccess
             if ($this->statusCode >= 400 && $this->statusCode < 500) {
                 if (is_array($response)) {
                     foreach ($response as $key =>  $value) {
-                        $message[] =  "ErrorResponce#$this->statusCode [$key] "
-                            . (is_array($value) ? implode(' ', $value) : $value);
+                        $message[] =  (is_array($value) ? implode(', ', $value) : $value);
                     }
                     throw new InvalidArgumentException(
                         implode(' ', $message),
@@ -55,10 +54,16 @@ class Response implements \ArrayAccess
                     );
 
                 } else {
-                    throw new InvalidArgumentException("ErrorResponce #$this->statusCode $responseBody", $this->statusCode);
+                    throw new InvalidArgumentException(
+                        "ErrorResponce #$this->statusCode $responseBody",
+                        $this->statusCode
+                    );
                 }
             }
-            if (!$response && $this->statusCode != 200 && JSON_ERROR_NONE !== ($error = json_last_error())) {
+            if (!$response
+                && $this->statusCode != 200
+                && JSON_ERROR_NONE !== ($error = json_last_error())
+            ) {
                 throw new InvalidJsonException(
                     "Invalid JSON in the API response body. Error code #$error",
                     $error
@@ -82,7 +87,7 @@ class Response implements \ArrayAccess
     /**
      * Return HTTP response body
      *
-     * @return int
+     * @return mixed
      */
     public function getResponse()
     {

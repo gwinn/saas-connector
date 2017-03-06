@@ -13,6 +13,7 @@ Set of different api clients for e-commerce SaaS
 * [InPost](http://inpost.ru)
 * [TIU](http://tiu.ru)
 * [Leadvertex](http://leadvertex.ru)
+* [Мой Склад](http://moysklad.ru)
 * [Orderino](http://orderino.com/)
 * [TicketsCloud](http://ticketscloud.org)
 

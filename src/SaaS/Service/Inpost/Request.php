@@ -33,24 +33,6 @@ class Request
     protected $url;
 
     /**
-     * Request constructor.
-     *
-     * @param array $defaultParameters set of default parameters
-     */
-    public function __construct($defaultParameters = array())
-    {
-        foreach ($defaultParameters as $key => $value) {
-            if (empty($value)) {
-                throw new \InvalidArgumentException(
-                    sprintf("parameter %s can not be empty", $key)
-                );
-            }
-        }
-
-        $this->url = 'https://wt.inpost.ru/';
-    }
-
-    /**
      * Make HTTP request
      *
      * @param string $path       exact method url
@@ -76,6 +58,10 @@ class Request
             );
         }
 
+        $this->url = ('calc' == $path)
+            ? 'http://wt.qiwipost.ru/'
+            : 'https://wt.inpost.ru/';
+
         $url = $this->url . $path;
 
         if (self::METHOD_GET === $method) {
@@ -85,15 +71,13 @@ class Request
         $curlHandler = curl_init();
         curl_setopt($curlHandler, CURLOPT_URL, $url);
         curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curlHandler, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($curlHandler, CURLOPT_FAILONERROR, false);
-        curl_setopt($curlHandler, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curlHandler, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curlHandler, CURLOPT_TIMEOUT, 30);
 
         if (self::METHOD_POST === $method) {
             curl_setopt($curlHandler, CURLOPT_POST, true);
             curl_setopt($curlHandler, CURLOPT_POSTFIELDS, $parameters);
+            curl_setopt($curlHandler, CURLOPT_HEADER, 0);
         }
 
         $responseBody = curl_exec($curlHandler);

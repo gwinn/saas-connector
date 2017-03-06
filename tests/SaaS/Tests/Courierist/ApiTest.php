@@ -13,7 +13,6 @@
 namespace src\SaaS\Tests\Courierist;
 
 use SaaS\Test\TestCase;
-use SaaS\Http\Response;
 
 /**
  * Class Test
@@ -39,6 +38,19 @@ class ApiTest extends TestCase
     {
         $client = static::getCourieristApiClient();
         $this->assertInstanceOf('SaaS\Service\Courierist\Api', $client);
+    }
+
+    /**
+     * Test exception Api client init
+     *
+     * @group courierist
+     *
+     * @expectedException \ErrorException
+     * @return void
+     */
+    public function testConstructException()
+    {
+        static::getCourieristApiClient('aa', 'aa');
     }
 
     /**
