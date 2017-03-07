@@ -18,6 +18,7 @@ use SaaS\Service\Tiu\Api as TiuApi;
 use Saas\Service\Inpost\Api as InPostApi;
 use SaaS\Service\Courierist\Api as CourieristApi;
 use SaaS\Service\Moysklad\Api as MoyskladApi;
+use SaaS\Service\Iml\Api as ImlApi;
 
 /**
  * Class TestCase
@@ -116,6 +117,28 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $testPass =  !is_null($pass) ? $pass : $_SERVER['MOYSKLAD_PASSWORD'];
 
         return new MoyskladApi($testLogin, $testPass);
+    }
+    
+    /**
+     * Get Moysklad API clent
+     *
+     * @param string $login login
+     * @param string $pass  password
+     *
+     *
+     * @return ImlApi
+     */
+    public static function getImlApiClient(
+        $login = null,
+        $pass = null
+    ) {
+        /**
+         * $login = 03361
+         * $pass = V1Di61fm
+         */
+        $testLogin = !is_null($login) ? $login : $_SERVER['IML_LOGIN'];
+        $testPass =  !is_null($pass) ? $pass : $_SERVER['IML_PASSWORD'];
+        return new ImlApi($testLogin, $testPass);
     }
 
     /**
