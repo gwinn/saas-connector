@@ -124,11 +124,11 @@ class Api {
     }
     
     /**
-     * Get list delivery status
+     * Get reference delivery status
      * 
      * @return Responce
      */
-    public function listDeliveryStatus(){
+    public function getListDeliveryStatus(){
         
         return $this->client->makeRequest('deliverystatus', 
                 'GET');
@@ -136,11 +136,11 @@ class Api {
     }
     
     /**
-     * Get list order status
+     * Get reference order status
      * 
      * @return Responce
      */
-    public function listOrderStatus(){
+    public function getListOrderStatus(){
         
         return $this->client->makeRequest('orderstatus', 
                 'GET');
@@ -148,11 +148,11 @@ class Api {
     }
     
     /**
-     * Get list region
+     * Get reference region
      * 
      * @return Responce
      */
-    public function listRegion(){
+    public function getListRegion(){
         
         return $this->client->makeRequest('region', 
                 'GET');
@@ -160,11 +160,13 @@ class Api {
     }
     
     /**
-     * Get  list ex items
+     * Get  list point self-delivery
+     * 
+     * @param string $regionCode region from list region
      * 
      * @return Responce
      */
-    public function listSD($regionCode = null){
+    public function getListSD($regionCode = null){
         
         $parameters = array();
         
@@ -178,11 +180,11 @@ class Api {
     }
     
     /**
-     * Get list service
+     * Get reference service
      * 
      * @return Responce
      */
-    public function listService(){
+    public function getListService(){
         
         return $this->client->makeRequest('service', 
                 'GET');
@@ -190,7 +192,7 @@ class Api {
     }
     
     /**
-     * Get list service
+     * Get resource limit
      * 
      * @return Responce
      */
@@ -202,7 +204,7 @@ class Api {
     }
     
     /**
-     * Get list service
+     * Get location warehouse
      * 
      * @return Responce
      */
@@ -214,7 +216,7 @@ class Api {
     }
     
     /**
-     * Get list service
+     * Get zone delivery
      * 
      * @return Responce
      */
@@ -226,7 +228,7 @@ class Api {
     }
     
     /**
-     * Get list service
+     * Get exeption service region
      * 
      * @return Responce
      */
@@ -238,7 +240,7 @@ class Api {
     }
     
     /**
-     * Get list service
+     * Get post delivery limit
      * 
      * @return Responce
      */
@@ -250,7 +252,7 @@ class Api {
     }
     
     /**
-     * Get list service
+     * Get location warehouse expanded
      * 
      * @return Responce
      */
@@ -262,7 +264,7 @@ class Api {
     }
     
     /**
-     * Get list service
+     * Get list status
      * 
      * @return Responce
      */
@@ -274,7 +276,7 @@ class Api {
     }
     
     /**
-     * Get list service
+     * Get post zone delivery
      * 
      * @return Responce
      */
@@ -286,19 +288,31 @@ class Api {
     }
     
     /**
-     * Get list service
+     * Get post delivery for code
+     * 
+     * @param $index index post (requared)
      * 
      * @return Responce
      */
-    public function getPostCode(){
+    public function getPostCode($index){
+        
+        $parameters = array();
+        
+        if(empty($index) || !isset($index)){
+            throw new \InvalidArgumentException(
+                "index must be established and must be not empty"
+            );
+        }else{
+            $parameters = array('index' => $index);
+        }
         
         return $this->client->makeRequest('PostCode', 
-                'GET');
+                'GET',$parameters);
         
     }
     
     /**
-     * Get list service
+     * Get calendar IML
      * 
      * @return Responce
      */
@@ -310,7 +324,7 @@ class Api {
     }
     
     /**
-     * Get list service
+     * Get All references
      * 
      * @return Responce
      */

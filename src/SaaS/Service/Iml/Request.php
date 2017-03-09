@@ -59,6 +59,13 @@ class Request
             self::METHOD_POST
         );
         
+        $apiListMethods = array(
+            'deliverystatus',
+            'orderstatus',
+            'region',
+            'service'
+        );
+        
         if (!in_array($method, $allowedMethods)) {
             throw new \InvalidArgumentException(
                 sprintf(
@@ -69,15 +76,20 @@ class Request
             );
         }
         
-        if(self::METHOD_GET === $method){
-            $url = 'https://api.iml.ru/list/';
-        }
-        
-        if(self::METHOD_POST === $method){
+        if (self::METHOD_GET === $method && in_array($path, $apiListMethods)){
+            $url = 'https://api.iml.ru/json/';
+        } elseif(self::METHOD_GET === $method && !in_array($path, $apiListMethods)){
+            $url = 'https://list.iml.ru/';
+        }else {
             $url = 'https://api.iml.ru/json/';
         }
         
+        if (self::METHOD_GET === $method){
+           $path .= '?' . http_build_query($parameters, '', '&');
+        }
+        
         $url = $url . $path;
+        
         $curlHandler = curl_init();
         curl_setopt($curlHandler, CURLOPT_URL, $url);
         curl_setopt($curlHandler, CURLOPT_HTTPHEADER, $headers);
@@ -94,14 +106,14 @@ class Request
         curl_setopt($curlHandler, CURLOPT_FAILONERROR, false);
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curlHandler, CURLOPT_TIMEOUT, 30);
-        curl_setopt($curlHandler, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($curlHandler, CURLOPT_TIMEOUT, 60);
+        curl_setopt($curlHandler, CURLOPT_CONNECTTIMEOUT, 60);
         $responseBody = curl_exec($curlHandler);
         $statusCode   = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
 
         $errno = curl_errno($curlHandler);
         $error = curl_error($curlHandler);
-
+        
         curl_close($curlHandler);
 
         if ($errno) {

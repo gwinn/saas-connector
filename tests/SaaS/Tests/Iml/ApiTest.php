@@ -25,14 +25,14 @@ use SaaS\Test\TestCase;
 class ApiTest extends TestCase
 {
     /**
-     * get order status 
+     * Create order
      * 
-     * @group imlcreate
+     * @group iml
      */
     public function testCreateOrder() {
         $parameters = array(
             'Test' => 'True', // для тестового режима, иначе не указывайте
-            'CustomerOrder' => '2346C',
+            'CustomerOrder' => '2346asd',
             'DeliveryDate' => '01.06.2017', // не обязательно, при отсутствии создаст ближайшую 
             'Job' => '24КО', // из справочника услуг
             'BarCode' => '', // не обязательно, будет сгенерирован
@@ -64,34 +64,32 @@ class ApiTest extends TestCase
         );
         $client = static::getImlApiClient();
         $response =$client->createOrder($parameters);
-        var_dump($response);
         static::checkResponse($response);
     }
     
     /**
-     * get order status 
+     * calc order price 
      * 
-     * @group imlcalc
+     * @group iml
      */
     public function testCalcOrderPrice() {
         $parameters = array(
-            'Job' => 'C24', 
-            'RegionFrom' => 'МОСКВА', 
-            'RegionTo' => 'САРАТОВ', 
-            'Volume' => 2, 
-            'Weigth' => 0.2,
-            'SpecialCode' => '3'
+            'Job' => 'C24', // справочник
+            'RegionFrom' => 'МОСКВА', // справочник 
+            'RegionTo' => 'МОСКВА', // справочник
+            'Volume' => 5, 
+            'Weigth' => 5,
+            'SpecialCode' => '3' //код пункта самовывоза, только для самовывозных услуг, параметр RequestCode в соответствующем справочнике
         );
         $client = static::getImlApiClient();
         $response =$client->calcOrderPrice($parameters);
-        var_dump($response);
         static::checkResponse($response);
     }
     
     /**
-     * get order status 
+     * get orders statuses 
      * 
-     * @group imlget
+     * @group iml
      */
     public function testGetOrderStatuses() {
         $parameters = array(
@@ -100,77 +98,209 @@ class ApiTest extends TestCase
         );
         $client = static::getImlApiClient();
         $response =$client->getOrderStatuses($parameters);
-        var_dump($response);
         static::checkResponse($response);
     }
     
     /**
-     * get order status 
+     * get orders
      * 
-     * @group imlget
+     * @group iml
      */
     public function testGetOrders() {
         $parameters = array(
             'test'=>true,
-           'CustomerOrder'=>'2346C'
+            'CustomerOrder'=>'2346C'
         );
         $client = static::getImlApiClient();
         $response =$client->getOrders($parameters);
-        var_dump($response);
         static::checkResponse($response);
     }
     
     /**
-     * get service list
+     * get list delivery statuses
      * 
      * @group iml
      */
-    public function testListDeliveryStatus() {
+    public function testGetListDeliveryStatus() {
         $client = static::getImlApiClient();
-        $response = $client->listDeliveryStatus();
+        $response = $client->getListDeliveryStatus();
         static::checkResponse($response);
     }
+    
     /**
-     * get service list
+     * get list order stasuses
      * 
      * @group iml
      */
-    public function testListOrderStatus() {
+    public function testGetListOrderStatus() {
         $client = static::getImlApiClient();
-        $response = $client->listOrderStatus();
+        $response = $client->getListOrderStatus();
         static::checkResponse($response);
     }
     /**
-     * get service list
+     * get list regions
      * 
      * @group iml
      */
-    public function testListRegion() {
+    public function testGetListRegion() {
         $client = static::getImlApiClient();
-        $response = $client->listRegion();
+        $response = $client->getListRegion();
         static::checkResponse($response);
     }
+    
     /**
-     * get service list
+     * get list points of self-export
      * 
-     * @group imlSD
+     * @group iml
      */
-    public function testListSD() {
+    public function testGetListSD() {
+        $client = static::getImlApiClient();
+        $response = $client->getListSD();
+        static::checkResponse($response);
+    }
+    
+    /**
+     * get list points of self-export
+     * 
+     * @group iml
+     */
+    public function testGetListSDRegion() {
         $client = static::getImlApiClient();
         $regionCode = 'МОСКВА';
-        $response = $client->listSD($regionCode);
-        var_dump($response);
+        $response = $client->getListSD($regionCode);
         static::checkResponse($response);
     }
     
     /**
-     * get service list
+     * get list service
      * 
      * @group iml
      */
-    public function testListService() {
+    public function testGetListService() {
         $client = static::getImlApiClient();
-        $response = $client->listService();
+        $response = $client->getListService();
+        static::checkResponse($response);
+    }
+    
+    /**
+     * get list resource limit
+     * 
+     * @group iml
+     */
+    public function testGetResourceLimit() {
+        $client = static::getImlApiClient();
+        $response = $client->getResourceLimit();
+        static::checkResponse($response);
+    }
+    
+    /**
+     * get location warehouse
+     * 
+     * @group iml
+     */
+    public function testGetLocation() {
+        $client = static::getImlApiClient();
+        $response = $client->getLocation();
+        static::checkResponse($response);
+    }
+    
+    /**
+     * get zone delivery
+     * 
+     * @group iml
+     */
+    public function testGetZone() {
+        $client = static::getImlApiClient();
+        $response = $client->getZone();
+        static::checkResponse($response);
+    }
+    
+    /**
+     * get exeption of service region
+     * 
+     * @group iml
+     */
+    public function testGetExceptionServiceRegion() {
+        $client = static::getImlApiClient();
+        $response = $client->getExceptionServiceRegion();
+        static::checkResponse($response);
+    }
+    
+    /**
+     * get post limit
+     * 
+     * @group iml
+     */
+    public function testGetPostDeliveryLimit() {
+        $client = static::getImlApiClient();
+        $response = $client->getPostDeliveryLimit();
+        static::checkResponse($response);
+    }
+    
+    /**
+     * get location warehouse(Expanded)
+     * 
+     * @group iml
+     */
+    public function testGetLocationExt() {
+        $client = static::getImlApiClient();
+        $response = $client->getLocationExt();
+        static::checkResponse($response);
+    }
+    
+    /**
+     * Get list status
+     * 
+     * @group iml
+     */
+    public function testGetStatus() {
+        $client = static::getImlApiClient();
+        $response = $client->getStatus();
+        static::checkResponse($response);
+    }
+    
+    /**
+     * get list post zone
+     * 
+     * @group iml
+     */
+    public function testGetPostRateZone() {
+        $client = static::getImlApiClient();
+        $response = $client->getPostRateZone();
+        static::checkResponse($response);
+    }
+    
+    /**
+     * get list post for code
+     * 
+     * @group iml
+     */
+    public function testGetPostCode() {
+        $index ='344092';
+        $client = static::getImlApiClient();
+        $response = $client->getPostCode($index);
+        static::checkResponse($response);
+    }
+    
+    /**
+     * get calendar iml
+     * 
+     * @group iml
+     */
+    public function testGetCalendar() {
+        $client = static::getImlApiClient();
+        $response = $client->getCalendar();
+        static::checkResponse($response);
+    }
+    
+    /**
+     * get all list
+     * 
+     * @group iml
+     */
+    public function testGetAll() {
+        $client = static::getImlApiClient();
+        $response = $client->getAll();
         static::checkResponse($response);
     }
 }
