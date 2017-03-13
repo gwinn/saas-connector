@@ -132,8 +132,8 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $login = null,
         $pass = null
     ) {
-        $testLogin = !is_null($login) ? $login : $_SERVER['IML_LOGIN'];     // $login = 03361
-        $testPass  =  !is_null($pass) ? $pass : $_SERVER['IML_PASSWORD'];   // $pass = V1Di61fm
+        $testLogin = !is_null($login) ? $login : $_SERVER['IML_LOGIN'];
+        $testPass  =  !is_null($pass) ? $pass : $_SERVER['IML_PASSWORD'];
         return new ImlApi($testLogin, $testPass);
     }
 
