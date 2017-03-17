@@ -38,7 +38,8 @@ class Api
         'byoperation',
         'day',
         'week',
-        'month'
+        'month',
+        'syncid'
     );
     const REQUEST_ATTRIBUTES_SECOND = array(
         'accounts',
@@ -210,6 +211,12 @@ class Api
         if (count($params) > 4) {
             throw new \InvalidArgumentException('Too many attribute...');
         }
+        
+        if (in_array('syncid', $params)) {
+            $inc = 1;
+        } else {
+            $inc = 0;
+        }
 
         switch (count($params)) {
             case 1:
@@ -235,13 +242,13 @@ class Api
                 break;
             case 3:
             case 4:
-                $this->checkUuid($params[1]);
+                $this->checkUuid($params[(1+$inc)]);
 
-                if (gettype($params[2]) !== 'string') {
+                if (gettype($params[(2+$inc)]) !== 'string') {
                     throw new \InvalidArgumentException('Wrong second attribute: attribute must be a "string"');
                 }
 
-                if (!in_array($params[2], self::REQUEST_ATTRIBUTES_SECOND)) {
+                if (!in_array($params[(2+$inc)], self::REQUEST_ATTRIBUTES_SECOND)) {
                     throw new \InvalidArgumentException(sprintf('Wrong attribute: `%s`', $params[2]));
                 }
                 break;
@@ -254,7 +261,7 @@ class Api
                 }
                 break;
             case 4:
-                $this->checkUuid($params[3]);
+                $this->checkUuid($params[(3+$inc)]);
                 break;
         }
 
