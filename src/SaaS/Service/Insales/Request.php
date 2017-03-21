@@ -99,6 +99,7 @@ class Request
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curlHandler, CURLOPT_TIMEOUT, 30);
+        curl_setopt($curlHandler, CURLOPT_HEADER, true);
 
         if (self::METHOD_POST === $method
             || self::METHOD_PUT === $method
@@ -127,6 +128,31 @@ class Request
         $responseBody = curl_exec($curlHandler);
         $statusCode = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
 
+        //Получение тела ответа
+        preg_match('/\{(.*)\}/', $responseBody, $response);
+        $response = array_shift($response);
+
+        //Получение заголовков ответа
+        preg_match_all("/(.*): (.*)\n/", $responseBody, $items);
+        $responseBody = array_combine($items[1], $items[2]);
+
+        foreach ($responseBody as $key => $item) {
+            $responseBody[$key] = trim($item);
+        }
+
+        $apiUsageLimit = isset($responseBody['API-Usage-Limit'])
+            ? explode('/', $responseBody['API-Usage-Limit'])[0]
+            : null;
+
+        if (isset($responseBody['Retry-After'])) {
+            //Если есть время ожидания. Желательно до такой ситуации не довадить, так как будут терятся данные
+            time_nanosleep($responseBody['Retry-After'], 0);
+        } elseif (isset($apiUsageLimit) && $apiUsageLimit > 400) {
+            //Ждем секунду
+            time_nanosleep(1, 0);
+        }
+
+
         $errno = curl_errno($curlHandler);
         $error = curl_error($curlHandler);
 
@@ -136,6 +162,6 @@ class Request
             throw new CurlException($error, $errno);
         }
 
-        return new Response($statusCode, $responseBody);
+        return new Response($statusCode, $response);
     }
 }
