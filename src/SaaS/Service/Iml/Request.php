@@ -63,8 +63,7 @@ class Request
         $apiListMethods = array(
             'deliverystatus',
             'orderstatus',
-            'region',
-            'service'
+            'region'
         );
 
         if (!in_array($method, $allowedMethods)) {
