@@ -40,6 +40,7 @@ class Api
         'week',
         'month',
         'syncid'
+
     );
     const REQUEST_ATTRIBUTES_SECOND = array(
         'accounts',
