@@ -54,7 +54,7 @@ class Request
     public function makeRequest($path, $method, array $parameters = array()){
 
         $headers = array('Content-Type: application/json');
-        
+
         $allowedMethods = array(
             self::METHOD_GET,
             self::METHOD_POST
@@ -77,7 +77,7 @@ class Request
         }
 
         if (self::METHOD_GET === $method && in_array($path, $apiListMethods)){
-            $url = 'https://api.iml.ru/json/';
+            $url = 'https://api.iml.ru/list/';
         } elseif(self::METHOD_GET === $method && !in_array($path, $apiListMethods)){
             $url = 'https://list.iml.ru/';
         }else {
