@@ -142,7 +142,10 @@ class Api
         "limit",
         "offset",
         "filters",
-        "expand"
+        "expand",
+        "operation.id",
+        "order",
+        "direction"
     );
 
     /**
@@ -172,6 +175,16 @@ class Api
     public function __get($property)
     {
         return $this->{$property};
+    }
+    
+    /**
+     * Adding extra headers
+     * 
+     * @param array $value  set of extra headers
+     */
+    public function addHeaders($value)
+    {
+        $this->client->addHeaders($value);
     }
 
     /**
