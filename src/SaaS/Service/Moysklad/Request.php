@@ -84,6 +84,13 @@ class Request
      * @access protected
      */
     protected $retry;
+    
+    /**
+     * Curl headers
+     * @var array
+     * @access protected
+     */
+    protected $headers;
 
     /**
      * Request constructor.
@@ -96,6 +103,25 @@ class Request
         $this->login = $login;
         $this->password = $password;
         $this->retry = 0;
+        $this->headers = array('Content-Type' => 'application/json');
+    }
+    
+    /**
+     * Adding extra headers
+     * 
+     * @param array $value  set of extra headers
+     */
+    public function addHeaders($value)
+    {
+        $this->headers = array_merge($this->headers, $value);
+    }
+    
+    /**
+     * Reset headers
+     */
+    public function resetHeaders()
+    {
+        $this->headers = array('Content-Type' => 'application/json');
     }
 
     /**
@@ -115,7 +141,7 @@ class Request
      */
     public function makeRequest($url, $method = 'GET', $parameters = array())
     {
-        time_nanosleep(0, 250000000);
+        time_nanosleep(0, 55000000); // чуть менее 20 запросов в секунду
 
         $allowedMethods = array(self::METHOD_GET, self::METHOD_POST, self::METHOD_PUT, self::METHOD_DELETE);
 
@@ -144,11 +170,25 @@ class Request
         curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curlHandler, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($curlHandler, CURLOPT_CONNECTTIMEOUT, 60);
+        
+        $headers = array();
+
+        foreach ($this->headers as $header => $value) {
+            array_push(
+                $headers,
+                "$header: $value"
+            );
+        }
+        unset($header, $value);
+
+        curl_setopt($curlHandler, CURLOPT_HTTPHEADER, $headers);
+        unset($headers);
 
         if (!is_null($parameters) &&
             in_array($method, array(self::METHOD_POST, self::METHOD_PUT)) &&
             !empty($parameters['data'])
         ) {
+            /* не более 10Мб величина данных в запросе */
             if (strlen(json_encode($parameters['data'])) > self::MAX_DATA_VALUE) {
                 throw new MoySkladException(
                     sprintf(
@@ -157,13 +197,20 @@ class Request
                     )
                 );
             }
-            curl_setopt($curlHandler, CURLOPT_HTTPHEADER, array(
-                'Content-Type: application/json'
-            ));
+            
+            /* не более 100 объектов в коллекции */
+            if (count($parameters['data']) > 100) {
+                throw new MoySkladException(
+                    'The number of objects in the collection should not exceed 100'
+                );
+            }
+
             curl_setopt($curlHandler, CURLOPT_POSTFIELDS, json_encode($parameters['data']));
+
             if ($method == self::METHOD_PUT) {
                 curl_setopt($curlHandler, CURLOPT_CUSTOMREQUEST, $method);
             }
+
             if ($method == self::METHOD_POST) {
                 curl_setopt($curlHandler, CURLOPT_POST, true);
             }
@@ -171,9 +218,7 @@ class Request
 
         if (in_array($method, array(self::METHOD_DELETE))) {
             curl_setopt($curlHandler, CURLOPT_CUSTOMREQUEST, $method);
-            curl_setopt($curlHandler, CURLOPT_HTTPHEADER, array(
-                'Content-Type: application/json'
-            ));
+            
         }
 
         $responseBody = curl_exec($curlHandler);
@@ -182,6 +227,8 @@ class Request
         $error = curl_error($curlHandler);
 
         curl_close($curlHandler);
+        
+        $this->resetHeaders();
 
         if ($statusCode >= 400) {
             $result = json_decode($responseBody, true);
@@ -226,7 +273,12 @@ class Request
                     }
                     continue;
                 }
-                $filters[$name] = $value;
+                
+                if (is_array($value)) {
+                    $filters[$name] = implode(',', $value);
+                } else {
+                    $filters[$name] = $value;
+                }
             }
             unset($name, $value);
             $params = array_merge($params, $filters);
