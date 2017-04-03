@@ -36,6 +36,12 @@ class Api {
 
     public function __construct($login, $password)
     {
+        if (empty($login) || empty($password)) {
+            throw new \InvalidArgumentException(
+                "login & password must be not empty"
+            );
+        }
+
         $this->client = new Request($login, $password);
     }
 
@@ -51,6 +57,11 @@ class Api {
         if (empty($parameters) ){
             throw new \InvalidArgumentException(
                 "parameters request must be not empty"
+            );
+        }
+        if (empty($parameters['BarCode']) ){
+            throw new \InvalidArgumentException(
+                "BarCode must be not empty"
             );
         }
 
@@ -84,12 +95,21 @@ class Api {
      */
     public function createOrder(array $parameters = array())
     {
+        $argumentArray = array ('CustomerOrder', 'Job', 'Contact', 'RegionCodeTo', 'RegionCodeFrom','Phone');
+
         if (empty($parameters) ){
             throw new \InvalidArgumentException(
                 "parameters request must be not empty"
             );
         }
 
+        foreach ($argumentArray as $argument){
+            if (empty($parameters[$argument])){
+                throw new \InvalidArgumentException(
+                    "Not all values are filled in"
+                );
+            }
+        }
         return $this->client->makeRequest('CreateOrder', 'POST', $parameters);
     }
 
