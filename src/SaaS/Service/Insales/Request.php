@@ -13,6 +13,7 @@
 namespace SaaS\Service\Insales;
 
 use SaaS\Exception\CurlException;
+use SaaS\Exception\InsalesLimitException;
 use SaaS\Http\Response;
 
 /**
@@ -129,7 +130,7 @@ class Request
         $statusCode = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
 
         //Получение тела ответа
-        preg_match('/\{(.*)\}/', $responseBody, $response);
+        preg_match('/\[(.*)\]/', $responseBody, $response);
         $response = array_shift($response);
 
         //Получение заголовков ответа
@@ -140,18 +141,15 @@ class Request
             $responseBody[$key] = trim($item);
         }
 
-        $apiUsageLimit = isset($responseBody['API-Usage-Limit'])
-            ? explode('/', $responseBody['API-Usage-Limit'])[0]
-            : null;
+        if ($statusCode == 503 && isset($responseBody['Retry-After'])) {
+            $message = [
+                'message' => 'Requested API limit exceeded',
+                'Retry-After' => $responseBody['Retry-After'],
+                'API-Usage-Limit' => $responseBody['API-Usage-Limit']
+            ];
 
-        if (isset($responseBody['Retry-After'])) {
-            //Если есть время ожидания. Желательно до такой ситуации не довадить, так как будут терятся данные
-            time_nanosleep($responseBody['Retry-After'], 0);
-        } elseif (isset($apiUsageLimit) && $apiUsageLimit > 400) {
-            //Ждем секунду
-            time_nanosleep(1, 0);
+            throw new InsalesLimitException(json_encode($message), $statusCode);
         }
-
 
         $errno = curl_errno($curlHandler);
         $error = curl_error($curlHandler);
