@@ -64,6 +64,7 @@ class Request
      * @param string $path       exact method url
      * @param string $method     (default: 'GET')
      * @param array  $parameters (default: array())
+     * @throws InsalesLimitException
      *
      * @return Response
      */
@@ -130,8 +131,7 @@ class Request
         $statusCode = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
 
         //Получение тела ответа
-        preg_match('/\[(.*)\]/', $responseBody, $response);
-        $response = array_shift($response);
+        $response = trim(substr($responseBody, strripos($responseBody, "\n")));
 
         //Получение заголовков ответа
         preg_match_all("/(.*): (.*)\n/", $responseBody, $items);

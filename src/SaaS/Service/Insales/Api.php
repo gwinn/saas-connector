@@ -12,6 +12,7 @@
  */
 namespace SaaS\Service\Insales;
 
+use SaaS\Exception\InsalesApiException;
 use SaaS\Http\Response;
 
 /**
@@ -26,7 +27,6 @@ use SaaS\Http\Response;
  */
 class Api
 {
-
     /**
      * Constructor
      *
@@ -49,6 +49,7 @@ class Api
      * Get catalog categories list
      *
      * @link    http://api.insales.ru/?doc_format=JSON#category-get-categories-json
+     * @group   category
      *
      * @return  Response
      */
@@ -64,14 +65,17 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#category-get-category-json
      * @param   string $categoryId category identificator
+     * @throws  InsalesApiException
+     * @group   category
      *
      * @return  Response
      */
     public function categoryGet($categoryId)
     {
         if (empty($categoryId)) {
-            throw new \InvalidArgumentException("Category id must be set");
+            throw new InsalesApiException("Category id must be set");
         }
+
         $url = sprintf('/admin/categories/%s.json', $categoryId);
 
         return $this->client->makeRequest($url, Request::METHOD_GET);
@@ -82,13 +86,15 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#category-create-category-json
      * @param   array $category category data
+     * @throws  InsalesApiException
+     * @group   category
      *
      * @return  Response
      */
     public function categoryCreate($category)
     {
         if (empty($category)) {
-            throw new \InvalidArgumentException("Category must be set");
+            throw new InsalesApiException("Category must be set");
         }
 
         $url = '/admin/categories.json';
@@ -100,15 +106,17 @@ class Api
     /**
      * Update catalog category
      *
-     * @link http://api.insales.ru/?doc_format=JSON#category-update-category-json
-     * @param array $category category data
+     * @link    http://api.insales.ru/?doc_format=JSON#category-update-category-json
+     * @param   array $category category data
+     * @throws  InsalesApiException
+     * @group   category
      *
      * @return Response
      */
     public function categoryUpdate($category)
     {
         if (empty($category['id'])) {
-            throw new \InvalidArgumentException("Category id must be set");
+            throw new InsalesApiException("Category id must be set");
         }
 
         $url = sprintf('/admin/categories/%s.json', $category['id']);
@@ -120,15 +128,17 @@ class Api
     /**
      * Delete catalog category
      *
-     * @link http://api.insales.ru/?doc_format=JSON#category-destroy-category-json
-     * @param string $categoryId category id
+     * @link    http://api.insales.ru/?doc_format=JSON#category-destroy-category-json
+     * @param   string $categoryId category id
+     * @throws  InsalesApiException
+     * @group   category
      *
      * @return Response
      */
     public function categoryDelete($categoryId)
     {
         if (empty($categoryId)) {
-            throw new \InvalidArgumentException("Category id must be set");
+            throw new InsalesApiException("Category id must be set");
         }
 
         $url = sprintf('/admin/categories/%s.json', $categoryId);
@@ -139,7 +149,8 @@ class Api
     /**
      * Get count products
      *
-     * @link http://api.insales.ru/?doc_format=JSON#product-get-products-count-json
+     * @link    http://api.insales.ru/?doc_format=JSON#product-get-products-count-json
+     * @group   product
      *
      * @return Response
      */
@@ -161,6 +172,7 @@ class Api
      * @param string    $updatedSince   set datetime to get only data updated after it
      * @param int       $fromId         set id to get only data starting from it
      * @param boolean   $deleted        get deleted products //получить удаленные товары
+     * @group product
      *
      * @return Response
      */
@@ -186,15 +198,17 @@ class Api
     /**
      * Get catalog product info
      *
-     * @link http://api.insales.ru/?doc_format=JSON#product-get-product-json
-     * @param string $productId product id
+     * @link    http://api.insales.ru/?doc_format=JSON#product-get-product-json
+     * @param   string $productId product id
+     * @throws  InsalesApiException
+     * @group   product
      *
      * @return Response
      */
     public function productGet($productId)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
 
         $url = sprintf('/admin/products/%s.json', $productId);
@@ -205,21 +219,23 @@ class Api
     /**
      * Create product
      *
-     * @link http://api.insales.ru/?doc_format=JSON#product-get-products-count-json
-     * @param array $product product data
+     * @link    http://api.insales.ru/?doc_format=JSON#product-get-products-count-json
+     * @param   array $product product data
+     * @throws  InsalesApiException
+     * @group   product
      *
      * @return Response
      */
     public function productCreate($product)
     {
         if (empty($product['category_id'])) {
-            throw new \InvalidArgumentException("Categoty id must be set");
+            throw new InsalesApiException("Categoty id must be set");
         }
         if (empty($product['title'])) {
-            throw new \InvalidArgumentException("Title product must be set");
+            throw new InsalesApiException("Title product must be set");
         }
         if (empty($product['variants_attributes'])) {
-            throw new \InvalidArgumentException("Variants attribures is empty");
+            throw new InsalesApiException("Variants attribures is empty");
         }
         $url = '/admin/products.json';
         $parameters = array('product' => $product);
@@ -230,15 +246,17 @@ class Api
     /**
      * Update product by id
      *
-     * @link http://api.insales.ru/?doc_format=JSON#product-update-product-json
-     * @param array $product product data
+     * @link    http://api.insales.ru/?doc_format=JSON#product-update-product-json
+     * @param   array $product product data
+     * @throws  InsalesApiException
+     * @group   product
      *
      * @return Response
      */
     public function productUpdate($product)
     {
         if (empty($product['id'])) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
 
         $url = sprintf('/admin/products/%s.json', $product['id']);
@@ -249,15 +267,17 @@ class Api
 
     /**
      * Delete product by id
+     * @link    http://api.insales.ru/?doc_format=JSON#product-destroy-product-json
+     * @param   int $productId product id
+     * @throws  InsalesApiException
+     * @group   product
      *
-     * @param int $productId product id
-     * 
      * @return Response
      */
     public function productDelete($productId)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
 
         $url = sprintf('/admin/products/%s.json', $productId);
@@ -268,15 +288,17 @@ class Api
     /**
      * Get list picture for product
      *
-     * @link http://api.insales.ru/?doc_format=JSON#image-get-images-json
-     * @param int $productId product id
+     * @link    http://api.insales.ru/?doc_format=JSON#image-get-images-json
+     * @param   int $productId product id
+     * @throws  InsalesApiException
+     * @group   picture
      *
      * @return Response
      */
     public function picturesList($productId)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
 
         $url = sprintf('/admin/products/%s/images.json', $productId);
@@ -287,16 +309,18 @@ class Api
     /**
      * Get picture for product
      *
-     * @link http://api.insales.ru/?doc_format=JSON#image-get-image-json
-     * @param int       $productId product id
-     * @param int|null  $pictureId picture id
+     * @link    http://api.insales.ru/?doc_format=JSON#image-get-image-json
+     * @param   int       $productId product id
+     * @param   int|null  $pictureId picture id
+     * @throws  InsalesApiException
+     * @group   picture
      *
      * @return Response
      */
     public function pictureGet($productId, $pictureId = null)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
 
         $url = sprintf('/admin/products/%s/images%s.json', $productId, !is_null($pictureId) ? '/' . $pictureId : '');
@@ -307,23 +331,25 @@ class Api
     /**
      * Create picture for product
      *
-     * @link http://api.insales.ru/?doc_format=JSON#image-create-image-fpom-src-json
-     * @link http://api.insales.ru/?doc_format=JSON#image-create-image-from-attachment-json
-     * @param int   $productId  product id
-     * @param array $picture    picture data
+     * @link    http://api.insales.ru/?doc_format=JSON#image-create-image-fpom-src-json
+     * @link    http://api.insales.ru/?doc_format=JSON#image-create-image-from-attachment-json
+     * @param   int   $productId  product id
+     * @param   array $picture    picture data
+     * @throws  InsalesApiException
+     * @group   picture
      *
      * @return Response
      */
     public function pictureCreate($productId, $picture)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
         if (empty($picture['src']) && empty($picture['attachment'])) {
-            throw new \InvalidArgumentException("Required fields must be set (attachment, filename or src)");
+            throw new InsalesApiException("Required fields must be set (attachment, filename or src)");
         }
         if (isset($picture['attachment']) && empty($picture['filename'])) {
-            throw new \InvalidArgumentException("Filename must be set");
+            throw new InsalesApiException("Filename must be set");
         }
 
         $url = sprintf('/admin/products/%s/images.json', $productId);
@@ -335,20 +361,22 @@ class Api
     /**
      * Update picture for product
      *
-     * @link http://api.insales.ru/?doc_format=JSON#image-update-image-json
-     * @param int   $productId  product id
-     * @param int   $pictureId  picture id
-     * @param array $picture    picture data
+     * @link    http://api.insales.ru/?doc_format=JSON#image-update-image-json
+     * @param   int   $productId  product id
+     * @param   int   $pictureId  picture id
+     * @param   array $picture    picture data
+     * @throws  InsalesApiException
+     * @group   picture
      *
      * @return Response
      */
     public function pictureUpdate($productId, $pictureId, $picture)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
         if (empty($pictureId)) {
-            throw new \InvalidArgumentException("Picture id must be set");
+            throw new InsalesApiException("Picture id must be set");
         }
 
         $url = sprintf('/admin/products/%s/images/%s.json', $productId, $pictureId);
@@ -361,19 +389,21 @@ class Api
     /**
      * Delete picture for product
      *
-     * @link http://api.insales.ru/?doc_format=JSON#image-destroy-image-json
-     * @param int $productId product id
-     * @param int $pictureId picture id
+     * @link    http://api.insales.ru/?doc_format=JSON#image-destroy-image-json
+     * @param   int $productId product id
+     * @param   int $pictureId picture id
+     * @throws  InsalesApiException
+     * @group   picture
      *
      * @return Response
      */
     public function pictureDelete($productId, $pictureId)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
         if (empty($pictureId)) {
-            throw new \InvalidArgumentException("Picture id must be set");
+            throw new InsalesApiException("Picture id must be set");
         }
 
         $url = sprintf('/admin/products/%s/images/%s.json', $productId, $pictureId);
@@ -385,15 +415,17 @@ class Api
     /**
      * Get list variants product
      *
-     * @link http://api.insales.ru/?doc_format=JSON#variant-get-variants-json
-     * @param int $productId product id
+     * @link    http://api.insales.ru/?doc_format=JSON#variant-get-variants-json
+     * @param   int $productId product id
+     * @throws  InsalesApiException
+     * @group   variant
      *
      * @return Response
      */
     public function variantsList($productId)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
 
         $url = sprintf('/admin/products/%s/variants.json', $productId);
@@ -404,19 +436,21 @@ class Api
     /**
      * Get variant by id product
      *
-     * @link http://api.insales.ru/?doc_format=JSON#variant-get-variant-json
-     * @param int $productId product id
-     * @param int $variantId variant id
+     * @link    http://api.insales.ru/?doc_format=JSON#variant-get-variant-json
+     * @param   int $productId product id
+     * @param   int $variantId variant id
+     * @throws  InsalesApiException
+     * @group   variant
      *
      * @return Response
      */
     public function variantGet($productId, $variantId)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
         if (empty($variantId)) {
-            throw new \InvalidArgumentException("Variant id must be set");
+            throw new InsalesApiException("Variant id must be set");
         }
 
         $url = sprintf('/admin/products/%s/variants%s.json', $productId, !is_null($variantId) ? '/' . $variantId : '');
@@ -427,22 +461,24 @@ class Api
     /**
      * Create variant for product
      *
-     * @link http://api.insales.ru/?doc_format=JSON#variant-create-variant-json
-     * @param int   $productId  product id
-     * @param array $variant    variant data
+     * @link    http://api.insales.ru/?doc_format=JSON#variant-create-variant-json
+     * @param   int   $productId  product id
+     * @param   array $variant    variant data
+     * @throws  InsalesApiException
+     * @group   variant
      *
      * @return Response
      */
     public function variantCreate($productId, $variant)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
         if (empty($variant['price']) || !is_int($variant['price'])) {
-            throw new \InvalidArgumentException("Variant price must be set or be type integer");
+            throw new InsalesApiException("Variant price must be set or be type integer");
         }
         if (empty($variant['quantity']) || !is_int($variant['quantity'])) {
-            throw new \InvalidArgumentException("Variant quantity must be set or be type integer");
+            throw new InsalesApiException("Variant quantity must be set or be type integer");
         }
 
         $url = sprintf('/admin/products/%s/variants.json', $productId);
@@ -454,25 +490,27 @@ class Api
     /**
      * Update variant for product
      *
-     * @link http://api.insales.ru/?doc_format=JSON#variant-update-variant-json
-     * @param int   $productId  product id
-     * @param array $variant    variant data
+     * @link    http://api.insales.ru/?doc_format=JSON#variant-update-variant-json
+     * @param   int   $productId  product id
+     * @param   array $variant    variant data
+     * @throws  InsalesApiException
+     * @group   variant
      *
      * @return Response
      */
     public function variantUpdate($productId, $variant)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
         if (empty($variant['id'])) {
-            throw new \InvalidArgumentException("Variant id must be set");
+            throw new InsalesApiException("Variant id must be set");
         }
         if (isset($variant['price']) && !is_int($variant['price'])) {
-            throw new \InvalidArgumentException("Variant price be type integer");
+            throw new InsalesApiException("Variant price be type integer");
         }
         if (isset($variant['quantity']) && !is_int($variant['quantity'])) {
-            throw new \InvalidArgumentException("Variant quantity be type integer");
+            throw new InsalesApiException("Variant quantity be type integer");
         }
 
         $url = sprintf('/admin/products/%s/variants/%s.json', $productId, $variant['id']);
@@ -484,14 +522,16 @@ class Api
     /**
      * Update group variants
      *
-     * @param array $variants variants data
+     * @param   array $variants variants data
+     * @throws  InsalesApiException
+     * @group   variants_group
      *
      * @return Response
      */
     public function variantGroupUpdate($variants)
     {
         if (count($variants) > 100) {
-            throw new \InvalidArgumentException("Count variants must be less than 100");
+            throw new InsalesApiException("Count variants must be less than 100");
         }
         $url = '/admin/products/variants_group_update.json';
         $parameters = array('variants' => $variants);
@@ -502,19 +542,21 @@ class Api
     /**
      * Delete variant for product
      *
-     * @link http://api.insales.ru/?doc_format=JSON#variant-destroy-variant-json
-     * @param int $productId product id
-     * @param int $variantId variant id
+     * @link    http://api.insales.ru/?doc_format=JSON#variant-destroy-variant-json
+     * @param   int $productId product id
+     * @param   int $variantId variant id
+     * @throws  InsalesApiException
+     * @group   variant
      *
      * @return Response
      */
     public function variantDelete($productId, $variantId)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
         if (empty($variantId)) {
-            throw new \InvalidArgumentException("Variant id must be set");
+            throw new InsalesApiException("Variant id must be set");
         }
 
         $url = sprintf('/admin/products/%s/variants/%s.json', $productId, $variantId);
@@ -525,9 +567,10 @@ class Api
     /**
      * Get list options
      *
-     * @link http://api.insales.ru/?doc_format=JSON#optionname-get-option-names-json
+     * @link    http://api.insales.ru/?doc_format=JSON#optionname-get-option-names-json
+     * @group   option
      *
-     * @return Response
+     * @return  Response
      */
     public function optionsList()
     {
@@ -539,15 +582,17 @@ class Api
     /**
      * Get option by id
      *
-     * @link http://api.insales.ru/?doc_format=JSON#optionname-get-option-name-json
-     * @param int $optionId option id
+     * @link    http://api.insales.ru/?doc_format=JSON#optionname-get-option-name-json
+     * @param   int $optionId option id
+     * @throws  InsalesApiException
+     * @group   option
      *
      * @return Response
      */
     public function optionGet($optionId)
     {
         if (empty($optionId)) {
-            throw new \InvalidArgumentException("Option id must be set");
+            throw new InsalesApiException("Option id must be set");
         }
 
         $url = sprintf('/admin/option_names/%s.json', $optionId);
@@ -558,15 +603,17 @@ class Api
     /**
      * Create option
      *
-     * @link http://api.insales.ru/?doc_format=JSON#optionname-create-option-name-json
-     * @param array $option option dara
+     * @link    http://api.insales.ru/?doc_format=JSON#optionname-create-option-name-json
+     * @param   array $option option dara
+     * @throws  InsalesApiException
+     * @group   option
      *
      * @return Response
      */
     public function optionCreate($option)
     {
         if (empty($option['title'])) {
-            throw new \InvalidArgumentException("Option title must be set");
+            throw new InsalesApiException("Option title must be set");
         }
 
         $url = '/admin/option_names.json';
@@ -578,16 +625,18 @@ class Api
     /**
      * Update option by id
      *
-     * @link http://api.insales.ru/?doc_format=JSON#optionname-update-option-name-json
-     * @param int   $optionId   option id
-     * @param array $option     option data
+     * @link    http://api.insales.ru/?doc_format=JSON#optionname-update-option-name-json
+     * @param   int   $optionId   option id
+     * @param   array $option     option data
+     * @throws  InsalesApiException
+     * @group   option
      *
      * @return Response
      */
     public function optionUpdate($optionId, $option)
     {
         if (empty($optionId)) {
-            throw new \InvalidArgumentException("Option id must be set");
+            throw new InsalesApiException("Option id must be set");
         }
 
         $url = sprintf('/admin/option_names/%s.json', $optionId);
@@ -599,15 +648,17 @@ class Api
     /**
      * Delete option by id
      *
-     * @link http://api.insales.ru/?doc_format=JSON#optionname-destroy-option-name-json
-     * @param int $optionId option id
+     * @link    http://api.insales.ru/?doc_format=JSON#optionname-destroy-option-name-json
+     * @param   int $optionId option id
+     * @throws  InsalesApiException
+     * @group   option
      *
      * @return Response
      */
     public function optionDelete($optionId)
     {
         if (empty($optionId)) {
-            throw new \InvalidArgumentException("Option id must be set");
+            throw new InsalesApiException("Option id must be set");
         }
 
         $url = sprintf('/admin/option_names/%s.json', $optionId);
@@ -618,7 +669,8 @@ class Api
     /**
      * Get list option values
      *
-     * @link http://api.insales.ru/?doc_format=JSON#optionvalue-get-option-values-for-all-options-json
+     * @link    http://api.insales.ru/?doc_format=JSON#optionvalue-get-option-values-for-all-options-json
+     * @group   optionValue
      *
      * @return Response
      */
@@ -632,16 +684,18 @@ class Api
     /**
      * Get option values by option id
      *
-     * @link http://api.insales.ru/?doc_format=JSON#optionvalue-get-option-values-for-specific-option-json
-     * @param int       $optionId       option id
-     * @param null|int  $optionValueId  option value id
+     * @link    http://api.insales.ru/?doc_format=JSON#optionvalue-get-option-values-for-specific-option-json
+     * @param   int       $optionId       option id
+     * @param   null|int  $optionValueId  option value id
+     * @throws  InsalesApiException
+     * @group   optionValue
      *
      * @return Response
      */
     public function optionValuesGet($optionId, $optionValueId = null)
     {
         if (empty($optionId)) {
-            throw new \InvalidArgumentException("Option id must be set");
+            throw new InsalesApiException("Option id must be set");
         }
 
         $url = sprintf(
@@ -656,16 +710,18 @@ class Api
     /**
      * Create option value
      *
-     * @link http://api.insales.ru/?doc_format=JSON#optionvalue-create-option-value-json
-     * @param int   $optionId       option id
-     * @param array $optionValue    option value
+     * @link    http://api.insales.ru/?doc_format=JSON#optionvalue-create-option-value-json
+     * @param   int   $optionId       option id
+     * @param   array $optionValue    option value
+     * @throws  InsalesApiException
+     * @group   optionValue
      *
      * @return Response
      */
     public function optionValueCreate($optionId, $optionValue)
     {
         if (empty($optionId)) {
-            throw new \InvalidArgumentException("Option id must be set");
+            throw new InsalesApiException("Option id must be set");
         }
 
         $url = sprintf('/admin/option_names/%s/option_values.json' , $optionId);
@@ -677,20 +733,22 @@ class Api
     /**
      * Update option value
      *
-     * @link http://api.insales.ru/?doc_format=JSON#optionvalue-update-option-value-json
-     * @param int   $optionId       option id
-     * @param int   $optionValueId  option value id
-     * @param array $optionValue    option value data
+     * @link    http://api.insales.ru/?doc_format=JSON#optionvalue-update-option-value-json
+     * @param   int   $optionId       option id
+     * @param   int   $optionValueId  option value id
+     * @param   array $optionValue    option value data
+     * @throws  InsalesApiException
+     * @group   optionValue
      *
      * @return Response
      */
     public function optionValueUpdate($optionId, $optionValueId, $optionValue)
     {
         if (empty($optionId)) {
-            throw new \InvalidArgumentException("Option id must be set");
+            throw new InsalesApiException("Option id must be set");
         }
         if (empty($optionValueId)) {
-            throw new \InvalidArgumentException("Value option id must be set");
+            throw new InsalesApiException("Value option id must be set");
         }
 
         $url = sprintf('/admin/option_names/%s/option_values/%s.json' , $optionId, $optionValueId);
@@ -702,19 +760,21 @@ class Api
     /**
      * Delete option value
      *
-     * @link http://api.insales.ru/?doc_format=JSON#optionvalue-destroy-option-value-json
-     * @param int $optionId         option id
-     * @param int $optionValueId    option value id
+     * @link    http://api.insales.ru/?doc_format=JSON#optionvalue-destroy-option-value-json
+     * @param   int $optionId         option id
+     * @param   int $optionValueId    option value id
+     * @throws  InsalesApiException
+     * @group   optionValue
      *
      * @return Response
      */
     public function optionValueDelete($optionId, $optionValueId)
     {
         if (empty($optionId)) {
-            throw new \InvalidArgumentException("Option id must be set");
+            throw new InsalesApiException("Option id must be set");
         }
         if (empty($optionValueId)) {
-            throw new \InvalidArgumentException("Value option id must be set");
+            throw new InsalesApiException("Value option id must be set");
         }
 
         $url = sprintf('/admin/option_names/%s/option_values/%s.json', $optionId, $optionValueId);
@@ -725,7 +785,8 @@ class Api
     /**
      * Get list product fields
      *
-     * @link http://api.insales.ru/?doc_format=JSON#productfield-get-product-fields-json
+     * @link    http://api.insales.ru/?doc_format=JSON#productfield-get-product-fields-json
+     * @group   productField
      *
      * @return Response
      */
@@ -739,18 +800,20 @@ class Api
     /**
      * Get product field
      *
-     * @link http://api.insales.ru/?doc_format=JSON#productfield-get-product-field-json
-     * @param int $fieldId field id
+     * @link    http://api.insales.ru/?doc_format=JSON#productfield-get-product-field-json
+     * @param   int $productFieldId field id
+     * @throws  InsalesApiException
+     * @group   productField
      *
      * @return Response
      */
-    public function productFieldGet($fieldId)
+    public function productFieldGet($productFieldId)
     {
-        if (empty($fieldId)) {
-            throw new \InvalidArgumentException("Field id must be set");
+        if (empty($productFieldId)) {
+            throw new InsalesApiException("Field id must be set");
         }
 
-        $url = sprintf('/admin/product_fields/%s.json', $fieldId);
+        $url = sprintf('/admin/product_fields/%s.json', $productFieldId);
 
         return $this->client->makeRequest($url, Request::METHOD_GET);
     }
@@ -758,21 +821,23 @@ class Api
     /**
      * Create product field
      *
-     * @link http://api.insales.ru/?doc_format=JSON#productfield-create-product-field-json
-     * @param array $field field data
+     * @link    http://api.insales.ru/?doc_format=JSON#productfield-create-product-field-json
+     * @param   array $field field data
+     * @throws  InsalesApiException
+     * @group   productField
      *
      * @return Response
      */
     public function productFieldCreate($field)
     {
         if (empty($field['title'])) {
-            throw new \InvalidArgumentException("Field title must be set");
+            throw new InsalesApiException("Field title must be set");
         }
         if (empty($field['handle'])) {
-            throw new \InvalidArgumentException("Field handle must be set");
+            throw new InsalesApiException("Field handle must be set");
         }
         if (empty($field['type'])) {
-            throw new \InvalidArgumentException("Field type must be set");
+            throw new InsalesApiException("Field type must be set");
         }
 
         $url = '/admin/product_fields.json';
@@ -784,16 +849,18 @@ class Api
     /**
      * Update product field
      *
-     * @link http://api.insales.ru/?doc_format=JSON#productfield-update-product-field-json
-     * @param int   $fieldId    field id
-     * @param array $field      field data
+     * @link    http://api.insales.ru/?doc_format=JSON#productfield-update-product-field-json
+     * @param   int   $fieldId    field id
+     * @param   array $field      field data
+     * @throws  InsalesApiException
+     * @group   productField
      *
      * @return Response
      */
     public function productFieldUpdate($fieldId, $field)
     {
         if (empty($fieldId)) {
-            throw new \InvalidArgumentException("Field id must be set");
+            throw new InsalesApiException("Field id must be set");
         }
 
         $url = sprintf('/admin/product_fields/%s.json', $fieldId);
@@ -806,15 +873,17 @@ class Api
     /**
      * Delete product field
      *
-     * @link http://api.insales.ru/?doc_format=JSON#productfield-destroy-product-field-json
-     * @param int $fieldId field id
+     * @link    http://api.insales.ru/?doc_format=JSON#productfield-destroy-product-field-json
+     * @param   int $fieldId field id
+     * @throws  InsalesApiException
+     * @group   productField
      *
      * @return Response
      */
     public function productFieldDelete($fieldId)
     {
         if (empty($fieldId)) {
-            throw new \InvalidArgumentException("Field id must be set");
+            throw new InsalesApiException("Field id must be set");
         }
 
         $url = sprintf('/admin/product_fields/%s.json', $fieldId);
@@ -825,15 +894,17 @@ class Api
     /**
      * Get list field values by product id
      *
-     * @link http://api.insales.ru/?doc_format=JSON#productfieldvalue-get-product-field-values-json
-     * @param int $productId product id
+     * @link    http://api.insales.ru/?doc_format=JSON#productfieldvalue-get-product-field-values-json
+     * @param   int $productId product id
+     * @throws  InsalesApiException
+     * @group   productFieldValues
      *
      * @return Response
      */
     public function productFieldValuesList($productId)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
 
         $url = sprintf('/admin/products/%s/product_field_values.json', $productId);
@@ -844,22 +915,24 @@ class Api
     /**
      * Get field values by product id
      *
-     * @link http://api.insales.ru/?doc_format=JSON#productfieldvalue-get-product-field-value-json
-     * @param int   $productId    product id
-     * @param int   $fieldId      field id
+     * @link    http://api.insales.ru/?doc_format=JSON#productfieldvalue-get-product-field-value-json
+     * @param   int   $productId                product id
+     * @param   int   $productFieldValuesId     field id
+     * @throws  InsalesApiException
+     * @group   productFieldValues
      *
      * @return Response
      */
-    public function productFieldValuesGet($productId, $fieldId)
+    public function productFieldValuesGet($productId, $productFieldValuesId)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
-        if (empty($fieldId)) {
-            throw new \InvalidArgumentException("Field id must be set");
+        if (empty($productFieldValuesId)) {
+            throw new InsalesApiException("Field id must be set");
         }
 
-        $url = sprintf('/admin/products/%s/product_field_values/%s.json', $productId, $fieldId);
+        $url = sprintf('/admin/products/%s/product_field_values/%s.json', $productId, $productFieldValuesId);
 
         return $this->client->makeRequest($url, Request::METHOD_GET);
     }
@@ -867,16 +940,18 @@ class Api
     /**
      * Create field values for product
      *
-     * @link http://api.insales.ru/?doc_format=JSON#productfieldvalue-create-product-field-value-json
-     * @param int     $productId  product id
-     * @param array   $value      value data
+     * @link    http://api.insales.ru/?doc_format=JSON#productfieldvalue-create-product-field-value-json
+     * @param   int     $productId  product id
+     * @param   array   $value      value data
+     * @throws  InsalesApiException
+     * @group   productFieldValues
      *
      * @return Response
      */
     public function productFieldValuesCreate($productId, $value)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
 
         $url = sprintf('/admin/products/%s/product_field_values.json', $productId);
@@ -888,21 +963,23 @@ class Api
     /**
      * Update field value by product id
      *
-     * @link http://api.insales.ru/?doc_format=JSON#productfieldvalue-update-product-field-value-json
-     * @param int   $productId  product id
-     * @param int   $fieldId    field id
-     * @param array $value      value data
+     * @link    http://api.insales.ru/?doc_format=JSON#productfieldvalue-update-product-field-value-json
+     * @param   int   $productId  product id
+     * @param   int   $fieldId    field id
+     * @param   array $value      value data
+     * @throws  InsalesApiException
+     * @group   productFieldValues
      *
      * @return Response
      */
     public function productFieldValuesUpdate($productId, $fieldId, $value)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
 
         if (empty($fieldId)) {
-            throw new \InvalidArgumentException("Field id must be set");
+            throw new InsalesApiException("Field id must be set");
         }
 
         $url = sprintf('/admin/products/%s/product_field_values/%s.json', $productId, $fieldId);
@@ -914,20 +991,22 @@ class Api
     /**
      * Delete field value by product id
      *
-     * @link http://api.insales.ru/?doc_format=JSON#productfieldvalue-destroy-product-field-value-json
-     * @param int $productId    product id
-     * @param int $fieldId      field id
+     * @link    http://api.insales.ru/?doc_format=JSON#productfieldvalue-destroy-product-field-value-json
+     * @param   int $productId    product id
+     * @param   int $fieldId      field id
+     * @throws  InsalesApiException
+     * @group   productFieldValues
      *
      * @return Response
      */
     public function productFieldValuesDelete($productId, $fieldId)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
 
         if (empty($fieldId)) {
-            throw new \InvalidArgumentException("Field id must be set");
+            throw new InsalesApiException("Field id must be set");
         }
 
         $url = sprintf('/admin/products/%s/product_field_values/%s.json', $productId, $fieldId);
@@ -938,15 +1017,17 @@ class Api
     /**
      * Get list supplementary products
      *
-     * @link http://api.insales.ru/?doc_format=JSON#supplementary-get-supplementaries-json
-     * @param int $productId product id
+     * @link    http://api.insales.ru/?doc_format=JSON#supplementary-get-supplementaries-json
+     * @param   int $productId product id
+     * @throws  InsalesApiException
+     * @group   supplementaryProducts
      *
      * @return Response
      */
     public function supplementariesProductsList($productId)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
 
         $url = sprintf('/admin/products/%s/supplementaries.json', $productId);
@@ -957,16 +1038,18 @@ class Api
     /**
      * Create supplementary product
      *
-     * @link http://api.insales.ru/?doc_format=JSON#supplementary-create-supplementary-json
-     * @param int   $productId          product id
-     * @param array $supplementaryIds   supplementary products ids
+     * @link    http://api.insales.ru/?doc_format=JSON#supplementary-create-supplementary-json
+     * @param   int   $productId          product id
+     * @param   array $supplementaryIds   supplementary products ids
+     * @throws  InsalesApiException
+     * @group   supplementaryProducts
      *
      * @return Response
      */
     public function supplementaryProductsCreate($productId, $supplementaryIds)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
 
         $url = sprintf('/admin/products/%s/supplementaries.json', $productId);
@@ -978,19 +1061,21 @@ class Api
     /**
      * Delete supplementary product
      *
-     * @link http://api.insales.ru/?doc_format=JSON#supplementary-destroy-supplementary-json
-     * @param int $productId        product id
-     * @param int $supplementaryId  supplementary product id
+     * @link    http://api.insales.ru/?doc_format=JSON#supplementary-destroy-supplementary-json
+     * @param   int $productId        product id
+     * @param   int $supplementaryId  supplementary product id
+     * @throws  InsalesApiException
+     * @group   supplementaryProducts
      *
      * @return Response
      */
     public function supplementaryProductsDelete($productId, $supplementaryId)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
         if (empty($supplementaryId)) {
-            throw new \InvalidArgumentException("Supplementary product id must be set");
+            throw new InsalesApiException("Supplementary product id must be set");
         }
 
         $url = sprintf('/admin/products/%s/supplementaries/%s.json', $productId, $supplementaryId);
@@ -1001,15 +1086,17 @@ class Api
     /**
      * Get list similars products
      *
-     * @link http://api.insales.ru/?doc_format=JSON#similar-get-similars-json
-     * @param int $productId product id
+     * @link    http://api.insales.ru/?doc_format=JSON#similar-get-similars-json
+     * @param   int $productId product id
+     * @throws  InsalesApiException
+     * @group   similarProducts
      *
      * @return Response
      */
     public function similarsProductsList($productId)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
 
         $url = sprintf('/admin/products/%s/similars.json', $productId);
@@ -1020,16 +1107,18 @@ class Api
     /**
      * Create similar product
      *
-     * @link http://api.insales.ru/?doc_format=JSON#similar-create-similar-json
-     * @param int   $productId  product id
-     * @param array $similarIds similar ids
+     * @link    http://api.insales.ru/?doc_format=JSON#similar-create-similar-json
+     * @param   int   $productId  product id
+     * @param   array $similarIds similar ids
+     * @throws  InsalesApiException
+     * @group   similarProducts
      *
      * @return Response
      */
     public function similarProductsCreate($productId, $similarIds)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
 
         $url = sprintf('/admin/products/%s/similars.json', $productId);
@@ -1041,19 +1130,21 @@ class Api
     /**
      * Delete similar product Удаление аналогичного товара
      *
-     * @link http://api.insales.ru/?doc_format=JSON#similar-destroy-similar-json
-     * @param int $productId        product id
-     * @param int $similarProductId similar product id
+     * @link    http://api.insales.ru/?doc_format=JSON#similar-destroy-similar-json
+     * @param   int $productId        product id
+     * @param   int $similarProductId similar product id
+     * @throws  InsalesApiException
+     * @group   similarProducts
      *
      * @return Response
      */
     public function similarProductsDelete($productId, $similarProductId)
     {
         if (empty($productId)) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
         if (empty($similarProductId)) {
-            throw new \InvalidArgumentException("Related productId id must be set");
+            throw new InsalesApiException("Related productId id must be set");
         }
 
         $url = sprintf('/admin/products/%s/similars/%s.json', $productId, $similarProductId);
@@ -1064,10 +1155,12 @@ class Api
     /**
      * Get list collections
      *
-     * @link http://api.insales.ru/?doc_format=JSON#collection-get-collections-json
-     * @param null      $perPage        quantity of objects per page
-     * @param \DateTime $updatedSince   set datetime to get only data updated after it
-     * @param null      $fromId         set id to get only data starting from it
+     * @link    http://api.insales.ru/?doc_format=JSON#collection-get-collections-json
+     * @param   null      $perPage        quantity of objects per page
+     * @param   \DateTime $updatedSince   set datetime to get only data updated after it
+     * @param   null      $fromId         set id to get only data starting from it
+     * @throws  InsalesApiException
+     * @group   collection
      *
      * @return Response
      */
@@ -1087,15 +1180,17 @@ class Api
     /**
      * Get collection
      *
-     * @link http://api.insales.ru/?doc_format=JSON#collection-get-collection-json
-     * @param int $collectionId collection id
+     * @link    http://api.insales.ru/?doc_format=JSON#collection-get-collection-json
+     * @param   int $collectionId collection id
+     * @throws  InsalesApiException
+     * @group   collection
      *
      * @return Response
      */
     public function collectionGet($collectionId)
     {
         if (empty($collectionId)) {
-            throw new \InvalidArgumentException("Collection id must be set");
+            throw new InsalesApiException("Collection id must be set");
         }
 
         $url = sprintf('/admin/collections/%s.json', $collectionId);
@@ -1106,21 +1201,23 @@ class Api
     /**
      * Create collection
      *
-     * @link http://api.insales.ru/?doc_format=JSON#collection-create-collection-json
-     * @param array $collection collection data
+     * @link    http://api.insales.ru/?doc_format=JSON#collection-create-collection-json
+     * @param   array $collection collection data
+     * @throws  InsalesApiException
+     * @group   collection
      *
      * @return Response
      */
     public function collectionCreate($collection)
     {
         if (empty($collection['title'])) {
-            throw new \InvalidArgumentException("Collection title must be set");
+            throw new InsalesApiException("Collection title must be set");
         }
         if (empty($collection['parent_id'])) {
-            throw new \InvalidArgumentException("Collection parent id must be set");
+            throw new InsalesApiException("Collection parent id must be set");
         }
         if (empty($collection['position'])) {
-            throw new \InvalidArgumentException("Collection position must be set");
+            throw new InsalesApiException("Collection position must be set");
         }
         $url = '/admin/collections.json';
         $parameters = array('collection' => $collection);
@@ -1131,22 +1228,24 @@ class Api
     /**
      * Update collection
      *
-     * @link http://api.insales.ru/?doc_format=JSON#collection-update-collection-json
-     * @param int   $collectionId   collection id
-     * @param array $collection     collection data
+     * @link    http://api.insales.ru/?doc_format=JSON#collection-update-collection-json
+     * @param   int   $collectionId   collection id
+     * @param   array $collection     collection data
+     * @throws  InsalesApiException
+     * @group   collection
      *
      * @return Response
      */
     public function collectionUpdate($collectionId, $collection)
     {
         if (empty($collectionId)) {
-            throw new \InvalidArgumentException("Collection id must be set");
+            throw new InsalesApiException("Collection id must be set");
         }
 
         $possibleSort = array(1, 2, 3, 4, 5, 6, 7);
 
         if (isset($collection['sort-type']) && !in_array($collection['sort-type'], $possibleSort)) {
-            throw new \InvalidArgumentException("Unavailable sorting. Possible sorting codes: 1, 2, 3, 4, 5, 6, 7");
+            throw new InsalesApiException("Unavailable sorting. Possible sorting codes: 1, 2, 3, 4, 5, 6, 7");
         }
 
         $url = sprintf('/admin/collections/%s.json', $collectionId);
@@ -1158,15 +1257,17 @@ class Api
     /**
      * Delete collection
      *
-     * @link http://api.insales.ru/?doc_format=JSON#collection-destroy-collection-json
-     * @param int $collectionId collection id
+     * @link    http://api.insales.ru/?doc_format=JSON#collection-destroy-collection-json
+     * @param   int $collectionId collection id
+     * @throws  InsalesApiException
+     * @group   collection
      *
      * @return Response
      */
     public function collectionDelete($collectionId)
     {
         if (empty($collectionId)) {
-            throw new \InvalidArgumentException("Collection id must be set");
+            throw new InsalesApiException("Collection id must be set");
         }
 
         $url = sprintf('/admin/collections/%s.json', $collectionId);
@@ -1177,7 +1278,8 @@ class Api
     /**
      * Get list collects
      *
-     * @link http://api.insales.ru/?doc_format=JSON#collect-get-collects-json
+     * @link    http://api.insales.ru/?doc_format=JSON#collect-get-collects-json
+     * @group   collect
      *
      * @return Response
      */
@@ -1191,10 +1293,12 @@ class Api
     /**
      * Get collections by product or products by collection
      *
-     * @link http://api.insales.ru/?doc_format=JSON#collect-get-collections-by-product-json
-     * @link http://api.insales.ru/?doc_format=JSON#collect-get-products-by-collection-json
-     * @param int $productId    product id
-     * @param int $collectionId collection id
+     * @link    http://api.insales.ru/?doc_format=JSON#collect-get-collections-by-product-json
+     * @link    http://api.insales.ru/?doc_format=JSON#collect-get-products-by-collection-json
+     * @param   int $productId    product id
+     * @param   int $collectionId collection id
+     * @throws  InsalesApiException
+     * @group   collect
      *
      * @return Response
      */
@@ -1202,7 +1306,7 @@ class Api
     {
 
         if (empty($productId) && empty($collectionId)) {
-            throw new \InvalidArgumentException("Product id or collection id must be set");
+            throw new InsalesApiException("Product id or collection id must be set");
         }
 
         $url = '/admin/collects.json';
@@ -1220,18 +1324,20 @@ class Api
     /**
      * Add product to collection
      *
-     * @link http://api.insales.ru/?doc_format=JSON#collect-add-product-to-collection-json
-     * @param array $collect collect data
+     * @link    http://api.insales.ru/?doc_format=JSON#collect-add-product-to-collection-json
+     * @param   array $collect collect data
+     * @throws  InsalesApiException
+     * @group   collect
      *
      * @return Response
      */
     public function collectCreate($collect)
     {
         if (empty($collect['product_id'])) {
-            throw new \InvalidArgumentException("Product id must be set");
+            throw new InsalesApiException("Product id must be set");
         }
         if (empty($collect['collection_id'])) {
-            throw new \InvalidArgumentException("Collection id must be set");
+            throw new InsalesApiException("Collection id must be set");
         }
 
         $url = '/admin/collects.json';
@@ -1243,21 +1349,22 @@ class Api
     /**
      * Update position  or move product to another collection
      *
-     * @link http://api.insales.ru/?doc_format=JSON#collect-update-position-json
-     * @link http://api.insales.ru/?doc_format=JSON#collect-move-product-to-another-collection-json
-     *
-     * @param int   $collectId  collect id
-     * @param array $collect    collect data
+     * @link    http://api.insales.ru/?doc_format=JSON#collect-update-position-json
+     * @link    http://api.insales.ru/?doc_format=JSON#collect-move-product-to-another-collection-json
+     * @param   int   $collectId  collect id
+     * @param   array $collect    collect data
+     * @throws  InsalesApiException
+     * @group   collect
      *
      * @return Response
      */
     public function collectsUpdate($collectId, $collect)
     {
         if (empty($collectId)) {
-            throw new \InvalidArgumentException("Collect id must be set");
+            throw new InsalesApiException("Collect id must be set");
         }
         if (empty($collect)) {
-            throw new \InvalidArgumentException("Collect must be set");
+            throw new InsalesApiException("Collect must be set");
         }
 
         $url = sprintf('/admin/collects/%s.json', $collectId);
@@ -1269,15 +1376,17 @@ class Api
     /**
      * Delete product from collection
      *
-     * @link http://api.insales.ru/?doc_format=JSON#collect-remove-product-from-collection-json
-     * @param int $collectId collect id
+     * @link    http://api.insales.ru/?doc_format=JSON#collect-remove-product-from-collection-json
+     * @param   int $collectId collect id
+     * @throws  InsalesApiException
+     * @group   collect
      *
      * @return Response
      */
     public function collectDelete($collectId)
     {
         if (empty($collectId)) {
-            throw new \InvalidArgumentException("Collect id must be set");
+            throw new InsalesApiException("Collect id must be set");
         }
 
         $url = sprintf('/admin/collects/%s.json', $collectId);
@@ -1298,13 +1407,15 @@ class Api
      * @param \DateTime|null    $updatedSince   set datetime to get only data updated after it
      * @param int               $fromId         set id to get only data starting from it
      * @param bool              $deleted        get deleted orders
+     * @throws InsalesApiException
+     * @group order
      *
      * @return Response
      */
     public function ordersList($filter = null, $page = null, $perPage = null, \DateTime $updatedSince = null, $fromId = null, $deleted = null)
     {
         if (isset($filter['status']) && ($filter['status'] != 'open' || $filter['status'] != 'closed')) {
-            throw new \InvalidArgumentException("Status must be set. open|closed");
+            throw new InsalesApiException("Status must be set. open|closed");
         }
 
         $url = '/admin/orders.json';
@@ -1338,6 +1449,8 @@ class Api
      * @param \DateTime|null    $updatedSince   set datetime to get only data updated after it
      * @param int               $fromId         set id to get only data starting from it
      * @param bool              $deleted        get deleted orders
+     * @throws InsalesApiException
+     * @group order
      *
      * @return Response
      */
@@ -1345,7 +1458,7 @@ class Api
     {
         $status = array('open', 'closed');
         if (isset($filter['status']) && !in_array($filter['status'], $status)) {
-            throw new \InvalidArgumentException("Status must be set. open|closed");
+            throw new InsalesApiException("Status must be set. open|closed");
         }
 
         $url = '/admin/orders/count.json';
@@ -1370,15 +1483,17 @@ class Api
     /**
      * Get order by id
      *
-     * @link http://api.insales.ru/?doc_format=JSON#order-get-order-json
-     * @param int $orderId order id
+     * @link    http://api.insales.ru/?doc_format=JSON#order-get-order-json
+     * @param   int $orderId order id
+     * @throws  InsalesApiException
+     * @group   order
      *
      * @return Response
      */
     public function orderGet($orderId)
     {
         if (empty($orderId)) {
-            throw new \InvalidArgumentException("Order id must be set");
+            throw new InsalesApiException("Order id must be set");
         }
 
         $url = sprintf('/admin/orders/%s.json', $orderId);
@@ -1389,16 +1504,18 @@ class Api
     /**
      * Update order
      *
-     * @link http://api.insales.ru/?doc_format=JSON#order-update-order-json
-     * @param int   $orderId    order id
-     * @param array $order      order data
+     * @link    http://api.insales.ru/?doc_format=JSON#order-update-order-json
+     * @param   int   $orderId    order id
+     * @param   array $order      order data
+     * @throws  InsalesApiException
+     * @group   order
      *
      * @return Response
      */
     public function orderUpdate($orderId, $order)
     {
         if (empty($orderId)) {
-            throw new \InvalidArgumentException("Order id must be set");
+            throw new InsalesApiException("Order id must be set");
         }
 
         $url = sprintf('/admin/orders/%s.json', $orderId);
@@ -1410,21 +1527,28 @@ class Api
     /**
      * Create order line by product_id or by variant_id
      *
-     * @link http://api.insales.ru/?doc_format=JSON#order-create-order-line-by-product-id-json
-     * @link http://api.insales.ru/?doc_format=JSON#order-create-order-line-by-variant-id-json
-     * @param int   $orderId    order id
-     * @param array $orderLines order lines attributes
+     * @link    http://api.insales.ru/?doc_format=JSON#order-create-order-line-by-product-id-json
+     * @link    http://api.insales.ru/?doc_format=JSON#order-create-order-line-by-variant-id-json
+     * @param   int   $orderId    order id
+     * @param   array $orderLines order lines attributes
+     * @throws  InsalesApiException
+     * @group   orderLine
      *
      * @return Response
      */
     public function orderLineCreate($orderId, $orderLines)
     {
         if (empty($orderId)) {
-            throw new \InvalidArgumentException("Order id must be set");
+            throw new InsalesApiException("Order id must be set");
         }
+
+        if (empty($orderLines)) {
+            throw new InsalesApiException("Order line must be set");
+        }
+
         foreach ($orderLines as $orderLine) {
             if ((empty($orderLine['variant_id']) && empty($orderLine['product_id'])) || empty($orderLine['quantity'])) {
-                throw new \InvalidArgumentException("Variant or product id and quantity must be set");
+                throw new InsalesApiException("Variant or product id and quantity must be set");
             }
         }
         $order = array('order_lines_attributes' => $orderLines);
@@ -1435,20 +1559,27 @@ class Api
     /**
      * Update order line
      *
-     * @link http://api.insales.ru/?doc_format=JSON#order-update-order-line-json
-     * @param int   $orderId    order id
-     * @param array $orderLines order lines attributes
+     * @link    http://api.insales.ru/?doc_format=JSON#order-update-order-line-json
+     * @param   int   $orderId    order id
+     * @param   array $orderLines order lines attributes
+     * @throws  InsalesApiException
+     * @group   orderLine
      *
      * @return Response
      */
     public function orderLineUpdate($orderId, $orderLines)
     {
         if (empty($orderId)) {
-            throw new \InvalidArgumentException("Order id must be set");
+            throw new InsalesApiException("Order id must be set");
         }
+
+        if (empty($orderLines)) {
+            throw new InsalesApiException("Order line must be set");
+        }
+
         foreach ($orderLines as $orderLine) {
             if (empty($orderLine['id'])) {
-                throw new \InvalidArgumentException("Order line id must be set");
+                throw new InsalesApiException("Order line id must be set");
             }
         }
         $order = array('order_lines_attributes' => $orderLines);
@@ -1459,19 +1590,27 @@ class Api
     /**
      * Remove order line
      *
-     * @link http://api.insales.ru/?doc_format=JSON#order-remove-order-line-json
-     * @param int   $orderId    order id
-     * @param array $orderLines order lines attributes
+     * @link    http://api.insales.ru/?doc_format=JSON#order-remove-order-line-json
+     * @param   int   $orderId    order id
+     * @param   array $orderLines order lines attributes
+     * @throws  InsalesApiException
+     * @group   orderLine
+     *
      * @return Response
      */
     public function orderLineDelete($orderId, $orderLines)
     {
         if (empty($orderId)) {
-            throw new \InvalidArgumentException("Order id must be set");
+            throw new InsalesApiException("Order id must be set");
         }
+
+        if (empty($orderLines)) {
+            throw new InsalesApiException("Order line must be set");
+        }
+
         foreach ($orderLines as $orderLine) {
             if (empty($orderLine['id'])) {
-                throw new \InvalidArgumentException("Order line id must be set");
+                throw new InsalesApiException("Order line id must be set");
             }
         }
         $order = array('order_lines_attributes' => $orderLines);
@@ -1482,19 +1621,21 @@ class Api
     /**
      * Update shipping address
      *
-     * @link http://api.insales.ru/?doc_format=JSON#order-update-shipping-address-json
-     * @param int       $orderId order id
-     * @param string    $address address delivery
+     * @link    http://api.insales.ru/?doc_format=JSON#order-update-shipping-address-json
+     * @param   int       $orderId order id
+     * @param   string    $address address delivery
+     * @throws  InsalesApiException
+     * @group   orderShippingAddress
      *
      * @return Response
      */
     public function orderShippingAddressUpdate($orderId, $address)
     {
         if (empty($orderId)) {
-            throw new \InvalidArgumentException("Order id must be set");
+            throw new InsalesApiException("Order id must be set");
         }
         if (empty($address)) {
-            throw new \InvalidArgumentException("Order address must be set");
+            throw new InsalesApiException("Order address must be set");
         }
 
         $order = array('shipping_address_attributes' => $address);
@@ -1505,20 +1646,22 @@ class Api
     /**
      * Update custom status
      *
-     * @link http://api.insales.ru/?doc_format=JSON#order-update-custom-status-json
-     * @param int       $orderId            order id
-     * @param string    $customStatus       custom status
-     * @param null      $fulfillmentStatus  fulfillment status
+     * @link    http://api.insales.ru/?doc_format=JSON#order-update-custom-status-json
+     * @param   int       $orderId            order id
+     * @param   string    $customStatus       custom status
+     * @param   null      $fulfillmentStatus  fulfillment status
+     * @throws  InsalesApiException
+     * @group   orderCustomStatus
      *
      * @return Response
      */
     public function orderCustomStatusUpdate($orderId, $customStatus, $fulfillmentStatus = null)
     {
         if (empty($orderId)) {
-            throw new \InvalidArgumentException("Order id must be set");
+            throw new InsalesApiException("Order id must be set");
         }
         if (empty($customStatus)) {
-            throw new \InvalidArgumentException("Custom status must be set");
+            throw new InsalesApiException("Custom status must be set");
         }
 
         $order = array(
@@ -1533,8 +1676,10 @@ class Api
     /**
      * Create order
      *
-     * @link http://api.insales.ru/?doc_format=JSON#order-create-order-json
-     * @param array $order order data
+     * @link    http://api.insales.ru/?doc_format=JSON#order-create-order-json
+     * @param   array $order order data
+     * @throws  InsalesApiException
+     * @group   order
      *
      * @return Response
      */
@@ -1557,7 +1702,7 @@ class Api
         );
 
         if (empty($order)) {
-            throw new \InvalidArgumentException("Order must be set");
+            throw new InsalesApiException("Order must be set");
         }
 
         $res = array_diff_key($requiredFields, $order);
@@ -1584,7 +1729,7 @@ class Api
         }
 
         if (!empty($res)) {
-            throw new \InvalidArgumentException("Order values are not complete. Required parameters that are not in order: " . json_encode($res, true));
+            throw new InsalesApiException("Order values are not complete. Required parameters that are not in order: " . json_encode($res, true));
         }
 
         $url = '/admin/orders.json';
@@ -1597,15 +1742,17 @@ class Api
     /**
      * Delete order
      *
-     * @link http://api.insales.ru/?doc_format=JSON#order-remove-order-line-json
-     * @param int $orderId order id
+     * @link    http://api.insales.ru/?doc_format=JSON#order-remove-order-line-json
+     * @param   int $orderId order id
+     * @throws  InsalesApiException
+     * @group   order
      *
      * @return Response
      */
     public function orderDelete($orderId)
     {
         if (empty($orderId)) {
-            throw new \InvalidArgumentException("Order id must be set");
+            throw new InsalesApiException("Order id must be set");
         }
 
         $url = sprintf('/admin/orders/%s.json', $orderId);
@@ -1620,6 +1767,7 @@ class Api
      * @param int       $perPage        quantity of objects per page
      * @param \DateTime $updatedSince   set datetime to get only data updated after it
      * @param int       $fromId         set id to get only data starting from it
+     * @group client
      *
      * @return Response
      */
@@ -1639,15 +1787,17 @@ class Api
     /**
      * Get client
      *
-     * @link http://api.insales.ru/?doc_format=JSON#client-get-client-json
-     * @param int $clientId client id
+     * @link    http://api.insales.ru/?doc_format=JSON#client-get-client-json
+     * @param   int $clientId client id
+     * @throws  InsalesApiException
+     * @group   client
      *
      * @return Response
      */
     public function clientGet($clientId)
     {
         if (empty($clientId)) {
-            throw new \InvalidArgumentException("Client id must be set");
+            throw new InsalesApiException("Client id must be set");
         }
 
         $url = sprintf('/admin/clients/%s.json', $clientId);
@@ -1658,24 +1808,26 @@ class Api
     /**
      * Create individual or juridical client
      *
-     * @link http://api.insales.ru/?doc_format=JSON#client-create-individual-client-json
-     * @link http://api.insales.ru/?doc_format=JSON#client-create-juridical-client-json
-     * @param array $client client data
+     * @link    http://api.insales.ru/?doc_format=JSON#client-create-individual-client-json
+     * @link    http://api.insales.ru/?doc_format=JSON#client-create-juridical-client-json
+     * @param   array $client client data
+     * @throws  InsalesApiException
+     * @group   client
      *
      * @return Response
      */
     public function clientCreate($client)
     {
         if (empty($client['name'])) {
-            throw new \InvalidArgumentException("Name client must be set");
+            throw new InsalesApiException("Name client must be set");
         }
         if (isset($client['type']) && $client['type'] == 'Client::Juridical') {
             if (empty($client['inn'])) {
-                throw new \InvalidArgumentException("INN client must be set");
+                throw new InsalesApiException("INN client must be set");
             }
         } else {
             if (empty($client['surname']) || empty($client['middlename'])) {
-                throw new \InvalidArgumentException("Name and surname and middlename client must be set");
+                throw new InsalesApiException("Name and surname and middlename client must be set");
             }
         }
 
@@ -1688,15 +1840,17 @@ class Api
     /**
      * Delete client
      *
-     * @link http://api.insales.ru/?doc_format=JSON#client-destroy-client-json
-     * @param int $clientId client id
+     * @link    http://api.insales.ru/?doc_format=JSON#client-destroy-client-json
+     * @param   int $clientId client id
+     * @throws  InsalesApiException
+     * @group   client
      *
      * @return Response
      */
     public function clientDelete($clientId)
     {
         if (empty($clientId)) {
-            throw new \InvalidArgumentException("Client id must be set");
+            throw new InsalesApiException("Client id must be set");
         }
 
         $url = sprintf('/admin/clients/%s.json', $clientId);
@@ -1707,7 +1861,8 @@ class Api
     /**
      * Get list discount codes
      *
-     * @link http://api.insales.ru/?doc_format=JSON#discountcode-get-discount-codes-json
+     * @link    http://api.insales.ru/?doc_format=JSON#discountcode-get-discount-codes-json
+     * @group   discountCode
      *
      * @return Response
      */
@@ -1721,18 +1876,20 @@ class Api
     /**
      * Get discount code
      *
-     * @link http://api.insales.ru/?doc_format=JSON#discountcode-get-discount-code-json
-     * @param int $discountId discount id
+     * @link    http://api.insales.ru/?doc_format=JSON#discountcode-get-discount-code-json
+     * @param   int $discountCodeId discount id
+     * @throws  InsalesApiException
+     * @group   discountCode
      *
      * @return Response
      */
-    public function discountCodeGet($discountId)
+    public function discountCodeGet($discountCodeId)
     {
-        if (empty($discountId)) {
-            throw new \InvalidArgumentException("Discount code id must be set");
+        if (empty($discountCodeId)) {
+            throw new InsalesApiException("Discount code id must be set");
         }
 
-        $url = sprintf('/admin/discount_codes/%s.json', $discountId);
+        $url = sprintf('/admin/discount_codes/%s.json', $discountCodeId);
 
         return $this->client->makeRequest($url, Request::METHOD_GET);
     }
@@ -1740,22 +1897,24 @@ class Api
     /**
      * Create discount code
      *
-     * @link http://api.insales.ru/?doc_format=JSON#discountcode-create-discount-code-json
-     * @param array $discount discount data
+     * @link    http://api.insales.ru/?doc_format=JSON#discountcode-create-discount-code-json
+     * @param   array $discount discount data
+     * @throws  InsalesApiException
+     * @group   discountCode
      *
      * @return Response
      */
     public function discountCodeCreate($discount)
     {
         if (empty($discount['code'])) {
-            throw new \InvalidArgumentException("Discount code must be set");
+            throw new InsalesApiException("Discount code must be set");
         }
         $type = array(1, 2); // 1-percent, 2-money
         if (empty($discount['type_id']) || !in_array($discount['type_id'], $type)) {
-            throw new \InvalidArgumentException("Discount type id must be set");
+            throw new InsalesApiException("Discount type id must be set");
         }
         if (empty($discount['discount'])) {
-            throw new \InvalidArgumentException("Discount must be set");
+            throw new InsalesApiException("Discount must be set");
         }
 
         $url = '/admin/discount_codes.json';
@@ -1767,16 +1926,18 @@ class Api
     /**
      * Update discount code
      *
-     * @link http://api.insales.ru/?doc_format=JSON#discountcode-update-discount-code-json
-     * @param int   $discountId discount id
-     * @param array $discount   discount data
+     * @link    http://api.insales.ru/?doc_format=JSON#discountcode-update-discount-code-json
+     * @param   int   $discountId discount id
+     * @param   array $discount   discount data
+     * @throws  InsalesApiException
+     * @group   discountCode
      *
      * @return Response
      */
     public function discountCodeUpdate($discountId, $discount)
     {
         if (empty($discountId)) {
-            throw new \InvalidArgumentException("Discount code id must be set");
+            throw new InsalesApiException("Discount code id must be set");
         }
 
         $url = sprintf('/admin/discount_codes/%s.json', $discountId);
@@ -1788,15 +1949,17 @@ class Api
     /**
      * Delete discount code
      *
-     * @link http://api.insales.ru/?doc_format=JSON#discountcode-destroy-discount-code-json
-     * @param int $discountId discount id
+     * @link    http://api.insales.ru/?doc_format=JSON#discountcode-destroy-discount-code-json
+     * @param   int $discountId discount id
+     * @throws  InsalesApiException
+     * @group   discountCode
      *
      * @return Response
      */
     public function discountCodeDelete($discountId)
     {
         if (empty($discountId)) {
-            throw new \InvalidArgumentException("Discount code id must be set");
+            throw new InsalesApiException("Discount code id must be set");
         }
 
         $url = sprintf('/admin/discount_codes/%s.json', $discountId);
@@ -1807,7 +1970,8 @@ class Api
     /**
      * Get list delivery variants
      *
-     * @link http://api.insales.ru/?doc_format=JSON#deliveryvariant-get-delivery-variants-json
+     * @link    http://api.insales.ru/?doc_format=JSON#deliveryvariant-get-delivery-variants-json
+     * @group   deliveryVariant
      *
      * @return Response
      */
@@ -1821,18 +1985,20 @@ class Api
     /**
      * Get delivery_variant
      *
-     * @link http://api.insales.ru/?doc_format=JSON#deliveryvariant-get-delivery-variant-json
-     * @param int $deliveryId delivery id
+     * @link    http://api.insales.ru/?doc_format=JSON#deliveryvariant-get-delivery-variant-json
+     * @param   int $deliveryVariantId delivery id
+     * @throws  InsalesApiException
+     * @group   deliveryVariant
      *
      * @return Response
      */
-    public function deliveryVariantGet($deliveryId)
+    public function deliveryVariantGet($deliveryVariantId)
     {
-        if (empty($deliveryId)) {
-            throw new \InvalidArgumentException("Delivery variant id must be set");
+        if (empty($deliveryVariantId)) {
+            throw new InsalesApiException("Delivery variant id must be set");
         }
 
-        $url = sprintf('/admin/delivery_variants/%s.json', $deliveryId);
+        $url = sprintf('/admin/delivery_variants/%s.json', $deliveryVariantId);
 
         return $this->client->makeRequest($url, Request::METHOD_GET);
     }
@@ -1840,27 +2006,29 @@ class Api
     /**
      * Create delivery_variant
      *
-     * @link http://api.insales.ru/?doc_format=JSON#deliveryvariant-create-delivery-variant-external-json
-     * @link http://api.insales.ru/?doc_format=JSON#deliveryvariant-create-delivery-variant-fixed-json
-     * @link http://api.insales.ru/?doc_format=JSON#deliveryvariant-create-delivery-variant-locationdepend-json
-     * @link http://api.insales.ru/?doc_format=JSON#deliveryvariant-create-delivery-variant-pricedepend-json
-     * @param array $delivery delivery data
+     * @link    http://api.insales.ru/?doc_format=JSON#deliveryvariant-create-delivery-variant-external-json
+     * @link    http://api.insales.ru/?doc_format=JSON#deliveryvariant-create-delivery-variant-fixed-json
+     * @link    http://api.insales.ru/?doc_format=JSON#deliveryvariant-create-delivery-variant-locationdepend-json
+     * @link    http://api.insales.ru/?doc_format=JSON#deliveryvariant-create-delivery-variant-pricedepend-json
+     * @param   array $delivery delivery data
+     * @throws  InsalesApiException
+     * @group   deliveryVariant
      *
      * @return Response
      */
     public function deliveryVariantCreate($delivery)
     {
         if (empty($delivery['title'])) {
-            throw new \InvalidArgumentException("Delivery variant title must be set");
+            throw new InsalesApiException("Delivery variant title must be set");
         }
         if (empty($delivery['type'])) {
-            throw new \InvalidArgumentException("Delivery variant type must be set");
+            throw new InsalesApiException("Delivery variant type must be set");
         }
         if ($delivery['type'] == 'DeliveryVariant::Fixed' && empty($delivery['price'])) {
-            throw new \InvalidArgumentException("Delivery price must be set");
+            throw new InsalesApiException("Delivery price must be set");
         }
         if ($delivery['type'] == 'DeliveryVariant::LocationDepend' && empty($delivery['delivery_zones_attributes'])) {
-            throw new \InvalidArgumentException("Delivery zones must be set");
+            throw new InsalesApiException("Delivery zones must be set");
         }
 
         $url = '/admin/delivery_variants.json';
@@ -1872,16 +2040,18 @@ class Api
     /**
      * Update delivery variant
      *
-     * @link http://api.insales.ru/?doc_format=JSON#deliveryvariant-update-delivery-variant-json
-     * @param int   $deliveryId delivery id
-     * @param array $delivery   delivery data
+     * @link    http://api.insales.ru/?doc_format=JSON#deliveryvariant-update-delivery-variant-json
+     * @param   int   $deliveryId delivery id
+     * @param   array $delivery   delivery data
+     * @throws  InsalesApiException
+     * @group   deliveryVariant
      *
      * @return Response
      */
     public function deliveryVariantUpdate($deliveryId, $delivery)
     {
         if (empty($deliveryId)) {
-            throw new \InvalidArgumentException("Delivery variant id must be set");
+            throw new InsalesApiException("Delivery variant id must be set");
         }
 
         $url = sprintf('/admin/delivery_variants/%s.json', $deliveryId);
@@ -1893,15 +2063,17 @@ class Api
     /**
      * Delete delivery variant
      *
-     * @link http://api.insales.ru/?doc_format=JSON#deliveryvariant-destroy-delivery-variant-json
-     * @param int $deliveryId delivery id
+     * @link    http://api.insales.ru/?doc_format=JSON#deliveryvariant-destroy-delivery-variant-json
+     * @param   int $deliveryId delivery id
+     * @throws  InsalesApiException
+     * @group   deliveryVariant
      *
      * @return Response
      */
     public function deliveryVariantDelete($deliveryId)
     {
         if (empty($deliveryId)) {
-            throw new \InvalidArgumentException("Delivery variant id must be set");
+            throw new InsalesApiException("Delivery variant id must be set");
         }
 
         $url = sprintf('/admin/delivery_variants/%s.json', $deliveryId);
@@ -1912,7 +2084,8 @@ class Api
     /**
      * Get list payment gateways
      *
-     * @link http://api.insales.ru/?doc_format=JSON#paymentgateway-get-payment-gateways-json
+     * @link    http://api.insales.ru/?doc_format=JSON#paymentgateway-get-payment-gateways-json
+     * @group   paymentGateway
      *
      * @return Response
      */
@@ -1926,18 +2099,20 @@ class Api
     /**
      * Get payment gateway
      *
-     * @link http://api.insales.ru/?doc_format=JSON#paymentgateway-get-payment-gateway-json
-     * @param int $paymentId payment id
+     * @link    http://api.insales.ru/?doc_format=JSON#paymentgateway-get-payment-gateway-json
+     * @param   int $paymentGatewayId payment id
+     * @throws  InsalesApiException
+     * @group   paymentGateway
      *
      * @return Response
      */
-    public function paymentGatewayGet($paymentId)
+    public function paymentGatewayGet($paymentGatewayId)
     {
-        if (empty($paymentId)) {
-            throw new \InvalidArgumentException("Payment gateway id must be set");
+        if (empty($paymentGatewayId)) {
+            throw new InsalesApiException("Payment gateway id must be set");
         }
 
-        $url = sprintf('/admin/payment_gateways/%s.json', $paymentId);
+        $url = sprintf('/admin/payment_gateways/%s.json', $paymentGatewayId);
 
         return $this->client->makeRequest($url, Request::METHOD_GET);
     }
@@ -1945,22 +2120,24 @@ class Api
     /**
      * Create Cod or Custom or External payment gateway
      *
-     * @link http://api.insales.ru/?doc_format=JSON#paymentgateway-create-cod-or-custom-payment-gateway-json
-     * @link http://api.insales.ru/?doc_format=JSON#paymentgateway-create-external-payment-gateway-json
-     * @param array $payment payment data
+     * @link    http://api.insales.ru/?doc_format=JSON#paymentgateway-create-cod-or-custom-payment-gateway-json
+     * @link    http://api.insales.ru/?doc_format=JSON#paymentgateway-create-external-payment-gateway-json
+     * @param   array $payment payment data
+     * @throws  InsalesApiException
+     * @group   paymentGateway
      *
      * @return Response
      */
     public function paymentGatewayCreate($payment)
     {
         if (empty($payment['title'])) {
-            throw new \InvalidArgumentException("Payment title must be set");
+            throw new InsalesApiException("Payment title must be set");
         }
         if (empty($payment['type'])) {
-            throw new \InvalidArgumentException("Payment type must be set");
+            throw new InsalesApiException("Payment type must be set");
         }
         if ($payment['type'] == 'PaymentGateway::External' && (empty($payment['url']) || empty($payment['shop_id']))) {
-            throw new \InvalidArgumentException("Url and shop_id in payment must be set");
+            throw new InsalesApiException("Url and shop_id in payment must be set");
         }
 
         $url = '/admin/payment_gateways.json';
@@ -1972,16 +2149,18 @@ class Api
     /**
      * Update payment gateway
      *
-     * @link http://api.insales.ru/?doc_format=JSON#paymentgateway-update-payment-gateway-json
-     * @param int   $paymentId  payment id
-     * @param array $payment    payment data
+     * @link    http://api.insales.ru/?doc_format=JSON#paymentgateway-update-payment-gateway-json
+     * @param   int   $paymentId  payment id
+     * @param   array $payment    payment data
+     * @throws  InsalesApiException
+     * @group   paymentGateway
      *
      * @return Response
      */
     public function paymentGatewayUpdate($paymentId, $payment)
     {
         if (empty($paymentId)) {
-            throw new \InvalidArgumentException("Payment gateway id must be set");
+            throw new InsalesApiException("Payment gateway id must be set");
         }
 
         $url = sprintf('/admin/payment_gateways/%s.json', $paymentId);
@@ -1993,15 +2172,17 @@ class Api
     /**
      * Delete payment gateway
      *
-     * @link http://api.insales.ru/?doc_format=JSON#paymentgateway-destroy-payment-gateway-json
-     * @param int $paymentId payment id
+     * @link    http://api.insales.ru/?doc_format=JSON#paymentgateway-destroy-payment-gateway-json
+     * @param   int $paymentId payment id
+     * @throws  InsalesApiException
+     * @group   paymentGateway
      *
      * @return Response
      */
     public function paymentGatewayDelete($paymentId)
     {
         if (empty($paymentId)) {
-            throw new \InvalidArgumentException("Payment gateway id must be set");
+            throw new InsalesApiException("Payment gateway id must be set");
         }
         $url = sprintf('/admin/payment_gateways/%s.json', $paymentId);
 
@@ -2011,7 +2192,8 @@ class Api
     /**
      * Get list domains
      *
-     * @link http://api.insales.ru/?doc_format=JSON#domain-get-domains-json
+     * @link    http://api.insales.ru/?doc_format=JSON#domain-get-domains-json
+     * @group   domain
      *
      * @return Response
      */
@@ -2025,15 +2207,17 @@ class Api
     /**
      * Get domain
      *
-     * @link http://api.insales.ru/?doc_format=JSON#domain-get-domain-json
-     * @param int $domainId domain id
+     * @link    http://api.insales.ru/?doc_format=JSON#domain-get-domain-json
+     * @param   int $domainId domain id
+     * @throws  InsalesApiException
+     * @group   domain
      *
      * @return Response
      */
     public function domainGet($domainId)
     {
         if (empty($domainId)) {
-            throw new \InvalidArgumentException("Domain id must be set");
+            throw new InsalesApiException("Domain id must be set");
         }
 
         $url = sprintf('/admin/domains/%s.json', $domainId);
@@ -2044,15 +2228,17 @@ class Api
     /**
      * Create domain
      *
-     * @link http://api.insales.ru/?doc_format=JSON#domain-create-domain-json
-     * @param array $domain domain data
+     * @link    http://api.insales.ru/?doc_format=JSON#domain-create-domain-json
+     * @param   array $domain domain data
+     * @throws  InsalesApiException
+     * @group   domain
      *
      * @return Response
      */
     public function domainCreate($domain)
     {
         if (empty($domain['domain'])) {
-            throw new \InvalidArgumentException("Domain must be set");
+            throw new InsalesApiException("Domain must be set");
         }
 
         $url = '/admin/domains.json';
@@ -2064,16 +2250,18 @@ class Api
     /**
      * Update domain
      *
-     * @link http://api.insales.ru/?doc_format=JSON#domain-update-domain-json
-     * @param int   $domainId   domain id
-     * @param array $domain     domain data
+     * @link    http://api.insales.ru/?doc_format=JSON#domain-update-domain-json
+     * @param   int   $domainId   domain id
+     * @param   array $domain     domain data
+     * @throws  InsalesApiException
+     * @group   domain
      *
      * @return Response
      */
     public function domainUpdate($domainId, $domain)
     {
         if (empty($domainId)) {
-            throw new \InvalidArgumentException("Domain id must be set");
+            throw new InsalesApiException("Domain id must be set");
         }
 
         $url = sprintf('/admin/domains/%s.json', $domainId);
@@ -2085,15 +2273,17 @@ class Api
     /**
      * Delete domain
      *
-     * @link http://api.insales.ru/?doc_format=JSON#domain-destroy-domain-json
-     * @param int $domainId domain id
+     * @link    http://api.insales.ru/?doc_format=JSON#domain-destroy-domain-json
+     * @param   int $domainId domain id
+     * @throws  InsalesApiException
+     * @group   domain
      *
      * @return Response
      */
     public function domainDelete($domainId)
     {
         if (empty($domainId)) {
-            throw new \InvalidArgumentException("Domain id must be set");
+            throw new InsalesApiException("Domain id must be set");
         }
 
         $url = sprintf('/admin/domains/%s.json', $domainId);
@@ -2104,7 +2294,8 @@ class Api
     /**
      * Get list webhooks
      *
-     * @link http://api.insales.ru/?doc_format=JSON#webhook-get-webhooks-json
+     * @link    http://api.insales.ru/?doc_format=JSON#webhook-get-webhooks-json
+     * @group   webhook
      *
      * @return Response
      */
@@ -2118,15 +2309,17 @@ class Api
     /**
      * Get webhook
      *
-     * @link http://api.insales.ru/?doc_format=JSON#webhook-get-webhook-json
-     * @param int $webhookId webhook id
+     * @link    http://api.insales.ru/?doc_format=JSON#webhook-get-webhook-json
+     * @param   int $webhookId webhook id
+     * @throws  InsalesApiException
+     * @group   webhook
      *
      * @return Response
      */
     public function webhookGet($webhookId)
     {
         if (empty($webhookId)) {
-            throw new \InvalidArgumentException("Webhook id must be set");
+            throw new InsalesApiException("Webhook id must be set");
         }
 
         $url = sprintf('/admin/webhooks/%s.json', $webhookId);
@@ -2137,21 +2330,23 @@ class Api
     /**
      * Create webhook
      *
-     * @link http://api.insales.ru/?doc_format=JSON#webhook-create-webhook-json
-     * @param array $webhook webhook data
+     * @link    http://api.insales.ru/?doc_format=JSON#webhook-create-webhook-json
+     * @param   array $webhook webhook data
+     * @throws  InsalesApiException
+     * @group   webhook
      *
      * @return Response
      */
     public function webhookCreate($webhook)
     {
         if (empty($webhook)) {
-            throw new \InvalidArgumentException("Webhook must be set");
+            throw new InsalesApiException("Webhook must be set");
         }
         if (empty($webhook['address'])) {
-            throw new \InvalidArgumentException("Webhook address must be set");
+            throw new InsalesApiException("Webhook address must be set");
         }
         if (empty($webhook['topic'])) {
-            throw new \InvalidArgumentException("Webhook topic must be set");
+            throw new InsalesApiException("Webhook topic must be set");
         }
 
         $url = '/admin/webhooks.json';
@@ -2163,19 +2358,21 @@ class Api
     /**
      * Update webhook
      *
-     * @link http://api.insales.ru/?doc_format=JSON#webhook-update-webhook-json
-     * @param int   $webhookId  webhook id
-     * @param array $webhook    webhook data
+     * @link    http://api.insales.ru/?doc_format=JSON#webhook-update-webhook-json
+     * @param   int   $webhookId  webhook id
+     * @param   array $webhook    webhook data
+     * @throws  InsalesApiException
+     * @group   webhook
      *
      * @return Response
      */
     public function webhookUpdate($webhookId, $webhook)
     {
         if (empty($webhookId)) {
-            throw new \InvalidArgumentException("Webhook id must be set");
+            throw new InsalesApiException("Webhook id must be set");
         }
         if (empty($webhook)) {
-            throw new \InvalidArgumentException("Webhook must be set");
+            throw new InsalesApiException("Webhook must be set");
         }
 
         $url = sprintf('/admin/webhooks/%s.json', $webhookId);
@@ -2187,15 +2384,17 @@ class Api
     /**
      * Delete webhook
      *
-     * @link http://api.insales.ru/?doc_format=JSON#webhook-destroy-webhook-json
-     * @param int $webhookId webhook id
+     * @link    http://api.insales.ru/?doc_format=JSON#webhook-destroy-webhook-json
+     * @param   int $webhookId webhook id
+     * @throws  InsalesApiException
+     * @group   webhook
      *
      * @return Response
      */
     public function webhookDelete($webhookId)
     {
         if (empty($webhookId)) {
-            throw new \InvalidArgumentException("Webhook id must be set");
+            throw new InsalesApiException("Webhook id must be set");
         }
 
         $url = sprintf('/admin/webhooks/%s.json', $webhookId);
@@ -2206,7 +2405,8 @@ class Api
     /**
      * Get list custom statuses
      *
-     * @link http://api.insales.ru/?doc_format=JSON#customstatus-get-custom-statuses-json
+     * @link    http://api.insales.ru/?doc_format=JSON#customstatus-get-custom-statuses-json
+     * @group   customStatus
      *
      * @return Response
      */
@@ -2220,18 +2420,20 @@ class Api
     /**
      * Get custom status
      *
-     * @link http://api.insales.ru/?doc_format=JSON#customstatus-get-custom-status-json
-     * @param string $statusPermalink status permalink
+     * @link    http://api.insales.ru/?doc_format=JSON#customstatus-get-custom-status-json
+     * @param   string $customStatusPermalink status permalink
+     * @throws  InsalesApiException
+     * @group   customStatus
      *
      * @return Response
      */
-    public function customStatusGet($statusPermalink)
+    public function customStatusGet($customStatusPermalink)
     {
-        if (empty($statusPermalink)) {
-            throw new \InvalidArgumentException("Permalink status must be set");
+        if (empty($customStatusPermalink)) {
+            throw new InsalesApiException("Permalink status must be set");
         }
 
-        $url = sprintf('/admin/custom_statuses/%s.json', $statusPermalink);
+        $url = sprintf('/admin/custom_statuses/%s.json', $customStatusPermalink);
 
         return $this->client->makeRequest($url, Request::METHOD_GET);
     }
@@ -2239,21 +2441,23 @@ class Api
     /**
      * Create custom status
      *
-     * @link http://api.insales.ru/?doc_format=JSON#customstatus-create-custom-status-json
-     * @param array $status status data
+     * @link    http://api.insales.ru/?doc_format=JSON#customstatus-create-custom-status-json
+     * @param   array $status status data
+     * @throws  InsalesApiException
+     * @group   customStatus
      *
      * @return Response
      */
     public function customStatusCreate($status)
     {
         if (empty($status)) {
-            throw new \InvalidArgumentException("Status must be set");
+            throw new InsalesApiException("Status must be set");
         }
         if (empty($status['title'])) {
-            throw new \InvalidArgumentException("Title status must be set");
+            throw new InsalesApiException("Title status must be set");
         }
         if (empty($status['system_status'])) {
-            throw new \InvalidArgumentException("System status must be set");
+            throw new InsalesApiException("System status must be set");
         }
 
         $url = '/admin/custom_statuses.json';
@@ -2265,16 +2469,18 @@ class Api
     /**
      * Update custom status
      *
-     * @link http://api.insales.ru/?doc_format=JSON#customstatus-update-custom-status-json
-     * @param string    $statusPermalink    status permalink
-     * @param array     $status             status data
+     * @link    http://api.insales.ru/?doc_format=JSON#customstatus-update-custom-status-json
+     * @param   string    $statusPermalink    status permalink
+     * @param   array     $status             status data
+     * @throws  InsalesApiException
+     * @group   customStatus
      *
      * @return Response
      */
     public function customStatusUpdate($statusPermalink, $status)
     {
         if (empty($statusPermalink)) {
-            throw new \InvalidArgumentException("Permalink status must be set");
+            throw new InsalesApiException("Permalink status must be set");
         }
 
         $url = sprintf('/admin/custom_statuses/%s.json', $statusPermalink);
@@ -2287,15 +2493,17 @@ class Api
     /**
      * Delete custom status
      *
-     * @link http://api.insales.ru/?doc_format=JSON#customstatus-destroy-custom-status-json
-     * @param string $statusPermalink status permalink
+     * @link    http://api.insales.ru/?doc_format=JSON#customstatus-destroy-custom-status-json
+     * @param   string $statusPermalink status permalink
+     * @throws  InsalesApiException
+     * @group   customStatus
      *
      * @return Response
      */
     public function customStatusDelete($statusPermalink)
     {
         if (empty($statusPermalink)) {
-            throw new \InvalidArgumentException("Permalink status must be set");
+            throw new InsalesApiException("Permalink status must be set");
         }
 
         $url = sprintf('/admin/custom_statuses/%s.json', $statusPermalink);
@@ -2306,7 +2514,8 @@ class Api
     /**
      * Get list fields
      *
-     * @link http://api.insales.ru/?doc_format=JSON#field-get-fields-json
+     * @link    http://api.insales.ru/?doc_format=JSON#field-get-fields-json
+     * @group   field
      *
      * @return Response
      */
@@ -2320,15 +2529,17 @@ class Api
     /**
      * Get field
      *
-     * @link http://api.insales.ru/?doc_format=JSON#field-get-field-json
-     * @param int $fieldId field id
+     * @link    http://api.insales.ru/?doc_format=JSON#field-get-field-json
+     * @param   int $fieldId field id
+     * @throws  InsalesApiException
+     * @group   field
      *
      * @return Response
      */
     public function fieldGet($fieldId)
     {
         if (empty($fieldId)) {
-            throw new \InvalidArgumentException("Field id must be set");
+            throw new InsalesApiException("Field id must be set");
         }
 
         $url = sprintf('/admin/fields/%s.json', $fieldId);
@@ -2336,28 +2547,29 @@ class Api
         return $this->client->makeRequest($url, Request::METHOD_GET);
     }
 
-
     /**
      * Create field
      *
-     * @link http://api.insales.ru/?doc_format=JSON#field-create-field-json
-     * @param array $field field data
+     * @link    http://api.insales.ru/?doc_format=JSON#field-create-field-json
+     * @param   array $field field data
+     * @throws  InsalesApiException
+     * @group   field
      *
      * @return Response
      */
     public function fieldCreate($field)
     {
         if (empty($field)) {
-            throw new \InvalidArgumentException("Field must be set");
+            throw new InsalesApiException("Field must be set");
         }
         if (empty($field['type'])) {
-            throw new \InvalidArgumentException("Field type must be set");
+            throw new InsalesApiException("Field type must be set");
         }
         if (empty($field['office_title'])) {
-            throw new \InvalidArgumentException("Field office title must be set");
+            throw new InsalesApiException("Field office title must be set");
         }
         if (empty($field['destiny'])) {
-            throw new \InvalidArgumentException("Field destiny must be set");
+            throw new InsalesApiException("Field destiny must be set");
         }
 
         $url = '/admin/fields.json';
@@ -2369,19 +2581,21 @@ class Api
     /**
      * Update field
      *
-     * @link http://api.insales.ru/?doc_format=JSON#field-update-field-json
-     * @param int   $fieldId    field id
-     * @param array $field      field data
+     * @link    http://api.insales.ru/?doc_format=JSON#field-update-field-json
+     * @param   int   $fieldId    field id
+     * @param   array $field      field data
+     * @throws  InsalesApiException
+     * @group   field
      *
      * @return Response
      */
     public function fieldUpdate($fieldId, $field)
     {
         if (empty($fieldId)) {
-            throw new \InvalidArgumentException("Field id must be set");
+            throw new InsalesApiException("Field id must be set");
         }
         if (empty($field)) {
-            throw new \InvalidArgumentException("Field must be set");
+            throw new InsalesApiException("Field must be set");
         }
 
         $url = sprintf('/admin/fields/%s.json', $fieldId);
@@ -2393,15 +2607,17 @@ class Api
     /**
      * Delete field
      *
-     * @link http://api.insales.ru/?doc_format=JSON#field-destroy-field-json
-     * @param int $fieldId field id
+     * @link    http://api.insales.ru/?doc_format=JSON#field-destroy-field-json
+     * @param   int $fieldId field id
+     * @throws  InsalesApiException
+     * @group   field
      *
      * @return Response
      */
     public function fieldDelete($fieldId)
     {
         if (empty($fieldId)) {
-            throw new \InvalidArgumentException("Field id must be set");
+            throw new InsalesApiException("Field id must be set");
         }
 
         $url = sprintf('/admin/fields/%s.json', $fieldId);
@@ -2412,7 +2628,8 @@ class Api
     /**
      * Get list properties
      *
-     * @link http://api.insales.ru/?doc_format=JSON#property-get-properties-json
+     * @link    http://api.insales.ru/?doc_format=JSON#property-get-properties-json
+     * @group   property
      *
      * @return Response
      */
@@ -2426,15 +2643,17 @@ class Api
     /**
      * Get property
      *
-     * @link http://api.insales.ru/?doc_format=JSON#property-get-property-json
-     * @param int $propertyId property id
+     * @link    http://api.insales.ru/?doc_format=JSON#property-get-property-json
+     * @param   int $propertyId property id
+     * @throws  InsalesApiException
+     * @group   property
      *
      * @return Response
      */
     public function propertyGet($propertyId)
     {
         if (empty($propertyId)) {
-            throw new \InvalidArgumentException("Property id must be set");
+            throw new InsalesApiException("Property id must be set");
         }
 
         $url = sprintf('/admin/properties/%s.json', $propertyId);
@@ -2445,18 +2664,20 @@ class Api
     /**
      * Create property
      *
-     * @link http://api.insales.ru/?doc_format=JSON#property-create-property-json
-     * @param array $property property data
+     * @link    http://api.insales.ru/?doc_format=JSON#property-create-property-json
+     * @param   array $property property data
+     * @throws  InsalesApiException
+     * @group   property
      *
      * @return Response
      */
     public function propertyCreate($property)
     {
         if (empty($property)) {
-            throw new \InvalidArgumentException("Property must be set");
+            throw new InsalesApiException("Property must be set");
         }
         if (empty($property['title'])) {
-            throw new \InvalidArgumentException("Property title must be set");
+            throw new InsalesApiException("Property title must be set");
         }
 
         $url = '/admin/properties.json';
@@ -2468,16 +2689,18 @@ class Api
     /**
      * Update property
      *
-     * @link http://api.insales.ru/?doc_format=JSON#property-update-property-json
-     * @param int   $propertyId property id
-     * @param array $property   property data
+     * @link    http://api.insales.ru/?doc_format=JSON#property-update-property-json
+     * @param   int   $propertyId property id
+     * @param   array $property   property data
+     * @throws  InsalesApiException
+     * @group   property
      *
      * @return Response
      */
     public function propertyUpdate($propertyId, $property)
     {
         if (empty($propertyId)) {
-            throw new \InvalidArgumentException("Property id must be set");
+            throw new InsalesApiException("Property id must be set");
         }
 
         $url = sprintf('/admin/properties/%s.json', $propertyId);
@@ -2489,15 +2712,17 @@ class Api
     /**
      * Delete property
      *
-     * @link http://api.insales.ru/?doc_format=JSON#property-destroy-property-json
-     * @param int $propertyId property id
+     * @link    http://api.insales.ru/?doc_format=JSON#property-destroy-property-json
+     * @param   int $propertyId property id
+     * @throws  InsalesApiException
+     * @group   property
      *
      * @return Response
      */
     public function propertyDelete($propertyId)
     {
         if (empty($propertyId)) {
-            throw new \InvalidArgumentException("Property id must be set");
+            throw new InsalesApiException("Property id must be set");
         }
 
         $url = sprintf('/admin/properties/%s.json', $propertyId);
@@ -2508,7 +2733,8 @@ class Api
     /**
      * Get list client groups
      *
-     * @link http://api.insales.ru/?doc_format=JSON#clientgroup-get-client-groups-json
+     * @link    http://api.insales.ru/?doc_format=JSON#clientgroup-get-client-groups-json
+     * @group   clientGroup
      *
      * @return Response
      */
@@ -2522,15 +2748,17 @@ class Api
     /**
      * Get client group
      *
-     * @link http://api.insales.ru/?doc_format=JSON#clientgroup-get-client-group-json
-     * @param int $clientGroupId client group id
+     * @link    http://api.insales.ru/?doc_format=JSON#clientgroup-get-client-group-json
+     * @param   int $clientGroupId client group id
+     * @throws  InsalesApiException
+     * @group   clientGroup
      *
      * @return Response
      */
     public function clientGroupGet($clientGroupId)
     {
         if (empty($clientGroupId)) {
-            throw new \InvalidArgumentException("Client group id must be set");
+            throw new InsalesApiException("Client group id must be set");
         }
 
         $url = sprintf('/admin/client_groups/%s.json', $clientGroupId);
@@ -2541,15 +2769,17 @@ class Api
     /**
      * Create client group
      *
-     * @link http://api.insales.ru/?doc_format=JSON#clientgroup-create-client-group-json
-     * @param array $clientGroup client group data
+     * @link    http://api.insales.ru/?doc_format=JSON#clientgroup-create-client-group-json
+     * @param   array $clientGroup client group data
+     * @throws  InsalesApiException
+     * @group   clientGroup
      *
      * @return Response
      */
     public function clientGroupCreate($clientGroup)
     {
         if (empty($clientGroup)) {
-            throw new \InvalidArgumentException("Client group id must be set");
+            throw new InsalesApiException("Client group id must be set");
         }
 
         $url = '/admin/client_groups.json';
@@ -2561,16 +2791,18 @@ class Api
     /**
      * Update client group
      *
-     * @link http://api.insales.ru/?doc_format=JSON#clientgroup-update-client-group-json
-     * @param int   $clientGroupId  client group id
-     * @param array $clientGroup    client group data
+     * @link    http://api.insales.ru/?doc_format=JSON#clientgroup-update-client-group-json
+     * @param   int   $clientGroupId  client group id
+     * @param   array $clientGroup    client group data
+     * @throws  InsalesApiException
+     * @group   clientGroup
      *
      * @return Response
      */
     public function clientGroupUpdate($clientGroupId, $clientGroup)
     {
         if (empty($clientGroupId)) {
-            throw new \InvalidArgumentException("Client group id must be set");
+            throw new InsalesApiException("Client group id must be set");
         }
 
         $url = sprintf('/admin/client_groups/%s.json', $clientGroupId);
@@ -2582,15 +2814,17 @@ class Api
     /**
      * Delete client group
      *
-     * @link http://api.insales.ru/?doc_format=JSON#clientgroup-destroy-client-group-json
-     * @param int $clientGroupId client group id
+     * @link    http://api.insales.ru/?doc_format=JSON#clientgroup-destroy-client-group-json
+     * @param   int $clientGroupId client group id
+     * @throws  InsalesApiException
+     * @group   clientGroup
      *
      * @return Response
      */
     public function clientGroupDelete($clientGroupId)
     {
         if (empty($clientGroupId)) {
-            throw new \InvalidArgumentException("Client group id must be set");
+            throw new InsalesApiException("Client group id must be set");
         }
 
         $url = sprintf('/admin/client_groups/%s.json', $clientGroupId);
@@ -2601,18 +2835,20 @@ class Api
     /**
      * Get transaction for client
      *
-     * @link http://api.insales.ru/?doc_format=JSON#bonussystemtransaction-get-transaction-for-client-json
-     * @param int $bonusId bonus transaction id
+     * @link    http://api.insales.ru/?doc_format=JSON#bonussystemtransaction-get-transaction-for-client-json
+     * @param   int $bonusSystemTransactionsId bonus transaction id
+     * @throws  InsalesApiException
+     * @group   bonusSystemTransactions
      *
      * @return Response
      */
-    public function bonusSystemTransactionGet($bonusId)
+    public function bonusSystemTransactionGet($bonusSystemTransactionsId)
     {
-        if (empty($bonusId)) {
-            throw new \InvalidArgumentException("Bonus system transaction id must be set");
+        if (empty($bonusSystemTransactionsId)) {
+            throw new InsalesApiException("Bonus system transaction id must be set");
         }
 
-        $url = sprintf('/admin/bonus_system_transactions/%s.json', $bonusId);;
+        $url = sprintf('/admin/bonus_system_transactions/%s.json', $bonusSystemTransactionsId);;
 
         return $this->client->makeRequest($url, Request::METHOD_GET);
     }
@@ -2620,15 +2856,17 @@ class Api
     /**
      * Get transactions for client
      *
-     * @link http://api.insales.ru/?doc_format=JSON#bonussystemtransaction-get-transactions-for-client-json
-     * @param int $clientId client id
+     * @link    http://api.insales.ru/?doc_format=JSON#bonussystemtransaction-get-transactions-for-client-json
+     * @param   int $clientId client id
+     * @throws  InsalesApiException
+     * @group   bonusSystemTransactionsClient
      *
      * @return Response
      */
     public function bonusSystemTransactionsClientGet($clientId)
     {
         if (empty($clientId)) {
-            throw new \InvalidArgumentException("Client id must be set");
+            throw new InsalesApiException("Client id must be set");
         }
 
         $url = sprintf('/admin/clients/%s/bonus_system_transactions.json', $clientId);;
@@ -2639,19 +2877,22 @@ class Api
     /**
      * Create transaction for client
      *
-     * @link http://api.insales.ru/?doc_format=JSON#bonussystemtransaction-create-transaction-for-client-json
-     * @param int   $clientId       client id
-     * @param array $transaction    transaction data
+     * @link    http://api.insales.ru/?doc_format=JSON#bonussystemtransaction-create-transaction-for-client-json
+     * @param   int   $clientId       client id
+     * @param   array $transaction    transaction data
+     * @throws  InsalesApiException
+     * @group   bonusSystemTransactionsClient
      *
      * @return Response
      */
     public function bonusSystemTransactionsClientCreate($clientId, $transaction)
     {
         if (empty($clientId)) {
-            throw new \InvalidArgumentException("Client id must be set");
+            throw new InsalesApiException("Client id must be set");
         }
+
         if (empty($transaction['bonus_points'])) {
-            throw new \InvalidArgumentException("Bonus points must be set");
+            throw new InsalesApiException("Bonus points must be set");
         }
 
         $url = sprintf('/admin/clients/%s/bonus_system_transactions.json', $clientId);;
