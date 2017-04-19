@@ -85,7 +85,7 @@ class Api
      * Create catalog category
      *
      * @link    http://api.insales.ru/?doc_format=JSON#category-create-category-json
-     * @param   array $category category data
+     * @param   array $category category data json:{"title":"Required"}
      * @throws  InsalesApiException
      * @group   category
      *
@@ -107,19 +107,20 @@ class Api
      * Update catalog category
      *
      * @link    http://api.insales.ru/?doc_format=JSON#category-update-category-json
-     * @param   array $category category data
+     * @param   string $categoryId category id
+     * @param   array $category category data json:{"title":"No required"}
      * @throws  InsalesApiException
      * @group   category
      *
      * @return Response
      */
-    public function categoryUpdate($category)
+    public function categoryUpdate($categoryId, $category)
     {
-        if (empty($category['id'])) {
+        if (empty($categoryId)) {
             throw new InsalesApiException("Category id must be set");
         }
 
-        $url = sprintf('/admin/categories/%s.json', $category['id']);
+        $url = sprintf('/admin/categories/%s.json', $categoryId);
         $parameters = array('category' => $category);
 
         return $this->client->makeRequest($url, Request::METHOD_PUT, $parameters);
@@ -220,7 +221,7 @@ class Api
      * Create product
      *
      * @link    http://api.insales.ru/?doc_format=JSON#product-get-products-count-json
-     * @param   array $product product data
+     * @param   array $product product data json:{"category_id": 123, "title":"Title", "variants_attributes": [{"sku": "ABC", "quantity": 1, "price": 100}]}
      * @throws  InsalesApiException
      * @group   product
      *
@@ -247,19 +248,20 @@ class Api
      * Update product by id
      *
      * @link    http://api.insales.ru/?doc_format=JSON#product-update-product-json
-     * @param   array $product product data
+     * @param   array $productId product id
+     * @param   array $product product data json:{"title":"No required"}
      * @throws  InsalesApiException
      * @group   product
      *
      * @return Response
      */
-    public function productUpdate($product)
+    public function productUpdate($productId, $product)
     {
-        if (empty($product['id'])) {
+        if (empty($productId)) {
             throw new InsalesApiException("Product id must be set");
         }
 
-        $url = sprintf('/admin/products/%s.json', $product['id']);
+        $url = sprintf('/admin/products/%s.json', $productId);
         $parameters = array('product' => $product);
 
         return $this->client->makeRequest($url, Request::METHOD_PUT, $parameters);
@@ -334,7 +336,7 @@ class Api
      * @link    http://api.insales.ru/?doc_format=JSON#image-create-image-fpom-src-json
      * @link    http://api.insales.ru/?doc_format=JSON#image-create-image-from-attachment-json
      * @param   int   $productId  product id
-     * @param   array $picture    picture data
+     * @param   array $picture    picture data json:{"src":"https://assets3.insales.ru/assets/1/161/647329/v_1467875760/build/slide4.jpg"}
      * @throws  InsalesApiException
      * @group   picture
      *
@@ -364,7 +366,7 @@ class Api
      * @link    http://api.insales.ru/?doc_format=JSON#image-update-image-json
      * @param   int   $productId  product id
      * @param   int   $pictureId  picture id
-     * @param   array $picture    picture data
+     * @param   array $picture    picture data json:{"title":"No required"}
      * @throws  InsalesApiException
      * @group   picture
      *
@@ -463,7 +465,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#variant-create-variant-json
      * @param   int   $productId  product id
-     * @param   array $variant    variant data
+     * @param   array $variant    variant data json:{"price":100,"quantity":1}
      * @throws  InsalesApiException
      * @group   variant
      *
@@ -492,7 +494,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#variant-update-variant-json
      * @param   int   $productId  product id
-     * @param   array $variant    variant data
+     * @param   array $variant    variant data json:{"price":150,"quantity":2, "id":123}
      * @throws  InsalesApiException
      * @group   variant
      *
@@ -530,6 +532,7 @@ class Api
      */
     public function variantGroupUpdate($variants)
     {
+        //TODO: Нет в доке
         if (count($variants) > 100) {
             throw new InsalesApiException("Count variants must be less than 100");
         }
@@ -604,7 +607,7 @@ class Api
      * Create option
      *
      * @link    http://api.insales.ru/?doc_format=JSON#optionname-create-option-name-json
-     * @param   array $option option dara
+     * @param   array $option option dara json:{"title":"Required"}
      * @throws  InsalesApiException
      * @group   option
      *
@@ -627,7 +630,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#optionname-update-option-name-json
      * @param   int   $optionId   option id
-     * @param   array $option     option data
+     * @param   array $option     option data json:{"title":"No required"}
      * @throws  InsalesApiException
      * @group   option
      *
@@ -712,7 +715,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#optionvalue-create-option-value-json
      * @param   int   $optionId       option id
-     * @param   array $optionValue    option value
+     * @param   array $optionValue    option value json:{"title":"Required"}
      * @throws  InsalesApiException
      * @group   optionValue
      *
@@ -736,7 +739,7 @@ class Api
      * @link    http://api.insales.ru/?doc_format=JSON#optionvalue-update-option-value-json
      * @param   int   $optionId       option id
      * @param   int   $optionValueId  option value id
-     * @param   array $optionValue    option value data
+     * @param   array $optionValue    option value data json:{"position":49}
      * @throws  InsalesApiException
      * @group   optionValue
      *
@@ -822,7 +825,7 @@ class Api
      * Create product field
      *
      * @link    http://api.insales.ru/?doc_format=JSON#productfield-create-product-field-json
-     * @param   array $field field data
+     * @param   array $field field data json:{"title": "Required", "handle": "Required", "type": "ProductField::TextArea"}
      * @throws  InsalesApiException
      * @group   productField
      *
@@ -851,7 +854,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#productfield-update-product-field-json
      * @param   int   $fieldId    field id
-     * @param   array $field      field data
+     * @param   array $field      field data json:{"title": "No required", "handle": "No required"}
      * @throws  InsalesApiException
      * @group   productField
      *
@@ -942,7 +945,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#productfieldvalue-create-product-field-value-json
      * @param   int     $productId  product id
-     * @param   array   $value      value data
+     * @param   array   $value      value data json:{"value": "test value"}
      * @throws  InsalesApiException
      * @group   productFieldValues
      *
@@ -966,7 +969,7 @@ class Api
      * @link    http://api.insales.ru/?doc_format=JSON#productfieldvalue-update-product-field-value-json
      * @param   int   $productId  product id
      * @param   int   $fieldId    field id
-     * @param   array $value      value data
+     * @param   array $value      value data json:{"value": "New value"}
      * @throws  InsalesApiException
      * @group   productFieldValues
      *
@@ -1063,22 +1066,22 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#supplementary-destroy-supplementary-json
      * @param   int $productId        product id
-     * @param   int $supplementaryId  supplementary product id
+     * @param   int $supplementaryProductsId  supplementary product id
      * @throws  InsalesApiException
      * @group   supplementaryProducts
      *
      * @return Response
      */
-    public function supplementaryProductsDelete($productId, $supplementaryId)
+    public function supplementaryProductsDelete($productId, $supplementaryProductsId)
     {
         if (empty($productId)) {
             throw new InsalesApiException("Product id must be set");
         }
-        if (empty($supplementaryId)) {
+        if (empty($supplementaryProductsId)) {
             throw new InsalesApiException("Supplementary product id must be set");
         }
 
-        $url = sprintf('/admin/products/%s/supplementaries/%s.json', $productId, $supplementaryId);
+        $url = sprintf('/admin/products/%s/supplementaries/%s.json', $productId, $supplementaryProductsId);
 
         return $this->client->makeRequest($url, Request::METHOD_DELETE);
     }
@@ -1132,22 +1135,22 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#similar-destroy-similar-json
      * @param   int $productId        product id
-     * @param   int $similarProductId similar product id
+     * @param   int $similarProductsId similar product id
      * @throws  InsalesApiException
      * @group   similarProducts
      *
      * @return Response
      */
-    public function similarProductsDelete($productId, $similarProductId)
+    public function similarProductsDelete($productId, $similarProductsId)
     {
         if (empty($productId)) {
             throw new InsalesApiException("Product id must be set");
         }
-        if (empty($similarProductId)) {
+        if (empty($similarProductsId)) {
             throw new InsalesApiException("Related productId id must be set");
         }
 
-        $url = sprintf('/admin/products/%s/similars/%s.json', $productId, $similarProductId);
+        $url = sprintf('/admin/products/%s/similars/%s.json', $productId, $similarProductsId);
 
         return $this->client->makeRequest($url, Request::METHOD_DELETE);
     }
@@ -1202,7 +1205,7 @@ class Api
      * Create collection
      *
      * @link    http://api.insales.ru/?doc_format=JSON#collection-create-collection-json
-     * @param   array $collection collection data
+     * @param   array $collection collection data json:{"title": "Required", "parent_id": 123, "position": 49}
      * @throws  InsalesApiException
      * @group   collection
      *
@@ -1230,7 +1233,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#collection-update-collection-json
      * @param   int   $collectionId   collection id
-     * @param   array $collection     collection data
+     * @param   array $collection     collection data json:{"title": "No required", "position": 50}
      * @throws  InsalesApiException
      * @group   collection
      *
@@ -1325,7 +1328,7 @@ class Api
      * Add product to collection
      *
      * @link    http://api.insales.ru/?doc_format=JSON#collect-add-product-to-collection-json
-     * @param   array $collect collect data
+     * @param   array $collect collect data json:{"product_id": 123, "collection_id": 123}
      * @throws  InsalesApiException
      * @group   collect
      *
@@ -1352,7 +1355,7 @@ class Api
      * @link    http://api.insales.ru/?doc_format=JSON#collect-update-position-json
      * @link    http://api.insales.ru/?doc_format=JSON#collect-move-product-to-another-collection-json
      * @param   int   $collectId  collect id
-     * @param   array $collect    collect data
+     * @param   array $collect    collect data json:{"position": 49}
      * @throws  InsalesApiException
      * @group   collect
      *
@@ -1506,7 +1509,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#order-update-order-json
      * @param   int   $orderId    order id
-     * @param   array $order      order data
+     * @param   array $order      order data json:{"comment": "New comment"}
      * @throws  InsalesApiException
      * @group   order
      *
@@ -1530,7 +1533,7 @@ class Api
      * @link    http://api.insales.ru/?doc_format=JSON#order-create-order-line-by-product-id-json
      * @link    http://api.insales.ru/?doc_format=JSON#order-create-order-line-by-variant-id-json
      * @param   int   $orderId    order id
-     * @param   array $orderLines order lines attributes
+     * @param   array $orderLines order lines attributes json:[{"quantity": 1, "product_id": 123}]
      * @throws  InsalesApiException
      * @group   orderLine
      *
@@ -1561,7 +1564,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#order-update-order-line-json
      * @param   int   $orderId    order id
-     * @param   array $orderLines order lines attributes
+     * @param   array $orderLines order lines attributes json:[{"id": 123, "comment": "New comment"}]
      * @throws  InsalesApiException
      * @group   orderLine
      *
@@ -1592,7 +1595,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#order-remove-order-line-json
      * @param   int   $orderId    order id
-     * @param   array $orderLines order lines attributes
+     * @param   array $orderLines order lines attributes json:[{"id": 123}]
      * @throws  InsalesApiException
      * @group   orderLine
      *
@@ -1623,7 +1626,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#order-update-shipping-address-json
      * @param   int       $orderId order id
-     * @param   string    $address address delivery
+     * @param   string    $address address delivery json:{"address": "New address"}
      * @throws  InsalesApiException
      * @group   orderShippingAddress
      *
@@ -1648,24 +1651,24 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#order-update-custom-status-json
      * @param   int       $orderId            order id
-     * @param   string    $customStatus       custom status
+     * @param   string    $permalink       custom status
      * @param   null      $fulfillmentStatus  fulfillment status
      * @throws  InsalesApiException
      * @group   orderCustomStatus
      *
      * @return Response
      */
-    public function orderCustomStatusUpdate($orderId, $customStatus, $fulfillmentStatus = null)
+    public function orderCustomStatusUpdate($orderId, $permalink, $fulfillmentStatus = null)
     {
         if (empty($orderId)) {
             throw new InsalesApiException("Order id must be set");
         }
-        if (empty($customStatus)) {
+        if (empty($permalink)) {
             throw new InsalesApiException("Custom status must be set");
         }
 
         $order = array(
-            'custom_status_permalink' => $customStatus,
+            'custom_status_permalink' => $permalink,
             'fulfillment_status' => $fulfillmentStatus
         );
         $order = array_filter($order);
@@ -1677,7 +1680,7 @@ class Api
      * Create order
      *
      * @link    http://api.insales.ru/?doc_format=JSON#order-create-order-json
-     * @param   array $order order data
+     * @param   array $order order data json:{"order_lines_attributes": [{"quantity": 1, "product_id": 123}], "client": {"surname": "surname", "name": "Jon", "email": "vasya@example.com", "phone": "+79111112233"}, "shipping_address_attributes": {"surname": "surname", "name": "jon", "address": "test address"}, "delivery_variant_id": 123, "payment_gateway_id": 123 }
      * @throws  InsalesApiException
      * @group   order
      *
@@ -1810,7 +1813,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#client-create-individual-client-json
      * @link    http://api.insales.ru/?doc_format=JSON#client-create-juridical-client-json
-     * @param   array $client client data
+     * @param   array $client client data json:{"name": "name", "surname": "surname", "middlename": "middlename"}
      * @throws  InsalesApiException
      * @group   client
      *
@@ -1898,7 +1901,7 @@ class Api
      * Create discount code
      *
      * @link    http://api.insales.ru/?doc_format=JSON#discountcode-create-discount-code-json
-     * @param   array $discount discount data
+     * @param   array $discount discount data json:{"code": "CODE", "type_id": 1, "discount": 10}
      * @throws  InsalesApiException
      * @group   discountCode
      *
@@ -1927,20 +1930,20 @@ class Api
      * Update discount code
      *
      * @link    http://api.insales.ru/?doc_format=JSON#discountcode-update-discount-code-json
-     * @param   int   $discountId discount id
-     * @param   array $discount   discount data
+     * @param   int   $discountCodeId discount id
+     * @param   array $discount   discount data json:{"discount": 49}
      * @throws  InsalesApiException
      * @group   discountCode
      *
      * @return Response
      */
-    public function discountCodeUpdate($discountId, $discount)
+    public function discountCodeUpdate($discountCodeId, $discount)
     {
-        if (empty($discountId)) {
+        if (empty($discountCodeId)) {
             throw new InsalesApiException("Discount code id must be set");
         }
 
-        $url = sprintf('/admin/discount_codes/%s.json', $discountId);
+        $url = sprintf('/admin/discount_codes/%s.json', $discountCodeId);
         $parameters = array('discount_code' => $discount);
 
         return $this->client->makeRequest($url, Request::METHOD_PUT, $parameters);
@@ -1950,19 +1953,19 @@ class Api
      * Delete discount code
      *
      * @link    http://api.insales.ru/?doc_format=JSON#discountcode-destroy-discount-code-json
-     * @param   int $discountId discount id
+     * @param   int $discountCodeId discount id
      * @throws  InsalesApiException
      * @group   discountCode
      *
      * @return Response
      */
-    public function discountCodeDelete($discountId)
+    public function discountCodeDelete($discountCodeId)
     {
-        if (empty($discountId)) {
+        if (empty($discountCodeId)) {
             throw new InsalesApiException("Discount code id must be set");
         }
 
-        $url = sprintf('/admin/discount_codes/%s.json', $discountId);
+        $url = sprintf('/admin/discount_codes/%s.json', $discountCodeId);
 
         return $this->client->makeRequest($url, Request::METHOD_DELETE);
     }
@@ -2010,7 +2013,7 @@ class Api
      * @link    http://api.insales.ru/?doc_format=JSON#deliveryvariant-create-delivery-variant-fixed-json
      * @link    http://api.insales.ru/?doc_format=JSON#deliveryvariant-create-delivery-variant-locationdepend-json
      * @link    http://api.insales.ru/?doc_format=JSON#deliveryvariant-create-delivery-variant-pricedepend-json
-     * @param   array $delivery delivery data
+     * @param   array $delivery delivery data json:{"title": "delivery", "type": "DeliveryVariant::External"}
      * @throws  InsalesApiException
      * @group   deliveryVariant
      *
@@ -2042,7 +2045,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#deliveryvariant-update-delivery-variant-json
      * @param   int   $deliveryId delivery id
-     * @param   array $delivery   delivery data
+     * @param   array $delivery   delivery data json:{"title": "New delivery"}
      * @throws  InsalesApiException
      * @group   deliveryVariant
      *
@@ -2122,7 +2125,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#paymentgateway-create-cod-or-custom-payment-gateway-json
      * @link    http://api.insales.ru/?doc_format=JSON#paymentgateway-create-external-payment-gateway-json
-     * @param   array $payment payment data
+     * @param   array $payment payment data json:{"title": "payment", "type": "PaymentGateway::Cod"}
      * @throws  InsalesApiException
      * @group   paymentGateway
      *
@@ -2151,7 +2154,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#paymentgateway-update-payment-gateway-json
      * @param   int   $paymentId  payment id
-     * @param   array $payment    payment data
+     * @param   array $payment    payment data json:{"title": "New payment"}
      * @throws  InsalesApiException
      * @group   paymentGateway
      *
@@ -2229,7 +2232,7 @@ class Api
      * Create domain
      *
      * @link    http://api.insales.ru/?doc_format=JSON#domain-create-domain-json
-     * @param   array $domain domain data
+     * @param   array $domain domain data json:{"domain": "test-domain.ru"}
      * @throws  InsalesApiException
      * @group   domain
      *
@@ -2252,7 +2255,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#domain-update-domain-json
      * @param   int   $domainId   domain id
-     * @param   array $domain     domain data
+     * @param   array $domain     domain data json:{"domain": "new-domain.ru"}
      * @throws  InsalesApiException
      * @group   domain
      *
@@ -2331,7 +2334,7 @@ class Api
      * Create webhook
      *
      * @link    http://api.insales.ru/?doc_format=JSON#webhook-create-webhook-json
-     * @param   array $webhook webhook data
+     * @param   array $webhook webhook data json:{"address": "http://test.com/orders/create", "topic": "orders/create"}
      * @throws  InsalesApiException
      * @group   webhook
      *
@@ -2360,7 +2363,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#webhook-update-webhook-json
      * @param   int   $webhookId  webhook id
-     * @param   array $webhook    webhook data
+     * @param   array $webhook    webhook data json:{"topic": "orders/update"}
      * @throws  InsalesApiException
      * @group   webhook
      *
@@ -2442,7 +2445,7 @@ class Api
      * Create custom status
      *
      * @link    http://api.insales.ru/?doc_format=JSON#customstatus-create-custom-status-json
-     * @param   array $status status data
+     * @param   array $status status data json:{"system_status": "new", "title": "New (ordered by phone)"}
      * @throws  InsalesApiException
      * @group   customStatus
      *
@@ -2471,7 +2474,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#customstatus-update-custom-status-json
      * @param   string    $statusPermalink    status permalink
-     * @param   array     $status             status data
+     * @param   array     $status             status data json:{"system_status": "new", "title": "New (ordered by website)"}
      * @throws  InsalesApiException
      * @group   customStatus
      *
@@ -2551,7 +2554,7 @@ class Api
      * Create field
      *
      * @link    http://api.insales.ru/?doc_format=JSON#field-create-field-json
-     * @param   array $field field data
+     * @param   array $field field data json:{"title": "title", "type": "Field::TextField", "office_title": "title_for_text_field", "destiny": 3}
      * @throws  InsalesApiException
      * @group   field
      *
@@ -2583,7 +2586,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#field-update-field-json
      * @param   int   $fieldId    field id
-     * @param   array $field      field data
+     * @param   array $field      field data json:{"title": "New title"}
      * @throws  InsalesApiException
      * @group   field
      *
@@ -2665,7 +2668,7 @@ class Api
      * Create property
      *
      * @link    http://api.insales.ru/?doc_format=JSON#property-create-property-json
-     * @param   array $property property data
+     * @param   array $property property data json:{"title": "New title"}
      * @throws  InsalesApiException
      * @group   property
      *
@@ -2691,7 +2694,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#property-update-property-json
      * @param   int   $propertyId property id
-     * @param   array $property   property data
+     * @param   array $property   property data json:{"title": "title"}
      * @throws  InsalesApiException
      * @group   property
      *
@@ -2770,7 +2773,7 @@ class Api
      * Create client group
      *
      * @link    http://api.insales.ru/?doc_format=JSON#clientgroup-create-client-group-json
-     * @param   array $clientGroup client group data
+     * @param   array $clientGroup client group data json:{"title": "clientGroup"}
      * @throws  InsalesApiException
      * @group   clientGroup
      *
@@ -2793,7 +2796,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#clientgroup-update-client-group-json
      * @param   int   $clientGroupId  client group id
-     * @param   array $clientGroup    client group data
+     * @param   array $clientGroup    client group data json:{"title": "New clientGroup"}
      * @throws  InsalesApiException
      * @group   clientGroup
      *
@@ -2879,7 +2882,7 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#bonussystemtransaction-create-transaction-for-client-json
      * @param   int   $clientId       client id
-     * @param   array $transaction    transaction data
+     * @param   array $transaction    transaction data json:{"bonus_points": 100}
      * @throws  InsalesApiException
      * @group   bonusSystemTransactionsClient
      *
