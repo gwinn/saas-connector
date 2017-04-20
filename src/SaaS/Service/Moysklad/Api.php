@@ -123,7 +123,8 @@ class Api
         'processing' => 'entity',
         'internalorder' => 'entity',
         'stock' => 'report',
-        'sales' => 'report'
+        'sales' => 'report',
+        'bundle' => 'entity'
     );
 
     /**
@@ -165,7 +166,7 @@ class Api
     {
         $this->client = new Request($login, $password);
     }
-    
+
     /**
      * Getter
      *
@@ -177,10 +178,10 @@ class Api
     {
         return $this->{$property};
     }
-    
+
     /**
      * Adding extra headers
-     * 
+     *
      * @param array $value  set of extra headers
      */
     public function addHeaders($value)
@@ -225,35 +226,33 @@ class Api
         if (count($params) > 4) {
             throw new \InvalidArgumentException('Too many attribute...');
         }
-        
+
         if (in_array('syncid', $params)) {
             $inc = 1;
         } else {
             $inc = 0;
         }
 
-        switch (count($params)) {
-            case 1:
-            case 2:
-                if (!empty($filters)) {
-                    if (is_array($filters)) {
-                        if (!empty(array_diff(array_keys($filters), $this->main_filters))) {
-                            throw new \InvalidArgumentException(
-                                sprintf(
-                                    'Wrong main filters: `%s`',
-                                    implode(', ', array_diff(array_keys($filters), $this->main_filters))
-                                )
-                            );
-                        }
-                        foreach ($filters as $index => $value) {
-                            $filter[$index] = $value;
-                        }
-                        unset($index, $value);
-                    } else {
-                        throw new \InvalidArgumentException('Wrong `filters` type: `filters` must be an "array"');
-                    }
+        if (!empty($filters)) {
+            if (is_array($filters)) {
+                if (!empty(array_diff(array_keys($filters), $this->main_filters))) {
+                    throw new \InvalidArgumentException(
+                        sprintf(
+                            'Wrong main filters: `%s`',
+                            implode(', ', array_diff(array_keys($filters), $this->main_filters))
+                        )
+                    );
                 }
-                break;
+                foreach ($filters as $index => $value) {
+                    $filter[$index] = $value;
+                }
+                unset($index, $value);
+            } else {
+                throw new \InvalidArgumentException('Wrong `filters` type: `filters` must be an "array"');
+            }
+        }
+
+        switch (count($params)) {
             case 3:
             case 4:
                 $this->checkUuid($params[(1+$inc)]);
@@ -314,13 +313,22 @@ class Api
             throw new \InvalidArgumentException('Wrong `data` type: `data` must be an "array"');
         }
 
-        if (is_array($param) && count($param) == 2) {
+        if (is_array($param) && count($param) >= 2) {
             $type = $param[0];
             $uuid = $param[1];
             $this->checkUuid($uuid);
+            $stype = !empty($param[2]) ? $param[2] : null;
+
+            if (
+                !is_null($stype) &&
+                !in_array($stype, self::REQUEST_ATTRIBUTES_SECOND)
+            ) {
+                throw new \InvalidArgumentException(sprintf('Wrong attribute: `%s`', $stype));
+            }
         } else {
             $type = $param;
             $uuid = null;
+            $stype = null;
         }
 
         if (gettype($type) !== 'string') {
@@ -338,7 +346,11 @@ class Api
         $parameters['data'] = $data;
 
         return $this->client->makeRequest(
-            $this->entity[strtolower($type)] . '/' . $type . (!is_null($uuid) ? ('/'.$uuid) : ''),
+            $this->entity[strtolower($type)] .
+                '/' .
+                $type .
+                (!is_null($uuid) ? ('/'.$uuid) : '') .
+                (!is_null($stype) ? ('/'.$stype) : ''),
             Request::METHOD_POST,
             $parameters
         );
@@ -361,14 +373,6 @@ class Api
             throw new \InvalidArgumentException('The `type` can not be empty');
         }
 
-        if (gettype($type) !== 'string') {
-            throw new \InvalidArgumentException('Wrong `type`: `type` must be a "string"');
-        }
-
-        if (empty($this->entity[strtolower($type)])) {
-            throw new \InvalidArgumentException('Undefined data type');
-        }
-
         $this->checkUuid($uuid);
 
         if (empty($data)) {
@@ -381,11 +385,45 @@ class Api
 
         $parameters['data'] = $data;
 
-        return $this->client->makeRequest(
-            sprintf($this->entity[strtolower($type)] . '/' . $type . '/%s', $uuid),
-            Request::METHOD_PUT,
-            $parameters
-        );
+        if (is_array($type)) {
+            if (gettype($type[0]) !== 'string') {
+                throw new \InvalidArgumentException('Wrong `type`: `type` must be a "string"');
+            }
+
+            if (empty($this->entity[strtolower($type[0])])) {
+                throw new \InvalidArgumentException('Undefined data type');
+            }
+
+            $this->checkUuid($type[1]);
+
+            if (empty($type[2])) {
+                throw new \InvalidArgumentException('Not found second attribute');
+            }
+
+            if (!in_array($type[2], self::REQUEST_ATTRIBUTES_SECOND)) {
+                throw new \InvalidArgumentException(sprintf('Wrong attribute: `%s`', $type[2]));
+            }
+
+            return $this->client->makeRequest(
+                sprintf($this->entity[strtolower($type[0])] . '/' . implode('/', $type) . '/%s', $uuid),
+                Request::METHOD_PUT,
+                $parameters
+            );
+        } else {
+            if (gettype($type) !== 'string') {
+                throw new \InvalidArgumentException('Wrong `type`: `type` must be a "string"');
+            }
+
+            if (empty($this->entity[strtolower($type)])) {
+                throw new \InvalidArgumentException('Undefined data type');
+            }
+
+            return $this->client->makeRequest(
+                sprintf($this->entity[strtolower($type)] . '/' . $type . '/%s', $uuid),
+                Request::METHOD_PUT,
+                $parameters
+            );
+        }
     }
 
     /**
@@ -404,20 +442,45 @@ class Api
             throw new \InvalidArgumentException('The `type` can not be empty');
         }
 
-        if (gettype($type) !== 'string') {
-            throw new \InvalidArgumentException('Wrong `type`: `type` must be a "string"');
-        }
-
-        if (empty($this->entity[strtolower($type)])) {
-            throw new \InvalidArgumentException('Undefined data type');
-        }
-
         $this->checkUuid($uuid);
 
-        return $this->client->makeRequest(
-            sprintf($this->entity[strtolower($type)] . '/' . $type . '/%s', $uuid),
-            Request::METHOD_DELETE
-        );
+        if (is_array($type)) {
+            if (gettype($type[0]) !== 'string') {
+                throw new \InvalidArgumentException('Wrong `type`: `type` must be a "string"');
+            }
+
+            if (empty($this->entity[strtolower($type[0])])) {
+                throw new \InvalidArgumentException('Undefined data type');
+            }
+
+            $this->checkUuid($type[1]);
+
+            if (empty($type[2])) {
+                throw new \InvalidArgumentException('Not found second attribute');
+            }
+
+            if (!in_array($type[2], self::REQUEST_ATTRIBUTES_SECOND)) {
+                throw new \InvalidArgumentException(sprintf('Wrong attribute: `%s`', $type[2]));
+            }
+
+            return $this->client->makeRequest(
+                sprintf($this->entity[strtolower($type[0])] . '/' . implode('/', $type) . '/%s', $uuid),
+                Request::METHOD_DELETE
+            );
+        } else {
+            if (gettype($type) !== 'string') {
+                throw new \InvalidArgumentException('Wrong `type`: `type` must be a "string"');
+            }
+
+            if (empty($this->entity[strtolower($type)])) {
+                throw new \InvalidArgumentException('Undefined data type');
+            }
+
+            return $this->client->makeRequest(
+                sprintf($this->entity[strtolower($type)] . '/' . $type . '/%s', $uuid),
+                Request::METHOD_DELETE
+            );
+        }
     }
 
     /**

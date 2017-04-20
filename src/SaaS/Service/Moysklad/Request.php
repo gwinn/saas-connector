@@ -84,7 +84,7 @@ class Request
      * @access protected
      */
     protected $retry;
-    
+
     /**
      * Curl headers
      * @var array
@@ -105,17 +105,17 @@ class Request
         $this->retry = 0;
         $this->headers = array('Content-Type' => 'application/json');
     }
-    
+
     /**
      * Adding extra headers
-     * 
+     *
      * @param array $value  set of extra headers
      */
     public function addHeaders($value)
     {
         $this->headers = array_merge($this->headers, $value);
     }
-    
+
     /**
      * Reset headers
      */
@@ -170,7 +170,7 @@ class Request
         curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curlHandler, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($curlHandler, CURLOPT_CONNECTTIMEOUT, 60);
-        
+
         $headers = array();
 
         foreach ($this->headers as $header => $value) {
@@ -197,7 +197,7 @@ class Request
                     )
                 );
             }
-            
+
             /* не более 100 объектов в коллекции */
             if (count($parameters['data']) > 100) {
                 throw new MoySkladException(
@@ -218,7 +218,7 @@ class Request
 
         if (in_array($method, array(self::METHOD_DELETE))) {
             curl_setopt($curlHandler, CURLOPT_CUSTOMREQUEST, $method);
-            
+
         }
 
         $responseBody = curl_exec($curlHandler);
@@ -227,7 +227,7 @@ class Request
         $error = curl_error($curlHandler);
 
         curl_close($curlHandler);
-        
+
         $this->resetHeaders();
 
         if ($statusCode >= 400) {
@@ -273,7 +273,7 @@ class Request
                     }
                     continue;
                 }
-                
+
                 if (is_array($value)) {
                     $filters[$name] = implode(',', $value);
                 } else {
@@ -284,11 +284,11 @@ class Request
             $params = array_merge($params, $filters);
         }
 
-        return '?' . (
+        return trim(('?' . (
                 !empty($params) ?
                 (http_build_query($params) . '&') :
                 ''
-            ) . trim($filter, '&');
+            ) . $filter), '&');
     }
 
     /**
