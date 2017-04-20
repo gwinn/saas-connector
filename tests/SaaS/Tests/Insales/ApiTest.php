@@ -57,4 +57,19 @@ class ApiTest extends TestCase
             return;
         }
     }
+
+    /**
+     * Test limit for the number of requests to the API
+     *
+     * @group insales
+     * @expectedException \SaaS\Exception\InsalesLimitException
+     */
+    public function testLimitRequest()
+    {
+        $client = static::getInsalesApiClient();
+
+        for ($i = 1; $i <= 502; $i++) {
+            $client->categoriesList();
+        }
+    }
 }

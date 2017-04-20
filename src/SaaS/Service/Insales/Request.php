@@ -13,6 +13,7 @@
 namespace SaaS\Service\Insales;
 
 use SaaS\Exception\CurlException;
+use SaaS\Exception\InsalesLimitException;
 use SaaS\Http\Response;
 
 /**
@@ -63,6 +64,7 @@ class Request
      * @param string $path       exact method url
      * @param string $method     (default: 'GET')
      * @param array  $parameters (default: array())
+     * @throws InsalesLimitException
      *
      * @return Response
      */
@@ -99,6 +101,7 @@ class Request
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curlHandler, CURLOPT_TIMEOUT, 30);
+        curl_setopt($curlHandler, CURLOPT_HEADER, true);
 
         if (self::METHOD_POST === $method
             || self::METHOD_PUT === $method
@@ -127,6 +130,27 @@ class Request
         $responseBody = curl_exec($curlHandler);
         $statusCode = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
 
+        //Получение тела ответа
+        $response = trim(substr($responseBody, strripos($responseBody, "\n")));
+
+        //Получение заголовков ответа
+        preg_match_all("/(.*): (.*)\n/", $responseBody, $items);
+        $responseBody = array_combine($items[1], $items[2]);
+
+        foreach ($responseBody as $key => $item) {
+            $responseBody[$key] = trim($item);
+        }
+
+        if ($statusCode == 503 && isset($responseBody['Retry-After'])) {
+            $message = [
+                'message' => 'Requested API limit exceeded',
+                'Retry-After' => $responseBody['Retry-After'],
+                'API-Usage-Limit' => $responseBody['API-Usage-Limit']
+            ];
+
+            throw new InsalesLimitException(json_encode($message), $statusCode);
+        }
+
         $errno = curl_errno($curlHandler);
         $error = curl_error($curlHandler);
 
@@ -136,6 +160,6 @@ class Request
             throw new CurlException($error, $errno);
         }
 
-        return new Response($statusCode, $responseBody);
+        return new Response($statusCode, $response);
     }
 }
