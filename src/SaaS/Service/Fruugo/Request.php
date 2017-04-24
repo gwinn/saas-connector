@@ -7,7 +7,7 @@
  *
  * @category Fruugo
  * @package  Saas
- * @author   RetailCrm <integration@retailcrm.ru>
+ * @author   Anna Mazepina <putintseva@retailcrm.ru>
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     https://sell.fruugo.com/fruugo-docs/Selling_on_Fruugo_-_Order_API.pdf
  */
@@ -15,7 +15,7 @@
 namespace SaaS\Service\Fruugo;
 
 use SaaS\Exception\CurlException;
-use SaaS\Http\Response;
+use SaaS\Http\ResponseXML;
 
 /**
  * PHP version 5.3
@@ -34,15 +34,18 @@ class Request
     const METHOD_POST = 'POST';
 
     protected $url;
+    protected $auth;
 
     /**
      * Client constructor.
      *
-     * @internal param string $url api url
+     * @param string $login    user login
+     * @param string $password user password
      */
-    public function __construct()
+    public function __construct($login, $password)
     {
-        $this->url = "https://www.fruugo.com/";
+        $this->url = 'https://www.fruugo.com/';
+        $this->auth = base64_encode($login . ':' . $password);
     }
 
     /**
@@ -51,13 +54,9 @@ class Request
      * @param string $path       request url
      * @param string $method     (default: 'GET')
      * @param array  $parameters (default: array())
-     *
-     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
-     *
-     * @throws \InvalidArgumentException
      * @throws CurlException
      *
-     * @return Response
+     * @return ResponseXML
      */
     public function makeRequest($path, $method, array $parameters = array())
     {
@@ -83,7 +82,13 @@ class Request
         }
 
         $curlHandler = curl_init();
+        $headers = [
+            'Accept:	text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8,application/json',
+            'Authorization: Basic ' . $this->auth,
+        ];
+
         curl_setopt($curlHandler, CURLOPT_URL, $url);
+        curl_setopt($curlHandler, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curlHandler, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($curlHandler, CURLOPT_FAILONERROR, false);
@@ -108,6 +113,6 @@ class Request
             throw new CurlException($error, $errno);
         }
 
-        return new Response($statusCode, $responseBody);
+        return new ResponseXML($statusCode, $responseBody);
     }
 }

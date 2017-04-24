@@ -13,7 +13,7 @@
 namespace SaaS\Service\Fruugo;
 
 use DateTime;
-use SaaS\Http\Response;
+use SaaS\Http\ResponseXML;
 
 /**
  * Fruugo api class
@@ -37,27 +37,31 @@ class Api
      */
     public function __construct($login, $password)
     {
-        //TODO: Неизвестна механика авторизации. Не проверено
         if (empty($login) || empty($password)) {
             throw new \InvalidArgumentException(
                 'login & password must be not empty'
             );
         }
 
-        $this->request = new Request();
+        $this->request = new Request($login, $password);
     }
 
     /**
      * Download orders
      *
-     * @param DateTime $from    Start date for the order listing
-     * @param DateTime $to      End date for the order listing (optional)
+     * @param string $from    Start date for the order listing
+     * @param string $to      End date for the order listing (optional)
      *
-     * @return Response
+     * @return ResponseXML
      */
-    public function ordersDownload($from, $to)
+    public function ordersDownload($from, $to = null)
     {
         $path = 'orders/download';
+
+        if (empty($from)) {
+            throw new \InvalidArgumentException('Field "from" must be set');
+        }
+
         $parameters = [
             'from'  => $from,
             'to'    => $to,
@@ -75,7 +79,7 @@ class Api
      * @param DateTime|null $shippingDate   Estimate of the date when the order is likely to ship (optional)
      * @param array         $message        A message relayed to the customer or to Fruugo (optional)
      *
-     * @return Response
+     * @return ResponseXML
      */
     public function ordersConfirm($orderId, $item = [], $shippingDate = null, $message = [])
     {
@@ -107,7 +111,7 @@ class Api
      * @param array     $item       fruugoProductId, fruugoSkuId and quantity of the item to confirm, separated with commas.
      * @param array     $message    A message relayed to the customer or to Fruugo (optional)
      *
-     * @return Response
+     * @return ResponseXML
      */
     public function ordersCancel($orderId, $reason, $item = [], $message = [])
     {
@@ -153,7 +157,7 @@ class Api
      * @param string|null   $trackingCode   Tracking code of the package, sent to the customer in the shipment notification email
      * @param array         $message        A message relayed to the customer or to Fruugo (optional)
      *
-     * @return Response
+     * @return ResponseXML
      */
     public function orderShip($orderId, $item = [], $trackingCode = null, $message = [])
     {
@@ -184,7 +188,7 @@ class Api
      * @param string|null   $reason     Reason for the returned (optional)
      * @param array         $message    A message relayed to the customer or to Fruugo (optional)
      *
-     * @return Response
+     * @return ResponseXML
      */
     public function orderReturn($orderId, $item = [], $reason = null, $message = [])
     {
@@ -227,7 +231,7 @@ class Api
      * @param string $orderId       The id of the order whose packing list to download
      * @param string $shipmentId    The id of the shipment whose packing list to download
      *
-     * @return Response
+     * @return ResponseXML
      */
     public function orderPackinglist($orderId, $shipmentId)
     {
@@ -244,6 +248,80 @@ class Api
         $parameters = [
             'orderId'       => $orderId,
             'shipmentId'    => $shipmentId,
+        ];
+
+        $parameters = array_filter($parameters);
+
+        return $this->request->makeRequest($path, Request::METHOD_POST, $parameters);
+    }
+
+    /**
+     * Stock Inventory Feed
+     *
+     * @param array $parameters
+     * fruugoSkuId          Fruugo's internal Id for the sku.
+     * merchantProductId	The Product Id provided in the retailer's product data feed.
+     * merchantSkuId        The Sku Id provided in the retailer's product data feed.
+     * name                 The product title provided in the retailer's product data feed.
+     * availability         Availability element
+     * itemsInStock	        The quantity of stock held by the retailer.
+     *
+     * @return ResponseXML
+     */
+    public function stockStatusGet($parameters)
+    {
+        $path = 'orders/stockstatus-api';
+        $availabilityList = [
+            'INSTOCK',    //- If you have the product currently in stock.
+            'OUTOFSTOCK', //- The product is currently out of stock but may return.
+            'NOTAVAILABLE'//- The product is permanently out of stock and needs to be removed.
+        ];
+
+        if (isset($parameters['availability']) && !in_array($parameters['availability'], $availabilityList)) {
+            throw new \InvalidArgumentException(
+                'Valid values for the availability element:'
+                . implode(', ', $availabilityList)
+            );
+        }
+
+        $parameters = array_filter($parameters);
+
+        return $this->request->makeRequest($path, Request::METHOD_GET, $parameters);
+
+    }
+
+    /**
+     * Stock Inventory Update
+     *
+     * @param int       $fruugoSkuId    Fruugo's internal Id for the sku
+     * @param string    $availability   Availability element
+     * @param int       $itemsInStock   The quantity of stock held by the retailer
+     * @return ResponseXML
+     */
+    public function stockStatusUpdate($fruugoSkuId, $availability, $itemsInStock)
+    {
+        $path = 'orders/stockstatus-api';
+        $availabilityList = [
+            'INSTOCK',    //- If you have the product currently in stock.
+            'OUTOFSTOCK', //- The product is currently out of stock but may return.
+            'NOTAVAILABLE'//- The product is permanently out of stock and needs to be removed.
+        ];
+
+        if (empty($fruugoSkuId)) {
+            throw new \InvalidArgumentException('Fruugo sku must be set');
+        }
+
+        if (isset($parameters['availability']) && !in_array($parameters['availability'], $availabilityList)) {
+            throw new \InvalidArgumentException(
+                'Valid values for the availability element:'
+                . implode(', ', $availabilityList)
+            );
+        }
+
+        $parameters = [
+            'fruugoSkuId' => $fruugoSkuId,
+            'availability' => isset($availability) ? $availability : null,
+            'itemsInStock' => isset($itemsInStock) ? $itemsInStock : null,
         ];
 
         $parameters = array_filter($parameters);
