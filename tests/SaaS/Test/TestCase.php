@@ -19,6 +19,7 @@ use Saas\Service\Inpost\Api as InPostApi;
 use SaaS\Service\Courierist\Api as CourieristApi;
 use SaaS\Service\Moysklad\Api as MoyskladApi;
 use SaaS\Service\Iml\Api as ImlApi;
+use SaaS\Service\Fruugo\Api as FruugoApi;
 
 /**
  * Class TestCase
@@ -135,6 +136,24 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $testLogin = !is_null($login) ? $login : $_SERVER['IML_LOGIN'];
         $testPass  =  !is_null($pass) ? $pass : $_SERVER['IML_PASSWORD'];
         return new ImlApi($testLogin, $testPass);
+    }
+
+    /**
+     * Get Fruugo API clent
+     *
+     * @param string $login login
+     * @param string $password  password
+     *
+     * @return FruugoApi
+     */
+    public static function getFruugoApiClient(
+        $login = null,
+        $password = null
+    ) {
+        $login = !is_null($login) ? $login : $_SERVER['FRUUGO_LOGIN'];
+        $password = !is_null($password) ? $password : $_SERVER['FRUUGO_PASSWORD'];
+
+        return new FruugoApi($login, $password);
     }
 
     /**
