@@ -100,7 +100,7 @@ class Request
         curl_setopt($curlHandler, CURLOPT_FAILONERROR, false);
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curlHandler, CURLOPT_TIMEOUT, 30);
+        curl_setopt($curlHandler, CURLOPT_TIMEOUT, 180);
         curl_setopt($curlHandler, CURLOPT_HEADER, true);
 
         if (self::METHOD_POST === $method

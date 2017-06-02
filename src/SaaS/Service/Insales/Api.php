@@ -185,7 +185,7 @@ class Api
             'category_id' => $categoryId,
             'collection_id' => $collectionId,
             'page' => $page,
-            'pre_page' => $perPage <= 250 ? $perPage : 250,
+            'per_page' => $perPage <= 250 ? $perPage : 250,
             'updated_since' => $updatedSince,
             'from_id' => $fromId,
             'deleted' => $deleted == true ? $deleted : null
@@ -1429,7 +1429,7 @@ class Api
             'financial_status' => isset($filter['financial_status']) ? $filter['financial_status'] : null,
             'delivery_variant' => isset($filter['delivery_variant']) ? $filter['delivery_variant'] : null,
             'page' => $page,
-            'pre_page' => $perPage <= 250 ? $perPage : 250,
+            'per_page' => $perPage <= 250 ? $perPage : 250,
             'updated_since' => isset($updatedSince) ? $updatedSince->format('c') : null,
             'from_id' => $fromId,
             'deleted' => $deleted == true ? $deleted : null
@@ -1472,7 +1472,7 @@ class Api
             'financial_status' => isset($filter['financial_status']) ? $filter['financial_status'] : null,
             'delivery_variant' => isset($filter['delivery_variant']) ? $filter['delivery_variant'] : null,
             'page' => $page,
-            'pre_page' => $perPage <= 250 ? $perPage : 250,
+            'per_page' => $perPage <= 250 ? $perPage : 250,
             'updated_since' => isset($updatedSince) ? $updatedSince->format('c') : null,
             'from_id' => $fromId,
             'deleted' => $deleted == true ? $deleted : null
