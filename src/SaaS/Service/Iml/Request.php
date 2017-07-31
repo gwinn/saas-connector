@@ -121,6 +121,12 @@ class Request
             throw new CurlException($error, $errno);
         }
 
-        return new Response($statusCode, $responseBody);
+        $response = new Response($statusCode, $responseBody);
+
+        if (!empty($response['Mess'])) {
+            throw new \Exception($response['Mess']);
+        }
+
+        return $response;
     }
 }
