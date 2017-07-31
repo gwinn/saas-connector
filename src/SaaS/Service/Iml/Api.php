@@ -59,9 +59,9 @@ class Api {
                 "parameters request must be not empty"
             );
         }
-        if (empty($parameters['BarCode']) ){
+        if (empty($parameters['BarCode']) && empty($parameters['CustomerOrder'])){
             throw new \InvalidArgumentException(
-                "BarCode must be not empty"
+                "BarCode or CustomerOrder must be not empty"
             );
         }
 
