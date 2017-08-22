@@ -33,17 +33,18 @@ class Request
     const METHOD_GET = 'GET';
     const METHOD_POST = 'POST';
     const METHOD_PUT = 'PUT';
+    const METHOD_DELETE = 'DELETE';
 
     protected $url;
 
     /**
      * Client constructor.
      *
-     * @internal param string $url api url
+     * @param string $domain Domain client
      */
-    public function __construct()
+    public function __construct($domain)
     {
-        $this->url = "http://brooklynstore.com.ua/api/";
+        $this->url = sprintf('%s/api/', $domain);
     }
 
     /**
@@ -65,7 +66,8 @@ class Request
         $allowedMethods = array(
             self::METHOD_GET,
             self::METHOD_POST,
-            self::METHOD_PUT
+            self::METHOD_PUT,
+            self::METHOD_DELETE
         );
 
         if (!in_array($method, $allowedMethods, false)) {
@@ -91,8 +93,7 @@ class Request
         curl_setopt($curlHandler, CURLOPT_FAILONERROR, false);
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curlHandler, CURLOPT_TIMEOUT, 30);
-        curl_setopt($curlHandler, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($curlHandler, CURLOPT_TIMEOUT, 180);
 
         if (self::METHOD_POST === $method) {
             curl_setopt($curlHandler, CURLOPT_POST, true);
