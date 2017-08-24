@@ -142,7 +142,6 @@ class Request
     public function makeRequest($url, $method = 'GET', $parameters = array())
     {
         time_nanosleep(0, 55000000); // чуть менее 20 запросов в секунду
-
         $allowedMethods = array(self::METHOD_GET, self::METHOD_POST, self::METHOD_PUT, self::METHOD_DELETE);
 
         if (!in_array($method, $allowedMethods, false)) {
@@ -179,8 +178,8 @@ class Request
                 "$header: $value"
             );
         }
-        unset($header, $value);
 
+        unset($header, $value);
         curl_setopt($curlHandler, CURLOPT_HTTPHEADER, $headers);
         unset($headers);
 
@@ -227,7 +226,6 @@ class Request
         $error = curl_error($curlHandler);
 
         curl_close($curlHandler);
-
         $this->resetHeaders();
 
         if ($statusCode >= 400) {
@@ -266,6 +264,7 @@ class Request
             $params = array();
             $filter = '';
             $filters = array();
+
             foreach ($parameters as $name => $value) {
                 if ($name == 'filters') {
                     if (!empty($value) & is_array($value)) {
@@ -280,6 +279,7 @@ class Request
                     $filters[$name] = $value;
                 }
             }
+
             unset($name, $value);
             $params = array_merge($params, $filters);
         }
@@ -301,12 +301,14 @@ class Request
     private function buildFilter($filters)
     {
         $params = '';
+
         foreach ($filters as $filter) {
             if (!in_array($filter['operand'], self::FILTER_OPERANDS)) {
                 continue;
             }
             $params .= $filter['name'] . $filter['operand'] . $filter['value'] . ';';
         }
+
         unset($filter);
         $params = trim($params, ';');
 
@@ -323,16 +325,17 @@ class Request
     private function getError($result)
     {
         $error = "";
+
         if (!empty($result['errors'])) {
             foreach ($result['errors'] as $err) {
                 if (!empty($err['parameter'])) {
-                    $error .= "[".date("Y-m-d H:i:s")."] Error ".$err['parameter'].": ".$err['error']."\n";
+                    $error .= "Error: ".$err['parameter'].": ".$err['error']."\n";
                 } else {
-                    $error .= "[".date("Y-m-d H:i:s")."] Error: ".$err['error']."\n";
+                    $error .= "Error: ".$err['error']."\n";
                 }
             }
         } else {
-            $error = "[".date("Y-m-d H:i:s")."] Internal server error";
+            $error = "Internal server error (" . json_encode($result) . ")";
         }
 
         return $error;
