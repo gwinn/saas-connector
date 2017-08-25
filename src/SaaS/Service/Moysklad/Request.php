@@ -93,6 +93,22 @@ class Request
     protected $headers;
 
     /**
+     *
+     * Curl url
+     * @var string
+     * @access public
+     */
+    public $queryUrl;
+
+    /**
+     *
+     * Curl POST-data
+     * @var string
+     * @access public
+     */
+    public $queryData = "";
+
+    /**
      * Request constructor.
      *
      * @param string $login set of login access to API
@@ -160,6 +176,8 @@ class Request
             $curlUrl .= $this->httpBuildQuery($parameters);
         }
 
+        $this->queryUrl = $curlUrl;
+
         $curlHandler = curl_init();
         curl_setopt($curlHandler, CURLOPT_USERPWD, "{$this->login}:{$this->password}");
         curl_setopt($curlHandler, CURLOPT_URL, $curlUrl);
@@ -204,6 +222,7 @@ class Request
                 );
             }
 
+            $this->queryData = json_encode($parameters['data']);
             curl_setopt($curlHandler, CURLOPT_POSTFIELDS, json_encode($parameters['data']));
 
             if ($method == self::METHOD_PUT) {
@@ -230,7 +249,12 @@ class Request
 
         if ($statusCode >= 400) {
             $result = json_decode($responseBody, true);
-            throw new MoySkladException($this->getError($result), $statusCode);
+
+            throw new MoySkladException(
+                $this->getError($result) .
+                " [errno = $errno, error = $error]",
+                $statusCode
+            );
         }
 
         if ($errno && in_array($errno, array(6, 7, 28, 34, 35)) && $this->retry < 3) {
@@ -312,7 +336,7 @@ class Request
         unset($filter);
         $params = trim($params, ';');
 
-        return 'filter=' . $params;
+        return 'filter=' . urlencode($params);
     }
 
     /**
