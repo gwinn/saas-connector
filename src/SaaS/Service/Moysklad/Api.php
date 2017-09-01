@@ -128,29 +128,6 @@ class Api
     );
 
     /**
-     * Filters for get data requests
-     * @var main_filters
-     * @access protected
-     */
-    protected $main_filters = array(
-        "updatedFrom",
-        "updatedTo",
-        "updatedBy",
-        "state.name",
-        "state.id",
-        "organization.id",
-        "search",
-        "isDeleted",
-        "limit",
-        "offset",
-        "filters",
-        "expand",
-        "operation.id",
-        "order",
-        "direction"
-    );
-
-    /**
      * Constructor
      *
      * @param string $login
@@ -235,17 +212,10 @@ class Api
 
         if (!empty($filters)) {
             if (is_array($filters)) {
-                if (!empty(array_diff(array_keys($filters), $this->main_filters))) {
-                    throw new \InvalidArgumentException(
-                        sprintf(
-                            'Wrong main filters: `%s`',
-                            implode(', ', array_diff(array_keys($filters), $this->main_filters))
-                        )
-                    );
-                }
                 foreach ($filters as $index => $value) {
                     $filter[$index] = $value;
                 }
+
                 unset($index, $value);
             } else {
                 throw new \InvalidArgumentException('Wrong `filters` type: `filters` must be an "array"');

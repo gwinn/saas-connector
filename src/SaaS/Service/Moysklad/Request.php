@@ -330,13 +330,13 @@ class Request
             if (!in_array($filter['operand'], self::FILTER_OPERANDS)) {
                 continue;
             }
-            $params .= $filter['name'] . $filter['operand'] . $filter['value'] . ';';
+            $params .= $filter['name'] . $filter['operand'] . urlencode($filter['value']) . ';';
         }
 
         unset($filter);
         $params = trim($params, ';');
 
-        return 'filter=' . urlencode($params);
+        return 'filter=' . $params;
     }
 
     /**
