@@ -76,7 +76,7 @@ class Request
      * @var integer
      * @access protected
      */
-    protected $timeout = 60;
+    protected $timeout = 300;
 
     /**
      * Curl retry
@@ -186,7 +186,7 @@ class Request
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curlHandler, CURLOPT_TIMEOUT, $this->timeout);
-        curl_setopt($curlHandler, CURLOPT_CONNECTTIMEOUT, 60);
+        curl_setopt($curlHandler, CURLOPT_CONNECTTIMEOUT, 300);
 
         $headers = array();
 
