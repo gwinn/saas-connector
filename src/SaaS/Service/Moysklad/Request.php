@@ -353,15 +353,38 @@ class Request
         if (!empty($result['errors'])) {
             foreach ($result['errors'] as $err) {
                 if (!empty($err['parameter'])) {
-                    $error .= "Error: ".$err['parameter'].": ".$err['error']."\n";
+                    $error .= "'" . $err['parameter']."': ".$err['error'];
                 } else {
-                    $error .= "Error: ".$err['error']."\n";
+                    $error .= $err['error'];
                 }
             }
+
+            unset($err);
+
+            return $error;
         } else {
-            $error = "Internal server error (" . json_encode($result) . ")";
+            foreach ($result as $value) {
+                if (!empty($value['errors'])) {
+                    foreach ($value['errors'] as $err) {
+                        if (!empty($err['parameter'])) {
+                            $error .= "'" . $err['parameter']."': ".$err['error'];
+                        } else {
+                            $error .= $err['error'];
+                        }
+                    }
+
+                    unset($err);
+                    $error .= " / ";
+                }
+            }
+
+            unset($value);
+
+            if (!empty(trim($error, ' / '))) {
+                return trim($error, ' / ');
+            }
         }
 
-        return $error;
+        return "Internal server error (" . json_encode($result) . ")";
     }
 }
