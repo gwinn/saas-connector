@@ -385,6 +385,6 @@ class Request
             }
         }
 
-        return "Internal server error (" . json_encode($result) . ")";;
+        return "Internal server error (" . json_encode($result) . ")";
     }
 }
