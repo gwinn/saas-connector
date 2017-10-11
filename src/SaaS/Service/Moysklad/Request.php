@@ -363,25 +363,27 @@ class Request
 
             return $error;
         } else {
-            foreach ($result as $value) {
-                if (!empty($value['errors'])) {
-                    foreach ($value['errors'] as $err) {
-                        if (!empty($err['parameter'])) {
-                            $error .= "'" . $err['parameter']."': ".$err['error'];
-                        } else {
-                            $error .= $err['error'];
+            if (is_array($result)) {
+                foreach ($result as $value) {
+                    if (!empty($value['errors'])) {
+                        foreach ($value['errors'] as $err) {
+                            if (!empty($err['parameter'])) {
+                                $error .= "'" . $err['parameter']."': ".$err['error'];
+                            } else {
+                                $error .= $err['error'];
+                            }
                         }
+
+                        unset($err);
+                        $error .= " / ";
                     }
-
-                    unset($err);
-                    $error .= " / ";
                 }
-            }
 
-            unset($value);
+                unset($value);
 
-            if (!empty(trim($error, ' / '))) {
-                return trim($error, ' / ');
+                if (!empty(trim($error, ' / '))) {
+                    return trim($error, ' / ');
+                }
             }
         }
 
