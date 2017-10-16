@@ -63,7 +63,8 @@ class Request
         $apiListMethods = array(
             'deliverystatus',
             'orderstatus',
-            'region'
+            'region',
+            'GetPrice'
         );
 
         if (!in_array($method, $allowedMethods)) {
