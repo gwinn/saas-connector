@@ -25,6 +25,9 @@
         <server name="MOYSKLAD_PASSWORD" value="bar" />
         <server name="FRUUGO_LOGIN" value="foo" />
         <server name="FRUUGO_PASSWORD" value="bar" />
+        <server name="GETT_CLIENT_ID" value="foo" />
+        <server name="GETT_CLIENT_SECRET" value="bar" />
+        <server name="GETT_BUSINESS_ID" value="foobar" />
     </php>
 
     <testsuites>
