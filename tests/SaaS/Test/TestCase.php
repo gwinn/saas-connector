@@ -20,6 +20,7 @@ use SaaS\Service\Courierist\Api as CourieristApi;
 use SaaS\Service\Moysklad\Api as MoyskladApi;
 use SaaS\Service\Iml\Api as ImlApi;
 use SaaS\Service\Fruugo\Api as FruugoApi;
+use SaaS\Service\Gett\Api as GettApi;
 
 /**
  * Class TestCase
@@ -154,6 +155,23 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $password = !is_null($password) ? $password : $_SERVER['FRUUGO_PASSWORD'];
 
         return new FruugoApi($login, $password);
+    }
+
+    /**
+     * Get Gett API clent
+     *
+     * @param string $client_id client id
+     * @param string $client_secret client secret
+     * @param string $business_id business id
+     * @return GettApi
+     */
+    public static function getGettApiClient($client_id = null, $client_secret = null, $business_id = null)
+    {
+        $client_id = !is_null($client_id) ? $client_id : $_SERVER['GETT_CLIENT_ID'];
+        $client_secret = !is_null($client_secret) ? $client_secret : $_SERVER['GETT_CLIENT_SECRET'];
+        $business_id = !is_null($business_id) ? $business_id : $_SERVER['GETT_BUSINESS_ID'];
+
+        return new GettApi($client_id, $client_secret, $business_id, true);
     }
 
     /**
