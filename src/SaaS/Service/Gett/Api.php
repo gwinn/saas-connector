@@ -5,7 +5,7 @@
  * @category ApiClient
  * @package SaaS\Service\Gett
  * @author Vasyagin Sergey <vasyagin@intaro.ru>
- * @license http://retailcrm.ru Proprietary
+ * @license  http://opensource.org/licenses/MIT MIT License
  * @link http://github.com/gwinn/saas-connector
  */
 namespace SaaS\Service\Gett;
@@ -14,11 +14,12 @@ use SaaS\Http\Response;
 
 /**
  * Gett API Client
+ * @see https://developer.gett.com/docs/business-overview
  *
  * @category ApiClient
  * @package  SaaS\Service\Gett
  * @author Vasyagin Sergey <vasyagin@intaro.ru>
- * @license http://retailcrm.ru Proprietary
+ * @license  http://opensource.org/licenses/MIT MIT License
  * @link http://github.com/gwinn/saas-connector
  */
 class Api

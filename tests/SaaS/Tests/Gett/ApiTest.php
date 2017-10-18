@@ -6,7 +6,7 @@
  * @category ApiClient
  * @package SaaS\Tests\Gett
  * @author Vasyagin Sergey <vasyagin@intaro.ru>
- * @license http://retailcrm.ru Proprietary
+ * @license  http://opensource.org/licenses/MIT MIT License
  * @link http://github.com/gwinn/saas-connector
  */
 
@@ -20,7 +20,7 @@ use SaaS\Test\TestCase;
  * @category ApiClient
  * @package SaaS\Tests\Gett
  * @author Vasyagin Sergey <vasyagin@intaro.ru>
- * @license http://retailcrm.ru Proprietary
+ * @license  http://opensource.org/licenses/MIT MIT License
  * @link http://github.com/gwinn/saas-connector
  */
 class ApiTest extends TestCase
