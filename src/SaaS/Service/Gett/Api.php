@@ -167,7 +167,7 @@ class Api
             throw new \InvalidArgumentException("Parameters must not be empty");
         }
 
-        $path = '/buseinss/eta';
+        $path = '/business/eta';
         $parameters['business_id'] = $this->business_id;
 
         return $this->request->makeRequest($token, $path, 'GET', $parameters);
@@ -192,7 +192,7 @@ class Api
             throw new \InvalidArgumentException("Parameters must not be empty");
         }
 
-        $path = '/buseinss/price';
+        $path = '/business/price';
         $parameters['business_id'] = $this->business_id;
 
         return $this->request->makeRequest($token, $path, 'GET', $parameters);
@@ -217,7 +217,7 @@ class Api
             throw new \InvalidArgumentException("Parameters must not be empty");
         }
 
-        $path = '/buseinss/rides?business_id=' . $this->business_id;
+        $path = '/business/rides?business_id=' . $this->business_id;
 
         return $this->request->makeRequest($token, $path, 'POST', json_encode($parameters));
     }
