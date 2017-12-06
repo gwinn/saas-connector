@@ -568,6 +568,43 @@ class Api
     }
 
     /**
+     * Get fields for variant
+     *
+     * @link    http://api.insales.ru/?doc_format=JSON#variantfield-get-variant-fields-json
+     * @group   variant
+     *
+     * @return Response
+     */
+    public function variantFieldsGet()
+    {
+        $url = '/admin/variant_fields.json';
+
+        return $this->client->makeRequest($url, Request::METHOD_GET);
+    }
+
+    /**
+     * Get field for variant by handle or id
+     *
+     * @link    http://api.insales.ru/?doc_format=JSON#variantfield-get-variant-field-by-handle-json
+     * @link    http://api.insales.ru/?doc_format=JSON#variantfield-get-variant-field-json
+     * @param   int $handle handle or id variant field
+     * @throws  InsalesApiException
+     * @group   variant
+     *
+     * @return Response
+     */
+    public function variantFieldGet($handle)
+    {
+        if (empty($handle)) {
+            throw new InsalesApiException("Variant field id or handle must be set");
+        }
+
+        $url = sprintf('/admin/variant_fields/%s.json', $handle);
+
+        return $this->client->makeRequest($url, Request::METHOD_GET);
+    }
+
+    /**
      * Get list options
      *
      * @link    http://api.insales.ru/?doc_format=JSON#optionname-get-option-names-json
