@@ -63,7 +63,12 @@ class Request
         $apiListMethods = array(
             'deliverystatus',
             'orderstatus',
-            'region'
+            'region',
+            'GetPrice'
+        );
+
+        $apiLongTimeMethods = array(
+            'PostCode'
         );
 
         if (!in_array($method, $allowedMethods)) {
@@ -76,11 +81,17 @@ class Request
             );
         }
 
+        $timeouts = 60;
+
+        if (in_array($path, $apiLongTimeMethods) && empty($parameters)) {
+            $timeouts = 600;
+        }
+
         if (self::METHOD_GET === $method && in_array($path, $apiListMethods)){
             $url = 'https://api.iml.ru/list/';
         } elseif(self::METHOD_GET === $method && !in_array($path, $apiListMethods)){
             $url = 'https://list.iml.ru/';
-        }else {
+        } else {
             $url = 'https://api.iml.ru/json/';
         }
 
@@ -106,8 +117,8 @@ class Request
         curl_setopt($curlHandler, CURLOPT_FAILONERROR, false);
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curlHandler, CURLOPT_TIMEOUT, 60);
-        curl_setopt($curlHandler, CURLOPT_CONNECTTIMEOUT, 60);
+        curl_setopt($curlHandler, CURLOPT_TIMEOUT, $timeouts);
+        curl_setopt($curlHandler, CURLOPT_CONNECTTIMEOUT, $timeouts);
 
         $responseBody = curl_exec($curlHandler);
         $statusCode   = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);

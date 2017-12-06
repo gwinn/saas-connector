@@ -128,7 +128,7 @@ class Api {
             );
         }
 
-        return $this->client->makeRequest('GetPrice', 'POST', $parameters);
+        return $this->client->makeRequest('GetPrice', 'GET', $parameters);
     }
 
     /**
@@ -277,19 +277,15 @@ class Api {
      *
      * @return Responce
      */
-    public function getPostCode($index)
+    public function getPostCode($index = null)
     {
         $parameters = array();
 
-        if(empty($index) || !isset($index)){
-            throw new \InvalidArgumentException(
-                "index must be established and must be not empty"
-            );
-        }else{
+        if(!is_null($index)){
             $parameters = array('index' => $index);
         }
 
-        return $this->client->makeRequest('PostCode', 'GET',$parameters);
+        return $this->client->makeRequest('PostCode', 'GET', $parameters);
     }
 
     /**
