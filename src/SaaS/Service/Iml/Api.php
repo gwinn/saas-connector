@@ -128,7 +128,7 @@ class Api {
             );
         }
 
-        return $this->client->makeRequest('GetPrice', 'GET', $parameters);
+        return $this->client->makeRequest('GetPrice', 'GET', $parameters, 'v5');
     }
 
     /**
