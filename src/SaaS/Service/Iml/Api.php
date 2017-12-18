@@ -128,9 +128,27 @@ class Api {
             );
         }
 
-        return $this->client->makeRequest('GetPrice', 'GET', $parameters);
+        return $this->client->makeRequest('GetPrice', 'GET', $parameters, 'v5');
     }
 
+    /**
+     * Print ticket
+     *
+     * @param array $parameters set of parameters request
+     *
+     * @return Responce
+     */
+    public function printTicket(array $parameters = array())
+    {
+        if (empty($parameters) ){
+            throw new \InvalidArgumentException(
+                "parameters request must be not empty"
+            );
+        }
+
+        return $this->client->makeRequest('PrintBar', 'POST', $parameters);
+    }
+    
     /**
      * Get reference delivery status
      *
