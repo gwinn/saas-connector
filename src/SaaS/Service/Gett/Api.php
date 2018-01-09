@@ -297,7 +297,7 @@ class Api
 
         $path = '/business/rides/' . $ride_id . '/cancel?business_id=' . $this->business_id;
 
-        return $this->request->makeRequest($token, $path, 'POST', $parameters);
+        return $this->request->makeRequest($token, $path, 'POST');
     }
 
     /**
