@@ -128,9 +128,27 @@ class Api {
             );
         }
 
-        return $this->client->makeRequest('GetPrice', 'GET', $parameters);
+        return $this->client->makeRequest('GetPrice', 'GET', $parameters, 'v5');
     }
 
+    /**
+     * Print ticket
+     *
+     * @param array $parameters set of parameters request
+     *
+     * @return Responce
+     */
+    public function printTicket(array $parameters = array())
+    {
+        if (empty($parameters) ){
+            throw new \InvalidArgumentException(
+                "parameters request must be not empty"
+            );
+        }
+
+        return $this->client->makeRequest('PrintBar', 'POST', $parameters);
+    }
+    
     /**
      * Get reference delivery status
      *
@@ -277,19 +295,15 @@ class Api {
      *
      * @return Responce
      */
-    public function getPostCode($index)
+    public function getPostCode($index = null)
     {
         $parameters = array();
 
-        if(empty($index) || !isset($index)){
-            throw new \InvalidArgumentException(
-                "index must be established and must be not empty"
-            );
-        }else{
+        if(!is_null($index)){
             $parameters = array('index' => $index);
         }
 
-        return $this->client->makeRequest('PostCode', 'GET',$parameters);
+        return $this->client->makeRequest('PostCode', 'GET', $parameters);
     }
 
     /**

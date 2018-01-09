@@ -51,7 +51,7 @@ class Request
      *
      * @return Response
      */
-    public function makeRequest($path, $method, array $parameters = array()){
+    public function makeRequest($path, $method, array $parameters = array(), $version = false){
 
         $headers = array('Content-Type: application/json');
 
@@ -67,6 +67,10 @@ class Request
             'GetPrice'
         );
 
+        $apiLongTimeMethods = array(
+            'PostCode'
+        );
+
         if (!in_array($method, $allowedMethods)) {
             throw new \InvalidArgumentException(
                 sprintf(
@@ -77,16 +81,24 @@ class Request
             );
         }
 
-        if (self::METHOD_GET === $method && in_array($path, $apiListMethods)){
-            $url = 'https://api.iml.ru/list/';
-        } elseif(self::METHOD_GET === $method && !in_array($path, $apiListMethods)){
-            $url = 'https://list.iml.ru/';
-        }else {
-            $url = 'https://api.iml.ru/json/';
+        $timeouts = 60;
+
+        if (in_array($path, $apiLongTimeMethods) && empty($parameters)) {
+            $timeouts = 600;
         }
 
+        $url = 'https://api.iml.ru/json/';
+
         if (self::METHOD_GET === $method){
-           $path .= '?' . http_build_query($parameters, '', '&');
+            if ($version) {
+                $url = "https://api.iml.ru/{$version}/";
+            } elseif (in_array($path, $apiListMethods)) {
+                $url = 'https://api.iml.ru/list/';
+            } elseif(!in_array($path, $apiListMethods)) {
+                $url = 'https://list.iml.ru/';
+            }
+            
+            $path .= '?' . http_build_query($parameters, '', '&');
         }
 
         $url = $url . $path;
@@ -107,8 +119,8 @@ class Request
         curl_setopt($curlHandler, CURLOPT_FAILONERROR, false);
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curlHandler, CURLOPT_TIMEOUT, 60);
-        curl_setopt($curlHandler, CURLOPT_CONNECTTIMEOUT, 60);
+        curl_setopt($curlHandler, CURLOPT_TIMEOUT, $timeouts);
+        curl_setopt($curlHandler, CURLOPT_CONNECTTIMEOUT, $timeouts);
 
         $responseBody = curl_exec($curlHandler);
         $statusCode   = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
