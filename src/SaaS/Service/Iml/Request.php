@@ -71,6 +71,10 @@ class Request
             'PostCode'
         );
 
+        $apiJsonMethods = array(
+            'PrintBar'
+        );
+
         if (!in_array($method, $allowedMethods)) {
             throw new \InvalidArgumentException(
                 sprintf(
@@ -88,16 +92,21 @@ class Request
         }
 
         $url = 'https://api.iml.ru/json/';
+        $needByte = false;
 
         if (self::METHOD_GET === $method){
-            if ($version) {
-                $url = "https://api.iml.ru/{$version}/";
-            } elseif (in_array($path, $apiListMethods)) {
-                $url = 'https://api.iml.ru/list/';
-            } elseif(!in_array($path, $apiListMethods)) {
-                $url = 'https://list.iml.ru/';
+            if (!in_array($path, $apiJsonMethods)) {
+                if ($version) {
+                    $url = "https://api.iml.ru/{$version}/";
+                } elseif (in_array($path, $apiListMethods)) {
+                    $url = 'https://api.iml.ru/list/';
+                } elseif(!in_array($path, $apiListMethods)) {
+                    $url = 'https://list.iml.ru/';
+                }
+            } else {
+                $needByte = true;
             }
-            
+
             $path .= '?' . http_build_query($parameters, '', '&');
         }
 
@@ -112,8 +121,8 @@ class Request
             curl_setopt($curlHandler, CURLOPT_POSTFIELDS, json_encode($parameters));
         }
 
-        curl_setopt( $curlHandler, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt( $curlHandler,CURLOPT_USERPWD, $this->auth);
+        curl_setopt($curlHandler, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($curlHandler, CURLOPT_USERPWD, $this->auth);
         curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curlHandler, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($curlHandler, CURLOPT_FAILONERROR, false);
@@ -132,6 +141,27 @@ class Request
 
         if ($errno) {
             throw new CurlException($error, $errno);
+        }
+
+        if ($statusCode >= 400) {
+            $result = json_decode($responseBody, true);
+
+            if (is_array($result['Errors'])) {
+                array_walk($result['Errors'], function(&$item, $key){
+                    if (is_array($item)) {
+                        $item = implode(', ', $item);
+                    }
+                });
+            }
+
+            throw new \Exception(
+                (is_array($result['Errors']) ? implode('; ', $result['Errors']) : $result['Errors']),
+                $statusCode
+            );
+        }
+
+        if ($needByte) {
+            return $responseBody;
         }
 
         $response = new Response($statusCode, $responseBody);

@@ -146,9 +146,9 @@ class Api {
             );
         }
 
-        return $this->client->makeRequest('PrintBar', 'POST', $parameters);
+        return $this->client->makeRequest('PrintBar', 'GET', $parameters);
     }
-    
+
     /**
      * Get reference delivery status
      *
