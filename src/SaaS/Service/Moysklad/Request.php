@@ -50,7 +50,7 @@ class Request
     /**
      * Filters
      */
-    const FILTER_OPERANDS = array('=', '>', '<', '>=', '<=', '!=');
+    const FILTER_OPERANDS = array('=', '>', '<', '>=', '<=', '!=', '~', '~=', '=~');
 
     /**
      * Restrictions
@@ -298,9 +298,9 @@ class Request
                 }
 
                 if (is_array($value)) {
-                    $filters[$name] = implode(',', $value);
+                    $filters[$name] = implode(sprintf("&%s=", $name), $value);
                 } else {
-                    $filters[$name] = $value;
+                    $filters[$name] = urlencode($value);
                 }
             }
 
@@ -309,8 +309,8 @@ class Request
         }
 
         return trim(('?' . (
-                !empty($params) ?
-                (http_build_query($params) . '&') :
+            !empty($params) ?
+                urldecode(http_build_query($params) . '&') :
                 ''
             ) . $filter), '&');
     }
@@ -318,7 +318,7 @@ class Request
     /**
      * build filter.
      *
-     * @param array $filter
+     * @param array $filters
      * @return string
      * @access private
      */
@@ -330,7 +330,8 @@ class Request
             if (!in_array($filter['operand'], self::FILTER_OPERANDS)) {
                 continue;
             }
-            $params .= $filter['name'] . $filter['operand'] . urlencode($filter['value']) . ';';
+
+            $params .= $filter['name'] . urlencode($filter['operand']) . urlencode($filter['value']) . ';';
         }
 
         unset($filter);
@@ -342,7 +343,7 @@ class Request
     /**
      * Get error.
      *
-     * @param array
+     * @param array $result
      * @return string
      * @access private
      */
