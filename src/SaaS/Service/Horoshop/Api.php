@@ -47,9 +47,7 @@ class Api
         $this->request = new Request($domain);
 
         $auth = $this->auth($login, $password);
-        $token = $auth['response']['token'];
-
-        $this->token = $token;
+        $this->token = !empty($auth['response']['token']) ? $auth['response']['token'] : null;
     }
 
     /**
