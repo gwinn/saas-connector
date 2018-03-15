@@ -81,9 +81,14 @@ class Request
         }
 
         $url = $this->url . $path;
+        $url = str_replace('https://', 'http://', $url);
 
         if (self::METHOD_GET === $method && count($parameters)) {
             $url .= '?' . http_build_query($parameters, '', '&');
+        }
+
+        if (self::METHOD_PUT === $method) {
+            $url = str_replace('http://', 'https://', $url);
         }
 
         $curlHandler = curl_init();
