@@ -36,6 +36,7 @@ class Request
     const METHOD_DELETE = 'DELETE';
 
     protected $url;
+    protected $onHttps = true;
 
     /**
      * Client constructor.
@@ -83,12 +84,12 @@ class Request
         $url = $this->url . $path;
         $url = str_replace('https://', 'http://', $url);
 
-        if (self::METHOD_GET === $method && count($parameters)) {
-            $url .= '?' . http_build_query($parameters, '', '&');
+        if ($this->onHttps === true) {
+            $url = str_replace('http://', 'https://', $url);
         }
 
-        if (self::METHOD_PUT === $method) {
-            $url = str_replace('http://', 'https://', $url);
+        if (self::METHOD_GET === $method && count($parameters)) {
+            $url .= '?' . http_build_query($parameters, '', '&');
         }
 
         $curlHandler = curl_init();
@@ -96,8 +97,8 @@ class Request
         curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curlHandler, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($curlHandler, CURLOPT_FAILONERROR, false);
-        curl_setopt($curlHandler, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curlHandler, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curlHandler, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($curlHandler, CURLOPT_SSL_VERIFYHOST, 2);
         curl_setopt($curlHandler, CURLOPT_TIMEOUT, 180);
 
         if (self::METHOD_POST === $method) {
@@ -120,6 +121,13 @@ class Request
         }
 
         $responseBody = curl_exec($curlHandler);
+
+        if (curl_getinfo($curlHandler, CURLINFO_SSL_VERIFYRESULT) !== 0) {
+            $this->onHttps = false;
+
+            return $this->makeRequest($path, $method, $parameters);
+        }
+
         $statusCode = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
         $errno = curl_errno($curlHandler);
         $error = curl_error($curlHandler);
