@@ -36,6 +36,7 @@ class Request
     const METHOD_DELETE = 'DELETE';
 
     protected $url;
+    protected $host;
     protected $onHttps = true;
 
     /**
@@ -46,6 +47,9 @@ class Request
     public function __construct($domain)
     {
         $this->url = sprintf('%s/api/', $domain);
+
+        $parse = parse_url($domain);
+        $this->host = isset($parse['host']) ? $parse['host'] : null;
     }
 
     /**
@@ -122,10 +126,24 @@ class Request
 
         $responseBody = curl_exec($curlHandler);
 
-        if (curl_getinfo($curlHandler, CURLINFO_SSL_VERIFYRESULT) !== 0) {
+        if ($this->onHttps && curl_getinfo($curlHandler, CURLINFO_SSL_VERIFYRESULT) !== 0) {
             $this->onHttps = false;
 
             return $this->makeRequest($path, $method, $parameters);
+        }
+
+        if ($this->onHttps && !empty($this->host)) {
+            try {
+                $fp = fsockopen('www.' . $this->host, 443, $errno, $errstr, 30);
+            } catch (\Exception $exception) {
+                $this->onHttps = false;
+
+                return $this->makeRequest($path, $method, $parameters);
+            } finally {
+                if (isset($fp)) {
+                    fclose($fp);
+                }
+            }
         }
 
         $statusCode = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
