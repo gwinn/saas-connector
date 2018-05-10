@@ -36,8 +36,7 @@ class Request
     const METHOD_DELETE = 'DELETE';
 
     protected $url;
-    protected $host;
-    protected $onHttps = true;
+    protected $onHttps = null;
 
     /**
      * Client constructor.
@@ -47,9 +46,6 @@ class Request
     public function __construct($domain)
     {
         $this->url = sprintf('%s/api/', $domain);
-
-        $parse = parse_url($domain);
-        $this->host = isset($parse['host']) ? $parse['host'] : null;
     }
 
     /**
@@ -86,9 +82,8 @@ class Request
         }
 
         $url = $this->url . $path;
-        $url = str_replace('https://', 'http://', $url);
 
-        if ($this->onHttps === true) {
+        if (!empty($this->onHttps) && $this->onHttps === true) {
             $url = str_replace('http://', 'https://', $url);
         }
 
@@ -104,6 +99,7 @@ class Request
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYPEER, true);
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYHOST, 2);
         curl_setopt($curlHandler, CURLOPT_TIMEOUT, 180);
+        curl_setopt($curlHandler, CURLOPT_HEADER, true);
 
         if (self::METHOD_POST === $method) {
             curl_setopt($curlHandler, CURLOPT_POST, true);
@@ -124,29 +120,24 @@ class Request
             );
         }
 
-        $responseBody = curl_exec($curlHandler);
+        $headers = curl_exec($curlHandler);
 
-        if ($this->onHttps && curl_getinfo($curlHandler, CURLINFO_SSL_VERIFYRESULT) !== 0) {
+        if ($this->onHttps == true && curl_getinfo($curlHandler, CURLINFO_SSL_VERIFYRESULT) !== 0) {
             $this->onHttps = false;
 
             return $this->makeRequest($path, $method, $parameters);
         }
 
-        if ($this->onHttps && !empty($this->host)) {
-            try {
-                $fp = fsockopen('www.' . $this->host, 443, $errno, $errstr, 30);
-            } catch (\Exception $exception) {
-                $this->onHttps = false;
+        $headers = $this->headersToArray($headers);
+        $responseBody = isset($headers['body']) ? $headers['body'] : '';
 
-                return $this->makeRequest($path, $method, $parameters);
-            } finally {
-                if (isset($fp)) {
-                    fclose($fp);
-                }
-            }
+        if (empty($this->onHttps)) {
+            $this->onHttps = array_key_exists('Content-Security-Policy-Report-Only', $headers)
+                && strstr($headers['Content-Security-Policy-Report-Only'], 'https');
         }
 
         $statusCode = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
+
         $errno = curl_errno($curlHandler);
         $error = curl_error($curlHandler);
 
@@ -157,5 +148,32 @@ class Request
         }
 
         return new Response($statusCode, $responseBody);
+    }
+
+    /**
+     * Parse headers
+     *
+     * @param string $allHeaders
+     *
+     * @return array
+     */
+    private function headersToArray($allHeaders)
+    {
+        $allHeaders = explode(PHP_EOL, $allHeaders);
+        $resultHeaders[] = array_shift($allHeaders);
+        $resultHeaders['body'] = array_pop($allHeaders);
+
+        foreach ($allHeaders as $item) {
+            $item = explode(': ', $item);
+
+            if (count($item) > 2) {
+                $key = array_shift($item);
+                $resultHeaders[$key] = implode(': ', $item);
+            } elseif (count($item) == 2) {
+                $resultHeaders[$item[0]] = $item[1];
+            }
+        }
+
+        return $resultHeaders;
     }
 }
