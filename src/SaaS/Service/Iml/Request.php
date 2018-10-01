@@ -36,10 +36,9 @@ class Request
      * @return string
      *
      */
-    public function __construct($login, $password) {
-
+    public function __construct($login, $password)
+    {
         $this->auth= $login . ':' . $password;
-
     }
 
     /**
@@ -50,6 +49,8 @@ class Request
      * @param array  $parameters (default: array())
      *
      * @return Response
+     *
+     * @throws \Exception|CurlException
      */
     public function makeRequest($path, $method, array $parameters = array(), $version = false){
 
@@ -94,13 +95,13 @@ class Request
         $url = 'https://api.iml.ru/json/';
         $needByte = false;
 
-        if (self::METHOD_GET === $method){
+        if (self::METHOD_GET === $method) {
             if (!in_array($path, $apiJsonMethods)) {
                 if ($version) {
                     $url = "https://api.iml.ru/{$version}/";
                 } elseif (in_array($path, $apiListMethods)) {
                     $url = 'https://api.iml.ru/list/';
-                } elseif(!in_array($path, $apiListMethods)) {
+                } elseif (!in_array($path, $apiListMethods)) {
                     $url = 'https://list.iml.ru/';
                 }
             } else {
@@ -116,7 +117,7 @@ class Request
         curl_setopt($curlHandler, CURLOPT_URL, $url);
         curl_setopt($curlHandler, CURLOPT_HTTPHEADER, $headers);
 
-        if(self::METHOD_POST === $method){
+        if (self::METHOD_POST === $method) {
             curl_setopt($curlHandler, CURLOPT_POST, true);
             curl_setopt($curlHandler, CURLOPT_POSTFIELDS, json_encode($parameters));
         }
@@ -141,6 +142,28 @@ class Request
 
         if ($errno) {
             throw new CurlException($error, $errno);
+        }
+
+        if ($statusCode >= 500) {
+            throw new \Exception(
+                sprintf(
+                    'Error on the IML server: [%s]',
+                    (is_string($responseBody) ?
+                        ((strlen($responseBody) < 2000) ?
+                            $responseBody :
+                            ''
+                        ) :
+                        (json_encode($responseBody) ?:
+                            sprintf(
+                                '|Error encode json: code = "%s" / message = "%s"|',
+                                json_last_error(),
+                                json_last_error_msg()
+                            )
+                        )
+                    )
+                ),
+                $statusCode
+            );
         }
 
         if ($statusCode >= 400) {
