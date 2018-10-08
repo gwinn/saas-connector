@@ -149,10 +149,7 @@ class Request
                 sprintf(
                     'Error on the IML server: [%s]',
                     (is_string($responseBody) ?
-                        ((strlen($responseBody) < 2000) ?
-                            $responseBody :
-                            ''
-                        ) :
+                        $responseBody :
                         (json_encode($responseBody) ?:
                             sprintf(
                                 '|Error encode json: code = "%s" / message = "%s"|',
