@@ -2940,4 +2940,88 @@ class Api
 
         return $this->client->makeRequest($url, Request::METHOD_POST, $parameters);
     }
+
+    /**
+     * Get stock currencies
+     *
+     * @link    http://api.insales.ru/?doc_format=JSON#stock-currency-get-stock-currencies-json
+     * @group   currency
+     *
+     * @return Response
+     */
+    public function currenciesList()
+    {
+        $url = '/admin/stock_currencies.json';
+
+        return $this->client->makeRequest($url, Request::METHOD_GET);
+    }
+
+    /**
+     * Get stock currency
+     *
+     * @link    http://api.insales.ru/?doc_format=JSON#stock-currency-get-stock-currency-json
+     * @param   int $currencyId currency id
+     * @throws  InsalesApiException
+     * @group   currency
+     *
+     * @return Response
+     */
+    public function currencyGet($currencyId)
+    {
+        if (empty($currencyId)) {
+            throw new InsalesApiException("Currency id must be set");
+        }
+
+        $url = sprintf('/admin/stock_currencies/%s.json', $currencyId);
+
+        return $this->client->makeRequest($url, Request::METHOD_GET);
+    }
+
+    /**
+     * Create stock currency
+     *
+     * @link    http://api.insales.ru/?doc_format=JSON#stock-currency-create-stock-currency-json
+     * @param   array $currency currency data json:{"code": "BYR"}
+     * @throws  InsalesApiException
+     * @group   currency
+     *
+     * @return Response
+     */
+    public function currencyCreate($currency)
+    {
+        if (empty($currency)) {
+            throw new InsalesApiException("Currency must be set");
+        }
+        if (empty($currency['code'])) {
+            throw new InsalesApiException("Currency code must be set");
+        }
+
+        $url = '/admin/stock_currencies.json';
+        $parameters = array('stock_currency' => $currency);
+
+        return $this->client->makeRequest($url, Request::METHOD_POST, $parameters);
+    }
+
+    /**
+     * Update stock currency
+     *
+     * @link    http://api.insales.ru/?doc_format=JSON#stock-currency-update-stock-currency-json
+     * @param   int   $currencyId currency id
+     * @param   array $currency   currency data json:{"code": "BYR"}
+     * @throws  InsalesApiException
+     * @group   currency
+     *
+     * @return Response
+     */
+    public function currencyUpdate($currencyId, $currency)
+    {
+        if (empty($currencyId)) {
+            throw new InsalesApiException("Currency id must be set");
+        }
+
+        $url = sprintf('/admin/stock_currencies/%s.json', $currencyId);
+        $parameters = array('stock_currency' => $currency);
+
+        return $this->client->makeRequest($url, Request::METHOD_PUT, $parameters);
+    }
 }
