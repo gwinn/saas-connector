@@ -109,6 +109,14 @@ class Request
     public $queryData = "";
 
     /**
+     *
+     * Curl response
+     * @var string
+     * @access public
+     */
+    public $queryResponse = "";
+
+    /**
      * Request constructor.
      *
      * @param string $login set of login access to API
@@ -240,6 +248,8 @@ class Request
         }
 
         $responseBody = curl_exec($curlHandler);
+        $this->queryResponse = $responseBody;
+
         $statusCode = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
         $errno = curl_errno($curlHandler);
         $error = curl_error($curlHandler);
