@@ -125,7 +125,8 @@ class Api
         'internalorder' => 'entity',
         'stock' => 'report',
         'sales' => 'report',
-        'bundle' => 'entity'
+        'bundle' => 'entity',
+        'audit' => 'audit'
     );
 
     /**
@@ -249,7 +250,11 @@ class Api
                 break;
         }
 
-        $uri = $this->entity[strtolower(reset($params))] . '/';
+        if ($this->entity[strtolower(reset($params))] != reset($params)) {
+            $uri = $this->entity[strtolower(reset($params))] . '/';
+        } else {
+            $uri = '/';
+        }
 
         foreach ($params as $param) {
             $uri .= $param . '/';
@@ -318,10 +323,10 @@ class Api
 
         return $this->client->makeRequest(
             $this->entity[strtolower($type)] .
-                '/' .
-                $type .
-                (!is_null($uuid) ? ('/'.$uuid) : '') .
-                (!is_null($stype) ? ('/'.$stype) : ''),
+            '/' .
+            $type .
+            (!is_null($uuid) ? ('/'.$uuid) : '') .
+            (!is_null($stype) ? ('/'.$stype) : ''),
             Request::METHOD_POST,
             $parameters
         );
