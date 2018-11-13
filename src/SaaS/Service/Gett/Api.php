@@ -324,4 +324,122 @@ class Api
 
         return $this->request->makeRequest($token, $path, 'GET', $parameters);
     }
+
+    /**
+     * Subscribes to webhook
+     * @see https://developer.gett.com/docs/subscribe
+     *
+     * @param array $parameters
+     * @return Response
+     */
+    public function addWebhook(array $parameters)
+    {
+        $token = $this->getToken();
+
+        if (empty($token)) {
+            throw new \InvalidArgumentException("Access token must not be empty");
+        }
+
+        $path = '/webhook/subscribe';
+
+        return $this->request->makeRequest(
+            $token,
+            $path,
+            'POST',
+            json_encode($parameters),
+            [
+                'Accept: application/json',
+                'Cache-Control: no-cache',
+                'Content-Type: application/json',
+            ]
+        );
+    }
+
+    /**
+     * Gets current webhook subscriptions
+     * @see https://developer.gett.com/docs/get-webhook-subscription-1
+     *
+     * @return Response
+     */
+    public function getCurrentWebhooks()
+    {
+        $token = $this->getToken();
+
+        if (empty($token)) {
+            throw new \InvalidArgumentException("Access token must not be empty");
+        }
+
+        $path = '/webhook/subscribe';
+
+        return $this->request->makeRequest(
+            $token,
+            $path,
+            'GET',
+            [],
+            [
+                'Accept: application/json',
+                'Cache-Control: no-cache',
+            ]
+        );
+    }
+
+    /**
+     * Deletes webhook
+     * @see https://developer.gett.com/docs/unsubscribe-webhook
+     *
+     * @param string $webhookId
+     * @return Response
+     */
+    public function deleteWebhook(string $webhookId)
+    {
+        $token = $this->getToken();
+
+        if (empty($token)) {
+            throw new \InvalidArgumentException("Access token must not be empty");
+        }
+
+        $path = '/webhook/subscribe/' . $webhookId;
+
+        return $this->request->makeRequest(
+            $token,
+            $path,
+            'DELETE',
+            [],
+            [
+                'Accept: application/json',
+                'Cache-Control: no-cache',
+            ]
+        );
+    }
+
+    /**
+     * Updates webhook
+     * @see https://developer.gett.com/docs/update-webhook-subscription
+     *
+     * @param string $webhookId
+     * @param array $parameters
+     * @return Response
+     */
+    public function updateWebhook(string $webhookId, array $parameters)
+    {
+        $token = $this->getToken();
+
+        if (empty($token)) {
+            throw new \InvalidArgumentException("Access token must not be empty");
+        }
+
+        $path = '/webhook/subscribe/' . $webhookId;
+
+        return $this->request->makeRequest(
+            $token,
+            $path,
+            'PATCH',
+            json_encode($parameters),
+            [
+                'Accept: application/json',
+                'Cache-Control: no-cache',
+                'Content-Type: application/json',
+            ]
+        );
+    }
 }
