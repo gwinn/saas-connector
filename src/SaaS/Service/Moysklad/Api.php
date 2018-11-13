@@ -47,7 +47,8 @@ class Api
         'contactpersons',
         'packs',
         'cashiers',
-        'positions'
+        'positions',
+        'audit'
     );
 
     /**
