@@ -25,10 +25,10 @@ use SaaS\Http\Response;
 class Request
 {
     // Work API URL
-    const WORK_URL = 'https://rides.gett.com/api/v1';
+    const WORK_URL = 'https://api.gett.com/v1';
 
     // Test API URL
-    const TEST_URL = 'https://rides.gett.com/sandbox/api/v1';
+    const TEST_URL = 'https://api.gett.com/sandbox/v1';
 
     /**
      * @var bool Test mode or not
@@ -75,6 +75,7 @@ class Request
             'GET',
             'POST',
             'PATCH',
+            'DELETE',
         );
 
         if (!in_array($method, $allowedMethods)) {
@@ -104,6 +105,10 @@ class Request
                 curl_setopt($curlHandler, CURLOPT_CUSTOMREQUEST, 'PATCH');
             }
             curl_setopt($curlHandler, CURLOPT_POSTFIELDS, $parameters);
+        }
+
+        if ($method == 'DELETE') {
+            curl_setopt($curlHandler, CURLOPT_CUSTOMREQUEST, 'DELETE');
         }
 
         curl_setopt($curlHandler, CURLOPT_HTTPHEADER, $headers);
