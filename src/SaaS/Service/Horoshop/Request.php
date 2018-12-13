@@ -15,6 +15,7 @@
 namespace SaaS\Service\Horoshop;
 
 use SaaS\Exception\CurlException;
+use SaaS\Exception\HoroshopLimitException;
 use SaaS\Http\Response;
 
 /**
@@ -59,6 +60,7 @@ class Request
      *
      * @throws \InvalidArgumentException
      * @throws CurlException
+     * @throws HoroshopLimitException
      *
      * @return Response
      */
@@ -101,26 +103,21 @@ class Request
         curl_setopt($curlHandler, CURLOPT_TIMEOUT, 180);
         curl_setopt($curlHandler, CURLOPT_HEADER, true);
 
+
+        if (self::METHOD_POST == $method || self::METHOD_PUT == $method) {
+            curl_setopt($curlHandler, CURLOPT_POSTFIELDS, json_encode($parameters));
+            curl_setopt($curlHandler, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+        }
+
         if (self::METHOD_POST === $method) {
             curl_setopt($curlHandler, CURLOPT_POST, true);
-            curl_setopt($curlHandler, CURLOPT_POSTFIELDS, $parameters);
         }
 
         if (self::METHOD_PUT === $method) {
-            curl_setopt(
-                $curlHandler,
-                CURLOPT_POSTFIELDS,
-                json_encode($parameters)
-            );
-
-            curl_setopt(
-                $curlHandler,
-                CURLOPT_HTTPHEADER,
-                array('Content-Type:application/json')
-            );
+            curl_setopt($curlHandler, CURLOPT_CUSTOMREQUEST, "PUT");
         }
 
-        $headers = curl_exec($curlHandler);
+        $result = curl_exec($curlHandler);
 
         if ($this->onHttps == true && curl_getinfo($curlHandler, CURLINFO_SSL_VERIFYRESULT) !== 0) {
             $this->onHttps = false;
@@ -128,8 +125,7 @@ class Request
             return $this->makeRequest($path, $method, $parameters);
         }
 
-        $headers = $this->headersToArray($headers);
-        $responseBody = isset($headers['body']) ? $headers['body'] : '';
+        $headers = $this->headersToArray($result);
 
         if (empty($this->onHttps)) {
             $this->onHttps = array_key_exists('Content-Security-Policy-Report-Only', $headers)
@@ -137,6 +133,26 @@ class Request
         }
 
         $statusCode = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
+
+        //Получение тела ответа
+        $response = trim(substr($result, strripos($result, "\n")));
+
+        //Получение заголовков ответа
+        preg_match_all("/(.*): (.*)\n/", $result, $items);
+        $responseBody = array_combine($items[1], $items[2]);
+
+        foreach ($responseBody as $key => $item) {
+            $responseBody[$key] = trim($item);
+        }
+
+        if ($statusCode == 429) {
+            $message = array(
+                'message' => 'Requested API limit exceeded',
+                'Retry-After' => isset($responseBody['Retry-After']) ? $responseBody['Retry-After'] : 0
+            );
+
+            throw new HoroshopLimitException(json_encode($message), $statusCode);
+        }
 
         $errno = curl_errno($curlHandler);
         $error = curl_error($curlHandler);
@@ -147,7 +163,7 @@ class Request
             throw new CurlException($error, $errno);
         }
 
-        return new Response($statusCode, $responseBody);
+        return new Response($statusCode, $response);
     }
 
     /**
