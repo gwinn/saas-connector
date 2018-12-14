@@ -73,7 +73,7 @@ class Api
         $path = "auth";
         $parameters = array('login' => $login, 'password' => $password);
 
-        return $this->request->makeRequest($path, Request::METHOD_GET, $parameters);
+        return $this->request->makeRequest($path, Request::METHOD_POST, $parameters);
     }
 
     /**
@@ -83,15 +83,16 @@ class Api
      *
      * @return Response
      */
-    public function ordersGet($params = [])
+    public function ordersGet($params = array())
     {
         $path = "orders/get";
+
         $parameters = array_merge(
-            ['additionalData' => true, 'token' => $this->token],
+            array('additionalData' => true, 'token' => $this->token),
             $params
         );
 
-        return $this->request->makeRequest($path, Request::METHOD_GET, $parameters);
+        return $this->request->makeRequest($path, Request::METHOD_PUT, $parameters);
     }
 
     /**
@@ -101,10 +102,10 @@ class Api
      *
      * @return Response
      */
-    public function ordersUpdate($orders = [])
+    public function ordersUpdate($orders = array())
     {
         $path = "orders/update";
-        $parameters = ['orders' => $orders, 'token' => $this->token];
+        $parameters = array('orders' => $orders, 'token' => $this->token);
 
         return $this->request->makeRequest($path, Request::METHOD_PUT, $parameters);
     }
@@ -116,10 +117,10 @@ class Api
      *
      * @return Response
      */
-    public function productsGet($params = [])
+    public function productsGet($params = array())
     {
         $path = "catalog/export";
-        $parameters = array_merge(['token' => $this->token], $params);
+        $parameters = array_merge(array('token' => $this->token), $params);
 
         return $this->request->makeRequest($path, Request::METHOD_GET, $parameters);
     }
@@ -131,10 +132,10 @@ class Api
      *
      * @return Response
      */
-    public function categoriesGet($params = [])
+    public function categoriesGet($params = array())
     {
         $path = "pages/export";
-        $parameters = array_merge(['token' => $this->token], $params);
+        $parameters = array_merge(array('token' => $this->token), $params);
 
         return $this->request->makeRequest($path, Request::METHOD_GET, $parameters);
     }
@@ -146,10 +147,10 @@ class Api
      *
      * @return Response
      */
-    public function currencyGet($params = [])
+    public function currencyGet($params = array())
     {
         $path = "currency/export";
-        $parameters = array_merge(['token' => $this->token], $params);
+        $parameters = array_merge(array('token' => $this->token), $params);
 
         return $this->request->makeRequest($path, Request::METHOD_GET, $parameters);
     }
@@ -168,10 +169,11 @@ class Api
         }
 
         $path = "catalog/importResidues";
-        $parameters = [
+
+        $parameters = array(
             'token' => $this->token,
             'products' => $products
-        ];
+        );
 
         return $this->request->makeRequest($path, Request::METHOD_PUT, $parameters);
     }
@@ -190,10 +192,11 @@ class Api
         }
 
         $path = "catalog/import";
-        $parameters = [
+
+        $parameters = array(
             'token' => $this->token,
             'products' => $products
-        ];
+        );
 
         return $this->request->makeRequest($path, Request::METHOD_PUT, $parameters);
     }
@@ -215,11 +218,12 @@ class Api
         }
 
         $path = "hooks/subscribe";
-        $parameters = [
+
+        $parameters = array(
             'token' => $this->token,
             'event' => $event,
             'target_url' => $url,
-        ];
+        );
 
         return $this->request->makeRequest($path, Request::METHOD_PUT, $parameters);
     }
@@ -239,11 +243,13 @@ class Api
         }
 
         $path = "hooks/unSubscribe";
-        $parameters = [
+
+        $parameters = array(
             'token' => $this->token,
             'id' => $id,
             'target_url' => $url,
-        ];
+        );
+
         //TODO: Какой метод использовать
         return $this->request->makeRequest($path, Request::METHOD_DELETE, $parameters);
     }
@@ -256,9 +262,10 @@ class Api
     public function getDeliveryVariants()
     {
         $path = "delivery/export";
-        $parameters = [
+
+        $parameters = array(
             'token' => $this->token
-        ];
+        );
 
         return $this->request->makeRequest($path, Request::METHOD_GET, $parameters);
     }
@@ -271,9 +278,10 @@ class Api
     public function getDeliveryTypes()
     {
         $path = "delivery/exportTypes";
-        $parameters = [
+
+        $parameters = array(
             'token' => $this->token
-        ];
+        );
 
         return $this->request->makeRequest($path, Request::METHOD_GET, $parameters);
     }
@@ -286,9 +294,10 @@ class Api
     public function getPaymentVariants()
     {
         $path = "payment/export";
-        $parameters = [
+
+        $parameters = array(
             'token' => $this->token
-        ];
+        );
 
         return $this->request->makeRequest($path, Request::METHOD_GET, $parameters);
     }
@@ -301,9 +310,10 @@ class Api
     public function getPaymentMethods()
     {
         $path = "payment/exportMethods";
-        $parameters = [
+
+        $parameters = array(
             'token' => $this->token
-        ];
+        );
 
         return $this->request->makeRequest($path, Request::METHOD_GET, $parameters);
     }
@@ -321,11 +331,13 @@ class Api
             throw new \InvalidArgumentException("Product set are empty or not defined");
         }
 
+
         $path = "productSet/import";
-        $parameters = [
+
+        $parameters = array(
             'token' => $this->token,
             'items' => $items
-        ];
+        );
 
         return $this->request->makeRequest($path, Request::METHOD_PUT, $parameters);
     }
@@ -344,10 +356,11 @@ class Api
         }
 
         $path = "productSet/remove";
-        $parameters = [
+
+        $parameters = array(
             'token' => $this->token,
             'articles' => $articles
-        ];
+        );
 
         return $this->request->makeRequest($path, Request::METHOD_PUT, $parameters);
     }
@@ -359,14 +372,10 @@ class Api
      *
      * @return Response
      */
-    public function usersGet($params = [])
+    public function usersGet($params = array())
     {
         $path = "users/export";
-        $parameters = [
-            'token' => $this->token
-        ];
-
-        $parameters = array_merge($parameters, $params);
+        $parameters = array_merge(array('token' => $this->token), $params);
 
         return $this->request->makeRequest($path, Request::METHOD_GET, $parameters);
     }
