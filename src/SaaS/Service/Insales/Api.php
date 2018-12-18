@@ -1878,6 +1878,29 @@ class Api
     }
 
     /**
+     * Update client
+     *
+     * @link    http://api.insales.ru/?doc_format=JSON#client-update-client-json
+     * @param   int   $clientId    client id
+     * @param   array $client      client data json:{"name": "name"}
+     * @throws  InsalesApiException
+     * @group   client
+     *
+     * @return Response
+     */
+    public function clientUpdate($clientId, $client)
+    {
+        if (empty($clientId)) {
+            throw new InsalesApiException("Client id must be set");
+        }
+
+        $url = sprintf('/admin/clients/%s.json', $clientId);
+        $parameters = array('client' => $client);
+
+        return $this->client->makeRequest($url, Request::METHOD_PUT, $parameters);
+    }
+
+    /**
      * Delete client
      *
      * @link    http://api.insales.ru/?doc_format=JSON#client-destroy-client-json
