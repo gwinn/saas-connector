@@ -1807,18 +1807,22 @@ class Api
      * @param int       $perPage        quantity of objects per page
      * @param \DateTime $updatedSince   set datetime to get only data updated after it
      * @param int       $fromId         set id to get only data starting from it
+     * @param int       $page           number page
      * @group client
      *
      * @return Response
      */
-    public function clientsList($perPage = null, \DateTime $updatedSince = null, $fromId = null)
+    public function clientsList($perPage = null, \DateTime $updatedSince = null, $fromId = null, $page = null)
     {
         $url = '/admin/clients.json';
+
         $parameters = array(
             'updated_since' => isset($updatedSince) ? $updatedSince->format('c') : null,
             'from_id' => $fromId,
             'per_page' => $perPage <= 250 ? $perPage : 250,
+            'page' => isset($page) ? $page : null,
         );
+
         $parameters = array_filter($parameters);
 
         return $this->client->makeRequest($url, Request::METHOD_GET, $parameters);
