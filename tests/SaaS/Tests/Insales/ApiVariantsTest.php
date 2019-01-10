@@ -138,7 +138,7 @@ class ApiVariantsTest extends TestCase
     /**
      * Test using the method variantsList to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \SaaS\Exception\InsalesApiException
      */
     public function testVariantsListEmptyException()
     {
@@ -150,7 +150,8 @@ class ApiVariantsTest extends TestCase
      * Test using the method variantGet to give exception
      *
      * @dataProvider variantProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
+     *
      * @param $ids
      */
     public function testVariantGetException($ids)

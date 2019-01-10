@@ -79,7 +79,7 @@ class ApiProductsTest extends TestCase
      * Test using the method productGet to give exception
      *
      * @dataProvider productProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $productId
      */
     public function testProductGetException($productId)
@@ -106,27 +106,25 @@ class ApiProductsTest extends TestCase
      * Test using the method productUpdate to give exception
      *
      * @dataProvider productProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $productId
      * @param $product
      */
     public function testProductUpdateException($productId, $product)
     {
         $client = static::getInsalesApiClient();
-        $client->productUpdate($product);
+        $client->productUpdate($productId, $product);
     }
 
     /**
      * Test using the method productDelete to give exception
      *
-     * @dataProvider productProviderException
-     * @expectedException \InvalidArgumentException
-     * @param $productId
+     * @expectedException \SaaS\Exception\InsalesApiException
      */
-    public function testProductDeleteException($productId)
+    public function testProductDeleteException()
     {
         $client = static::getInsalesApiClient();
-        $client->productDelete($productId);
+        $client->productDelete(null);
     }
 
     /**
@@ -183,7 +181,7 @@ class ApiProductsTest extends TestCase
             'title' => 'Update title'
         );
         $client = static::getInsalesApiClient();
-        $response = $client->productUpdate($product);
+        $response = $client->productUpdate($productId, $product);
         static::checkResponse($response);
 
         return $productId;

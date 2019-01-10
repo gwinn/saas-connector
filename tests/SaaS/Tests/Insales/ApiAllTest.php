@@ -23,6 +23,8 @@ use SaaS\Test\TestCase;
  * @license  http://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
  * @see      http://insales.ru/
+ *
+ * @group ignore
  */
 class ApiAllTest extends TestCase
 {
@@ -600,7 +602,7 @@ class ApiAllTest extends TestCase
     /**
      * Testing get methods arguments null
      *
-     * @expectedException \SaaS\Exception\InsalesApiException
+     * @expectedException \Exception
      * @dataProvider providerGetNull
      * @param $name
      * @param $id1

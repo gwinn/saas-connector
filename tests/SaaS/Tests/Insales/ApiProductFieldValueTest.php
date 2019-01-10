@@ -83,7 +83,7 @@ class ApiProductFieldValueTest extends TestCase
      * Test using the method productFieldValuesList to give exception
      *
      * @dataProvider productFieldValueProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $productId
      */
     public function testProductFieldValuesListException($productId)
@@ -96,7 +96,7 @@ class ApiProductFieldValueTest extends TestCase
      * Test using the method productFieldValuesGet to give exception
      *
      * @dataProvider productFieldValueProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $productId
      * @param $fieldId
      */
@@ -110,7 +110,7 @@ class ApiProductFieldValueTest extends TestCase
      * Test using the method productFieldValuesCreate to give exception
      *
      * @dataProvider productFieldValueProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $productId
      * @param $fieldId
      */
@@ -124,7 +124,7 @@ class ApiProductFieldValueTest extends TestCase
      * Test using the method productFieldValuesUpdate to give exception
      *
      * @dataProvider productFieldValueProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $productId
      * @param $fieldId
      * @param $value
@@ -135,12 +135,11 @@ class ApiProductFieldValueTest extends TestCase
         $client->productFieldValuesUpdate($productId, $fieldId, $value);
     }
 
-
     /**
      * Test using the method productFieldValuesDelete to give exception
      *
      * @dataProvider productFieldValueProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $productId
      * @param $fieldId
      */
@@ -149,7 +148,6 @@ class ApiProductFieldValueTest extends TestCase
         $client = static::getInsalesApiClient();
         $client->productFieldValuesDelete($productId, $fieldId);
     }
-
 
     /**
      * Test using the method productFieldValuesCreate

@@ -229,15 +229,6 @@ class Api
      */
     public function productCreate($product)
     {
-        if (empty($product['category_id'])) {
-            throw new InsalesApiException("Categoty id must be set");
-        }
-        if (empty($product['title'])) {
-            throw new InsalesApiException("Title product must be set");
-        }
-        if (empty($product['variants_attributes'])) {
-            throw new InsalesApiException("Variants attribures is empty");
-        }
         $url = '/admin/products.json';
         $parameters = array('product' => $product);
 
@@ -346,12 +337,6 @@ class Api
     {
         if (empty($productId)) {
             throw new InsalesApiException("Product id must be set");
-        }
-        if (empty($picture['src']) && empty($picture['attachment'])) {
-            throw new InsalesApiException("Required fields must be set (attachment, filename or src)");
-        }
-        if (isset($picture['attachment']) && empty($picture['filename'])) {
-            throw new InsalesApiException("Filename must be set");
         }
 
         $url = sprintf('/admin/products/%s/images.json', $productId);
@@ -476,12 +461,6 @@ class Api
         if (empty($productId)) {
             throw new InsalesApiException("Product id must be set");
         }
-        if (empty($variant['price']) || !is_int($variant['price'])) {
-            throw new InsalesApiException("Variant price must be set or be type integer");
-        }
-        if (empty($variant['quantity']) || !is_int($variant['quantity'])) {
-            throw new InsalesApiException("Variant quantity must be set or be type integer");
-        }
 
         $url = sprintf('/admin/products/%s/variants.json', $productId);
         $parameters = array('variant' => $variant);
@@ -504,15 +483,6 @@ class Api
     {
         if (empty($productId)) {
             throw new InsalesApiException("Product id must be set");
-        }
-        if (empty($variant['id'])) {
-            throw new InsalesApiException("Variant id must be set");
-        }
-        if (isset($variant['price']) && !is_int($variant['price'])) {
-            throw new InsalesApiException("Variant price be type integer");
-        }
-        if (isset($variant['quantity']) && !is_int($variant['quantity'])) {
-            throw new InsalesApiException("Variant quantity be type integer");
         }
 
         $url = sprintf('/admin/products/%s/variants/%s.json', $productId, $variant['id']);
@@ -645,17 +615,12 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#optionname-create-option-name-json
      * @param   array $option option dara json:{"title":"Required"}
-     * @throws  InsalesApiException
      * @group   option
      *
      * @return Response
      */
     public function optionCreate($option)
     {
-        if (empty($option['title'])) {
-            throw new InsalesApiException("Option title must be set");
-        }
-
         $url = '/admin/option_names.json';
         $parameters = $option;
 
@@ -863,23 +828,12 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#productfield-create-product-field-json
      * @param   array $field field data json:{"title": "Required", "handle": "Required", "type": "ProductField::TextArea"}
-     * @throws  InsalesApiException
      * @group   productField
      *
      * @return Response
      */
     public function productFieldCreate($field)
     {
-        if (empty($field['title'])) {
-            throw new InsalesApiException("Field title must be set");
-        }
-        if (empty($field['handle'])) {
-            throw new InsalesApiException("Field handle must be set");
-        }
-        if (empty($field['type'])) {
-            throw new InsalesApiException("Field type must be set");
-        }
-
         $url = '/admin/product_fields.json';
         $parameters = $field;
 
@@ -1243,22 +1197,12 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#collection-create-collection-json
      * @param   array $collection collection data json:{"title": "Required", "parent_id": 123, "position": 49}
-     * @throws  InsalesApiException
      * @group   collection
      *
      * @return Response
      */
     public function collectionCreate($collection)
     {
-        if (empty($collection['title'])) {
-            throw new InsalesApiException("Collection title must be set");
-        }
-        if (empty($collection['parent_id'])) {
-            throw new InsalesApiException("Collection parent id must be set");
-        }
-        if (empty($collection['position'])) {
-            throw new InsalesApiException("Collection position must be set");
-        }
         $url = '/admin/collections.json';
         $parameters = array('collection' => $collection);
 
@@ -1366,20 +1310,12 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#collect-add-product-to-collection-json
      * @param   array $collect collect data json:{"product_id": 123, "collection_id": 123}
-     * @throws  InsalesApiException
      * @group   collect
      *
      * @return Response
      */
     public function collectCreate($collect)
     {
-        if (empty($collect['product_id'])) {
-            throw new InsalesApiException("Product id must be set");
-        }
-        if (empty($collect['collection_id'])) {
-            throw new InsalesApiException("Collection id must be set");
-        }
-
         $url = '/admin/collects.json';
         $parameters = array('collect' => $collect);
 
@@ -1718,60 +1654,12 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#order-create-order-json
      * @param   array $order order data json:{"order_lines_attributes": [{"quantity": 1, "product_id": 123}], "client": {"surname": "surname", "name": "Jon", "email": "vasya@example.com", "phone": "+79111112233"}, "shipping_address_attributes": {"surname": "surname", "name": "jon", "address": "test address"}, "delivery_variant_id": 123, "payment_gateway_id": 123 }
-     * @throws  InsalesApiException
      * @group   order
      *
      * @return Response
      */
     public function orderCreate($order)
     {
-        $requiredFields = array(
-            'client' => array(
-                'phone' => 'value'
-            ),
-            'shipping_address_attributes' => array(
-                'address' => 'value'
-            ),
-            'delivery_variant_id' => 'value',
-            'payment_gateway_id' => 'value'
-        );
-        $requiredFieldsLine = array(
-            'quantity' => 'value',
-            'product_id' => 'value',
-            'variant_id' => 'value'
-        );
-
-        if (empty($order)) {
-            throw new InsalesApiException("Order must be set");
-        }
-
-        $res = array_diff_key($requiredFields, $order);
-        foreach ($requiredFields as $key => $field) {
-            if (is_array($field) && isset($order[$key])) {
-                $diff = array_diff_key($field, $order[$key]);
-                if (!empty($diff)) {
-                    $res = array_merge($res, array($key => $diff));
-                }
-            }
-        }
-        foreach ($order['order_lines_attributes'] as $key => $line) {
-            $diffLine = array_diff_key($requiredFieldsLine, $line);
-            if (!isset($diffLine['product_id']) || !isset($diffLine['variant_id'])) {
-                unset($diffLine['product_id']);
-                unset($diffLine['variant_id']);
-            }
-            if (!empty($diffLine)) {
-                $lines[$key] = $diffLine;
-            }
-        }
-        if (!empty($lines)) {
-            $res = array_merge($res, array('order_lines_attributes' => $lines));
-        }
-
-        if (!empty($res)) {
-            throw new InsalesApiException("Order values are not complete. Required parameters that are not in order: " . json_encode($res, true));
-        }
-
         $url = '/admin/orders.json';
 
         $parameters = $order;
@@ -1855,26 +1743,12 @@ class Api
      * @link    http://api.insales.ru/?doc_format=JSON#client-create-individual-client-json
      * @link    http://api.insales.ru/?doc_format=JSON#client-create-juridical-client-json
      * @param   array $client client data json:{"name": "name", "surname": "surname", "middlename": "middlename"}
-     * @throws  InsalesApiException
      * @group   client
      *
      * @return Response
      */
     public function clientCreate($client)
     {
-        if (empty($client['name'])) {
-            throw new InsalesApiException("Name client must be set");
-        }
-        if (isset($client['type']) && $client['type'] == 'Client::Juridical') {
-            if (empty($client['inn'])) {
-                throw new InsalesApiException("INN client must be set");
-            }
-        } else {
-            if (empty($client['surname']) || empty($client['middlename'])) {
-                throw new InsalesApiException("Name and surname and middlename client must be set");
-            }
-        }
-
         $url = '/admin/clients.json';
         $parameters = array('client' => $client);
 
@@ -1966,24 +1840,12 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#discountcode-create-discount-code-json
      * @param   array $discount discount data json:{"code": "CODE", "type_id": 1, "discount": 10}
-     * @throws  InsalesApiException
      * @group   discountCode
      *
      * @return Response
      */
     public function discountCodeCreate($discount)
     {
-        if (empty($discount['code'])) {
-            throw new InsalesApiException("Discount code must be set");
-        }
-        $type = array(1, 2); // 1-percent, 2-money
-        if (empty($discount['type_id']) || !in_array($discount['type_id'], $type)) {
-            throw new InsalesApiException("Discount type id must be set");
-        }
-        if (empty($discount['discount'])) {
-            throw new InsalesApiException("Discount must be set");
-        }
-
         $url = '/admin/discount_codes.json';
         $parameters = array('discount_code' => $discount);
 
@@ -2078,26 +1940,12 @@ class Api
      * @link    http://api.insales.ru/?doc_format=JSON#deliveryvariant-create-delivery-variant-locationdepend-json
      * @link    http://api.insales.ru/?doc_format=JSON#deliveryvariant-create-delivery-variant-pricedepend-json
      * @param   array $delivery delivery data json:{"title": "delivery", "type": "DeliveryVariant::External"}
-     * @throws  InsalesApiException
      * @group   deliveryVariant
      *
      * @return Response
      */
     public function deliveryVariantCreate($delivery)
     {
-        if (empty($delivery['title'])) {
-            throw new InsalesApiException("Delivery variant title must be set");
-        }
-        if (empty($delivery['type'])) {
-            throw new InsalesApiException("Delivery variant type must be set");
-        }
-        if ($delivery['type'] == 'DeliveryVariant::Fixed' && empty($delivery['price'])) {
-            throw new InsalesApiException("Delivery price must be set");
-        }
-        if ($delivery['type'] == 'DeliveryVariant::LocationDepend' && empty($delivery['delivery_zones_attributes'])) {
-            throw new InsalesApiException("Delivery zones must be set");
-        }
-
         $url = '/admin/delivery_variants.json';
         $parameters = array('delivery_variant' => $delivery);
 
@@ -2190,23 +2038,12 @@ class Api
      * @link    http://api.insales.ru/?doc_format=JSON#paymentgateway-create-cod-or-custom-payment-gateway-json
      * @link    http://api.insales.ru/?doc_format=JSON#paymentgateway-create-external-payment-gateway-json
      * @param   array $payment payment data json:{"title": "payment", "type": "PaymentGateway::Cod"}
-     * @throws  InsalesApiException
      * @group   paymentGateway
      *
      * @return Response
      */
     public function paymentGatewayCreate($payment)
     {
-        if (empty($payment['title'])) {
-            throw new InsalesApiException("Payment title must be set");
-        }
-        if (empty($payment['type'])) {
-            throw new InsalesApiException("Payment type must be set");
-        }
-        if ($payment['type'] == 'PaymentGateway::External' && (empty($payment['url']) || empty($payment['shop_id']))) {
-            throw new InsalesApiException("Url and shop_id in payment must be set");
-        }
-
         $url = '/admin/payment_gateways.json';
         $parameters = array('payment_gateway' => $payment);
 
@@ -2297,17 +2134,12 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#domain-create-domain-json
      * @param   array $domain domain data json:{"domain": "test-domain.ru"}
-     * @throws  InsalesApiException
      * @group   domain
      *
      * @return Response
      */
     public function domainCreate($domain)
     {
-        if (empty($domain['domain'])) {
-            throw new InsalesApiException("Domain must be set");
-        }
-
         $url = '/admin/domains.json';
         $parameters = array('domain' => $domain);
 
@@ -2399,23 +2231,12 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#webhook-create-webhook-json
      * @param   array $webhook webhook data json:{"address": "http://test.com/orders/create", "topic": "orders/create"}
-     * @throws  InsalesApiException
      * @group   webhook
      *
      * @return Response
      */
     public function webhookCreate($webhook)
     {
-        if (empty($webhook)) {
-            throw new InsalesApiException("Webhook must be set");
-        }
-        if (empty($webhook['address'])) {
-            throw new InsalesApiException("Webhook address must be set");
-        }
-        if (empty($webhook['topic'])) {
-            throw new InsalesApiException("Webhook topic must be set");
-        }
-
         $url = '/admin/webhooks.json';
         $parameters = array('webhook' => $webhook);
 
@@ -2520,12 +2341,6 @@ class Api
         if (empty($status)) {
             throw new InsalesApiException("Status must be set");
         }
-        if (empty($status['title'])) {
-            throw new InsalesApiException("Title status must be set");
-        }
-        if (empty($status['system_status'])) {
-            throw new InsalesApiException("System status must be set");
-        }
 
         $url = '/admin/custom_statuses.json';
         $parameters = array('custom_status' => $status);
@@ -2629,15 +2444,6 @@ class Api
         if (empty($field)) {
             throw new InsalesApiException("Field must be set");
         }
-        if (empty($field['type'])) {
-            throw new InsalesApiException("Field type must be set");
-        }
-        if (empty($field['office_title'])) {
-            throw new InsalesApiException("Field office title must be set");
-        }
-        if (empty($field['destiny'])) {
-            throw new InsalesApiException("Field destiny must be set");
-        }
 
         $url = '/admin/fields.json';
         $parameters = array('field' => $field);
@@ -2733,20 +2539,12 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#property-create-property-json
      * @param   array $property property data json:{"title": "New title"}
-     * @throws  InsalesApiException
      * @group   property
      *
      * @return Response
      */
     public function propertyCreate($property)
     {
-        if (empty($property)) {
-            throw new InsalesApiException("Property must be set");
-        }
-        if (empty($property['title'])) {
-            throw new InsalesApiException("Property title must be set");
-        }
-
         $url = '/admin/properties.json';
         $parameters = array('property' => $property);
 
@@ -2838,17 +2636,12 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#clientgroup-create-client-group-json
      * @param   array $clientGroup client group data json:{"title": "clientGroup"}
-     * @throws  InsalesApiException
      * @group   clientGroup
      *
      * @return Response
      */
     public function clientGroupCreate($clientGroup)
     {
-        if (empty($clientGroup)) {
-            throw new InsalesApiException("Client group id must be set");
-        }
-
         $url = '/admin/client_groups.json';
         $parameters = array('client_group' => $clientGroup);
 
@@ -2958,10 +2751,6 @@ class Api
             throw new InsalesApiException("Client id must be set");
         }
 
-        if (empty($transaction['bonus_points'])) {
-            throw new InsalesApiException("Bonus points must be set");
-        }
-
         $url = sprintf('/admin/clients/%s/bonus_system_transactions.json', $clientId);;
         $parameters = array('bonus_system_transaction' => $transaction);
 
@@ -3009,20 +2798,12 @@ class Api
      *
      * @link    http://api.insales.ru/?doc_format=JSON#stock-currency-create-stock-currency-json
      * @param   array $currency currency data json:{"code": "BYR"}
-     * @throws  InsalesApiException
      * @group   currency
      *
      * @return Response
      */
     public function currencyCreate($currency)
     {
-        if (empty($currency)) {
-            throw new InsalesApiException("Currency must be set");
-        }
-        if (empty($currency['code'])) {
-            throw new InsalesApiException("Currency code must be set");
-        }
-
         $url = '/admin/stock_currencies.json';
         $parameters = array('stock_currency' => $currency);
 

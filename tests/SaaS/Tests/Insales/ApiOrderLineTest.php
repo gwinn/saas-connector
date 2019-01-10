@@ -63,7 +63,7 @@ class ApiOrderLineTest extends TestCase
      * Test using the method orderLineCreate to give exception
      *
      * @dataProvider orderLineProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \SaaS\Exception\InsalesApiException
      * @param $orderId
      * @param $orderLine
      */
@@ -77,7 +77,7 @@ class ApiOrderLineTest extends TestCase
      * Test using the method orderLineUpdate to give exception
      *
      * @dataProvider orderLineProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \SaaS\Exception\InsalesApiException
      * @param $orderId
      * @param $orderLine
      */
@@ -91,7 +91,7 @@ class ApiOrderLineTest extends TestCase
      * Test using the method orderLineDelete to give exception
      *
      * @dataProvider orderLineProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \SaaS\Exception\InsalesApiException
      * @param $orderId
      * @param $orderLine
      */

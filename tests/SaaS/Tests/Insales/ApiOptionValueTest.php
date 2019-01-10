@@ -64,7 +64,7 @@ class ApiOptionValueTest extends TestCase
      * Test using the method optionValuesGet to give exception
      *
      * @dataProvider optionValueProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $optionId
      * @param $optionValueId
      */
@@ -78,7 +78,7 @@ class ApiOptionValueTest extends TestCase
      * Test using the method optionValueCreate to give exception
      *
      * @dataProvider optionValueProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $optionId
      * @param $optionValueId
      * @param $option
@@ -93,7 +93,7 @@ class ApiOptionValueTest extends TestCase
      * Test using the method optionValueUpdate to give exception
      *
      * @dataProvider optionValueProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $optionId
      * @param $optionValueId
      * @param $option
@@ -108,7 +108,7 @@ class ApiOptionValueTest extends TestCase
      * Test using the method optionValueDelete to give exception
      *
      * @dataProvider optionValueProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $optionId
      * @param $optionValueId
      * @param $option

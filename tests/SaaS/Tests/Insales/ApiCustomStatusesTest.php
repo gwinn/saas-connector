@@ -42,12 +42,7 @@ class ApiCustomStatusesTest extends TestCase
                 array(
                     'system_status' => 'new'
                 )
-            ),
-            'not_found_system_status' => array(
-                array(
-                    'title' => 'New custom status'
-                )
-            ),
+            )
         );
     }
 
@@ -64,7 +59,7 @@ class ApiCustomStatusesTest extends TestCase
     /**
      * Test using the method customStatusGet to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \SaaS\Exception\InsalesApiException
      */
     public function testCustomStatusGetException()
     {
@@ -78,14 +73,14 @@ class ApiCustomStatusesTest extends TestCase
     public function testCustomStatusGet()
     {
         $client = static::getInsalesApiClient();
-        $response = $client->customStatusGet('qwerty');
+        $response = $client->customStatusGet('net-v-nalichii');
         static::checkResponse($response);
     }
 
     /**
      * Test using the method customStatusCreate to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $status
      */
@@ -98,7 +93,7 @@ class ApiCustomStatusesTest extends TestCase
     /**
      * Test using the method customStatusUpdate to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \SaaS\Exception\InsalesApiException
      * @dataProvider providerException
      * @param $status
      */
@@ -111,7 +106,7 @@ class ApiCustomStatusesTest extends TestCase
     /**
      * Test using the method customStatusDelete to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \SaaS\Exception\InsalesApiException
      */
     public function testCustomStatusDeleteException()
     {

@@ -83,7 +83,7 @@ class ApiClientTest extends TestCase
      * Test using the method clientGet to give exception
      *
      * @dataProvider clientProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $customerId
      */
     public function testClientGetException($customerId)
@@ -110,7 +110,7 @@ class ApiClientTest extends TestCase
      * Test using the method clientDelete to give exception
      *
      * @dataProvider clientProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $customerId
      */
     public function testClientDeleteException($customerId)

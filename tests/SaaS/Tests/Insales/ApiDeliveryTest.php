@@ -74,7 +74,7 @@ class ApiDeliveryTest extends TestCase
     /**
      * Test using the method deliveryVariantGet to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $deliveryId
      */
@@ -101,7 +101,7 @@ class ApiDeliveryTest extends TestCase
     /**
      * Test using the method deliveryVariantUpdate to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $deliveryId
      * @param $delivery
@@ -109,13 +109,13 @@ class ApiDeliveryTest extends TestCase
     public function testDeliveryVariantUpdateException($deliveryId, $delivery)
     {
         $client = static::getInsalesApiClient();
-        $response = $client->deliveryVariantUpdate($deliveryId, $delivery);
+        $client->deliveryVariantUpdate($deliveryId, $delivery);
     }
 
     /**
      * Test using the method deliveryVariantDelete to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $deliveryId
      */

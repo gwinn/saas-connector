@@ -99,7 +99,7 @@ class ApiOrdersTest extends TestCase
      * Test using the method ordersCount to give exception
      *
      * @dataProvider orderFilterProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \SaaS\Exception\InsalesApiException
      * @param $filter
      */
     public function testOrdersCountException($filter)
@@ -122,7 +122,7 @@ class ApiOrdersTest extends TestCase
      * Test using the method ordersList to give exception
      *
      * @dataProvider orderFilterProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \SaaS\Exception\InsalesApiException
      * @param $filter
      */
     public function testOrdersListException($filter)
@@ -145,7 +145,7 @@ class ApiOrdersTest extends TestCase
      * Test using the method orderGet to give exception
      *
      * @dataProvider orderProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $orderId
      */
     public function testOrderGetException($orderId)
@@ -170,7 +170,7 @@ class ApiOrdersTest extends TestCase
      * Test using the method orderUpdate to give exception
      *
      * @dataProvider orderProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $orderId
      * @param $order
      */
@@ -184,7 +184,7 @@ class ApiOrdersTest extends TestCase
      * Test using the method orderDelete to give exception
      *
      * @dataProvider orderProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $orderId
      */
     public function testOrderDeleteException($orderId)
@@ -202,7 +202,7 @@ class ApiOrdersTest extends TestCase
     {
         $client = static::getInsalesApiClient();
 
-        $product = $client->productsList()->offsetGet(0);
+        $product = $client->productsList()->offsetGet(1);
         $customer = $client->clientsList()->offsetGet(0);
         $delivery = $client->deliveryVariantsList()->offsetGet(0);
         $payment = $client->paymentGatewaysList()->offsetGet(0);
@@ -227,6 +227,7 @@ class ApiOrdersTest extends TestCase
             'payment_gateway_id' => $payment['id']
 
         );
+
         $response = $client->orderCreate($order);
 
         static::checkResponse($response);
