@@ -35,22 +35,18 @@ class APIWebhooksTest extends TestCase
     {
         return array(
             'empty_data' => array(
-                null,
                 array()
             ),
             'empty_webhook' => array(
-                123,
                 array()
             ),
             'address_not_found' => array(
-                123,
                 array(
                     'format_type' => 'json',
                     'topic' => 'orders/update'
                 )
             ),
             'topic_not_found' => array(
-                123,
                 array(
                     'address' => 'http://test.dev/orders/create',
                     'format_type' => 'json',
@@ -72,14 +68,23 @@ class APIWebhooksTest extends TestCase
     /**
      * Test using the method webhookGet to give exception
      *
-     * @expectedException \InvalidArgumentException
-     * @dataProvider providerException
-     * @param $webhookId
+     * @expectedException \SaaS\Exception\InsalesApiException
      */
-    public function testWebhookGetException($webhookId)
+    public function testWebhookGetApiException()
     {
         $client = static::getInsalesApiClient();
-        $client->webhookGet($webhookId);
+        $client->webhookGet(null);
+    }
+
+    /**
+     * Test using the method webhookGet to give exception
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testWebhookGetException()
+    {
+        $client = static::getInsalesApiClient();
+        $client->webhookGet(123);
     }
 
     /**
@@ -89,7 +94,7 @@ class APIWebhooksTest extends TestCase
      * @dataProvider providerException
      * @param $webhook
      */
-    public function testWebhookCreateException($webhookId, $webhook)
+    public function testWebhookCreateException($webhook)
     {
         $client = static::getInsalesApiClient();
         $client->webhookCreate($webhook);
@@ -98,28 +103,36 @@ class APIWebhooksTest extends TestCase
     /**
      * Test using the method webhookUpdate to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \SaaS\Exception\InsalesApiException
      * @dataProvider providerException
-     * @param $webhookId
      * @param $webhook
      */
-    public function testWebhookUpdateException($webhookId, $webhook)
+    public function testWebhookUpdateApiException($webhook)
     {
         $client = static::getInsalesApiClient();
-        $client->webhookUpdate($webhookId, $webhook);
+        $client->webhookUpdate(null, $webhook);
+    }
+
+    /**
+     * Test using the method webhookDelete to give exception
+     *
+     * @expectedException \SaaS\Exception\InsalesApiException
+     */
+    public function testWebhookDeleteApiException()
+    {
+        $client = static::getInsalesApiClient();
+        $client->webhookDelete(null);
     }
 
     /**
      * Test using the method webhookDelete to give exception
      *
      * @expectedException \InvalidArgumentException
-     * @dataProvider providerException
-     * @param $webhookId
      */
-    public function testWebhookDeleteException($webhookId)
+    public function testWebhookDeleteException()
     {
         $client = static::getInsalesApiClient();
-        $client->webhookDelete($webhookId);
+        $client->webhookDelete(123);
     }
 
     /**

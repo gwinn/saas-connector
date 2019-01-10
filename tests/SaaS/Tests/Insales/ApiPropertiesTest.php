@@ -60,7 +60,7 @@ class ApiPropertiesTest extends TestCase
     /**
      * Test using the method propertyGet to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $propertyId
      */
@@ -87,7 +87,7 @@ class ApiPropertiesTest extends TestCase
     /**
      * Test using the method propertyUpdate to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $propertyId
      * @param $property
@@ -101,7 +101,7 @@ class ApiPropertiesTest extends TestCase
     /**
      * Test using the method propertyDelete to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $propertyId
      */

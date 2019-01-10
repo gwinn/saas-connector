@@ -98,7 +98,7 @@ class ApiPicturesTest extends TestCase
     /**
      * Test using the method picturesList to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \SaaS\Exception\InsalesApiException
      */
     public function testPicturesListEmpty()
     {
@@ -110,7 +110,7 @@ class ApiPicturesTest extends TestCase
      * Test using the method pictureGet to give exception
      *
      * @dataProvider picturesProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $ids
      */
     public function testPicturesGetNotFound($ids)
@@ -123,7 +123,7 @@ class ApiPicturesTest extends TestCase
      * Test using the method pictureCreate to give exception
      *
      * @dataProvider picturesProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $ids
      * @param $picture
      */
@@ -137,7 +137,7 @@ class ApiPicturesTest extends TestCase
      * Test using the method pictureUpdate to give exception
      *
      * @dataProvider picturesProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $ids
      * @param $picture
      */
@@ -151,7 +151,7 @@ class ApiPicturesTest extends TestCase
      * Test using the method pictureDelete to give exception
      *
      * @dataProvider picturesProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $ids
      */
     public function testPictureDelete($ids)

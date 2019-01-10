@@ -46,7 +46,7 @@ class ApiCategoriesTest extends TestCase
     /**
      * Test using the method categoryGet to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \SaaS\Exception\InsalesApiException
      */
     public function testCategoriesGetException()
     {
@@ -68,7 +68,7 @@ class ApiCategoriesTest extends TestCase
     /**
      * Test using the method categoryDelete to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \SaaS\Exception\InsalesApiException
      *
      */
     public function testCategoriesDeleteException()
@@ -115,7 +115,7 @@ class ApiCategoriesTest extends TestCase
             'id' => $createCategoriesId,
             'title' => self::TITLE . date('Y-m-d H:i:s')
         );
-        $response = $client->categoryUpdate($category);
+        $response = $client->categoryUpdate($createCategoriesId, $category);
         static::checkResponse($response);
 
         return $createCategoriesId;
@@ -167,14 +167,14 @@ class ApiCategoriesTest extends TestCase
             'position' => 'string'
         );
 
-        $client->categoryUpdate($category);
+        $client->categoryUpdate(123, $category);
     }
 
     /**
      * Test using the method categoryCreate to give exception
      *
      * @group categoties
-     * @expectedException \InvalidArgumentException
+     * @expectedException \SaaS\Exception\InsalesApiException
      */
     public function testCategoryCreateEmpty()
     {
@@ -186,11 +186,11 @@ class ApiCategoriesTest extends TestCase
      * Test using the method categoryUpdate to give exception
      *
      * @group categoties
-     * @expectedException \InvalidArgumentException
+     * @expectedException \SaaS\Exception\InsalesApiException
      */
     public function testCategoryUpdateEmpty()
     {
         $client = static::getInsalesApiClient();
-        $client->categoryUpdate(array());
+        $client->categoryUpdate(null, array());
     }
 }

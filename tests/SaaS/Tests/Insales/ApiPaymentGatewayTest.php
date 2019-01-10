@@ -69,7 +69,7 @@ class ApiPaymentGatewayTest extends TestCase
     /**
      * Test using the method paymentGatewayGet to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      */
     public function testPaymentGatewayGetException($paymentId)
@@ -95,7 +95,7 @@ class ApiPaymentGatewayTest extends TestCase
     /**
      * Test using the method paymentGatewayUpdate to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $paymentId
      * @param $payment
@@ -109,7 +109,7 @@ class ApiPaymentGatewayTest extends TestCase
     /**
      * Test using the method paymentGatewayDelete to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $paymentId
      */

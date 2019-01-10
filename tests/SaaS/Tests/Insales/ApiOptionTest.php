@@ -64,7 +64,7 @@ class ApiOptionTest extends TestCase
      * Test using the method optionGet to give exception
      *
      * @dataProvider optionProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $optionId
      */
     public function testOptionGetException($optionId)
@@ -91,7 +91,7 @@ class ApiOptionTest extends TestCase
      * Test using the method optionUpdate to give exception
      *
      * @dataProvider optionProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $optionId
      * @param $option
      */
@@ -105,7 +105,7 @@ class ApiOptionTest extends TestCase
      * Test using the method optionDelete to give exception
      *
      * @dataProvider optionProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $optionId
      */
     public function testOptionDeleteException($optionId)
@@ -113,7 +113,6 @@ class ApiOptionTest extends TestCase
         $client = static::getInsalesApiClient();
         $client->optionDelete($optionId);
     }
-
 
     /**
      * Test using the method optionCreate

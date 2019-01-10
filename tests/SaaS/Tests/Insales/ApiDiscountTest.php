@@ -68,7 +68,7 @@ class ApiDiscountTest extends TestCase
     /**
      * Test using the method discountCodeGet to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $discountId
      */
@@ -95,7 +95,7 @@ class ApiDiscountTest extends TestCase
     /**
      * Test using the method discountCodeUpdate to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $discountId
      * @param $discount
@@ -109,7 +109,7 @@ class ApiDiscountTest extends TestCase
     /**
      * Test using the method discountCodeDelete to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $discountId
      */

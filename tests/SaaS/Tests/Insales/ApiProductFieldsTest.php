@@ -73,7 +73,7 @@ class ApiProductFieldsTest extends TestCase
      * Test using the method productFieldGet to give exception
      *
      * @dataProvider productFieldProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $fieldId
      */
     public function testProductFieldGetException($fieldId)
@@ -86,7 +86,7 @@ class ApiProductFieldsTest extends TestCase
      * Test using the method productFieldCreate to give exception
      *
      * @dataProvider productFieldProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $fieldId
      * @param $productField
      */
@@ -100,7 +100,7 @@ class ApiProductFieldsTest extends TestCase
      * Test using the method productFieldUpdate to give exception
      *
      * @dataProvider productFieldProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $fieldId
      * @param $productField
      */
@@ -114,7 +114,7 @@ class ApiProductFieldsTest extends TestCase
      * Test using the method productFieldDelete to give exception
      *
      * @dataProvider productFieldProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $fieldId
      */
     public function testProductFieldDeleteException($fieldId)

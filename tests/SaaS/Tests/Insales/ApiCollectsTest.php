@@ -82,7 +82,7 @@ class ApiCollectsTest extends TestCase
      * Test using the method collectsGet to give exception
      *
      * @dataProvider collectProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $ids
      */
     public function testCollectGetException($ids)
@@ -108,7 +108,7 @@ class ApiCollectsTest extends TestCase
      * Test using the method collectsUpdate to give exception
      *
      * @dataProvider collectProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $ids
      * @param $collect
      */
@@ -122,7 +122,7 @@ class ApiCollectsTest extends TestCase
      * Test using the method collectDelete to give exception
      *
      * @dataProvider collectProviderException
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @param $ids
      */
     public function testCollectDeleteException($ids)

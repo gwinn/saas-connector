@@ -85,7 +85,7 @@ class ApiFieldsTest extends TestCase
     /**
      * Test using the method fieldGet to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $fieldId
      */
@@ -96,22 +96,9 @@ class ApiFieldsTest extends TestCase
     }
 
     /**
-     * Test using the method fieldCreate to give exception
-     *
-     * @expectedException \InvalidArgumentException
-     * @dataProvider providerException
-     * @param $fieldId
-     */
-    public function testFieldCreateException($fieldId, $field)
-    {
-        $client = static::getInsalesApiClient();
-        $client->fieldCreate($field);
-    }
-
-    /**
      * Test using the method fieldUpdate to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $fieldId
      */
@@ -124,7 +111,7 @@ class ApiFieldsTest extends TestCase
     /**
      * Test using the method fieldDelete to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $fieldId
      */

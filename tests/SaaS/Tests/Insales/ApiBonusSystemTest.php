@@ -47,7 +47,7 @@ class ApiBonusSystemTest extends TestCase
     /**
      * Test using the method bonusSystemTransactionGet to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $id
      */
@@ -60,7 +60,7 @@ class ApiBonusSystemTest extends TestCase
     /**
      * Test using the method bonusSystemTransactionsClientGet to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $id
      */
@@ -73,7 +73,7 @@ class ApiBonusSystemTest extends TestCase
     /**
      * Test using the method bonusSystemTransactionsClientCreate to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $id
      * @param $transaction

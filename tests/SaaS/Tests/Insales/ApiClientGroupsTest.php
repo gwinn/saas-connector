@@ -59,7 +59,7 @@ class ApiClientGroupsTest extends TestCase
     /**
      * Test using the method clientGroupGet to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $clientGroupId
      */
@@ -70,23 +70,9 @@ class ApiClientGroupsTest extends TestCase
     }
 
     /**
-     * Test using the method clientGroupCreate to give exception
-     *
-     * @expectedException \InvalidArgumentException
-     * @dataProvider providerException
-     * @param $clientGroupId
-     * @param $clientGroup
-     */
-    public function testClientGroupCreateException($clientGroupId, $clientGroup)
-    {
-        $client = static::getInsalesApiClient();
-        $client->clientGroupCreate($clientGroup);
-    }
-
-    /**
      * Test using the method clientGroupUpdate to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $clientGroupId
      * @param $clientGroup
@@ -100,7 +86,7 @@ class ApiClientGroupsTest extends TestCase
     /**
      * Test using the method clientGroupDelete to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Exception
      * @dataProvider providerException
      * @param $clientGroupId
      */

@@ -51,7 +51,7 @@ class ApiReferenceTest extends TestCase
     /**
      * Test using the method orderShippingAddressUpdate to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \SaaS\Exception\InsalesApiException
      * @dataProvider providerException
      * @param $orderId
      * @param $address
@@ -79,7 +79,7 @@ class ApiReferenceTest extends TestCase
     /**
      * Test using the method orderCustomStatusUpdate to give exception
      *
-     * @expectedException \InvalidArgumentException
+     * @expectedException \SaaS\Exception\InsalesApiException
      * @dataProvider providerException
      * @param $orderId
      * @param $status
