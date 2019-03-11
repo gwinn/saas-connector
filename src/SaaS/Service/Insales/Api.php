@@ -46,6 +46,38 @@ class Api
     }
 
     /**
+     * Get account
+     *
+     * @link    http://api.insales.ru/?doc_format=JSON#account-get-account-json
+     * @group   account
+     *
+     * @return  Response
+     */
+    public function accountGet()
+    {
+        $url = '/admin/account.json';
+
+        return $this->client->makeRequest($url, Request::METHOD_GET);
+    }
+
+    /**
+     * Update account
+     *
+     * @link    http://api.insales.ru/?doc_format=JSON#account-update-account-json
+     * @param   array $account account data json:{"title":"Shop title"}
+     * @group   account
+     *
+     * @return Response
+     */
+    public function accountUpdate($account)
+    {
+        $url = '/admin/account.json';
+        $parameters = array('account' => $account);
+
+        return $this->client->makeRequest($url, Request::METHOD_PUT, $parameters);
+    }
+
+    /**
      * Get catalog categories list
      *
      * @link    http://api.insales.ru/?doc_format=JSON#category-get-categories-json
