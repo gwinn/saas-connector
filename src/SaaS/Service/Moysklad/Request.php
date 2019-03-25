@@ -184,6 +184,13 @@ class Request
             $curlUrl .= $this->httpBuildQuery($parameters);
         }
 
+        if (!is_null($parameters)
+            && in_array($method, array(self::METHOD_POST, self::METHOD_PUT))
+            && isset($parameters['expand'])
+        ) {
+            $curlUrl .= sprintf('?expand=%s', implode(',', $parameters['expand']));
+        }
+
         $this->queryUrl = $curlUrl;
 
         $curlHandler = curl_init();

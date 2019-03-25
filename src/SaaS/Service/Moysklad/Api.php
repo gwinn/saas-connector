@@ -337,13 +337,14 @@ class Api
      *
      * @param string $type
      * @param string $uuid
-     * @param json $data
+     * @param array  $data
+     * @param array  $expand
      *
      * @access public
      *
      * @return Response
      */
-    public function updateData($type, $uuid, $data)
+    public function updateData($type, $uuid, $data, $expand = [])
     {
         if (empty($type) || is_null($type)) {
             throw new \InvalidArgumentException('The `type` can not be empty');
@@ -360,6 +361,14 @@ class Api
         }
 
         $parameters['data'] = $data;
+
+        if (!empty($expand)) {
+            if (!is_array($expand)) {
+                throw new \InvalidArgumentException('Wrong `expand` type: `expand` must be an "array"');
+            }
+
+            $parameters['expand'] = $expand;
+        }
 
         if (is_array($type)) {
             if (gettype($type[0]) !== 'string') {
