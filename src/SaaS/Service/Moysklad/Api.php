@@ -54,7 +54,7 @@ class Api
     /**
      * JsonAPI client МойСклад
      *
-     * @var client
+     * @var Request
      * @access protected
      */
     protected $client;
@@ -62,7 +62,7 @@ class Api
     /**
      * Entity mapping
      *
-     * @var entity
+     * @var array
      * @access protected
      */
     protected $entity = array(
@@ -135,8 +135,6 @@ class Api
      * @param string $login
      * @param string $password
      *
-     * @throws MoySkladException
-     *
      * @access public
      *
      * @return void
@@ -175,10 +173,11 @@ class Api
      * @param array $filters
      *
      * @throws \InvalidArgumentException
+     * @throws MoySkladException
      *
      * @access public
      *
-     * @return ApiResponse
+     * @return Response
      */
     public function getData(
         $params,
@@ -278,6 +277,8 @@ class Api
      * @access public
      *
      * @return Response
+     *
+     * @throws MoySkladException
      */
     public function createData($param, $data)
     {
@@ -343,6 +344,8 @@ class Api
      * @access public
      *
      * @return Response
+     *
+     * @throws MoySkladException
      */
     public function updateData($type, $uuid, $data, $expand = [])
     {
@@ -420,6 +423,8 @@ class Api
      * @access public
      *
      * @return Response
+     *
+     * @throws MoySkladException
      */
     public function deleteData($type, $uuid)
     {
@@ -472,7 +477,7 @@ class Api
      * Check uuid.
      *
      * @param string $uuid
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      *
      * @access private
      *
