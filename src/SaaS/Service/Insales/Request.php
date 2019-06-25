@@ -14,6 +14,7 @@ namespace SaaS\Service\Insales;
 
 use SaaS\Exception\CurlException;
 use SaaS\Exception\InsalesLimitException;
+use SaaS\Exception\InvalidJsonException;
 use SaaS\Http\Response;
 
 /**
@@ -160,6 +161,15 @@ class Request
             throw new CurlException($error, $errno);
         }
 
-        return new Response($statusCode, $response);
+        $returnResponse = new Response($statusCode, $response);
+
+        if (JSON_ERROR_NONE !== ($error = json_last_error())) {
+            throw new InvalidJsonException(
+                sprintf('Invalid JSON body. Error code #%s. Response headers: %s', $error, json_encode($responseBody)),
+                $error
+            );
+        }
+
+        return $returnResponse;
     }
 }
