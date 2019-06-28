@@ -2,8 +2,10 @@
 /vendor/
 
 /composer.phar
+/composer.lock
 /*.xml
 /nbproject
 /.idea
 composer
 phpunit.phar
+/var/*
