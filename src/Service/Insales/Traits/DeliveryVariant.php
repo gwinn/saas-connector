@@ -37,8 +37,8 @@ trait DeliveryVariant
     /**
      * Get delivery variants list
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#deliveryvariant-get-delivery-variants-json
-     * @group   delivery_variants
+     * @link   http://api.insales.ru/?doc_format=JSON#deliveryvariant-get-delivery-variants-json
+     * @group  delivery_variants
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -56,10 +56,10 @@ trait DeliveryVariant
     /**
      * Get delivery variant
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#deliveryvariant-get-delivery-variant-json
-     * @group   delivery_variants
+     * @link  http://api.insales.ru/?doc_format=JSON#deliveryvariant-get-delivery-variant-json
+     * @group delivery_variants
      *
-     * @param $deliveryVariantId
+     * @param string $deliveryVariantId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException

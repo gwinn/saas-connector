@@ -37,8 +37,8 @@ trait PaymentGateway
     /**
      * Get payment gateways list
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#paymentgateway-get-payment-gateways-json
-     * @group   payment_gateways
+     * @link  http://api.insales.ru/?doc_format=JSON#paymentgateway-get-payment-gateways-json
+     * @group payment_gateways
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -56,10 +56,10 @@ trait PaymentGateway
     /**
      * Get payment gateway
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#paymentgateway-get-payment-gateway-json
-     * @group   payment_gateways
+     * @link  http://api.insales.ru/?doc_format=JSON#paymentgateway-get-payment-gateway-json
+     * @group payment_gateways
      *
-     * @param $paymentGatewayId
+     * @param string $paymentGatewayId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException

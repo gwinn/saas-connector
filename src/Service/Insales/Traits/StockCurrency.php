@@ -37,8 +37,8 @@ trait StockCurrency
     /**
      * Get stock currencies list
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#stock-currency-get-stock-currencies-json
-     * @group   stock_currencies
+     * @link  http://api.insales.ru/?doc_format=JSON#stock-currency-get-stock-currencies-json
+     * @group stock_currencies
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -56,10 +56,10 @@ trait StockCurrency
     /**
      * Get stock currency
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#stock-currency-get-stock-currency-json
-     * @group   stock_currencies
+     * @link  http://api.insales.ru/?doc_format=JSON#stock-currency-get-stock-currency-json
+     * @group stock_currencies
      *
-     * @param $stockCurrencyId
+     * @param string $stockCurrencyId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException

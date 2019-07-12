@@ -3,24 +3,9 @@ saas-connector
 
 Set of different api clients for e-commerce SaaS
 
-###Clients:
-* [Activizm](http://activizm.ru)
-* [BizPost](http://bizpost.ru)
-* [Курьерист](http://courierist.ru)
-* [Ecwid](http://ecwid.com)
-* [Horoshop](http://goo.gl/gBlC0T)
-* [InSales](http://insales.ru)
-* [InPost](http://inpost.ru)
-* [TIU](http://tiu.ru)
-* [Leadvertex](http://leadvertex.ru)
-* [Мой Склад](http://moysklad.ru)
-* [Orderino](http://orderino.com/)
-* [TicketsCloud](http://ticketscloud.org)
-* [Gett](https://gett.com)
-
 ###Requirements
 
-* PHP >= 5.3
+* PHP >= 7.1
 * php-curl
 * php-json
 

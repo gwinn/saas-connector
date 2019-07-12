@@ -37,8 +37,8 @@ trait VariantField
     /**
      * Get variant_fields list
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#variantfield-get-variant-fields-json
-     * @group   variant_fields
+     * @link  http://api.insales.ru/?doc_format=JSON#variantfield-get-variant-fields-json
+     * @group variant_fields
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -56,10 +56,10 @@ trait VariantField
     /**
      * Get field
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#variantfield-get-variant-field-json
-     * @group   variant_fields
+     * @link  http://api.insales.ru/?doc_format=JSON#variantfield-get-variant-field-json
+     * @group variant_fields
      *
-     * @param $variantFieldId
+     * @param string $variantFieldId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException

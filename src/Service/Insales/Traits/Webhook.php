@@ -38,8 +38,8 @@ trait Webhook
     /**
      * Get webhooks list
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#webhook-get-webhooks-json
-     * @group   webhooks
+     * @link  http://api.insales.ru/?doc_format=JSON#webhook-get-webhooks-json
+     * @group webhooks
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -57,10 +57,10 @@ trait Webhook
     /**
      * Get webhook
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#webhook-get-webhook-json
-     * @group   webhooks
+     * @link  http://api.insales.ru/?doc_format=JSON#webhook-get-webhook-json
+     * @group webhooks
      *
-     * @param $webhookId
+     * @param string $webhookId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -75,9 +75,9 @@ trait Webhook
     /**
      * Create webhook
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#webhook-create-webhook-json
-     * @param   Request\WebhookRequest $request webhook data
-     * @group   webhooks
+     * @link  http://api.insales.ru/?doc_format=JSON#webhook-create-webhook-json
+     * @param Request\WebhookRequest $request webhook data
+     * @group webhooks
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -93,9 +93,9 @@ trait Webhook
     /**
      * Update webhook
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#webhook-update-webhook-json
-     * @param   Request\WebhookRequest $request webhook data
-     * @group   webhooks
+     * @link  http://api.insales.ru/?doc_format=JSON#webhook-update-webhook-json
+     * @param Request\WebhookRequest $request webhook data
+     * @group webhooks
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -112,7 +112,7 @@ trait Webhook
      * Delete webhook
      *
      * @link  http://api.insales.ru/?doc_format=JSON#webhook-destroy-webhook-json
-     * @param $webhookId
+     * @param string $webhookId
      * @group webhooks
      *
      * @return Response\Response

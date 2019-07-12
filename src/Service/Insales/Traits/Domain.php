@@ -37,8 +37,8 @@ trait Domain
     /**
      * Get domains list
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#domain-get-domains-json
-     * @group   domains
+     * @link  http://api.insales.ru/?doc_format=JSON#domain-get-domains-json
+     * @group domains
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -56,10 +56,10 @@ trait Domain
     /**
      * Get domain
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#domain-get-domain-json
-     * @group   domains
+     * @link  http://api.insales.ru/?doc_format=JSON#domain-get-domain-json
+     * @group domains
      *
-     * @param $domainId
+     * @param string $domainId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException

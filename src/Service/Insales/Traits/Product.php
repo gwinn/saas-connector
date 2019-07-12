@@ -38,8 +38,8 @@ trait Product
     /**
      * Get products list
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#product-get-products-json
-     * @group   products
+     * @link  http://api.insales.ru/?doc_format=JSON#product-get-products-json
+     * @group products
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -73,10 +73,10 @@ trait Product
     /**
      * Get product
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#product-get-product-json
-     * @group   products
+     * @link  http://api.insales.ru/?doc_format=JSON#product-get-product-json
+     * @group products
      *
-     * @param $productId
+     * @param string $productId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -91,10 +91,10 @@ trait Product
     /**
      * Create product
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#product-create-product-line-by-product-id-json
-     * @link    http://api.insales.ru/?doc_format=JSON#product-create-product-line-by-variant-id-json
-     * @param   Request\ProductRequest $request product data
-     * @group   products
+     * @link  http://api.insales.ru/?doc_format=JSON#product-create-product-line-by-product-id-json
+     * @link  http://api.insales.ru/?doc_format=JSON#product-create-product-line-by-variant-id-json
+     * @param Request\ProductRequest $request product data
+     * @group products
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -110,9 +110,9 @@ trait Product
     /**
      * Update product
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#product-update-product-json
-     * @param   Request\ProductRequest $request product data
-     * @group   products
+     * @link  http://api.insales.ru/?doc_format=JSON#product-update-product-json
+     * @param Request\ProductRequest $request product data
+     * @group products
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -129,7 +129,7 @@ trait Product
      * Delete product
      *
      * @link  http://api.insales.ru/?doc_format=JSON#product-destroy-product-json
-     * @param $productId
+     * @param string $productId
      * @group products
      *
      * @return Response\Response

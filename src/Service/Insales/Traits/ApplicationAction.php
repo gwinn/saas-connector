@@ -38,8 +38,8 @@ trait ApplicationAction
     /**
      * Get application actions list
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#applicationaction-get-application-actions-json
-     * @group   application_actions
+     * @link  http://api.insales.ru/?doc_format=JSON#applicationaction-get-application-actions-json
+     * @group application_actions
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -57,10 +57,10 @@ trait ApplicationAction
     /**
      * Get application action
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#applicationaction-get-application-actions-json
-     * @group   application_actions
+     * @link  http://api.insales.ru/?doc_format=JSON#applicationaction-get-application-actions-json
+     * @group application_actions
      *
-     * @param $actionId
+     * @param string $actionId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -75,9 +75,9 @@ trait ApplicationAction
     /**
      * Create application action
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#applicationaction-create-application-action-json
-     * @param   Request\ApplicationActionRequest $request application actions data
-     * @group   application_actions
+     * @link   http://api.insales.ru/?doc_format=JSON#applicationaction-create-application-action-json
+     * @param  Request\ApplicationActionRequest $request application actions data
+     * @group  application_actions
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -93,9 +93,9 @@ trait ApplicationAction
     /**
      * Update application action
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#applicationaction-update-application-action-json
-     * @param   Request\ApplicationActionRequest $request application actions data
-     * @group   application_actions
+     * @link   http://api.insales.ru/?doc_format=JSON#applicationaction-update-application-action-json
+     * @param  Request\ApplicationActionRequest $request application actions data
+     * @group  application_actions
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -112,7 +112,7 @@ trait ApplicationAction
      * Delete application action
      *
      * @link  http://api.insales.ru/?doc_format=JSON#applicationaction-destroy-application-action-json
-     * @param $action
+     * @param string $action
      * @group application_actions
      *
      * @return Response\Response

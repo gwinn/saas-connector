@@ -13,6 +13,8 @@
 namespace SaaS\Service;
 
 use GuzzleHttp;
+use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
+use JMS\Serializer\Naming\SerializedNameAnnotationStrategy;
 use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerBuilder;
 use SaaS\Service\Insales\Traits;
@@ -75,8 +77,8 @@ class Insales
         );
 
         $this->serializer = SerializerBuilder::create()->setPropertyNamingStrategy(
-            new \JMS\Serializer\Naming\SerializedNameAnnotationStrategy(
-                new \JMS\Serializer\Naming\IdenticalPropertyNamingStrategy()
+            new SerializedNameAnnotationStrategy(
+                new IdenticalPropertyNamingStrategy()
             )
         )->build();
     }

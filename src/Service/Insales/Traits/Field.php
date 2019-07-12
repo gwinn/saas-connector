@@ -37,8 +37,8 @@ trait Field
     /**
      * Get fields list
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#field-get-fields-json
-     * @group   fields
+     * @link  http://api.insales.ru/?doc_format=JSON#field-get-fields-json
+     * @group fields
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -56,10 +56,10 @@ trait Field
     /**
      * Get field
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#field-get-field-json
-     * @group   fields
+     * @link  http://api.insales.ru/?doc_format=JSON#field-get-field-json
+     * @group fields
      *
-     * @param $fieldId
+     * @param string $fieldId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException

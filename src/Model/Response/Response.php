@@ -57,7 +57,7 @@ abstract class Response implements ResponseInterface
      * Response constructor.
      *
      * @param ResponseInterface $response
-     * @param                   $className
+     * @param string            $className
      *
      * @throws InsalesLimitException
      */
@@ -306,7 +306,7 @@ abstract class Response implements ResponseInterface
                 'API-Usage-Limit' => $apiUsageLimit
             ];
 
-            $limit = new InsalesLimitException(json_encode($message), $response->getStatusCode());
+            $limit = new InsalesLimitException((string)json_encode($message), $response->getStatusCode());
             $limit->setRetryAfter($retryAfter);
             $limit->setApiUsageLimit($apiUsageLimit);
 

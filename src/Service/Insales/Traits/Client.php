@@ -38,8 +38,8 @@ trait Client
     /**
      * Get clients list
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#client-get-clients-json
-     * @group   clients
+     * @link  http://api.insales.ru/?doc_format=JSON#client-get-clients-json
+     * @group clients
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -72,10 +72,10 @@ trait Client
     /**
      * Get client
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#client-get-client-json
-     * @group   clients
+     * @link  http://api.insales.ru/?doc_format=JSON#client-get-client-json
+     * @group clients
      *
-     * @param $clientId
+     * @param string $clientId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -90,10 +90,10 @@ trait Client
     /**
      * Create individual or juridical client
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#client-create-individual-client-json
-     * @link    http://api.insales.ru/?doc_format=JSON#client-create-juridical-client-json
-     * @param   Request\ClientRequest $request client data
-     * @group   clients
+     * @link  http://api.insales.ru/?doc_format=JSON#client-create-individual-client-json
+     * @link  http://api.insales.ru/?doc_format=JSON#client-create-juridical-client-json
+     * @param Request\ClientRequest $request client data
+     * @group clients
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -109,9 +109,9 @@ trait Client
     /**
      * Update client
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#client-update-client-json
-     * @param   Request\ClientRequest $request client data
-     * @group   clients
+     * @link  http://api.insales.ru/?doc_format=JSON#client-update-client-json
+     * @param Request\ClientRequest $request client data
+     * @group clients
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -128,7 +128,7 @@ trait Client
      * Delete client
      *
      * @link  http://api.insales.ru/?doc_format=JSON#client-destroy-client-json
-     * @param $clientId
+     * @param string $clientId
      * @group clients
      *
      * @return Response\Response

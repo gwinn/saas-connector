@@ -37,8 +37,8 @@ trait CustomStatus
     /**
      * Get custom statuses list
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#customstatus-get-custom-statuses-json
-     * @group   custom_statuses
+     * @link  http://api.insales.ru/?doc_format=JSON#customstatus-get-custom-statuses-json
+     * @group custom_statuses
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -56,10 +56,10 @@ trait CustomStatus
     /**
      * Get custom status
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#customstatus-get-custom-status-json
-     * @group   custom_statuses
+     * @link  http://api.insales.ru/?doc_format=JSON#customstatus-get-custom-status-json
+     * @group custom_statuses
      *
-     * @param $permalink
+     * @param string $permalink
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException

@@ -3,11 +3,11 @@
 /**
  * PHP version 7.1
  *
- * @package  SaaS\Service\Insales\Traits
- * @author   RetailDriver LLC <integration@retailcrm.ru>
- * @license  https://retailcrm.ru Proprietary
- * @link     http://retailcrm.ru
- * @see      https://help.retailcrm.ru
+ * @package SaaS\Service\Insales\Traits
+ * @author  RetailDriver LLC <integration@retailcrm.ru>
+ * @license https://retailcrm.ru Proprietary
+ * @link    http://retailcrm.ru
+ * @see     https://help.retailcrm.ru
  */
 namespace SaaS\Service\Insales\Traits;
 
@@ -20,11 +20,11 @@ use SaaS\Service\Insales\Exception;
 /**
  * Class Category
  *
- * @package  SaaS\Service\Insales\Traits
- * @author   RetailDriver LLC <integration@retailcrm.ru>
- * @license  https://retailcrm.ru Proprietary
- * @link     http://retailcrm.ru
- * @see      https://help.retailcrm.ru
+ * @package SaaS\Service\Insales\Traits
+ * @author  RetailDriver LLC <integration@retailcrm.ru>
+ * @license https://retailcrm.ru Proprietary
+ * @link    http://retailcrm.ru
+ * @see     https://help.retailcrm.ru
  */
 trait Category
 {
@@ -37,8 +37,8 @@ trait Category
     /**
      * Get categories list
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#category-get-categories-json
-     * @group   categories
+     * @link  http://api.insales.ru/?doc_format=JSON#category-get-categories-json
+     * @group categories
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -56,10 +56,10 @@ trait Category
     /**
      * Get category
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#category-get-category-json
-     * @group   categories
+     * @link  http://api.insales.ru/?doc_format=JSON#category-get-category-json
+     * @group categories
      *
-     * @param $categoryId
+     * @param string $categoryId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException

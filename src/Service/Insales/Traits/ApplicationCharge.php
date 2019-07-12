@@ -38,8 +38,8 @@ trait ApplicationCharge
     /**
      * Get application charge list
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#applicationaction-get-application-actions-json
-     * @group   application_charges
+     * @link  http://api.insales.ru/?doc_format=JSON#applicationaction-get-application-actions-json
+     * @group application_charges
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -57,10 +57,10 @@ trait ApplicationCharge
     /**
      * Get application charge
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#applicationaction-get-application-actions-json
-     * @group   application_charges
+     * @link  http://api.insales.ru/?doc_format=JSON#applicationaction-get-application-actions-json
+     * @group application_charges
      *
-     * @param $chargeId
+     * @param string $chargeId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -75,9 +75,9 @@ trait ApplicationCharge
     /**
      * Create application charge
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#applicationaction-create-application-action-json
-     * @param   Request\ApplicationChargeRequest $request application actions data
-     * @group   application_charges
+     * @link  http://api.insales.ru/?doc_format=JSON#applicationaction-create-application-action-json
+     * @param Request\ApplicationChargeRequest $request application actions data
+     * @group application_charges
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -93,9 +93,9 @@ trait ApplicationCharge
     /**
      * Update application charge
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#applicationaction-update-application-action-json
-     * @param   Request\ApplicationChargeRequest $request application actions data
-     * @group   application_charges
+     * @link  http://api.insales.ru/?doc_format=JSON#applicationaction-update-application-action-json
+     * @param Request\ApplicationChargeRequest $request application actions data
+     * @group application_charges
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -112,7 +112,7 @@ trait ApplicationCharge
      * Delete application charge
      *
      * @link  http://api.insales.ru/?doc_format=JSON#applicationaction-destroy-application-action-json
-     * @param $action
+     * @param string $action
      * @group application_charges
      *
      * @return Response\Response

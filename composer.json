@@ -24,13 +24,17 @@
         "php": ">=7.1",
         "ext-json": "*",
         "league/oauth2-client": "1.4.2",
+        "doctrine/annotations": "^1.6",
         "symfony/validator": "^4.3",
         "guzzlehttp/guzzle": "^6.3",
-        "jms/serializer": "^1.14",
+        "jms/serializer": "^1.14"
+    },
+    "require-dev": {
         "phpunit/phpunit": "^7.4",
-        "doctrine/annotations": "^1.6",
         "er1z/fakemock": "^0.3.1",
-        "phpstan/phpstan": "^0.11.8"
+        "phpstan/phpstan": "^0.11.8",
+        "phpmd/phpmd": "^2.6",
+        "squizlabs/php_codesniffer": "^3.4"
     },
     "autoload": {
         "psr-4": {

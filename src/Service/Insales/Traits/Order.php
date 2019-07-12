@@ -38,8 +38,8 @@ trait Order
     /**
      * Get orders list
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#order-get-orders-json
-     * @group   orders
+     * @link  http://api.insales.ru/?doc_format=JSON#order-get-orders-json
+     * @group orders
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -73,10 +73,10 @@ trait Order
     /**
      * Get order
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#order-get-order-json
-     * @group   orders
+     * @link  http://api.insales.ru/?doc_format=JSON#order-get-order-json
+     * @group orders
      *
-     * @param $orderId
+     * @param string $orderId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -91,10 +91,10 @@ trait Order
     /**
      * Create order
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#order-create-order-line-by-product-id-json
-     * @link    http://api.insales.ru/?doc_format=JSON#order-create-order-line-by-variant-id-json
-     * @param   Request\OrderRequest $request order data
-     * @group   orders
+     * @link  http://api.insales.ru/?doc_format=JSON#order-create-order-line-by-product-id-json
+     * @link  http://api.insales.ru/?doc_format=JSON#order-create-order-line-by-variant-id-json
+     * @param Request\OrderRequest $request order data
+     * @group orders
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -110,9 +110,9 @@ trait Order
     /**
      * Update order
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#order-update-order-json
-     * @param   Request\OrderRequest $request order data
-     * @group   orders
+     * @link  http://api.insales.ru/?doc_format=JSON#order-update-order-json
+     * @param Request\OrderRequest $request order data
+     * @group orders
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -129,7 +129,7 @@ trait Order
      * Delete order
      *
      * @link  http://api.insales.ru/?doc_format=JSON#order-destroy-order-json
-     * @param $orderId
+     * @param string $orderId
      * @group orders
      *
      * @return Response\Response

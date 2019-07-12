@@ -38,8 +38,8 @@ trait ApplicationWidget
     /**
      * Get application widgets list
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#applicationwidget-get-application-widgets-json
-     * @group   application_widgets
+     * @link  http://api.insales.ru/?doc_format=JSON#applicationwidget-get-application-widgets-json
+     * @group application_widgets
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -57,10 +57,10 @@ trait ApplicationWidget
     /**
      * Get application widget
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#applicationwidget-get-application-widget-json
-     * @group   application_widgets
+     * @link  http://api.insales.ru/?doc_format=JSON#applicationwidget-get-application-widget-json
+     * @group application_widgets
      *
-     * @param $widgetId
+     * @param string $widgetId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -75,9 +75,9 @@ trait ApplicationWidget
     /**
      * Create application widget
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#applicationwidget-create-application-widget-json
-     * @param   Request\ApplicationWidgetRequest $request application widget data
-     * @group   application_widgets
+     * @link   http://api.insales.ru/?doc_format=JSON#applicationwidget-create-application-widget-json
+     * @param  Request\ApplicationWidgetRequest $request application widget data
+     * @group  application_widgets
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -93,9 +93,9 @@ trait ApplicationWidget
     /**
      * Update application widget
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#applicationwidget-update-application-widget-json
-     * @param   Request\ApplicationWidgetRequest $request application widget data
-     * @group   application_widgets
+     * @link   http://api.insales.ru/?doc_format=JSON#applicationwidget-update-application-widget-json
+     * @param  Request\ApplicationWidgetRequest $request application widget data
+     * @group  application_widgets
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -112,7 +112,7 @@ trait ApplicationWidget
      * Delete application widget
      *
      * @link  http://api.insales.ru/?doc_format=JSON#applicationwidget-destroy-application-widget-json
-     * @param $widget
+     * @param string $widget
      * @group application_widgets
      *
      * @return Response\Response
