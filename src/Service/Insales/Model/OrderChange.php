@@ -14,10 +14,9 @@ namespace SaaS\Service\Insales\Model;
 use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Webhook
+ * Class OrderChange
  *
  * @package  SaaS\Service\Insales\Model
  * @author   RetailDriver LLC <integration@retailcrm.ru>
@@ -27,14 +26,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @FakeMock()
  */
-class Webhook
+class OrderChange
 {
-    const FORMAT_TYPE_JSON = 'json';
-    const FORMAT_TYPE_XML = 'xml';
-
-    const TOPIC_ORDERS_CREATE = 'orders/create';
-    const TOPIC_ORDERS_UPDATE = 'orders/update';
-
     /**
      * @var int $id
      *
@@ -56,41 +49,52 @@ class Webhook
     public $createdAt;
 
     /**
-     * @var string $address
-     *
-     * @Assert\NotBlank(groups={"create"})
+     * @var string $action
      *
      * @JMS\Type("string")
-     * @JMS\SerializedName("address")
-     * @JMS\Groups({"create"})
+     * @JMS\SerializedName("action")
      *
-     * @FakeMockField(faker="url")
+     * @FakeMockField()
      */
-    public $address;
+    public $action;
 
     /**
-     * For now only 'orders/update' and 'orders/create' are available
+     * @var array $valueWas
      *
-     * @var string $topic
+     * @JMS\Type("array")
+     * @JMS\SerializedName("value_was")
      *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("topic")
-     * @JMS\Groups({"create"})
-     *
-     * @FakeMockField(faker="randomElement", arguments={{"orders/update", "orders/create"}})
+     * @FakeMockField()
      */
-    public $topic;
+    public $valueWas;
 
     /**
-     * Format of data sent by webhook: 'json' or 'xml'
+     * @var array $valueIs
      *
-     * @var string $formatType
+     * @JMS\Type("array")
+     * @JMS\SerializedName("value_is")
+     *
+     * @FakeMockField()
+     */
+    public $valueIs;
+
+    /**
+     * @var string $fullDescription
      *
      * @JMS\Type("string")
-     * @JMS\SerializedName("format_type")
-     * @JMS\Groups({"create"})
+     * @JMS\SerializedName("full_description")
      *
-     * @FakeMockField(faker="randomElement", arguments={{"json", "xml"}})
+     * @FakeMockField()
      */
-    public $formatType = self::FORMAT_TYPE_JSON;
+    public $fullDescription;
+
+    /**
+     * @var string $userName
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("user_name")
+     *
+     * @FakeMockField()
+     */
+    public $userName;
 }

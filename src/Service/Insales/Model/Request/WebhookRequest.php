@@ -34,8 +34,23 @@ class WebhookRequest
      *
      * @JMS\Type("SaaS\Service\Insales\Model\Webhook")
      * @JMS\SerializedName("webhook")
+     * @JMS\Groups({"create"})
      *
      * @FakeMockField()
      */
     public $webhook;
+
+    public function __construct($webhook = null)
+    {
+        $this->setObject(Webhook::class, 'webhook', $webhook);
+    }
+
+    protected function setObject($className, $field, $value = null)
+    {
+        if ($value === null) {
+            $value = new $className();
+        }
+
+        $this->$field = $value;
+    }
 }

@@ -139,6 +139,16 @@ class Product
     public $unit;
 
     /**
+     * @var string $dimensions
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("dimensions")
+     *
+     * @FakeMockField()
+     */
+    public $dimensions;
+
+    /**
      * @var int $vat
      *
      * @JMS\Type("int")

@@ -447,6 +447,16 @@ class Order
     public $locale;
 
     /**
+     * @var string $coupon
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("coupon")
+     *
+     * @FakeMockField()
+     */
+    public $coupon;
+
+    /**
      * @var int $yaId
      *
      * @JMS\Type("integer")
@@ -459,15 +469,23 @@ class Order
     /**
      * @var array $orderLines
      *
-     * @JMS\Type("array<SaaS\Service\Insales\Model\OrderLines>")
+     * @JMS\Type("array<SaaS\Service\Insales\Model\OrderLine>")
      * @JMS\SerializedName("order_lines")
      */
     public $orderLines = [];
 
     /**
+     * @var array $orderLinesAttributes
+     *
+     * @JMS\Type("array<SaaS\Service\Insales\Model\OrderLine>")
+     * @JMS\SerializedName("order_lines_attributes")
+     */
+    public $orderLinesAttributes = [];
+
+    /**
      * @var array $orderChanges
      *
-     * @JMS\Type("array<SaaS\Service\Insales\Model\OrderChanges>")
+     * @JMS\Type("array<SaaS\Service\Insales\Model\OrderChange>")
      * @JMS\SerializedName("order_changes")
      */
     public $orderChanges = [];
@@ -481,6 +499,14 @@ class Order
     public $fieldsValues = [];
 
     /**
+     * @var array $fieldsValuesAttributes
+     *
+     * @JMS\Type("array<SaaS\Service\Insales\Model\FieldValue>")
+     * @JMS\SerializedName("fields_values_attributes")
+     */
+    public $fieldsValuesAttributes = [];
+
+    /**
      * @var Client $client
      *
      * @JMS\Type("SaaS\Service\Insales\Model\Client")
@@ -491,12 +517,30 @@ class Order
     public $client;
 
     /**
+     * @var Client $clientAttributes
+     *
+     * @JMS\Type("SaaS\Service\Insales\Model\Client")
+     * @JMS\SerializedName("client_attributes")
+     *
+     * @FakeMockField()
+     */
+    public $clientAttributes;
+
+    /**
      * @var array $discounts
      *
      * @JMS\Type("array<SaaS\Service\Insales\Model\Discount>")
      * @JMS\SerializedName("discounts")
      */
     public $discounts = [];
+
+    /**
+     * @var array $discountsAttributes
+     *
+     * @JMS\Type("array<SaaS\Service\Insales\Model\Discount>")
+     * @JMS\SerializedName("discounts_attributes")
+     */
+    public $discountsAttributes = [];
 
     /**
      * @var Discount $discount
@@ -517,6 +561,16 @@ class Order
      * @FakeMockField()
      */
     public $shippingAddress;
+
+    /**
+     * @var ShippingAddress $shippingAddressAttributes
+     *
+     * @JMS\Type("SaaS\Service\Insales\Model\ShippingAddress")
+     * @JMS\SerializedName("shipping_address_attributes")
+     *
+     * @FakeMockField()
+     */
+    public $shippingAddressAttributes;
 
     /**
      * @var DeliveryInfo $deliveryInfo

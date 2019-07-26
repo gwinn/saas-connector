@@ -28,6 +28,9 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class Discount
 {
+    const TYPE_ID_PERCENT = 1;
+    const TYPE_ID_MONEY = 2;
+
     /**
      * @var int $id
      *
@@ -163,4 +166,16 @@ class Discount
      * @JMS\SerializedName("discount_order_lines_ids")
      */
     public $discountOrderLinesIds = [];
+
+    /**
+     * Destroy marker (1 or true)
+     *
+     * @var int $destroy
+     *
+     * @JMS\Type("integer")
+     * @JMS\SerializedName("_destroy")
+     *
+     * @FakeMockField(faker="randomElement", arguments={{1,0}})
+     */
+    public $destroy;
 }
