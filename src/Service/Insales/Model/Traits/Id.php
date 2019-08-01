@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMockField;
 
 /**
- * Trait PageFilter
+ * Trait Id
  *
  * @category Integration
  * @package  SaaS\Service\Insales\Model\Traits
@@ -25,61 +25,31 @@ use Er1z\FakeMock\Annotations\FakeMockField;
  * @link     http://retailcrm.ru
  * @see      https://help.retailcrm.ru
  */
-trait PageFilter
+trait Id
 {
     /**
-     * @var int $page
+     * @var int $id
      *
      * @JMS\Type("integer")
-     * @JMS\SerializedName("page")
+     * @JMS\SerializedName("id")
      *
      * @FakeMockField()
      */
-    protected $page;
+    protected $id;
 
     /**
-     * @var int $perPage
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("per_page")
-     *
-     * @FakeMockField()
+     * @param int $id
      */
-    protected $perPage;
-
-    /**
-     * @param int $page
-     */
-    public function setPage(int $page): void
+    public function setId(int $id): void
     {
-        $this->page = $page;
+        $this->id = $id;
     }
 
     /**
      * @return int|null
      */
-    public function getPage(): ?int
+    public function getId(): ?int
     {
-        return $this->page;
-    }
-
-    /**
-     * @param int $perPage
-     *
-     * @return PageFilter
-     */
-    public function setPerPage(int $perPage): PageFilter
-    {
-        $this->perPage = $perPage;
-
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getPerPage(): ?int
-    {
-        return $this->perPage;
+        return $this->id;
     }
 }

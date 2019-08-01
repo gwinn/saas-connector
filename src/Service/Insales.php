@@ -179,7 +179,7 @@ class Insales
      */
     public function applicationActionUpdate(Request\ApplicationActionRequest $request)
     {
-        $url = sprintf('/admin/application_actions/%s.json', $request->applicationAction->id);
+        $url = sprintf('/admin/application_actions/%s.json', $request->getApplicationAction()->getId());
         $options = ['body' => $this->serializer->serialize($request, 'json')];
 
         return new Response\Response($this->client->put($url, $options), Model\ApplicationAction::class);
@@ -269,7 +269,7 @@ class Insales
      */
     public function applicationChargeUpdate(Request\ApplicationChargeRequest $request)
     {
-        $url = sprintf('/admin/application_charges/%s.json', $request->applicationCharge->id);
+        $url = sprintf('/admin/application_charges/%s.json', $request->getApplicationCharge()->getId());
         $options = ['body' => $this->serializer->serialize($request, 'json')];
 
         return new Response\Response($this->client->put($url, $options), Model\ApplicationCharge::class);
@@ -359,7 +359,7 @@ class Insales
      */
     public function applicationWidgetUpdate(Request\ApplicationWidgetRequest $request)
     {
-        $url = sprintf('/admin/application_widgets/%s.json', $request->applicationWidget->id);
+        $url = sprintf('/admin/application_widgets/%s.json', $request->getApplicationWidget()->getId());
         $options = ['body' => $this->serializer->serialize($request, 'json')];
 
         return new Response\Response($this->client->put($url, $options), Model\ApplicationWidget::class);
@@ -516,7 +516,7 @@ class Insales
      */
     public function clientUpdate(Request\ClientRequest $request)
     {
-        $url = sprintf('/admin/clients/%s.json', $request->client->id);
+        $url = sprintf('/admin/clients/%s.json', $request->getClient()->getId());
         $options = ['body' => $this->serializer->serialize($request, 'json')];
 
         return new Response\Response($this->client->put($url, $options), Model\Client::class);
@@ -785,7 +785,7 @@ class Insales
      */
     public function orderUpdate(Request\OrderRequest $request)
     {
-        $url = sprintf('/admin/orders/%s.json', $request->order->id);
+        $url = sprintf('/admin/orders/%s.json', $request->getOrder()->getId());
         $options = ['body' => $this->serializer->serialize($request, 'json')];
 
         return new Response\Response($this->client->put($url, $options), Model\Order::class);
@@ -943,7 +943,7 @@ class Insales
      */
     public function productUpdate(Request\ProductRequest $request)
     {
-        $url = sprintf('/admin/products/%s.json', $request->product->id);
+        $url = sprintf('/admin/products/%s.json', $request->getProduct()->getId());
         $options = ['body' => $this->serializer->serialize($request, 'json')];
 
         return new Response\Response($this->client->put($url, $options), Model\Product::class);
@@ -1086,13 +1086,16 @@ class Insales
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
+     * @throws Exception\InsalesApiException
      */
     public function webhookCreate(Request\WebhookRequest $request)
     {
         $url = '/admin/webhooks.json';
 
-        if (empty($request->webhook->address)) {
-            throw new Exception\InsalesApiException('Требуется указать url');
+        if (empty($request->getWebhook()->getAddress())) {
+            throw new Exception\InsalesApiException(
+                Exception\InsalesApiException::messageParameterNotFound('address')
+            );
         }
 
         $options = ['body' => $this->serializer->serialize(
@@ -1116,7 +1119,7 @@ class Insales
      */
     public function webhookUpdate(Request\WebhookRequest $request)
     {
-        $url = sprintf('/admin/webhooks/%s.json', $request->webhook->id);
+        $url = sprintf('/admin/webhooks/%s.json', $request->getWebhook()->getId());
         $options = ['body' => $this->serializer->serialize($request, 'json')];
 
         return new Response\Response($this->client->put($url, $options), Model\Webhook::class);

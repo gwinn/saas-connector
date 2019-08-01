@@ -14,6 +14,7 @@ namespace SaaS\Service\Insales\Model;
 use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use SaaS\Service\Insales\Model\Traits;
 
 /**
  * Class FieldValue
@@ -28,15 +29,11 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class FieldValue
 {
-    /**
-     * @var int $id
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("id")
-     *
-     * @FakeMockField()
-     */
-    public $id;
+    use Traits\Id;
+    use Traits\CreatedAt;
+    use Traits\UpdatedAt;
+    use Traits\Handle;
+    use Traits\Name;
 
     /**
      * @var int $fieldId
@@ -46,65 +43,73 @@ class FieldValue
      *
      * @FakeMockField()
      */
-    public $fieldId;
+    protected $fieldId;
 
     /**
-     * @var string $createdAt
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("created_at")
-     *
-     * @FakeMockField(faker="dateTime")
-     */
-    public $createdAt;
-
-    /**
-     * @var string $updatedAt
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("updated_at")
-     *
-     * @FakeMockField(faker="dateTime")
-     */
-    public $updatedAt;
-
-    /**
-     * @var string $value
+     * @var string|null $value
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("value")
      *
      * @FakeMockField()
      */
-    public $value;
+    protected $value;
 
     /**
-     * @var string $type
+     * @var string|null $type
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("type")
      *
      * @FakeMockField()
      */
-    public $type;
+    protected $type;
 
     /**
-     * @var string $name
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("name")
-     *
-     * @FakeMockField()
+     * @return int|null
      */
-    public $name;
+    public function getFieldId(): ?int
+    {
+        return $this->fieldId;
+    }
 
     /**
-     * @var string $handle
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("handle")
-     *
-     * @FakeMockField()
+     * @param int $fieldId
      */
-    public $handle;
+    public function setFieldId(int $fieldId): void
+    {
+        $this->fieldId = $fieldId;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getValue(): ?string
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param null|string $value
+     */
+    public function setValue(?string $value): void
+    {
+        $this->value = $value;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param null|string $type
+     */
+    public function setType(?string $type): void
+    {
+        $this->type = $type;
+    }
 }

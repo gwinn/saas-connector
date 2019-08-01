@@ -23,4 +23,8 @@ namespace SaaS\Service\Insales\Exception;
  */
 class InsalesApiException extends \Exception
 {
+    public static function messageParameterNotFound($name)
+    {
+        return sprintf('Parameter `%s` must be set', $name);
+    }
 }

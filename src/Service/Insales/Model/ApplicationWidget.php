@@ -14,6 +14,7 @@ namespace SaaS\Service\Insales\Model;
 use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use SaaS\Service\Insales\Model\Traits;
 
 /**
  * Class ApplicationWidget
@@ -28,37 +29,20 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class ApplicationWidget
 {
-    /**
-     * @var int $id
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("id")
-     *
-     * @FakeMockField()
-     */
-    public $id;
-
-    /**
-     * @var string $createdAt
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("created_at")
-     *
-     * @FakeMockField(faker="dateTime")
-     */
-    public $createdAt;
+    use Traits\Id;
+    use Traits\CreatedAt;
 
     /**
      * Html or javascript code of widget
      *
-     * @var string $code
+     * @var string|null $code
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("code")
      *
      * @FakeMockField()
      */
-    public $code;
+    protected $code;
 
     /**
      * Height of iframe block
@@ -70,17 +54,65 @@ class ApplicationWidget
      *
      * @FakeMockField()
      */
-    public $height;
+    protected $height;
 
     /**
      * Product or order
      *
-     * @var string $pageType
+     * @var string|null $pageType
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("page_type")
      *
      * @FakeMockField(faker="randomElement", arguments={{"order", "product"}})
      */
-    public $pageType;
+    protected $pageType;
+
+    /**
+     * @return null|string
+     */
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param null|string $code
+     */
+    public function setCode(?string $code): void
+    {
+        $this->code = $code;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getHeight(): ?int
+    {
+        return $this->height;
+    }
+
+    /**
+     * @param int $height
+     */
+    public function setHeight(int $height): void
+    {
+        $this->height = $height;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getPageType(): ?string
+    {
+        return $this->pageType;
+    }
+
+    /**
+     * @param null|string $pageType
+     */
+    public function setPageType(?string $pageType): void
+    {
+        $this->pageType = $pageType;
+    }
 }

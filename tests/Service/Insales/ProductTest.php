@@ -39,7 +39,7 @@ class ProductTest extends TestCase
         $response = $apiClient->productsCount();
 
         static::assertResponse($response);
-        static::assertEquals($count, $response->getResponse()->count);
+        static::assertEquals($count, $response->getResponse()->getCount());
     }
 
     public function testProductCreate()
@@ -52,13 +52,9 @@ class ProductTest extends TestCase
         $product = new Insales\Model\Product();
         $fakeMock->fill($product);
 
-        $request = new Insales\Model\Request\ProductRequest();
-        $request->product = $product;
-
-        $response = $apiClient->productCreate($request);
+        $response = $apiClient->productCreate(new Insales\Model\Request\ProductRequest($product));
 
         static::assertResponse($response);
-
         static::assertInstanceOf(Insales\Model\Product::class, $response->getResponse());
     }
 
@@ -71,13 +67,9 @@ class ProductTest extends TestCase
         $product = new Insales\Model\Product();
         $fakeMock->fill($product);
 
-        $request = new Insales\Model\Request\ProductRequest();
-        $request->product = $product;
-
-        $response = $apiClient->productUpdate($request);
+        $response = $apiClient->productUpdate(new Insales\Model\Request\ProductRequest($product));
 
         static::assertResponse($response);
-
         static::assertInstanceOf(Insales\Model\Product::class, $response->getResponse());
     }
 

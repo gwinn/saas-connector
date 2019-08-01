@@ -32,14 +32,9 @@ class ApplicationActionTest extends TestCase
         $fakeMock = new \Er1z\FakeMock\FakeMock();
         $action = new Insales\Model\ApplicationAction();
         $fakeMock->fill($action, 'create');
-
-        $accountRequest = new Insales\Model\Request\ApplicationActionRequest();
-        $accountRequest->applicationAction = $action;
-
-        $response = $apiClient->applicationActionCreate($accountRequest);
+        $response = $apiClient->applicationActionCreate(new Insales\Model\Request\ApplicationActionRequest($action));
 
         static::assertResponse($response);
-
         static::assertInstanceOf(Insales\Model\ApplicationAction::class, $response->getResponse());
     }
 
@@ -52,13 +47,9 @@ class ApplicationActionTest extends TestCase
         $action = new Insales\Model\ApplicationAction();
         $fakeMock->fill($action, 'update');
 
-        $accountRequest = new Insales\Model\Request\ApplicationActionRequest();
-        $accountRequest->applicationAction = $action;
-
-        $response = $apiClient->applicationActionUpdate($accountRequest);
+        $response = $apiClient->applicationActionUpdate(new Insales\Model\Request\ApplicationActionRequest($action));
 
         static::assertResponse($response);
-
         static::assertInstanceOf(Insales\Model\ApplicationAction::class, $response->getResponse());
     }
 
@@ -70,7 +61,6 @@ class ApplicationActionTest extends TestCase
         $response = $apiClient->applicationActionDelete(1);
 
         static::assertResponse($response);
-
         static::assertNull($response->getResponse());
     }
 }

@@ -37,5 +37,35 @@ class ApplicationWidgetRequest
      *
      * @FakeMockField()
      */
-    public $applicationWidget;
+    protected $applicationWidget;
+
+    /**
+     * ApplicationWidgetRequest constructor.
+     *
+     * @param ApplicationWidget|null $applicationWidget
+     */
+    public function __construct(?ApplicationWidget $applicationWidget = null)
+    {
+        if ($applicationWidget === null) {
+            $applicationWidget = new ApplicationWidget();
+        }
+
+        $this->applicationWidget = $applicationWidget;
+    }
+
+    /**
+     * @return ApplicationWidget
+     */
+    public function getApplicationWidget(): ApplicationWidget
+    {
+        return $this->applicationWidget;
+    }
+
+    /**
+     * @param ApplicationWidget $applicationWidget
+     */
+    public function setApplicationWidget(ApplicationWidget $applicationWidget): void
+    {
+        $this->applicationWidget = $applicationWidget;
+    }
 }

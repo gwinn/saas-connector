@@ -33,13 +33,9 @@ class ApplicationWidgetTest extends TestCase
         $widget = new Insales\Model\ApplicationWidget();
         $fakeMock->fill($widget);
 
-        $accountRequest = new Insales\Model\Request\ApplicationWidgetRequest();
-        $accountRequest->applicationWidget = $widget;
-
-        $response = $apiClient->applicationWidgetCreate($accountRequest);
+        $response = $apiClient->applicationWidgetCreate(new Insales\Model\Request\ApplicationWidgetRequest($widget));
 
         static::assertResponse($response);
-
         static::assertInstanceOf(Insales\Model\ApplicationWidget::class, $response->getResponse());
     }
 
@@ -52,13 +48,9 @@ class ApplicationWidgetTest extends TestCase
         $widget = new Insales\Model\ApplicationWidget();
         $fakeMock->fill($widget);
 
-        $accountRequest = new Insales\Model\Request\ApplicationWidgetRequest();
-        $accountRequest->applicationWidget = $widget;
-
-        $response = $apiClient->applicationWidgetUpdate($accountRequest);
+        $response = $apiClient->applicationWidgetUpdate(new Insales\Model\Request\ApplicationWidgetRequest($widget));
 
         static::assertResponse($response);
-
         static::assertInstanceOf(Insales\Model\ApplicationWidget::class, $response->getResponse());
     }
 

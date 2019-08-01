@@ -43,7 +43,7 @@ class ProductsFilterRequest extends FilterRequest
      *
      * @FakeMockField()
      */
-    public $categoryId;
+    protected $categoryId;
 
     /**
      * Site category id
@@ -55,17 +55,65 @@ class ProductsFilterRequest extends FilterRequest
      *
      * @FakeMockField()
      */
-    public $collectionId;
+    protected $collectionId;
 
     /**
      * Get deleted products
      *
-     * @var bool $deleted
+     * @var bool|null $deleted
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("deleted")
      *
      * @FakeMockField()
      */
-    public $deleted;
+    protected $deleted;
+
+    /**
+     * @return int|null
+     */
+    public function getCategoryId(): ?int
+    {
+        return $this->categoryId;
+    }
+
+    /**
+     * @param int $categoryId
+     */
+    public function setCategoryId(int $categoryId): void
+    {
+        $this->categoryId = $categoryId;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getCollectionId(): ?int
+    {
+        return $this->collectionId;
+    }
+
+    /**
+     * @param int $collectionId
+     */
+    public function setCollectionId(int $collectionId): void
+    {
+        $this->collectionId = $collectionId;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleted(): bool
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param bool $deleted
+     */
+    public function setDeleted(bool $deleted): void
+    {
+        $this->deleted = $deleted;
+    }
 }

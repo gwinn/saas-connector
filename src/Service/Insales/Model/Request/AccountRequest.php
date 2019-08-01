@@ -37,5 +37,35 @@ class AccountRequest
      *
      * @FakeMockField()
      */
-    public $account;
+    protected $account;
+
+    /**
+     * AccountRequest constructor.
+     *
+     * @param Account|null $account
+     */
+    public function __construct(?Account $account = null)
+    {
+        if ($account === null) {
+            $account = new Account();
+        }
+
+        $this->account = $account;
+    }
+
+    /**
+     * @return Account
+     */
+    public function getAccount(): Account
+    {
+        return $this->account;
+    }
+
+    /**
+     * @param Account $account
+     */
+    public function setAccount(Account $account): void
+    {
+        $this->account = $account;
+    }
 }

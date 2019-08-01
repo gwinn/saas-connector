@@ -14,6 +14,7 @@ namespace SaaS\Service\Insales\Model;
 use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use SaaS\Service\Insales\Model\Traits;
 
 /**
  * Class VariantField
@@ -28,18 +29,13 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class VariantField
 {
+    use Traits\Id;
+    use Traits\Title;
+    use Traits\Position;
+    use Traits\Handle;
+
     const TEXT_FIELD = 'VariantField::TextField';
     const TEXT_AREA = 'VariantField::TextArea';
-
-    /**
-     * @var int $id
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("id")
-     *
-     * @FakeMockField()
-     */
-    public $id;
 
     /**
      * @var int $applicationId
@@ -52,27 +48,7 @@ class VariantField
     public $applicationId;
 
     /**
-     * @var int $position
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("position")
-     *
-     * @FakeMockField()
-     */
-    public $position;
-
-    /**
-     * @var string $title
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("title")
-     *
-     * @FakeMockField()
-     */
-    public $title;
-
-    /**
-     * @var string $type
+     * @var string|null $type
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("type")
@@ -82,7 +58,7 @@ class VariantField
     public $type;
 
     /**
-     * @var bool $isHidden
+     * @var bool|null $isHidden
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("is_hidden")
@@ -92,12 +68,50 @@ class VariantField
     public $isHidden;
 
     /**
-     * @var string $handle
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("handle")
-     *
-     * @FakeMockField(faker="words", arguments={1, true})
+     * @return int|null
      */
-    public $handle;
+    public function getApplicationId(): ?int
+    {
+        return $this->applicationId;
+    }
+
+    /**
+     * @param int $applicationId
+     */
+    public function setApplicationId(int $applicationId): void
+    {
+        $this->applicationId = $applicationId;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param null|string $type
+     */
+    public function setType(?string $type): void
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getisHidden(): ?bool
+    {
+        return $this->isHidden;
+    }
+
+    /**
+     * @param bool|null $isHidden
+     */
+    public function setIsHidden(?bool $isHidden): void
+    {
+        $this->isHidden = $isHidden;
+    }
 }

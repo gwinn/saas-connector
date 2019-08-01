@@ -28,6 +28,8 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class DeliveryInterval
 {
+    use Traits\Description;
+
     /**
      * @var int $minDays
      *
@@ -36,7 +38,7 @@ class DeliveryInterval
      *
      * @FakeMockField()
      */
-    public $minDays;
+    protected $minDays;
 
     /**
      * @var int $maxDays
@@ -46,15 +48,37 @@ class DeliveryInterval
      *
      * @FakeMockField()
      */
-    public $maxDays;
+    protected $maxDays;
 
     /**
-     * @var string $description
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("description")
-     *
-     * @FakeMockField()
+     * @return int|null
      */
-    public $description;
+    public function getMinDays(): ?int
+    {
+        return $this->minDays;
+    }
+
+    /**
+     * @param int $minDays
+     */
+    public function setMinDays(int $minDays): void
+    {
+        $this->minDays = $minDays;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getMaxDays(): ?int
+    {
+        return $this->maxDays;
+    }
+
+    /**
+     * @param int $maxDays
+     */
+    public function setMaxDays(int $maxDays): void
+    {
+        $this->maxDays = $maxDays;
+    }
 }

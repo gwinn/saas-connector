@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMockField;
 
 /**
- * Trait UpdatedFilter
+ * Trait Title
  *
  * @category Integration
  * @package  SaaS\Service\Insales\Model\Traits
@@ -25,57 +25,31 @@ use Er1z\FakeMock\Annotations\FakeMockField;
  * @link     http://retailcrm.ru
  * @see      https://help.retailcrm.ru
  */
-trait UpdatedFilter
+trait Title
 {
     /**
-     * @var string|null $updatedSince
+     * @var string|null $title
      *
      * @JMS\Type("string")
-     * @JMS\SerializedName("updated_since")
+     * @JMS\SerializedName("title")
      *
      * @FakeMockField()
      */
-    protected $updatedSince;
+    protected $title;
 
     /**
-     * @var int $fromId
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("from_id")
-     *
-     * @FakeMockField()
+     * @param string $title
      */
-    protected $fromId;
-
-    /**
-     * @param string $updatedSince
-     */
-    public function setUpdatedSince(string $updatedSince): void
+    public function setTitle(string $title): void
     {
-        $this->updatedSince = $updatedSince;
+        $this->title = $title;
     }
 
     /**
      * @return string|null
      */
-    public function getUpdatedSince(): ?string
+    public function getTitle(): ?string
     {
-        return $this->updatedSince;
-    }
-
-    /**
-     * @param int $fromId
-     */
-    public function setFromId(int $fromId): void
-    {
-        $this->fromId = $fromId;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getFromId(): ?int
-    {
-        return $this->fromId;
+        return $this->title;
     }
 }

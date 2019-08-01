@@ -43,10 +43,7 @@ class AccountTest extends TestCase
         $account = new Insales\Model\Account();
         $fakeMock->fill($account);
 
-        $request = new Insales\Model\Request\AccountRequest();
-        $request->account = $account;
-
-        $response = $apiClient->accountUpdate($request);
+        $response = $apiClient->accountUpdate(new Insales\Model\Request\AccountRequest($account));
 
         static::assertResponse($response);
 

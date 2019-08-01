@@ -28,6 +28,9 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class DeliveryInfo
 {
+    use Traits\Title;
+    use Traits\Description;
+
     /**
      * @var int $deliveryVariantId
      *
@@ -36,7 +39,7 @@ class DeliveryInfo
      *
      * @FakeMockField()
      */
-    public $deliveryVariantId;
+    protected $deliveryVariantId;
 
     /**
      * @var int $tariffId
@@ -46,27 +49,7 @@ class DeliveryInfo
      *
      * @FakeMockField()
      */
-    public $tariffId;
-
-    /**
-     * @var string $title
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("title")
-     *
-     * @FakeMockField()
-     */
-    public $title;
-
-    /**
-     * @var string $description
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("description")
-     *
-     * @FakeMockField()
-     */
-    public $description;
+    protected $tariffId;
 
     /**
      * @var float $price
@@ -76,17 +59,17 @@ class DeliveryInfo
      *
      * @FakeMockField()
      */
-    public $price;
+    protected $price;
 
     /**
-     * @var string $shippingCompany
+     * @var string|null $shippingCompany
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("shipping_company")
      *
      * @FakeMockField()
      */
-    public $shippingCompany;
+    protected $shippingCompany;
 
     /**
      * @var DeliveryInterval $deliveryInterval
@@ -96,7 +79,7 @@ class DeliveryInfo
      *
      * @FakeMockField()
      */
-    public $deliveryInterval;
+    protected $deliveryInterval;
 
     /**
      * @var Outlet $outlet
@@ -106,21 +89,155 @@ class DeliveryInfo
      *
      * @FakeMockField()
      */
-    public $outlet;
+    protected $outlet;
 
     /**
-     * @var array $errors
+     * @var array|null $errors
      *
      * @JMS\Type("array")
      * @JMS\SerializedName("errors")
      */
-    public $errors = [];
+    protected $errors = [];
 
     /**
-     * @var array $warnings
+     * @var array|null $warnings
      *
      * @JMS\Type("array")
      * @JMS\SerializedName("warnings")
      */
-    public $warnings = [];
+    protected $warnings = [];
+
+    public function __construct()
+    {
+        $this->deliveryInterval = new DeliveryInterval();
+        $this->outlet = new Outlet();
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getDeliveryVariantId(): ?int
+    {
+        return $this->deliveryVariantId;
+    }
+
+    /**
+     * @param int $deliveryVariantId
+     */
+    public function setDeliveryVariantId(int $deliveryVariantId): void
+    {
+        $this->deliveryVariantId = $deliveryVariantId;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getTariffId(): ?int
+    {
+        return $this->tariffId;
+    }
+
+    /**
+     * @param int $tariffId
+     */
+    public function setTariffId(int $tariffId): void
+    {
+        $this->tariffId = $tariffId;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param float $price
+     */
+    public function setPrice(float $price): void
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getShippingCompany(): ?string
+    {
+        return $this->shippingCompany;
+    }
+
+    /**
+     * @param null|string $shippingCompany
+     */
+    public function setShippingCompany(?string $shippingCompany): void
+    {
+        $this->shippingCompany = $shippingCompany;
+    }
+
+    /**
+     * @return DeliveryInterval
+     */
+    public function getDeliveryInterval(): DeliveryInterval
+    {
+        return $this->deliveryInterval;
+    }
+
+    /**
+     * @param DeliveryInterval $deliveryInterval
+     */
+    public function setDeliveryInterval(DeliveryInterval $deliveryInterval): void
+    {
+        $this->deliveryInterval = $deliveryInterval;
+    }
+
+    /**
+     * @return Outlet
+     */
+    public function getOutlet(): Outlet
+    {
+        return $this->outlet;
+    }
+
+    /**
+     * @param Outlet $outlet
+     */
+    public function setOutlet(Outlet $outlet): void
+    {
+        $this->outlet = $outlet;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getErrors(): ?array
+    {
+        return $this->errors;
+    }
+
+    /**
+     * @param array|null $errors
+     */
+    public function setErrors(?array $errors): void
+    {
+        $this->errors = $errors;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getWarnings(): ?array
+    {
+        return $this->warnings;
+    }
+
+    /**
+     * @param array|null $warnings
+     */
+    public function setWarnings(?array $warnings): void
+    {
+        $this->warnings = $warnings;
+    }
 }

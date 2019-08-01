@@ -36,60 +36,140 @@ class OrdersFilterRequest extends FilterRequest
     /**
      * Array of statuses
      *
-     * @var array $fulfillmentStatus
+     * @var array|null $fulfillmentStatus
      *
      * @JMS\Type("array")
      * @JMS\SerializedName("fulfillment_status")
      *
      * @FakeMockField()
      */
-    public $fulfillmentStatus;
+    protected $fulfillmentStatus;
 
     /**
      * Array of delivery variant ids
      *
-     * @var array $deliveryVariant
+     * @var array|null $deliveryVariant
      *
      * @JMS\Type("array")
      * @JMS\SerializedName("delivery_variant")
      *
      * @FakeMockField()
      */
-    public $deliveryVariant;
+    protected $deliveryVariant;
 
     /**
      * Array of payment gateway ids
      *
-     * @var array $paymentGatewayId
+     * @var array|null $paymentGatewayId
      *
      * @JMS\Type("array")
      * @JMS\SerializedName("payment_gateway_id")
      *
      * @FakeMockField()
      */
-    public $paymentGatewayId;
+    protected $paymentGatewayId;
 
     /**
      * Order status, values: open / closed
      *
-     * @var string $status
+     * @var string|null $status
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("status")
      *
      * @FakeMockField()
      */
-    public $status;
+    protected $status;
 
     /**
      * Get deleted orders
      *
-     * @var bool $deleted
+     * @var bool|null $deleted
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("deleted")
      *
      * @FakeMockField()
      */
-    public $deleted;
+    protected $deleted;
+
+    /**
+     * @return array
+     */
+    public function getFulfillmentStatus(): array
+    {
+        return $this->fulfillmentStatus;
+    }
+
+    /**
+     * @param array $fulfillmentStatus
+     */
+    public function setFulfillmentStatus(array $fulfillmentStatus): void
+    {
+        $this->fulfillmentStatus = $fulfillmentStatus;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDeliveryVariant(): array
+    {
+        return $this->deliveryVariant;
+    }
+
+    /**
+     * @param array $deliveryVariant
+     */
+    public function setDeliveryVariant(array $deliveryVariant): void
+    {
+        $this->deliveryVariant = $deliveryVariant;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPaymentGatewayId(): array
+    {
+        return $this->paymentGatewayId;
+    }
+
+    /**
+     * @param array $paymentGatewayId
+     */
+    public function setPaymentGatewayId(array $paymentGatewayId): void
+    {
+        $this->paymentGatewayId = $paymentGatewayId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus(string $status): void
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleted(): bool
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param bool $deleted
+     */
+    public function setDeleted(bool $deleted): void
+    {
+        $this->deleted = $deleted;
+    }
 }

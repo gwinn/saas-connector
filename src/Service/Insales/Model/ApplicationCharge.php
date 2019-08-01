@@ -14,6 +14,7 @@ namespace SaaS\Service\Insales\Model;
 use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use SaaS\Service\Insales\Model\Traits;
 
 /**
  * Class ApplicationCharge
@@ -28,69 +29,32 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class ApplicationCharge
 {
-    /**
-     * @var int $id
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("id")
-     *
-     * @FakeMockField()
-     */
-    public $id;
-
-    /**
-     * Purpose of payment
-     *
-     * @var string $name
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("name")
-     *
-     * @FakeMockField()
-     */
-    public $name;
+    use Traits\Id;
+    use Traits\CreatedAt;
+    use Traits\UpdatedAt;
+    use Traits\Name;
 
     /**
      * Url for notification about payment
      *
-     * @var string $returnUrl
+     * @var string|null $returnUrl
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("return_url")
      *
      * @FakeMockField(faker="url")
      */
-    public $returnUrl;
+    protected $returnUrl;
 
     /**
-     * @var string $confirmationUrl
+     * @var string|null $confirmationUrl
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("confirmation_url")
      *
      * @FakeMockField(faker="url")
      */
-    public $confirmationUrl;
-
-    /**
-     * @var string $createdAt
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("created_at")
-     *
-     * @FakeMockField(faker="dateTime")
-     */
-    public $createdAt;
-
-    /**
-     * @var string $updatedAt
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("updated_at")
-     *
-     * @FakeMockField(faker="dateTime")
-     */
-    public $updatedAt;
+    protected $confirmationUrl;
 
     /**
      * Bill amount
@@ -102,27 +66,107 @@ class ApplicationCharge
      *
      * @FakeMockField()
      */
-    public $price;
+    protected $price;
 
     /**
-     * @var string $status
+     * @var string|null $status
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("status")
      *
      * @FakeMockField(faker="randomElement", arguments={{"declined", "pending"}})
      */
-    public $status;
+    protected $status;
 
     /**
      * Flag for debugging purpose; if true, bill can be confirmed without payment; false by default
      *
-     * @var bool $test
+     * @var bool|null $test
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("test")
      *
      * @FakeMockField(value="true")
      */
-    public $test;
+    protected $test;
+
+    /**
+     * @return null|string
+     */
+    public function getReturnUrl(): ?string
+    {
+        return $this->returnUrl;
+    }
+
+    /**
+     * @param null|string $returnUrl
+     */
+    public function setReturnUrl(?string $returnUrl): void
+    {
+        $this->returnUrl = $returnUrl;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getConfirmationUrl(): ?string
+    {
+        return $this->confirmationUrl;
+    }
+
+    /**
+     * @param null|string $confirmationUrl
+     */
+    public function setConfirmationUrl(?string $confirmationUrl): void
+    {
+        $this->confirmationUrl = $confirmationUrl;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param float $price
+     */
+    public function setPrice(float $price): void
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param null|string $status
+     */
+    public function setStatus(?string $status): void
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getTest(): ?bool
+    {
+        return $this->test;
+    }
+
+    /**
+     * @param bool|null $test
+     */
+    public function setTest(?bool $test): void
+    {
+        $this->test = $test;
+    }
 }

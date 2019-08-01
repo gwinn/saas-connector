@@ -14,6 +14,7 @@ namespace SaaS\Service\Insales\Model;
 use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use SaaS\Service\Insales\Model\Traits;
 
 /**
  * Class Location
@@ -28,273 +29,656 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class Location
 {
-    /**
-     * @var int $id
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("id")
-     *
-     * @FakeMockField()
-     */
-    public $id;
+    use Traits\Id;
+    use Traits\Name;
 
     /**
-     * @var string $country
+     * @var string|null $country
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("country")
      *
      * @FakeMockField()
      */
-    public $country;
+    protected $country;
 
     /**
-     * @var string $city
+     * @var string|null $city
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("city")
      *
      * @FakeMockField()
      */
-    public $city;
+    protected $city;
 
     /**
-     * @var string $cityType
+     * @var string|null $cityType
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("city_type")
      *
      * @FakeMockField()
      */
-    public $cityType;
+    protected $cityType;
 
     /**
-     * @var string $state
+     * @var string|null $state
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("state")
      *
      * @FakeMockField()
      */
-    public $state;
+    protected $state;
 
     /**
-     * @var string $stateType
+     * @var string|null $stateType
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("state_type")
      *
      * @FakeMockField()
      */
-    public $stateType;
+    protected $stateType;
 
     /**
-     * @var string $phone
+     * @var string|null $phone
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("phone")
      *
      * @FakeMockField()
      */
-    public $phone;
+    protected $phone;
 
     /**
-     * @var string $name
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("name")
-     *
-     * @FakeMockField()
-     */
-    public $name;
-
-    /**
-     * @var string $surname
+     * @var string|null $surname
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("surname")
      *
      * @FakeMockField()
      */
-    public $surname;
+    protected $surname;
 
     /**
-     * @var string $middlename
+     * @var string|null $middlename
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("middlename")
      *
      * @FakeMockField()
      */
-    public $middlename;
+    protected $middlename;
 
     /**
-     * @var string $fullName
+     * @var string|null $fullName
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("full_name")
      *
      * @FakeMockField()
      */
-    public $fullName;
+    protected $fullName;
 
     /**
-     * @var string $fullLocalityName
+     * @var string|null $fullLocalityName
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("full_locality_name")
      *
      * @FakeMockField()
      */
-    public $fullLocalityName;
+    protected $fullLocalityName;
 
     /**
-     * @var string $fullDeliveryAddress
+     * @var string|null $fullDeliveryAddress
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("full_delivery_address")
      *
      * @FakeMockField()
      */
-    public $fullDeliveryAddress;
+    protected $fullDeliveryAddress;
 
     /**
-     * @var string $addressForGis
+     * @var string|null $addressForGis
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("address_for_gis")
      *
      * @FakeMockField()
      */
-    public $addressForGis;
+    protected $addressForGis;
 
     /**
-     * @var bool $locationValid
+     * @var bool|null $locationValid
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("location_valid")
      *
      * @FakeMockField()
      */
-    public $locationValid;
+    protected $locationValid;
 
     /**
-     * @var string $address
+     * @var string|null $address
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("address")
      *
      * @FakeMockField()
      */
-    public $address;
+    protected $address;
 
     /**
-     * @var string $zip
+     * @var string|null $zip
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("zip")
      *
      * @FakeMockField()
      */
-    public $zip;
+    protected $zip;
 
     /**
-     * @var string $street
+     * @var string|null $street
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("street")
      *
      * @FakeMockField()
      */
-    public $street;
+    protected $street;
 
     /**
-     * @var string $streetType
+     * @var string|null $streetType
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("street_type")
      *
      * @FakeMockField()
      */
-    public $streetType;
+    protected $streetType;
 
     /**
-     * @var string $area
+     * @var string|null $area
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("area")
      *
      * @FakeMockField()
      */
-    public $area;
+    protected $area;
 
     /**
-     * @var string $areaType
+     * @var string|null $areaType
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("area_type")
      *
      * @FakeMockField()
      */
-    public $areaType;
+    protected $areaType;
 
     /**
-     * @var string $settlement
+     * @var string|null $settlement
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("settlement")
      *
      * @FakeMockField()
      */
-    public $settlement;
+    protected $settlement;
 
     /**
-     * @var string $settlementType
+     * @var string|null $settlementType
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("settlement_type")
      *
      * @FakeMockField()
      */
-    public $settlementType;
+    protected $settlementType;
 
     /**
-     * @var string $house
+     * @var string|null $house
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("house")
      *
      * @FakeMockField()
      */
-    public $house;
+    protected $house;
 
     /**
-     * @var string $flat
+     * @var string|null $flat
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("flat")
      *
      * @FakeMockField()
      */
-    public $flat;
+    protected $flat;
 
     /**
-     * @var bool $isKladr
+     * @var bool|null $isKladr
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("is_kladr")
      *
      * @FakeMockField()
      */
-    public $isKladr;
+    protected $isKladr;
 
     /**
-     * @var string $kladrCode
+     * @var string|null $kladrCode
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("kladr_code")
      *
      * @FakeMockField()
      */
-    public $kladrCode;
+    protected $kladrCode;
+
+    /**
+     * @return null|string
+     */
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param null|string $country
+     */
+    public function setCountry(?string $country): void
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param null|string $city
+     */
+    public function setCity(?string $city): void
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getCityType(): ?string
+    {
+        return $this->cityType;
+    }
+
+    /**
+     * @param null|string $cityType
+     */
+    public function setCityType(?string $cityType): void
+    {
+        $this->cityType = $cityType;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param null|string $state
+     */
+    public function setState(?string $state): void
+    {
+        $this->state = $state;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getStateType(): ?string
+    {
+        return $this->stateType;
+    }
+
+    /**
+     * @param null|string $stateType
+     */
+    public function setStateType(?string $stateType): void
+    {
+        $this->stateType = $stateType;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param null|string $phone
+     */
+    public function setPhone(?string $phone): void
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getSurname(): ?string
+    {
+        return $this->surname;
+    }
+
+    /**
+     * @param null|string $surname
+     */
+    public function setSurname(?string $surname): void
+    {
+        $this->surname = $surname;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getMiddlename(): ?string
+    {
+        return $this->middlename;
+    }
+
+    /**
+     * @param null|string $middlename
+     */
+    public function setMiddlename(?string $middlename): void
+    {
+        $this->middlename = $middlename;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFullName(): ?string
+    {
+        return $this->fullName;
+    }
+
+    /**
+     * @param null|string $fullName
+     */
+    public function setFullName(?string $fullName): void
+    {
+        $this->fullName = $fullName;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFullLocalityName(): ?string
+    {
+        return $this->fullLocalityName;
+    }
+
+    /**
+     * @param null|string $fullLocalityName
+     */
+    public function setFullLocalityName(?string $fullLocalityName): void
+    {
+        $this->fullLocalityName = $fullLocalityName;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFullDeliveryAddress(): ?string
+    {
+        return $this->fullDeliveryAddress;
+    }
+
+    /**
+     * @param null|string $fullDeliveryAddress
+     */
+    public function setFullDeliveryAddress(?string $fullDeliveryAddress): void
+    {
+        $this->fullDeliveryAddress = $fullDeliveryAddress;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getAddressForGis(): ?string
+    {
+        return $this->addressForGis;
+    }
+
+    /**
+     * @param null|string $addressForGis
+     */
+    public function setAddressForGis(?string $addressForGis): void
+    {
+        $this->addressForGis = $addressForGis;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getLocationValid(): ?bool
+    {
+        return $this->locationValid;
+    }
+
+    /**
+     * @param bool|null $locationValid
+     */
+    public function setLocationValid(?bool $locationValid): void
+    {
+        $this->locationValid = $locationValid;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param null|string $address
+     */
+    public function setAddress(?string $address): void
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getZip(): ?string
+    {
+        return $this->zip;
+    }
+
+    /**
+     * @param null|string $zip
+     */
+    public function setZip(?string $zip): void
+    {
+        $this->zip = $zip;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getStreet(): ?string
+    {
+        return $this->street;
+    }
+
+    /**
+     * @param null|string $street
+     */
+    public function setStreet(?string $street): void
+    {
+        $this->street = $street;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getStreetType(): ?string
+    {
+        return $this->streetType;
+    }
+
+    /**
+     * @param null|string $streetType
+     */
+    public function setStreetType(?string $streetType): void
+    {
+        $this->streetType = $streetType;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getArea(): ?string
+    {
+        return $this->area;
+    }
+
+    /**
+     * @param null|string $area
+     */
+    public function setArea(?string $area): void
+    {
+        $this->area = $area;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getAreaType(): ?string
+    {
+        return $this->areaType;
+    }
+
+    /**
+     * @param null|string $areaType
+     */
+    public function setAreaType(?string $areaType): void
+    {
+        $this->areaType = $areaType;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getSettlement(): ?string
+    {
+        return $this->settlement;
+    }
+
+    /**
+     * @param null|string $settlement
+     */
+    public function setSettlement(?string $settlement): void
+    {
+        $this->settlement = $settlement;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getSettlementType(): ?string
+    {
+        return $this->settlementType;
+    }
+
+    /**
+     * @param null|string $settlementType
+     */
+    public function setSettlementType(?string $settlementType): void
+    {
+        $this->settlementType = $settlementType;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getHouse(): ?string
+    {
+        return $this->house;
+    }
+
+    /**
+     * @param null|string $house
+     */
+    public function setHouse(?string $house): void
+    {
+        $this->house = $house;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFlat(): ?string
+    {
+        return $this->flat;
+    }
+
+    /**
+     * @param null|string $flat
+     */
+    public function setFlat(?string $flat): void
+    {
+        $this->flat = $flat;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getisKladr(): ?bool
+    {
+        return $this->isKladr;
+    }
+
+    /**
+     * @param bool|null $isKladr
+     */
+    public function setIsKladr(?bool $isKladr): void
+    {
+        $this->isKladr = $isKladr;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getKladrCode(): ?string
+    {
+        return $this->kladrCode;
+    }
+
+    /**
+     * @param null|string $kladrCode
+     */
+    public function setKladrCode(?string $kladrCode): void
+    {
+        $this->kladrCode = $kladrCode;
+    }
 }

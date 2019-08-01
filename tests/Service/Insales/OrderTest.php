@@ -39,7 +39,7 @@ class OrderTest extends TestCase
         $response = $apiClient->ordersCount();
 
         static::assertResponse($response);
-        static::assertEquals($count, $response->getResponse()->count);
+        static::assertEquals($count, $response->getResponse()->getCount());
     }
 
     public function testOrderCreate()
@@ -52,13 +52,9 @@ class OrderTest extends TestCase
         $order = new Insales\Model\Order();
         $fakeMock->fill($order);
 
-        $request = new Insales\Model\Request\OrderRequest();
-        $request->order = $order;
-
-        $response = $apiClient->orderCreate($request);
+        $response = $apiClient->orderCreate(new Insales\Model\Request\OrderRequest($order));
 
         static::assertResponse($response);
-
         static::assertInstanceOf(Insales\Model\Order::class, $response->getResponse());
     }
 
@@ -71,13 +67,9 @@ class OrderTest extends TestCase
         $order = new Insales\Model\Order();
         $fakeMock->fill($order);
 
-        $request = new Insales\Model\Request\OrderRequest();
-        $request->order = $order;
-
-        $response = $apiClient->orderUpdate($request);
+        $response = $apiClient->orderUpdate(new Insales\Model\Request\OrderRequest($order));
 
         static::assertResponse($response);
-
         static::assertInstanceOf(Insales\Model\Order::class, $response->getResponse());
     }
 

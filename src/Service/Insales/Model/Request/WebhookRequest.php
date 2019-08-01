@@ -38,19 +38,35 @@ class WebhookRequest
      *
      * @FakeMockField()
      */
-    public $webhook;
+    protected $webhook;
 
-    public function __construct($webhook = null)
+    /**
+     * WebhookRequest constructor.
+     *
+     * @param Webhook|null $webhook
+     */
+    public function __construct(?Webhook $webhook = null)
     {
-        $this->setObject(Webhook::class, 'webhook', $webhook);
-    }
-
-    protected function setObject($className, $field, $value = null)
-    {
-        if ($value === null) {
-            $value = new $className();
+        if ($webhook === null) {
+            $webhook = new Webhook();
         }
 
-        $this->$field = $value;
+        $this->webhook = $webhook;
+    }
+
+    /**
+     * @return Webhook
+     */
+    public function getWebhook(): Webhook
+    {
+        return $this->webhook;
+    }
+
+    /**
+     * @param Webhook $webhook
+     */
+    public function setWebhook(Webhook $webhook): void
+    {
+        $this->webhook = $webhook;
     }
 }

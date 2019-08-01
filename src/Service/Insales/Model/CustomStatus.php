@@ -28,83 +28,87 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class CustomStatus
 {
-    /**
-     * @var string $permalink
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("permalink")
-     *
-     * @FakeMockField(faker="words", arguments={1, true})
-     */
-    public $permalink;
+    use Traits\CreatedAt;
+    use Traits\UpdatedAt;
+    use Traits\Title;
+    use Traits\Position;
+    use Traits\Permalink;
 
     /**
-     * @var string $systemStatus
+     * @var string|null $systemStatus
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("system_status")
      *
      * @FakeMockField(faker="words", arguments={1, true})
      */
-    public $systemStatus;
+    protected $systemStatus;
 
     /**
-     * @var string $createdAt
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("created_at")
-     *
-     * @FakeMockField(faker="dateTime")
-     */
-    public $createdAt;
-
-    /**
-     * @var string $updatedAt
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("updated_at")
-     *
-     * @FakeMockField(faker="dateTime")
-     */
-    public $updatedAt;
-
-    /**
-     * @var int $position
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("position")
-     *
-     * @FakeMockField()
-     */
-    public $position;
-
-    /**
-     * @var string $title
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("title")
-     *
-     * @FakeMockField()
-     */
-    public $title;
-
-    /**
-     * @var bool $isDefault
+     * @var bool|null $isDefault
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("is_default")
      *
      * @FakeMockField()
      */
-    public $isDefault;
+    protected $isDefault;
 
     /**
-     * @var string $color
+     * @var string|null $color
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("color")
      *
      * @FakeMockField(faker="hexColor")
      */
-    public $color;
+    protected $color;
+
+    /**
+     * @return null|string
+     */
+    public function getSystemStatus(): ?string
+    {
+        return $this->systemStatus;
+    }
+
+    /**
+     * @param null|string $systemStatus
+     */
+    public function setSystemStatus(?string $systemStatus): void
+    {
+        $this->systemStatus = $systemStatus;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function isDefault(): ?bool
+    {
+        return $this->isDefault;
+    }
+
+    /**
+     * @param bool|null $isDefault
+     */
+    public function setIsDefault(?bool $isDefault): void
+    {
+        $this->isDefault = $isDefault;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    /**
+     * @param null|string $color
+     */
+    public function setColor(?string $color): void
+    {
+        $this->color = $color;
+    }
 }

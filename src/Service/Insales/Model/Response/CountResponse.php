@@ -35,5 +35,21 @@ class CountResponse
      *
      * @FakeMockField()
      */
-    public $count;
+    protected $count;
+
+    /**
+     * @return int|null
+     */
+    public function getCount(): ?int
+    {
+        return $this->count;
+    }
+
+    /**
+     * @param int $count
+     */
+    public function setCount(int $count): void
+    {
+        $this->count = $count;
+    }
 }

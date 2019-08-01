@@ -14,6 +14,7 @@ namespace SaaS\Service\Insales\Model;
 use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use SaaS\Service\Insales\Model\Traits;
 
 /**
  * Class PaymentDeliveryVariant
@@ -28,27 +29,9 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class PaymentDeliveryVariant
 {
-    /**
-     * Only for removal: id of delivery variant and payment gateway binding you want to delete
-     *
-     * @var int $id
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("id")
-     *
-     * @FakeMockField()
-     */
-    public $id;
-
-    /**
-     * @var string $createdAt
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("created_at")
-     *
-     * @FakeMockField(faker="dateTime")
-     */
-    public $createdAt;
+    use Traits\Id;
+    use Traits\CreatedAt;
+    use Traits\Destroy;
 
     /**
      * For creation: id of payment gateway you want to bind with this delivery variant
@@ -73,14 +56,34 @@ class PaymentDeliveryVariant
     public $deliveryVariantId;
 
     /**
-     * Set it 1 to delete this payment variant
-     *
-     * @var int $destroy
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("_destroy")
-     *
-     * @FakeMockField(faker="randomElement", arguments={{1,0}})
+     * @return int|null
      */
-    public $destroy;
+    public function getPaymentGatewayId(): ?int
+    {
+        return $this->paymentGatewayId;
+    }
+
+    /**
+     * @param int $paymentGatewayId
+     */
+    public function setPaymentGatewayId(int $paymentGatewayId): void
+    {
+        $this->paymentGatewayId = $paymentGatewayId;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getDeliveryVariantId(): ?int
+    {
+        return $this->deliveryVariantId;
+    }
+
+    /**
+     * @param int $deliveryVariantId
+     */
+    public function setDeliveryVariantId(int $deliveryVariantId): void
+    {
+        $this->deliveryVariantId = $deliveryVariantId;
+    }
 }

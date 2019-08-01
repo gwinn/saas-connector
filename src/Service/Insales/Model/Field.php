@@ -14,6 +14,7 @@ namespace SaaS\Service\Insales\Model;
 use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use SaaS\Service\Insales\Model\Traits;
 
 /**
  * Class Field
@@ -28,6 +29,13 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class Field
 {
+    use Traits\Id;
+    use Traits\CreatedAt;
+    use Traits\UpdatedAt;
+    use Traits\Title;
+    use Traits\Position;
+    use Traits\Handle;
+
     const TEXT_FIELD = 'Field::TextField';
     const TEXT_AREA = 'Field::TextArea';
     const CHECKBOX = 'Field::Checkbox';
@@ -43,74 +51,24 @@ class Field
     const DESTINY_CLIENT_JURIDICAL = 5;
 
     /**
-     * @var int $id
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("id")
-     *
-     * @FakeMockField()
-     */
-    public $id;
-
-    /**
-     * @var string $createdAt
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("created_at")
-     *
-     * @FakeMockField(faker="dateTime")
-     */
-    public $createdAt;
-
-    /**
-     * @var string $updatedAt
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("updated_at")
-     *
-     * @FakeMockField(faker="dateTime")
-     */
-    public $updatedAt;
-
-    /**
-     * @var int $position
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("position")
-     *
-     * @FakeMockField()
-     */
-    public $position;
-
-    /**
-     * @var string $title
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("title")
-     *
-     * @FakeMockField()
-     */
-    public $title;
-
-    /**
-     * @var string $type
+     * @var string|null $type
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("type")
      *
      * @FakeMockField(faker="randomElement", arguments={{"Field::TextField", "Field::TextArea"}})
      */
-    public $type;
+    protected $type;
 
     /**
-     * @var bool $active
+     * @var bool|null $active
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("active")
      *
      * @FakeMockField()
      */
-    public $active;
+    protected $active;
 
     /**
      * @var int $destiny
@@ -120,37 +78,27 @@ class Field
      *
      * @FakeMockField(faker="numberBetween", arguments={1, 5})
      */
-    public $destiny;
+    protected $destiny;
 
     /**
-     * @var string $systemName
+     * @var string|null $systemName
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("system_name")
      *
      * @FakeMockField(faker="words", arguments={1, true})
      */
-    public $systemName;
+    protected $systemName;
 
     /**
-     * @var string $handle
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("handle")
-     *
-     * @FakeMockField(faker="words", arguments={1, true})
-     */
-    public $handle;
-
-    /**
-     * @var bool $forBuyer
+     * @var bool|null $forBuyer
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("for_buyer")
      *
      * @FakeMockField()
      */
-    public $forBuyer;
+    protected $forBuyer;
 
     /**
      * @var bool|null $hideInBackoffice
@@ -160,7 +108,7 @@ class Field
      *
      * @FakeMockField()
      */
-    public $hideInBackoffice = null;
+    protected $hideInBackoffice = null;
 
     /**
      * @var bool|null $isIndexed
@@ -170,65 +118,271 @@ class Field
      *
      * @FakeMockField()
      */
-    public $isIndexed = null;
+    protected $isIndexed = null;
 
     /**
-     * @var bool $obligatory
+     * @var bool|null $obligatory
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("obligatory")
      *
      * @FakeMockField()
      */
-    public $obligatory;
+    protected $obligatory;
 
     /**
-     * @var bool $showInCheckout
+     * @var bool|null $showInCheckout
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("show_in_checkout")
      *
      * @FakeMockField()
      */
-    public $showInCheckout;
+    protected $showInCheckout;
 
     /**
-     * @var bool $showInResult
+     * @var bool|null $showInResult
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("show_in_result")
      *
      * @FakeMockField()
      */
-    public $showInResult;
+    protected $showInResult;
 
     /**
-     * @var string $officeTitle
+     * @var string|null $officeTitle
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("office_title")
      *
      * @FakeMockField(faker="words", arguments={1, true})
      */
-    public $officeTitle;
+    protected $officeTitle;
 
     /**
-     * @var string $example
+     * @var string|null $example
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("example")
      *
      * @FakeMockField()
      */
-    public $example;
+    protected $example;
 
     /**
      * @var array $fieldOptions
      *
      * @JMS\Type("array<SaaS\Service\Insales\Model\FieldOption>")
      * @JMS\SerializedName("field_options")
-     *
-     * @FakeMockField()
      */
-    public $fieldOptions = [];
+    protected $fieldOptions = [];
+
+    /**
+     * @return null|string
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param null|string $type
+     */
+    public function setType(?string $type): void
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param bool|null $active
+     */
+    public function setActive(?bool $active): void
+    {
+        $this->active = $active;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getDestiny(): ?int
+    {
+        return $this->destiny;
+    }
+
+    /**
+     * @param int $destiny
+     */
+    public function setDestiny(int $destiny): void
+    {
+        $this->destiny = $destiny;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getSystemName(): ?string
+    {
+        return $this->systemName;
+    }
+
+    /**
+     * @param null|string $systemName
+     */
+    public function setSystemName(?string $systemName): void
+    {
+        $this->systemName = $systemName;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getForBuyer(): ?bool
+    {
+        return $this->forBuyer;
+    }
+
+    /**
+     * @param bool|null $forBuyer
+     */
+    public function setForBuyer(?bool $forBuyer): void
+    {
+        $this->forBuyer = $forBuyer;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getHideInBackoffice(): ?bool
+    {
+        return $this->hideInBackoffice;
+    }
+
+    /**
+     * @param bool|null $hideInBackoffice
+     */
+    public function setHideInBackoffice(?bool $hideInBackoffice): void
+    {
+        $this->hideInBackoffice = $hideInBackoffice;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function isIndexed(): ?bool
+    {
+        return $this->isIndexed;
+    }
+
+    /**
+     * @param bool|null $isIndexed
+     */
+    public function setIsIndexed(?bool $isIndexed): void
+    {
+        $this->isIndexed = $isIndexed;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getObligatory(): ?bool
+    {
+        return $this->obligatory;
+    }
+
+    /**
+     * @param bool|null $obligatory
+     */
+    public function setObligatory(?bool $obligatory): void
+    {
+        $this->obligatory = $obligatory;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getShowInCheckout(): ?bool
+    {
+        return $this->showInCheckout;
+    }
+
+    /**
+     * @param bool|null $showInCheckout
+     */
+    public function setShowInCheckout(?bool $showInCheckout): void
+    {
+        $this->showInCheckout = $showInCheckout;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getShowInResult(): ?bool
+    {
+        return $this->showInResult;
+    }
+
+    /**
+     * @param bool|null $showInResult
+     */
+    public function setShowInResult(?bool $showInResult): void
+    {
+        $this->showInResult = $showInResult;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getOfficeTitle(): ?string
+    {
+        return $this->officeTitle;
+    }
+
+    /**
+     * @param null|string $officeTitle
+     */
+    public function setOfficeTitle(?string $officeTitle): void
+    {
+        $this->officeTitle = $officeTitle;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getExample(): ?string
+    {
+        return $this->example;
+    }
+
+    /**
+     * @param null|string $example
+     */
+    public function setExample(?string $example): void
+    {
+        $this->example = $example;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFieldOptions(): array
+    {
+        return $this->fieldOptions;
+    }
+
+    /**
+     * @param array $fieldOptions
+     */
+    public function setFieldOptions(array $fieldOptions): void
+    {
+        $this->fieldOptions = $fieldOptions;
+    }
 }

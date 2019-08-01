@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMockField;
 
 /**
- * Trait PageFilter
+ * Trait Destroy
  *
  * @category Integration
  * @package  SaaS\Service\Insales\Model\Traits
@@ -25,61 +25,33 @@ use Er1z\FakeMock\Annotations\FakeMockField;
  * @link     http://retailcrm.ru
  * @see      https://help.retailcrm.ru
  */
-trait PageFilter
+trait Destroy
 {
     /**
-     * @var int $page
+     *  Destroy marker (1 or true)
+     *
+     * @var int $destroy
      *
      * @JMS\Type("integer")
-     * @JMS\SerializedName("page")
+     * @JMS\SerializedName("_destroy")
      *
-     * @FakeMockField()
+     * @FakeMockField(faker="randomElement", arguments={{1,0}})
      */
-    protected $page;
-
-    /**
-     * @var int $perPage
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("per_page")
-     *
-     * @FakeMockField()
-     */
-    protected $perPage;
-
-    /**
-     * @param int $page
-     */
-    public function setPage(int $page): void
-    {
-        $this->page = $page;
-    }
+    protected $destroy;
 
     /**
      * @return int|null
      */
-    public function getPage(): ?int
+    public function getDestroy(): ?int
     {
-        return $this->page;
+        return $this->destroy;
     }
 
     /**
-     * @param int $perPage
-     *
-     * @return PageFilter
+     * @param int $destroy
      */
-    public function setPerPage(int $perPage): PageFilter
+    public function setDestroy(int $destroy): void
     {
-        $this->perPage = $perPage;
-
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getPerPage(): ?int
-    {
-        return $this->perPage;
+        $this->destroy = $destroy;
     }
 }

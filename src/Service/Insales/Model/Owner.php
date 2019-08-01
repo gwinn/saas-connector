@@ -11,9 +11,8 @@
  */
 namespace SaaS\Service\Insales\Model;
 
-use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
-use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use SaaS\Service\Insales\Model\Traits;
 
 /**
  * Class Owner
@@ -28,43 +27,8 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class Owner
 {
-    /**
-     * @var int $id
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("id")
-     *
-     * @FakeMockField()
-     */
-    public $id;
-
-    /**
-     * @var string $name
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("name")
-     *
-     * @FakeMockField()
-     */
-    public $name;
-
-    /**
-     * @var string $email
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("email")
-     *
-     * @FakeMockField()
-     */
-    public $email;
-
-    /**
-     * @var string $createdAt
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("created_at")
-     *
-     * @FakeMockField(faker="dateTime")
-     */
-    public $createdAt;
+    use Traits\Id;
+    use Traits\CreatedAt;
+    use Traits\Name;
+    use Traits\Email;
 }

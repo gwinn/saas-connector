@@ -14,6 +14,7 @@ namespace SaaS\Service\Insales\Model;
 use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use SaaS\Service\Insales\Model\Traits;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -29,6 +30,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Webhook
 {
+    use Traits\Id;
+    use Traits\CreatedAt;
+
     const FORMAT_TYPE_JSON = 'json';
     const FORMAT_TYPE_XML = 'xml';
 
@@ -36,27 +40,7 @@ class Webhook
     const TOPIC_ORDERS_UPDATE = 'orders/update';
 
     /**
-     * @var int $id
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("id")
-     *
-     * @FakeMockField()
-     */
-    public $id;
-
-    /**
-     * @var string $createdAt
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("created_at")
-     *
-     * @FakeMockField(faker="dateTime")
-     */
-    public $createdAt;
-
-    /**
-     * @var string $address
+     * @var string|null $address
      *
      * @Assert\NotBlank(groups={"create"})
      *
@@ -66,12 +50,12 @@ class Webhook
      *
      * @FakeMockField(faker="url")
      */
-    public $address;
+    protected $address;
 
     /**
      * For now only 'orders/update' and 'orders/create' are available
      *
-     * @var string $topic
+     * @var string|null $topic
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("topic")
@@ -79,12 +63,12 @@ class Webhook
      *
      * @FakeMockField(faker="randomElement", arguments={{"orders/update", "orders/create"}})
      */
-    public $topic;
+    protected $topic;
 
     /**
      * Format of data sent by webhook: 'json' or 'xml'
      *
-     * @var string $formatType
+     * @var string|null $formatType
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("format_type")
@@ -92,5 +76,53 @@ class Webhook
      *
      * @FakeMockField(faker="randomElement", arguments={{"json", "xml"}})
      */
-    public $formatType = self::FORMAT_TYPE_JSON;
+    protected $formatType = self::FORMAT_TYPE_JSON;
+
+    /**
+     * @return null|string
+     */
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param null|string $address
+     */
+    public function setAddress(?string $address): void
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getTopic(): ?string
+    {
+        return $this->topic;
+    }
+
+    /**
+     * @param null|string $topic
+     */
+    public function setTopic(?string $topic): void
+    {
+        $this->topic = $topic;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFormatType(): ?string
+    {
+        return $this->formatType;
+    }
+
+    /**
+     * @param null|string $formatType
+     */
+    public function setFormatType(?string $formatType): void
+    {
+        $this->formatType = $formatType;
+    }
 }

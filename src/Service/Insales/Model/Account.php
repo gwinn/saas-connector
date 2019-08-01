@@ -28,6 +28,11 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class Account
 {
+    use Traits\Id;
+    use Traits\CreatedAt;
+    use Traits\Title;
+    use Traits\Email;
+
     /**
      * @var int $id
      *
@@ -36,47 +41,47 @@ class Account
      *
      * @FakeMockField(value="100049")
      */
-    public $id;
+    protected $id;
 
     /**
-     * @var string $subdomain
+     * @var string|null $subdomain
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("subdomain")
      *
      * @FakeMockField(faker="words", arguments={1, true})
      */
-    public $subdomain;
+    protected $subdomain;
 
     /**
-     * @var string $organization
+     * @var string|null $organization
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("organization")
      *
      * @FakeMockField(faker="title")
      */
-    public $organization;
+    protected $organization;
 
     /**
-     * @var string $contactPhone
+     * @var string|null $contactPhone
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("contact_phone")
      *
      * @FakeMockField(faker="phoneNumber")
      */
-    public $contactPhone;
+    protected $contactPhone;
 
     /**
-     * @var string $notificationEmail
+     * @var string|null $notificationEmail
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("notification_email")
      *
      * @FakeMockField(faker="email")
      */
-    public $notificationEmail;
+    protected $notificationEmail;
 
     /**
      * @var int $inviterId
@@ -86,107 +91,97 @@ class Account
      *
      * @FakeMockField()
      */
-    public $inviterId;
+    protected $inviterId;
 
     /**
-     * @var bool $blocked
+     * @var bool|null $blocked
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("blocked")
      *
      * @FakeMockField(value="false")
      */
-    public $blocked;
+    protected $blocked;
 
     /**
-     * @var string $createdAt
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("created_at")
-     *
-     * @FakeMockField(faker="dateTime")
-     */
-    public $createdAt;
-
-    /**
-     * @var bool $hideItemsOutOfStock
+     * @var bool|null $hideItemsOutOfStock
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("hide_items_out_of_stock")
      *
      * @FakeMockField()
      */
-    public $hideItemsOutOfStock;
+    protected $hideItemsOutOfStock;
 
     /**
-     * @var string $country
+     * @var string|null $country
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("country")
      *
      * @FakeMockField()
      */
-    public $country;
+    protected $country;
 
     /**
-     * @var string $city
+     * @var string|null $city
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("city")
      *
      * @FakeMockField()
      */
-    public $city;
+    protected $city;
 
     /**
-     * @var bool $enableOrderDiscounts
+     * @var bool|null $enableOrderDiscounts
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("enable_order_discounts")
      *
      * @FakeMockField()
      */
-    public $enableOrderDiscounts;
+    protected $enableOrderDiscounts;
 
     /**
-     * @var bool $enableClientDiscounts
+     * @var bool|null $enableClientDiscounts
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("enable_client_discounts")
      *
      * @FakeMockField()
      */
-    public $enableClientDiscounts;
+    protected $enableClientDiscounts;
 
     /**
-     * @var bool $enableGroupDiscounts
+     * @var bool|null $enableGroupDiscounts
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("enable_group_discounts")
      *
      * @FakeMockField()
      */
-    public $enableGroupDiscounts;
+    protected $enableGroupDiscounts;
 
     /**
-     * @var bool $enableCartDiscounts
+     * @var bool|null $enableCartDiscounts
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("enable_cart_discounts")
      *
      * @FakeMockField()
      */
-    public $enableCartDiscounts;
+    protected $enableCartDiscounts;
 
     /**
-     * @var string $state
+     * @var string|null $state
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("state")
      *
      * @FakeMockField()
      */
-    public $state;
+    protected $state;
 
     /**
      * @var int $registrationTypeId
@@ -196,67 +191,47 @@ class Account
      *
      * @FakeMockField()
      */
-    public $registrationTypeId;
+    protected $registrationTypeId;
 
     /**
-     * @var string $paidTill
+     * @var string|null $paidTill
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("paid_till")
      *
      * @FakeMockField(faker="date")
      */
-    public $paidTill;
+    protected $paidTill;
 
     /**
-     * @var string $smsNotificationPhone
+     * @var string|null $smsNotificationPhone
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("sms_notification_phone")
      *
      * @FakeMockField(faker="phoneNumber")
      */
-    public $smsNotificationPhone;
+    protected $smsNotificationPhone;
 
     /**
-     * @var string $email
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("email")
-     *
-     * @FakeMockField(faker="email")
-     */
-    public $email;
-
-    /**
-     * @var string $icq
+     * @var string|null $icq
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("icq")
      *
      * @FakeMockField()
      */
-    public $icq;
+    protected $icq;
 
     /**
-     * @var string $phone
+     * @var string|null $phone
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("phone")
      *
      * @FakeMockField(faker="phoneNumber")
      */
-    public $phone;
-
-    /**
-     * @var string $title
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("title")
-     *
-     * @FakeMockField()
-     */
-    public $title;
+    protected $phone;
 
     /**
      * @var float $minimumItemsPrice
@@ -266,7 +241,7 @@ class Account
      *
      * @FakeMockField()
      */
-    public $minimumItemsPrice;
+    protected $minimumItemsPrice;
 
     /**
      * @var float $stockCurrencyExchangeRate
@@ -276,37 +251,37 @@ class Account
      *
      * @FakeMockField()
      */
-    public $stockCurrencyExchangeRate;
+    protected $stockCurrencyExchangeRate;
 
     /**
-     * @var string $clientCookiesWhitelist
+     * @var string|null $clientCookiesWhitelist
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("client_cookies_whitelist")
      *
      * @FakeMockField()
      */
-    public $clientCookiesWhitelist;
+    protected $clientCookiesWhitelist;
 
     /**
-     * @var string $mainHost
+     * @var string|null $mainHost
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("main_host")
      *
      * @FakeMockField()
      */
-    public $mainHost;
+    protected $mainHost;
 
     /**
-     * @var string $mainHostProtocol
+     * @var string|null $mainHostProtocol
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("main_host_protocol")
      *
      * @FakeMockField(value="https")
      */
-    public $mainHostProtocol;
+    protected $mainHostProtocol;
 
     /**
      * @var int $nextOrderNumber
@@ -316,17 +291,17 @@ class Account
      *
      * @FakeMockField()
      */
-    public $nextOrderNumber;
+    protected $nextOrderNumber;
 
     /**
-     * @var string $timeZone
+     * @var string|null $timeZone
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("time_zone")
      *
      * @FakeMockField(value="Moscow")
      */
-    public $timeZone;
+    protected $timeZone;
 
     /**
      * @var Owner $owner
@@ -336,5 +311,442 @@ class Account
      *
      * @FakeMockField()
      */
-    public $owner;
+    protected $owner;
+
+    public function __construct()
+    {
+        $this->owner = new Owner();
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getSubdomain(): ?string
+    {
+        return $this->subdomain;
+    }
+
+    /**
+     * @param null|string $subdomain
+     */
+    public function setSubdomain(?string $subdomain): void
+    {
+        $this->subdomain = $subdomain;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getOrganization(): ?string
+    {
+        return $this->organization;
+    }
+
+    /**
+     * @param null|string $organization
+     */
+    public function setOrganization(?string $organization): void
+    {
+        $this->organization = $organization;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getContactPhone(): ?string
+    {
+        return $this->contactPhone;
+    }
+
+    /**
+     * @param null|string $contactPhone
+     */
+    public function setContactPhone(?string $contactPhone): void
+    {
+        $this->contactPhone = $contactPhone;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getNotificationEmail(): ?string
+    {
+        return $this->notificationEmail;
+    }
+
+    /**
+     * @param null|string $notificationEmail
+     */
+    public function setNotificationEmail(?string $notificationEmail): void
+    {
+        $this->notificationEmail = $notificationEmail;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getInviterId(): ?int
+    {
+        return $this->inviterId;
+    }
+
+    /**
+     * @param int|null $inviterId
+     */
+    public function setInviterId(?int $inviterId): void
+    {
+        $this->inviterId = $inviterId;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getBlocked(): ?bool
+    {
+        return $this->blocked;
+    }
+
+    /**
+     * @param bool|null $blocked
+     */
+    public function setBlocked(?bool $blocked): void
+    {
+        $this->blocked = $blocked;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getHideItemsOutOfStock(): ?bool
+    {
+        return $this->hideItemsOutOfStock;
+    }
+
+    /**
+     * @param bool|null $hideItemsOutOfStock
+     */
+    public function setHideItemsOutOfStock(?bool $hideItemsOutOfStock): void
+    {
+        $this->hideItemsOutOfStock = $hideItemsOutOfStock;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param null|string $country
+     */
+    public function setCountry(?string $country): void
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param null|string $city
+     */
+    public function setCity(?string $city): void
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getEnableOrderDiscounts(): ?bool
+    {
+        return $this->enableOrderDiscounts;
+    }
+
+    /**
+     * @param bool|null $enableOrderDiscounts
+     */
+    public function setEnableOrderDiscounts(?bool $enableOrderDiscounts): void
+    {
+        $this->enableOrderDiscounts = $enableOrderDiscounts;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getEnableClientDiscounts(): ?bool
+    {
+        return $this->enableClientDiscounts;
+    }
+
+    /**
+     * @param bool|null $enableClientDiscounts
+     */
+    public function setEnableClientDiscounts(?bool $enableClientDiscounts): void
+    {
+        $this->enableClientDiscounts = $enableClientDiscounts;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getEnableGroupDiscounts(): ?bool
+    {
+        return $this->enableGroupDiscounts;
+    }
+
+    /**
+     * @param bool|null $enableGroupDiscounts
+     */
+    public function setEnableGroupDiscounts(?bool $enableGroupDiscounts): void
+    {
+        $this->enableGroupDiscounts = $enableGroupDiscounts;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getEnableCartDiscounts(): ?bool
+    {
+        return $this->enableCartDiscounts;
+    }
+
+    /**
+     * @param bool|null $enableCartDiscounts
+     */
+    public function setEnableCartDiscounts(?bool $enableCartDiscounts): void
+    {
+        $this->enableCartDiscounts = $enableCartDiscounts;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param null|string $state
+     */
+    public function setState(?string $state): void
+    {
+        $this->state = $state;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getRegistrationTypeId(): ?int
+    {
+        return $this->registrationTypeId;
+    }
+
+    /**
+     * @param int|null $registrationTypeId
+     */
+    public function setRegistrationTypeId(?int $registrationTypeId): void
+    {
+        $this->registrationTypeId = $registrationTypeId;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getPaidTill(): ?string
+    {
+        return $this->paidTill;
+    }
+
+    /**
+     * @param null|string $paidTill
+     */
+    public function setPaidTill(?string $paidTill): void
+    {
+        $this->paidTill = $paidTill;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getSmsNotificationPhone(): ?string
+    {
+        return $this->smsNotificationPhone;
+    }
+
+    /**
+     * @param null|string $smsNotificationPhone
+     */
+    public function setSmsNotificationPhone(?string $smsNotificationPhone): void
+    {
+        $this->smsNotificationPhone = $smsNotificationPhone;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getIcq(): ?string
+    {
+        return $this->icq;
+    }
+
+    /**
+     * @param null|string $icq
+     */
+    public function setIcq(?string $icq): void
+    {
+        $this->icq = $icq;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param null|string $phone
+     */
+    public function setPhone(?string $phone): void
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getMinimumItemsPrice(): ?float
+    {
+        return $this->minimumItemsPrice;
+    }
+
+    /**
+     * @param float|null $minimumItemsPrice
+     */
+    public function setMinimumItemsPrice(?float $minimumItemsPrice): void
+    {
+        $this->minimumItemsPrice = $minimumItemsPrice;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getStockCurrencyExchangeRate(): ?float
+    {
+        return $this->stockCurrencyExchangeRate;
+    }
+
+    /**
+     * @param float|null $stockCurrencyExchangeRate
+     */
+    public function setStockCurrencyExchangeRate(?float $stockCurrencyExchangeRate): void
+    {
+        $this->stockCurrencyExchangeRate = $stockCurrencyExchangeRate;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getClientCookiesWhitelist(): ?string
+    {
+        return $this->clientCookiesWhitelist;
+    }
+
+    /**
+     * @param null|string $clientCookiesWhitelist
+     */
+    public function setClientCookiesWhitelist(?string $clientCookiesWhitelist): void
+    {
+        $this->clientCookiesWhitelist = $clientCookiesWhitelist;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getMainHost(): ?string
+    {
+        return $this->mainHost;
+    }
+
+    /**
+     * @param null|string $mainHost
+     */
+    public function setMainHost(?string $mainHost): void
+    {
+        $this->mainHost = $mainHost;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getMainHostProtocol(): ?string
+    {
+        return $this->mainHostProtocol;
+    }
+
+    /**
+     * @param null|string $mainHostProtocol
+     */
+    public function setMainHostProtocol(?string $mainHostProtocol): void
+    {
+        $this->mainHostProtocol = $mainHostProtocol;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getNextOrderNumber(): ?int
+    {
+        return $this->nextOrderNumber;
+    }
+
+    /**
+     * @param int|null $nextOrderNumber
+     */
+    public function setNextOrderNumber(?int $nextOrderNumber): void
+    {
+        $this->nextOrderNumber = $nextOrderNumber;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getTimeZone(): ?string
+    {
+        return $this->timeZone;
+    }
+
+    /**
+     * @param null|string $timeZone
+     */
+    public function setTimeZone(?string $timeZone): void
+    {
+        $this->timeZone = $timeZone;
+    }
+
+    /**
+     * @return Owner|null
+     */
+    public function getOwner(): ?Owner
+    {
+        return $this->owner;
+    }
+
+    /**
+     * @param Owner $owner
+     */
+    public function setOwner(Owner $owner): void
+    {
+        $this->owner = $owner;
+    }
 }
