@@ -55,7 +55,13 @@ abstract class Response implements ResponseInterface
      */
     protected $responseRaw;
 
-    abstract protected function serializeResponse($raw, $className);
+    /**
+     * @param string $raw
+     * @param string $className
+     *
+     * @return mixed
+     */
+    abstract protected function serializeResponse(string $raw, string $className);
 
     /**
      * Response constructor.

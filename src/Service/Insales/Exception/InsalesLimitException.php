@@ -12,6 +12,8 @@
  */
 namespace SaaS\Service\Insales\Exception;
 
+use SaaS\Exception\ApiException;
+
 /**
  * Class InsalesLimitException
  *
@@ -21,7 +23,7 @@ namespace SaaS\Service\Insales\Exception;
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     http://github.com/gwinn/saas-connector
  */
-class InsalesLimitException extends \Exception
+class InsalesLimitException extends ApiException
 {
     protected $retryAfter;
     protected $apiUsageLimit;
