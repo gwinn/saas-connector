@@ -38,7 +38,7 @@ class Response extends \SaaS\Model\Response\Response implements ResponseInterfac
      * Response constructor.
      *
      * @param ResponseInterface $response
-     * @param                   $className
+     * @param string            $className
      *
      * @throws InsalesLimitException
      */
@@ -71,7 +71,7 @@ class Response extends \SaaS\Model\Response\Response implements ResponseInterfac
                 'API-Usage-Limit' => $apiUsageLimit
             ];
 
-            $limit = new InsalesLimitException(json_encode($message), $response->getStatusCode());
+            $limit = new InsalesLimitException((string) json_encode($message), $response->getStatusCode());
             $limit->setRetryAfter($retryAfter);
             $limit->setApiUsageLimit($apiUsageLimit);
 

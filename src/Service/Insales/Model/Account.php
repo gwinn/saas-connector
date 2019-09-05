@@ -84,12 +84,12 @@ class Account
     protected $notificationEmail;
 
     /**
-     * @var int $inviterId
+     * @var int|null $inviterId
      *
      * @JMS\Type("integer")
      * @JMS\SerializedName("inviter_id")
      *
-     * @FakeMockField()
+     * @FakeMockField(faker="randomNumber")
      */
     protected $inviterId;
 
@@ -184,12 +184,12 @@ class Account
     protected $state;
 
     /**
-     * @var int $registrationTypeId
+     * @var int|null $registrationTypeId
      *
      * @JMS\Type("integer")
      * @JMS\SerializedName("registration_type_id")
      *
-     * @FakeMockField()
+     * @FakeMockField(faker="randomNumber")
      */
     protected $registrationTypeId;
 
@@ -234,22 +234,22 @@ class Account
     protected $phone;
 
     /**
-     * @var float $minimumItemsPrice
+     * @var float|null $minimumItemsPrice
      *
      * @JMS\Type("float")
      * @JMS\SerializedName("minimum_items_price")
      *
-     * @FakeMockField()
+     * @FakeMockField(faker="randomFloat")
      */
     protected $minimumItemsPrice;
 
     /**
-     * @var float $stockCurrencyExchangeRate
+     * @var float|null $stockCurrencyExchangeRate
      *
      * @JMS\Type("float")
      * @JMS\SerializedName("stock_currency_exchange_rate")
      *
-     * @FakeMockField()
+     * @FakeMockField(faker="randomFloat")
      */
     protected $stockCurrencyExchangeRate;
 
@@ -284,12 +284,12 @@ class Account
     protected $mainHostProtocol;
 
     /**
-     * @var int $nextOrderNumber
+     * @var int|null $nextOrderNumber
      *
      * @JMS\Type("integer")
      * @JMS\SerializedName("next_order_number")
      *
-     * @FakeMockField()
+     * @FakeMockField(faker="randomNumber")
      */
     protected $nextOrderNumber;
 

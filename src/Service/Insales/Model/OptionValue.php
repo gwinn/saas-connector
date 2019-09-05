@@ -34,12 +34,12 @@ class OptionValue
     use Traits\Position;
 
     /**
-     * @var int $optionNameId
+     * @var int|null $optionNameId
      *
      * @JMS\Type("integer")
      * @JMS\SerializedName("option_name_id")
      *
-     * @FakeMockField()
+     * @FakeMockField(faker="randomNumber")
      */
     protected $optionNameId;
 

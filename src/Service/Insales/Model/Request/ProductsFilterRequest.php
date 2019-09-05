@@ -102,9 +102,9 @@ class ProductsFilterRequest extends FilterRequest
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function isDeleted(): bool
+    public function isDeleted(): ?bool
     {
         return $this->deleted;
     }

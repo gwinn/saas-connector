@@ -65,14 +65,10 @@ trait PageFilter
 
     /**
      * @param int $perPage
-     *
-     * @return PageFilter
      */
-    public function setPerPage(int $perPage): PageFilter
+    public function setPerPage(int $perPage): void
     {
         $this->perPage = $perPage;
-
-        return $this;
     }
 
     /**

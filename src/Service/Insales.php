@@ -137,7 +137,7 @@ class Insales
      * @link    http://api.insales.ru/?doc_format=JSON#applicationaction-get-application-actions-json
      * @group   application_actions
      *
-     * @param $actionId
+     * @param int $actionId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -189,15 +189,15 @@ class Insales
      * Delete application action
      *
      * @link  http://api.insales.ru/?doc_format=JSON#applicationaction-destroy-application-action-json
-     * @param $action
+     * @param int $actionId
      * @group application_actions
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
      */
-    public function applicationActionDelete($action)
+    public function applicationActionDelete($actionId)
     {
-        $url = sprintf('/admin/application_actions/%s.json', $action);
+        $url = sprintf('/admin/application_actions/%s.json', $actionId);
 
         return new Response\Response($this->client->delete($url), Response\StatusResponse::class);
     }
@@ -224,10 +224,10 @@ class Insales
     /**
      * Get application charge
      *
-     * @link    http://api.insales.ru/?doc_format=JSON#applicationaction-get-application-actions-json
-     * @group   application_charges
+     * @link   http://api.insales.ru/?doc_format=JSON#applicationaction-get-application-actions-json
+     * @group  application_charges
      *
-     * @param $chargeId
+     * @param  int $chargeId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -279,15 +279,15 @@ class Insales
      * Delete application charge
      *
      * @link  http://api.insales.ru/?doc_format=JSON#applicationaction-destroy-application-action-json
-     * @param $action
+     * @param int $chargeId
      * @group application_charges
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
      */
-    public function applicationChargeDecline($action)
+    public function applicationChargeDecline($chargeId)
     {
-        $url = sprintf('/admin/application_charges/%s.json', $action);
+        $url = sprintf('/admin/application_charges/%s.json', $chargeId);
 
         return new Response\Response($this->client->post($url), Model\ApplicationCharge::class);
     }
@@ -317,7 +317,7 @@ class Insales
      * @link    http://api.insales.ru/?doc_format=JSON#applicationwidget-get-application-widget-json
      * @group   application_widgets
      *
-     * @param $widgetId
+     * @param int $widgetId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -369,15 +369,15 @@ class Insales
      * Delete application widget
      *
      * @link  http://api.insales.ru/?doc_format=JSON#applicationwidget-destroy-application-widget-json
-     * @param $widget
+     * @param int $widgetId
      * @group application_widgets
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
      */
-    public function applicationWidgetDelete($widget)
+    public function applicationWidgetDelete($widgetId)
     {
-        $url = sprintf('/admin/application_widgets/%s.json', $widget);
+        $url = sprintf('/admin/application_widgets/%s.json', $widgetId);
 
         return new Response\Response($this->client->delete($url), Response\StatusResponse::class);
     }
@@ -407,7 +407,7 @@ class Insales
      * @link    http://api.insales.ru/?doc_format=JSON#category-get-category-json
      * @group   categories
      *
-     * @param $categoryId
+     * @param int $categoryId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -473,7 +473,7 @@ class Insales
      * @link    http://api.insales.ru/?doc_format=JSON#client-get-client-json
      * @group   clients
      *
-     * @param $clientId
+     * @param int $clientId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -526,7 +526,7 @@ class Insales
      * Delete client
      *
      * @link  http://api.insales.ru/?doc_format=JSON#client-destroy-client-json
-     * @param $clientId
+     * @param int $clientId
      * @group clients
      *
      * @return Response\Response
@@ -564,7 +564,7 @@ class Insales
      * @link    http://api.insales.ru/?doc_format=JSON#customstatus-get-custom-status-json
      * @group   custom_statuses
      *
-     * @param $permalink
+     * @param string $permalink
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -601,7 +601,7 @@ class Insales
      * @link    http://api.insales.ru/?doc_format=JSON#deliveryvariant-get-delivery-variant-json
      * @group   delivery_variants
      *
-     * @param $deliveryVariantId
+     * @param int $deliveryVariantId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -638,7 +638,7 @@ class Insales
      * @link    http://api.insales.ru/?doc_format=JSON#domain-get-domain-json
      * @group   domains
      *
-     * @param $domainId
+     * @param int $domainId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -675,7 +675,7 @@ class Insales
      * @link    http://api.insales.ru/?doc_format=JSON#field-get-field-json
      * @group   fields
      *
-     * @param $fieldId
+     * @param int $fieldId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -742,7 +742,7 @@ class Insales
      * @link    http://api.insales.ru/?doc_format=JSON#order-get-order-json
      * @group   orders
      *
-     * @param $orderId
+     * @param int $orderId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -795,7 +795,7 @@ class Insales
      * Delete order
      *
      * @link  http://api.insales.ru/?doc_format=JSON#order-destroy-order-json
-     * @param $orderId
+     * @param int $orderId
      * @group orders
      *
      * @return Response\Response
@@ -833,7 +833,7 @@ class Insales
      * @link    http://api.insales.ru/?doc_format=JSON#paymentgateway-get-payment-gateway-json
      * @group   payment_gateways
      *
-     * @param $paymentGatewayId
+     * @param int $paymentGatewayId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -900,7 +900,7 @@ class Insales
      * @link    http://api.insales.ru/?doc_format=JSON#product-get-product-json
      * @group   products
      *
-     * @param $productId
+     * @param int $productId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -953,7 +953,7 @@ class Insales
      * Delete product
      *
      * @link  http://api.insales.ru/?doc_format=JSON#product-destroy-product-json
-     * @param $productId
+     * @param int $productId
      * @group products
      *
      * @return Response\Response
@@ -991,7 +991,7 @@ class Insales
      * @link    http://api.insales.ru/?doc_format=JSON#stock-currency-get-stock-currency-json
      * @group   stock_currencies
      *
-     * @param $stockCurrencyId
+     * @param int $stockCurrencyId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -1028,7 +1028,7 @@ class Insales
      * @link    http://api.insales.ru/?doc_format=JSON#variantfield-get-variant-field-json
      * @group   variant_fields
      *
-     * @param $variantFieldId
+     * @param int $variantFieldId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -1065,7 +1065,7 @@ class Insales
      * @link    http://api.insales.ru/?doc_format=JSON#webhook-get-webhook-json
      * @group   webhooks
      *
-     * @param $webhookId
+     * @param int $webhookId
      *
      * @return Response\Response
      * @throws Exception\InsalesLimitException
@@ -1129,7 +1129,7 @@ class Insales
      * Delete webhook
      *
      * @link  http://api.insales.ru/?doc_format=JSON#webhook-destroy-webhook-json
-     * @param $webhookId
+     * @param int $webhookId
      * @group webhooks
      *
      * @return Response\Response

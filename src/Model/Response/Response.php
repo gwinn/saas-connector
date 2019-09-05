@@ -61,7 +61,7 @@ abstract class Response implements ResponseInterface
      * Response constructor.
      *
      * @param ResponseInterface $response
-     * @param                   $className
+     * @param string            $className
      */
     public function __construct(ResponseInterface $response, $className)
     {

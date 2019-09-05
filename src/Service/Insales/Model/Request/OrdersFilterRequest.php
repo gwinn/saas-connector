@@ -94,9 +94,9 @@ class OrdersFilterRequest extends FilterRequest
     protected $deleted;
 
     /**
-     * @return array
+     * @return array|null
      */
-    public function getFulfillmentStatus(): array
+    public function getFulfillmentStatus(): ?array
     {
         return $this->fulfillmentStatus;
     }
@@ -110,9 +110,9 @@ class OrdersFilterRequest extends FilterRequest
     }
 
     /**
-     * @return array
+     * @return array|null
      */
-    public function getDeliveryVariant(): array
+    public function getDeliveryVariant(): ?array
     {
         return $this->deliveryVariant;
     }
@@ -126,9 +126,9 @@ class OrdersFilterRequest extends FilterRequest
     }
 
     /**
-     * @return array
+     * @return array|null
      */
-    public function getPaymentGatewayId(): array
+    public function getPaymentGatewayId(): ?array
     {
         return $this->paymentGatewayId;
     }
@@ -142,9 +142,9 @@ class OrdersFilterRequest extends FilterRequest
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStatus(): string
+    public function getStatus(): ?string
     {
         return $this->status;
     }
@@ -158,9 +158,9 @@ class OrdersFilterRequest extends FilterRequest
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function isDeleted(): bool
+    public function isDeleted(): ?bool
     {
         return $this->deleted;
     }

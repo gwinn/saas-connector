@@ -42,7 +42,7 @@ class ProductRequest
     /**
      * ProductRequest constructor.
      *
-     * @param $product
+     * @param Product|null $product
      */
     public function __construct(?Product $product = null)
     {

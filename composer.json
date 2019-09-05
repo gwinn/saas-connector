@@ -46,6 +46,12 @@
             "SaaS\\Tests\\": "tests/"
         }
     },
+
+    "scripts": {
+        "phpstan": [
+            "@php vendor/bin/phpstan analyse -c phpstan.neon"
+        ]
+    },
     "minimum-stability": "stable",
     "config": {
         "process-timeout": 600
