@@ -14,6 +14,7 @@ namespace SaaS\Service\Insales\Model;
 use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use SaaS\Service\Insales\Model\Traits;
 
 /**
  * Class OptionValue
@@ -28,43 +29,33 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class OptionValue
 {
+    use Traits\Id;
+    use Traits\Title;
+    use Traits\Position;
+
     /**
-     * @var int $id
+     * @var int|null $optionNameId
      *
      * @JMS\Type("integer")
-     * @JMS\SerializedName("id")
-     *
-     * @FakeMockField()
-     */
-    public $id;
-
-    /**
-     * @var int $position
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("position")
-     *
-     * @FakeMockField()
-     */
-    public $position;
-
-    /**
-     * @var string $title
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("title")
-     *
-     * @FakeMockField()
-     */
-    public $title;
-
-    /**
-     * @var string $optionNameId
-     *
-     * @JMS\Type("string")
      * @JMS\SerializedName("option_name_id")
      *
-     * @FakeMockField()
+     * @FakeMockField(faker="randomNumber")
      */
-    public $optionNameId;
+    protected $optionNameId;
+
+    /**
+     * @return int|null
+     */
+    public function getOptionNameId(): ?int
+    {
+        return $this->optionNameId;
+    }
+
+    /**
+     * @param int|null $optionNameId
+     */
+    public function setOptionNameId(?int $optionNameId): void
+    {
+        $this->optionNameId = $optionNameId;
+    }
 }

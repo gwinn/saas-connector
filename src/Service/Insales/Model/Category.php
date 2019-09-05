@@ -14,6 +14,7 @@ namespace SaaS\Service\Insales\Model;
 use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use SaaS\Service\Insales\Model\Traits;
 
 /**
  * Class Category
@@ -28,15 +29,11 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class Category
 {
-    /**
-     * @var int $id
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("id")
-     *
-     * @FakeMockField()
-     */
-    public $id;
+    use Traits\Id;
+    use Traits\CreatedAt;
+    use Traits\UpdatedAt;
+    use Traits\Title;
+    use Traits\Position;
 
     /**
      * Parent category id
@@ -48,47 +45,21 @@ class Category
      *
      * @FakeMockField()
      */
-    public $parentId;
+    protected $parentId;
 
     /**
-     * @var string $createdAt
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("created_at")
-     *
-     * @FakeMockField(faker="dateTime")
+     * @return int|null
      */
-    public $createdAt;
+    public function getParentId(): ?int
+    {
+        return $this->parentId;
+    }
 
     /**
-     * @var string $updatedAt
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("updated_at")
-     *
-     * @FakeMockField(faker="dateTime")
+     * @param int $parentId
      */
-    public $updatedAt;
-
-    /**
-     * Position in categories list
-     *
-     * @var int $position
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("position")
-     *
-     * @FakeMockField()
-     */
-    public $position;
-
-    /**
-     * @var string $title
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("title")
-     *
-     * @FakeMockField()
-     */
-    public $title;
+    public function setParentId(int $parentId): void
+    {
+        $this->parentId = $parentId;
+    }
 }

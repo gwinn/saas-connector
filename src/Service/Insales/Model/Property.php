@@ -14,6 +14,7 @@ namespace SaaS\Service\Insales\Model;
 use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use SaaS\Service\Insales\Model\Traits;
 
 /**
  * Class Property
@@ -28,48 +29,13 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class Property
 {
-    /**
-     * @var int $id
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("id")
-     *
-     * @FakeMockField()
-     */
-    public $id;
+    use Traits\Id;
+    use Traits\Title;
+    use Traits\Position;
+    use Traits\Permalink;
 
     /**
-     * @var int $position
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("position")
-     *
-     * @FakeMockField()
-     */
-    public $position;
-
-    /**
-     * @var string $title
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("title")
-     *
-     * @FakeMockField()
-     */
-    public $title;
-
-    /**
-     * @var string $permalink
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("permalink")
-     *
-     * @FakeMockField(faker="words", arguments={1, true})
-     */
-    public $permalink;
-
-    /**
-     * @var bool $backoffice
+     * @var bool|null $backoffice
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("backoffice")
@@ -79,7 +45,7 @@ class Property
     public $backoffice;
 
     /**
-     * @var bool $isHidden
+     * @var bool|null $isHidden
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("is_hidden")
@@ -89,7 +55,7 @@ class Property
     public $isHidden;
 
     /**
-     * @var bool $isNavigational
+     * @var bool|null $isNavigational
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("is_navigational")
@@ -97,4 +63,52 @@ class Property
      * @FakeMockField()
      */
     public $isNavigational;
+
+    /**
+     * @return bool|null
+     */
+    public function getBackoffice(): ?bool
+    {
+        return $this->backoffice;
+    }
+
+    /**
+     * @param bool|null $backoffice
+     */
+    public function setBackoffice(?bool $backoffice): void
+    {
+        $this->backoffice = $backoffice;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getisHidden(): ?bool
+    {
+        return $this->isHidden;
+    }
+
+    /**
+     * @param bool|null $isHidden
+     */
+    public function setIsHidden(?bool $isHidden): void
+    {
+        $this->isHidden = $isHidden;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getisNavigational(): ?bool
+    {
+        return $this->isNavigational;
+    }
+
+    /**
+     * @param bool|null $isNavigational
+     */
+    public function setIsNavigational(?bool $isNavigational): void
+    {
+        $this->isNavigational = $isNavigational;
+    }
 }

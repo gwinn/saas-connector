@@ -14,6 +14,7 @@ namespace SaaS\Service\Insales\Model;
 use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use SaaS\Service\Insales\Model\Traits;
 
 /**
  * Class Rule
@@ -28,15 +29,7 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class Rule
 {
-    /**
-     * @var int $id
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("id")
-     *
-     * @FakeMockField()
-     */
-    public $id;
+    use Traits\Id;
 
     /**
      * @var float $orderPrice
@@ -67,4 +60,52 @@ class Rule
      * @FakeMockField()
      */
     public $orderWeight;
+
+    /**
+     * @return float|null
+     */
+    public function getOrderPrice(): ?float
+    {
+        return $this->orderPrice;
+    }
+
+    /**
+     * @param float $orderPrice
+     */
+    public function setOrderPrice(float $orderPrice): void
+    {
+        $this->orderPrice = $orderPrice;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param float $price
+     */
+    public function setPrice(float $price): void
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getOrderWeight(): ?float
+    {
+        return $this->orderWeight;
+    }
+
+    /**
+     * @param float $orderWeight
+     */
+    public function setOrderWeight(float $orderWeight): void
+    {
+        $this->orderWeight = $orderWeight;
+    }
 }

@@ -37,5 +37,35 @@ class ApplicationActionRequest
      *
      * @FakeMockField()
      */
-    public $applicationAction;
+    protected $applicationAction;
+
+    /**
+     * ApplicationActionRequest constructor.
+     *
+     * @param ApplicationAction|null $applicationAction
+     */
+    public function __construct(?ApplicationAction $applicationAction = null)
+    {
+        if ($applicationAction === null) {
+            $applicationAction = new ApplicationAction();
+        }
+
+        $this->applicationAction = $applicationAction;
+    }
+
+    /**
+     * @return ApplicationAction
+     */
+    public function getApplicationAction(): ApplicationAction
+    {
+        return $this->applicationAction;
+    }
+
+    /**
+     * @param ApplicationAction $applicationAction
+     */
+    public function setApplicationAction(ApplicationAction $applicationAction): void
+    {
+        $this->applicationAction = $applicationAction;
+    }
 }

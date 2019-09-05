@@ -37,5 +37,35 @@ class ClientRequest
      *
      * @FakeMockField()
      */
-    public $client;
+    protected $client;
+
+    /**
+     * ClientRequest constructor.
+     *
+     * @param Client|null $client
+     */
+    public function __construct(?Client $client = null)
+    {
+        if ($client === null) {
+            $client = new Client();
+        }
+
+        $this->client = $client;
+    }
+
+    /**
+     * @return Client
+     */
+    public function getClient(): Client
+    {
+        return $this->client;
+    }
+
+    /**
+     * @param Client $client
+     */
+    public function setClient(Client $client): void
+    {
+        $this->client = $client;
+    }
 }

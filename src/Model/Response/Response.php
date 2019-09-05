@@ -16,7 +16,8 @@ use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerBuilder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
-use SaaS\Service\Insales\Exception\InsalesLimitException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Validator\ValidatorBuilder;
 
 /**
  * Class Response
@@ -35,6 +36,9 @@ abstract class Response implements ResponseInterface
 
     /* @var Serializer $serializer */
     protected $serializer;
+
+    /* @var ValidatorInterface $validator */
+    protected $validator;
 
     /**
      * @var int $statusCode
@@ -58,12 +62,9 @@ abstract class Response implements ResponseInterface
      *
      * @param ResponseInterface $response
      * @param string            $className
-     *
-     * @throws InsalesLimitException
      */
     public function __construct(ResponseInterface $response, $className)
     {
-        $this->checkLimitException($response);
         $this->guzzleResponse = $response;
 
         $this->serializer = SerializerBuilder::create()->setPropertyNamingStrategy(
@@ -72,6 +73,8 @@ abstract class Response implements ResponseInterface
             )
         )->build();
 
+        $validator = new ValidatorBuilder();
+        $this->validator = $validator->getValidator();
         $this->statusCode = $response->getStatusCode();
         $this->responseRaw = $response->getBody()->getContents();
         $this->response = $this->serializeResponse($this->responseRaw, $className);
@@ -285,32 +288,12 @@ abstract class Response implements ResponseInterface
     }
 
     /**
-     * @param ResponseInterface $response
+     * HTTP request was successful
      *
-     * @throws InsalesLimitException
+     * @return bool
      */
-    protected function checkLimitException(ResponseInterface $response): void
+    public function isSuccessful()
     {
-        if ($response->getStatusCode() == 503
-            && $response->hasHeader('Retry-After')
-        ) {
-            $retryAfter = current($response->getHeader('Retry-After'));
-
-            $apiUsageLimit = $response->hasHeader('API-Usage-Limit')
-                ? current($response->getHeader('API-Usage-Limit'))
-                : null;
-
-            $message = [
-                'message' => 'Requested API limit exceeded',
-                'Retry-After' => $retryAfter,
-                'API-Usage-Limit' => $apiUsageLimit
-            ];
-
-            $limit = new InsalesLimitException((string)json_encode($message), $response->getStatusCode());
-            $limit->setRetryAfter($retryAfter);
-            $limit->setApiUsageLimit($apiUsageLimit);
-
-            throw $limit;
-        }
+        return $this->statusCode < 400;
     }
 }

@@ -37,5 +37,35 @@ class ProductRequest
      *
      * @FakeMockField()
      */
-    public $product;
+    protected $product;
+
+    /**
+     * ProductRequest constructor.
+     *
+     * @param Product|null $product
+     */
+    public function __construct(?Product $product = null)
+    {
+        if ($product === null) {
+            $product = new Product();
+        }
+
+        $this->product = $product;
+    }
+
+    /**
+     * @return Product
+     */
+    public function getProduct(): Product
+    {
+        return $this->product;
+    }
+
+    /**
+     * @param Product $product
+     */
+    public function setProduct(Product $product): void
+    {
+        $this->product = $product;
+    }
 }

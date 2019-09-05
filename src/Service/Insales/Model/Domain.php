@@ -14,6 +14,7 @@ namespace SaaS\Service\Insales\Model;
 use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use SaaS\Service\Insales\Model\Traits;
 
 /**
  * Class Domain
@@ -28,53 +29,59 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class Domain
 {
-    /**
-     * @var int $id
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("id")
-     *
-     * @FakeMockField()
-     */
-    public $id;
+    use Traits\Id;
+    use Traits\CreatedAt;
+    use Traits\UpdatedAt;
 
     /**
-     * @var string $createdAt
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("created_at")
-     *
-     * @FakeMockField(faker="dateTime")
-     */
-    public $createdAt;
-
-    /**
-     * @var string $updatedAt
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("updated_at")
-     *
-     * @FakeMockField(faker="dateTime")
-     */
-    public $updatedAt;
-
-    /**
-     * @var string $domain
+     * @var string|null $domain
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("domain")
      *
      * @FakeMockField(faker="domainName")
      */
-    public $domain;
+    protected $domain;
 
     /**
-     * @var bool $main
+     * @var bool|null $main
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("main")
      *
      * @FakeMockField()
      */
-    public $main;
+    protected $main;
+
+    /**
+     * @return null|string
+     */
+    public function getDomain(): ?string
+    {
+        return $this->domain;
+    }
+
+    /**
+     * @param null|string $domain
+     */
+    public function setDomain(?string $domain): void
+    {
+        $this->domain = $domain;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getMain(): ?bool
+    {
+        return $this->main;
+    }
+
+    /**
+     * @param bool|null $main
+     */
+    public function setMain(?bool $main): void
+    {
+        $this->main = $main;
+    }
 }

@@ -39,7 +39,7 @@ class ClientTest extends TestCase
         $response = $apiClient->clientsCount();
 
         static::assertResponse($response);
-        static::assertEquals($count, $response->getResponse()->count);
+        static::assertEquals($count, $response->getResponse()->getCount());
     }
 
     public function testClientCreate()
@@ -50,16 +50,11 @@ class ClientTest extends TestCase
         $fakeMock = new \Er1z\FakeMock\FakeMock();
 
         $client = new Insales\Model\Client();
-        $client->fieldsValues = [];
         $fakeMock->fill($client);
 
-        $request = new Insales\Model\Request\ClientRequest();
-        $request->client = $client;
-
-        $response = $apiClient->clientCreate($request);
+        $response = $apiClient->clientCreate(new Insales\Model\Request\ClientRequest($client));
 
         static::assertResponse($response);
-
         static::assertInstanceOf(Insales\Model\Client::class, $response->getResponse());
     }
 
@@ -72,13 +67,9 @@ class ClientTest extends TestCase
         $client = new Insales\Model\Client();
         $fakeMock->fill($client);
 
-        $request = new Insales\Model\Request\ClientRequest();
-        $request->client = $client;
-
-        $response = $apiClient->clientUpdate($request);
+        $response = $apiClient->clientUpdate(new Insales\Model\Request\ClientRequest($client));
 
         static::assertResponse($response);
-
         static::assertInstanceOf(Insales\Model\Client::class, $response->getResponse());
     }
 

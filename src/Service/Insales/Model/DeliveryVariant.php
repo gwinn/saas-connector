@@ -14,6 +14,7 @@ namespace SaaS\Service\Insales\Model;
 use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use SaaS\Service\Insales\Model\Traits;
 
 /**
  * Class DeliveryVariant
@@ -28,6 +29,13 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class DeliveryVariant
 {
+    use Traits\Id;
+    use Traits\CreatedAt;
+    use Traits\UpdatedAt;
+    use Traits\Title;
+    use Traits\Position;
+    use Traits\Description;
+
     const EXTERNAL = 'DeliveryVariant::External';
     const FIXED = 'DeliveryVariant::Fixed';
     const LOCATION_DEPEND = 'DeliveryVariant::LocationDepend';
@@ -39,67 +47,7 @@ class DeliveryVariant
     const PRICE_DEPEND = 'DeliveryVariant::PriceDepend';
 
     /**
-     * @var int $id
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("id")
-     *
-     * @FakeMockField()
-     */
-    public $id;
-
-    /**
-     * @var string $createdAt
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("created_at")
-     *
-     * @FakeMockField(faker="dateTime")
-     */
-    public $createdAt;
-
-    /**
-     * @var string $updatedAt
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("updated_at")
-     *
-     * @FakeMockField(faker="dateTime")
-     */
-    public $updatedAt;
-
-    /**
-     * @var int $position
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("position")
-     *
-     * @FakeMockField()
-     */
-    public $position;
-
-    /**
-     * @var string $title
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("title")
-     *
-     * @FakeMockField()
-     */
-    public $title;
-
-    /**
-     * @var string $description
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("description")
-     *
-     * @FakeMockField()
-     */
-    public $description;
-
-    /**
-     * @var string $type
+     * @var string|null $type
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("type")
@@ -119,7 +67,7 @@ class DeliveryVariant
      *     }}
      * )
      */
-    public $type;
+    protected $type;
 
     /**
      * @var float $minPrice
@@ -129,7 +77,7 @@ class DeliveryVariant
      *
      * @FakeMockField()
      */
-    public $minPrice;
+    protected $minPrice;
 
     /**
      * @var float $price
@@ -139,19 +87,19 @@ class DeliveryVariant
      *
      * @FakeMockField()
      */
-    public $price;
+    protected $price;
 
     /**
      * False by default, if true this delivery variant will be available for all regions except passed in parameters 'country', 'region' and 'city'
      *
-     * @var bool $inverted
+     * @var bool|null $inverted
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("inverted")
      *
      * @FakeMockField()
      */
-    public $inverted;
+    protected $inverted;
 
     /**
      * Free on orders from given sum
@@ -163,135 +111,407 @@ class DeliveryVariant
      *
      * @FakeMockField()
      */
-    public $chargeUpTo;
+    protected $chargeUpTo;
 
     /**
      * For get delivery variant
      *
-     * @var array $paymentDeliveryVariants
+     * @var array|null $paymentDeliveryVariants
      *
      * @JMS\Type("array<SaaS\Service\Insales\Model\PaymentDeliveryVariant>")
      * @JMS\SerializedName("payment_delivery_variants")
      */
-    public $paymentDeliveryVariants;
+    protected $paymentDeliveryVariants;
 
     /**
      * For create or update delivery variant
      *
-     * @var array $paymentDeliveryVariantsAttributes
+     * @var array|null $paymentDeliveryVariantsAttributes
      *
      * @JMS\Type("array<SaaS\Service\Insales\Model\PaymentDeliveryVariant>")
      * @JMS\SerializedName("payment_delivery_variants_attributes")
      */
-    public $paymentDeliveryVariantsAttributes;
+    protected $paymentDeliveryVariantsAttributes;
 
     /**
      * For get delivery variant
      *
-     * @var array $deliveryLocations
+     * @var array|null $deliveryLocations
      *
      * @JMS\Type("array<SaaS\Service\Insales\Model\DeliveryLocation>")
      * @JMS\SerializedName("delivery_locations")
      */
-    public $deliveryLocations;
+    protected $deliveryLocations;
 
     /**
      * For create delivery variant
      *
-     * @var array $deliveryLocationsAttributes
+     * @var array|null $deliveryLocationsAttributes
      *
      * @JMS\Type("array<SaaS\Service\Insales\Model\DeliveryLocation>")
      * @JMS\SerializedName("delivery_locations_attributes")
      */
-    public $deliveryLocationsAttributes;
+    protected $deliveryLocationsAttributes;
 
     /**
      * For get delivery variant
      *
-     * @var array $deliveryZones
+     * @var array|null $deliveryZones
      *
      * @JMS\Type("array<SaaS\Service\Insales\Model\DeliveryZone>")
      * @JMS\SerializedName("delivery_zones")
      */
-    public $deliveryZones;
+    protected $deliveryZones;
 
     /**
      * For create delivery variant
      *
-     * @var array $deliveryZonesAttributes
+     * @var array|null $deliveryZonesAttributes
      *
      * @JMS\Type("array<SaaS\Service\Insales\Model\DeliveryZone>")
      * @JMS\SerializedName("delivery_zones_attributes")
      */
-    public $deliveryZonesAttributes;
+    protected $deliveryZonesAttributes;
 
     /**
      * Array of rules define delivery price depending on order sum and weight
      * For create delivery variant
      *
-     * @var array $rules
+     * @var array|null $rules
      *
      * @JMS\Type("array<SaaS\Service\Insales\Model\Rule>")
      * @JMS\SerializedName("rules")
      */
-    public $rules;
+    protected $rules;
 
     /**
      * Array of rules define delivery price depending on order sum and weight
      * For create delivery variant
      *
-     * @var array $rulesAttributes
+     * @var array|null $rulesAttributes
      *
      * @JMS\Type("array<SaaS\Service\Insales\Model\Rule>")
      * @JMS\SerializedName("rules_attributes")
      */
-    public $rulesAttributes;
+    protected $rulesAttributes;
 
     /**
      * Set true to add all payment variants
      *
-     * @var bool $chargeUpTo
+     * @var bool|null $chargeUpTo
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("add_payment_gateways")
      *
      * @FakeMockField()
      */
-    public $addPaymentGateways;
+    protected $addPaymentGateways;
 
     /**
      * False by default, set it true if this delivery variant is customer pickup
      *
-     * @var bool $customerPickup
+     * @var bool|null $customerPickup
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("customer_pickup")
      *
      * @FakeMockField()
      */
-    public $customerPickup;
+    protected $customerPickup;
 
     /**
      * If needed, paste javascript to be displayed on page of delivery variant selection
      *
-     * @var string $javascript
+     * @var string|null $javascript
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("javascript")
      *
      * @FakeMockField()
      */
-    public $javascript;
+    protected $javascript;
 
     /**
      * Url for sending request on delivery price estimation
      *
-     * @var string $url
+     * @var string|null $url
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("url")
      *
      * @FakeMockField()
      */
-    public $url;
+    protected $url;
+
+    /**
+     * @return null|string
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param null|string $type
+     */
+    public function setType(?string $type): void
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getMinPrice(): ?float
+    {
+        return $this->minPrice;
+    }
+
+    /**
+     * @param float $minPrice
+     */
+    public function setMinPrice(float $minPrice): void
+    {
+        $this->minPrice = $minPrice;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param float $price
+     */
+    public function setPrice(float $price): void
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getInverted(): ?bool
+    {
+        return $this->inverted;
+    }
+
+    /**
+     * @param bool|null $inverted
+     */
+    public function setInverted(?bool $inverted): void
+    {
+        $this->inverted = $inverted;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getChargeUpTo(): ?float
+    {
+        return $this->chargeUpTo;
+    }
+
+    /**
+     * @param float $chargeUpTo
+     */
+    public function setChargeUpTo(float $chargeUpTo): void
+    {
+        $this->chargeUpTo = $chargeUpTo;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getPaymentDeliveryVariants(): ?array
+    {
+        return $this->paymentDeliveryVariants;
+    }
+
+    /**
+     * @param array|null $paymentDeliveryVariants
+     */
+    public function setPaymentDeliveryVariants(?array $paymentDeliveryVariants): void
+    {
+        $this->paymentDeliveryVariants = $paymentDeliveryVariants;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getPaymentDeliveryVariantsAttributes(): ?array
+    {
+        return $this->paymentDeliveryVariantsAttributes;
+    }
+
+    /**
+     * @param array|null $paymentDeliveryVariantsAttributes
+     */
+    public function setPaymentDeliveryVariantsAttributes(?array $paymentDeliveryVariantsAttributes): void
+    {
+        $this->paymentDeliveryVariantsAttributes = $paymentDeliveryVariantsAttributes;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getDeliveryLocations(): ?array
+    {
+        return $this->deliveryLocations;
+    }
+
+    /**
+     * @param array|null $deliveryLocations
+     */
+    public function setDeliveryLocations(?array $deliveryLocations): void
+    {
+        $this->deliveryLocations = $deliveryLocations;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getDeliveryLocationsAttributes(): ?array
+    {
+        return $this->deliveryLocationsAttributes;
+    }
+
+    /**
+     * @param array|null $deliveryLocationsAttributes
+     */
+    public function setDeliveryLocationsAttributes(?array $deliveryLocationsAttributes): void
+    {
+        $this->deliveryLocationsAttributes = $deliveryLocationsAttributes;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getDeliveryZones(): ?array
+    {
+        return $this->deliveryZones;
+    }
+
+    /**
+     * @param array|null $deliveryZones
+     */
+    public function setDeliveryZones(?array $deliveryZones): void
+    {
+        $this->deliveryZones = $deliveryZones;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getDeliveryZonesAttributes(): ?array
+    {
+        return $this->deliveryZonesAttributes;
+    }
+
+    /**
+     * @param array|null $deliveryZonesAttributes
+     */
+    public function setDeliveryZonesAttributes(?array $deliveryZonesAttributes): void
+    {
+        $this->deliveryZonesAttributes = $deliveryZonesAttributes;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getRules(): ?array
+    {
+        return $this->rules;
+    }
+
+    /**
+     * @param array|null $rules
+     */
+    public function setRules(?array $rules): void
+    {
+        $this->rules = $rules;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getRulesAttributes(): ?array
+    {
+        return $this->rulesAttributes;
+    }
+
+    /**
+     * @param array|null $rulesAttributes
+     */
+    public function setRulesAttributes(?array $rulesAttributes): void
+    {
+        $this->rulesAttributes = $rulesAttributes;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getAddPaymentGateways(): ?bool
+    {
+        return $this->addPaymentGateways;
+    }
+
+    /**
+     * @param bool|null $addPaymentGateways
+     */
+    public function setAddPaymentGateways(?bool $addPaymentGateways): void
+    {
+        $this->addPaymentGateways = $addPaymentGateways;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getCustomerPickup(): ?bool
+    {
+        return $this->customerPickup;
+    }
+
+    /**
+     * @param bool|null $customerPickup
+     */
+    public function setCustomerPickup(?bool $customerPickup): void
+    {
+        $this->customerPickup = $customerPickup;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getJavascript(): ?string
+    {
+        return $this->javascript;
+    }
+
+    /**
+     * @param null|string $javascript
+     */
+    public function setJavascript(?string $javascript): void
+    {
+        $this->javascript = $javascript;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param null|string $url
+     */
+    public function setUrl(?string $url): void
+    {
+        $this->url = $url;
+    }
 }

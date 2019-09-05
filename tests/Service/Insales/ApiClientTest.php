@@ -75,19 +75,19 @@ class ApiClientTest extends TestCase
      */
     public function testGet($methodGet, $responseForMock, $fixedField = 'id')
     {
-        $stockCurrencyId = rand(1, 50);
+        $fixedId = rand(1, 50);
 
         $responseForMock = array_merge(
             $responseForMock,
             [
                 'statusCode' => 200,
-                'fixedValue' => [$fixedField => $stockCurrencyId]
+                'fixedValue' => [$fixedField => $fixedId]
             ]
         );
 
         $mockHandler = $this->getMockHandler([$responseForMock]);
         $apiClient = $this->getApiClient($mockHandler);
-        $response = $apiClient->$methodGet($stockCurrencyId);
+        $response = $apiClient->$methodGet($fixedId);
 
         static::assertResponse($response);
         static::assertResponseGet($response, $responseForMock['className'], $responseForMock['fixedValue']);

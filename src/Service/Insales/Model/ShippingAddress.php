@@ -14,6 +14,7 @@ namespace SaaS\Service\Insales\Model;
 use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use SaaS\Service\Insales\Model\Traits;
 
 /**
  * Class ShippingAddress
@@ -28,18 +29,11 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class ShippingAddress
 {
-    /**
-     * @var int $id
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("id")
-     *
-     * @FakeMockField()
-     */
-    public $id;
+    use Traits\Id;
+    use Traits\Name;
 
     /**
-     * @var string $country
+     * @var string|null $country
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("country")
@@ -49,7 +43,7 @@ class ShippingAddress
     public $country;
 
     /**
-     * @var string $city
+     * @var string|null $city
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("city")
@@ -59,7 +53,7 @@ class ShippingAddress
     public $city;
 
     /**
-     * @var string $state
+     * @var string|null $state
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("state")
@@ -69,7 +63,7 @@ class ShippingAddress
     public $state;
 
     /**
-     * @var string $phone
+     * @var string|null $phone
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("phone")
@@ -79,17 +73,7 @@ class ShippingAddress
     public $phone;
 
     /**
-     * @var string $name
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("name")
-     *
-     * @FakeMockField()
-     */
-    public $name;
-
-    /**
-     * @var string $surname
+     * @var string|null $surname
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("surname")
@@ -99,7 +83,7 @@ class ShippingAddress
     public $surname;
 
     /**
-     * @var string $middlename
+     * @var string|null $middlename
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("middlename")
@@ -109,7 +93,7 @@ class ShippingAddress
     public $middlename;
 
     /**
-     * @var string $fullName
+     * @var string|null $fullName
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("full_name")
@@ -119,7 +103,7 @@ class ShippingAddress
     public $fullName;
 
     /**
-     * @var string $fullLocalityName
+     * @var string|null $fullLocalityName
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("full_locality_name")
@@ -129,7 +113,7 @@ class ShippingAddress
     public $fullLocalityName;
 
     /**
-     * @var string $fullDeliveryAddress
+     * @var string|null $fullDeliveryAddress
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("full_delivery_address")
@@ -139,7 +123,7 @@ class ShippingAddress
     public $fullDeliveryAddress;
 
     /**
-     * @var string $addressForGis
+     * @var string|null $addressForGis
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("address_for_gis")
@@ -149,7 +133,7 @@ class ShippingAddress
     public $addressForGis;
 
     /**
-     * @var bool $locationValid
+     * @var bool|null $locationValid
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("location_valid")
@@ -159,7 +143,7 @@ class ShippingAddress
     public $locationValid;
 
     /**
-     * @var string $address
+     * @var string|null $address
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("address")
@@ -169,7 +153,7 @@ class ShippingAddress
     public $address;
 
     /**
-     * @var string $zip
+     * @var string|null $zip
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("zip")
@@ -179,7 +163,7 @@ class ShippingAddress
     public $zip;
 
     /**
-     * @var string $street
+     * @var string|null $street
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("street")
@@ -189,7 +173,7 @@ class ShippingAddress
     public $street;
 
     /**
-     * @var string $house
+     * @var string|null $house
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("house")
@@ -199,7 +183,7 @@ class ShippingAddress
     public $house;
 
     /**
-     * @var string $flat
+     * @var string|null $flat
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("flat")
@@ -209,7 +193,7 @@ class ShippingAddress
     public $flat;
 
     /**
-     * @var array $fieldsValues
+     * @var array|null $fieldsValues
      *
      * @JMS\Type("array<SaaS\Service\Insales\Model\FieldValue>")
      * @JMS\SerializedName("fields_values")
@@ -225,4 +209,297 @@ class ShippingAddress
      * @FakeMockField()
      */
     public $location;
+
+    public function __construct()
+    {
+        $this->location = new Location();
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param null|string $country
+     */
+    public function setCountry(?string $country): void
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param null|string $city
+     */
+    public function setCity(?string $city): void
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param null|string $state
+     */
+    public function setState(?string $state): void
+    {
+        $this->state = $state;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param null|string $phone
+     */
+    public function setPhone(?string $phone): void
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getSurname(): ?string
+    {
+        return $this->surname;
+    }
+
+    /**
+     * @param null|string $surname
+     */
+    public function setSurname(?string $surname): void
+    {
+        $this->surname = $surname;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getMiddlename(): ?string
+    {
+        return $this->middlename;
+    }
+
+    /**
+     * @param null|string $middlename
+     */
+    public function setMiddlename(?string $middlename): void
+    {
+        $this->middlename = $middlename;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFullName(): ?string
+    {
+        return $this->fullName;
+    }
+
+    /**
+     * @param null|string $fullName
+     */
+    public function setFullName(?string $fullName): void
+    {
+        $this->fullName = $fullName;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFullLocalityName(): ?string
+    {
+        return $this->fullLocalityName;
+    }
+
+    /**
+     * @param null|string $fullLocalityName
+     */
+    public function setFullLocalityName(?string $fullLocalityName): void
+    {
+        $this->fullLocalityName = $fullLocalityName;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFullDeliveryAddress(): ?string
+    {
+        return $this->fullDeliveryAddress;
+    }
+
+    /**
+     * @param null|string $fullDeliveryAddress
+     */
+    public function setFullDeliveryAddress(?string $fullDeliveryAddress): void
+    {
+        $this->fullDeliveryAddress = $fullDeliveryAddress;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getAddressForGis(): ?string
+    {
+        return $this->addressForGis;
+    }
+
+    /**
+     * @param null|string $addressForGis
+     */
+    public function setAddressForGis(?string $addressForGis): void
+    {
+        $this->addressForGis = $addressForGis;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getLocationValid(): ?bool
+    {
+        return $this->locationValid;
+    }
+
+    /**
+     * @param bool|null $locationValid
+     */
+    public function setLocationValid(?bool $locationValid): void
+    {
+        $this->locationValid = $locationValid;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param null|string $address
+     */
+    public function setAddress(?string $address): void
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getZip(): ?string
+    {
+        return $this->zip;
+    }
+
+    /**
+     * @param null|string $zip
+     */
+    public function setZip(?string $zip): void
+    {
+        $this->zip = $zip;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getStreet(): ?string
+    {
+        return $this->street;
+    }
+
+    /**
+     * @param null|string $street
+     */
+    public function setStreet(?string $street): void
+    {
+        $this->street = $street;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getHouse(): ?string
+    {
+        return $this->house;
+    }
+
+    /**
+     * @param null|string $house
+     */
+    public function setHouse(?string $house): void
+    {
+        $this->house = $house;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFlat(): ?string
+    {
+        return $this->flat;
+    }
+
+    /**
+     * @param null|string $flat
+     */
+    public function setFlat(?string $flat): void
+    {
+        $this->flat = $flat;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getFieldsValues(): ?array
+    {
+        return $this->fieldsValues;
+    }
+
+    /**
+     * @param array|null $fieldsValues
+     */
+    public function setFieldsValues(?array $fieldsValues): void
+    {
+        $this->fieldsValues = $fieldsValues;
+    }
+
+    /**
+     * @return Location
+     */
+    public function getLocation(): Location
+    {
+        return $this->location;
+    }
+
+    /**
+     * @param Location $location
+     */
+    public function setLocation(Location $location): void
+    {
+        $this->location = $location;
+    }
 }

@@ -14,6 +14,7 @@ namespace SaaS\Service\Insales\Model;
 use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use SaaS\Service\Insales\Model\Traits;
 
 /**
  * Class Characteristic
@@ -28,15 +29,10 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class Characteristic
 {
-    /**
-     * @var int $id
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("id")
-     *
-     * @FakeMockField()
-     */
-    public $id;
+    use Traits\Id;
+    use Traits\Title;
+    use Traits\Position;
+    use Traits\Permalink;
 
     /**
      * @var int $propertyId
@@ -46,39 +42,21 @@ class Characteristic
      *
      * @FakeMockField()
      */
-    public $propertyId;
+    protected $propertyId;
 
     /**
-     * Position in characteristics list
-     *
-     * @var int $position
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("position")
-     *
-     * @FakeMockField()
+     * @return int|null
      */
-    public $position;
+    public function getPropertyId(): ?int
+    {
+        return $this->propertyId;
+    }
 
     /**
-     * @var string $title
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("title")
-     *
-     * @FakeMockField()
+     * @param int $propertyId
      */
-    public $title;
-
-    /**
-     * Permalink
-     *
-     * @var string $permalink
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("permalink")
-     *
-     * @FakeMockField(faker="words", arguments={1, true})
-     */
-    public $permalink;
+    public function setPropertyId(int $propertyId): void
+    {
+        $this->propertyId = $propertyId;
+    }
 }

@@ -123,8 +123,13 @@ class TestCase extends \PHPUnit\Framework\TestCase
 
     public function getMockObjectInObject($object, $properties)
     {
+        $reflection = new \ReflectionClass($object);
+
         foreach ($properties as $nameProperty => $property) {
-            $object->$nameProperty = $this->getMockData($property);
+            $reflectionProperty = $reflection->getProperty($nameProperty);
+            $reflectionProperty->setAccessible(true);
+
+            $reflectionProperty->setValue($object, $this->getMockData($property));
         }
 
         return $object;
@@ -136,8 +141,12 @@ class TestCase extends \PHPUnit\Framework\TestCase
             return $object;
         }
 
+        $reflection = new \ReflectionClass($object);
+
         foreach ($fixedValue as $nameProperty => $value) {
-            $object->$nameProperty = $value;
+            $property = $reflection->getProperty($nameProperty);
+            $property->setAccessible(true);
+            $property->setValue($object, $value);
         }
 
         return $object;
@@ -165,9 +174,13 @@ class TestCase extends \PHPUnit\Framework\TestCase
     public static function assertResponseGet(Response $response, $className, $equalsFields = [])
     {
         static::assertInstanceOf($className, $response->getResponse());
+        $reflection = new \ReflectionClass($response->getResponse());
 
         foreach ($equalsFields as $nameField => $valueExpected) {
-            static::assertEquals($valueExpected, $response->getResponse()->$nameField);
+            $property = $reflection->getProperty($nameField);
+            $property->setAccessible(true);
+
+            static::assertEquals($valueExpected, $property->getValue($response->getResponse()));
         }
     }
 }

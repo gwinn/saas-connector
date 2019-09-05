@@ -14,6 +14,7 @@ namespace SaaS\Service\Insales\Model;
 use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use SaaS\Service\Insales\Model\Traits;
 
 /**
  * Class FieldOption
@@ -28,33 +29,32 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class FieldOption
 {
-    /**
-     * @var int $id
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("id")
-     *
-     * @FakeMockField()
-     */
-    public $id;
+    use Traits\Id;
+    use Traits\Position;
 
     /**
-     * @var int $position
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("position")
-     *
-     * @FakeMockField()
-     */
-    public $position;
-
-    /**
-     * @var string $value
+     * @var string|null $value
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("value")
      *
      * @FakeMockField()
      */
-    public $value;
+    protected $value;
+
+    /**
+     * @return null|string
+     */
+    public function getValue(): ?string
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param null|string $value
+     */
+    public function setValue(?string $value): void
+    {
+        $this->value = $value;
+    }
 }

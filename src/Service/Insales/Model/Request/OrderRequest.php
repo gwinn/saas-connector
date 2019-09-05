@@ -37,5 +37,35 @@ class OrderRequest
      *
      * @FakeMockField()
      */
-    public $order;
+    protected $order;
+
+    /**
+     * OrderRequest constructor.
+     *
+     * @param Order|null $order
+     */
+    public function __construct(?Order $order = null)
+    {
+        if ($order === null) {
+            $order = new Order();
+        }
+
+        $this->order = $order;
+    }
+
+    /**
+     * @return Order
+     */
+    public function getOrder(): Order
+    {
+        return $this->order;
+    }
+
+    /**
+     * @param Order $order
+     */
+    public function setOrder(Order $order): void
+    {
+        $this->order = $order;
+    }
 }

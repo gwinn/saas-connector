@@ -30,16 +30,12 @@ class ApplicationChargeTest extends TestCase
         $apiClient = $this->getApiClient($mockHandler);
 
         $fakeMock = new \Er1z\FakeMock\FakeMock();
-        $action = new Insales\Model\ApplicationCharge();
-        $fakeMock->fill($action, 'create');
+        $charge = new Insales\Model\ApplicationCharge();
+        $fakeMock->fill($charge, 'create');
 
-        $accountRequest = new Insales\Model\Request\ApplicationChargeRequest();
-        $accountRequest->applicationCharge = $action;
-
-        $response = $apiClient->applicationChargeCreate($accountRequest);
+        $response = $apiClient->applicationChargeCreate(new Insales\Model\Request\ApplicationChargeRequest($charge));
 
         static::assertResponse($response);
-
         static::assertInstanceOf(Insales\Model\ApplicationCharge::class, $response->getResponse());
     }
 
@@ -49,16 +45,12 @@ class ApplicationChargeTest extends TestCase
         $apiClient = $this->getApiClient($mockHandler);
 
         $fakeMock = new \Er1z\FakeMock\FakeMock();
-        $action = new Insales\Model\ApplicationCharge();
-        $fakeMock->fill($action, 'update');
+        $charge = new Insales\Model\ApplicationCharge();
+        $fakeMock->fill($charge, 'update');
 
-        $accountRequest = new Insales\Model\Request\ApplicationChargeRequest();
-        $accountRequest->applicationCharge = $action;
-
-        $response = $apiClient->applicationChargeUpdate($accountRequest);
+        $response = $apiClient->applicationChargeUpdate(new Insales\Model\Request\ApplicationChargeRequest($charge));
 
         static::assertResponse($response);
-
         static::assertInstanceOf(Insales\Model\ApplicationCharge::class, $response->getResponse());
     }
 
@@ -70,7 +62,6 @@ class ApplicationChargeTest extends TestCase
         $response = $apiClient->applicationChargeDecline(1);
 
         static::assertResponse($response);
-
         static::assertInstanceOf(Insales\Model\ApplicationCharge::class, $response->getResponse());
     }
 }

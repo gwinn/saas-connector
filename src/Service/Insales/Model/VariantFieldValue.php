@@ -14,6 +14,7 @@ namespace SaaS\Service\Insales\Model;
 use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use SaaS\Service\Insales\Model\Traits;
 
 /**
  * Class VariantFieldValue
@@ -28,15 +29,7 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class VariantFieldValue
 {
-    /**
-     * @var int $id
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("id")
-     *
-     * @FakeMockField()
-     */
-    public $id;
+    use Traits\Id;
 
     /**
      * @var int $variantFieldId
@@ -49,7 +42,7 @@ class VariantFieldValue
     public $variantFieldId;
 
     /**
-     * @var string $value
+     * @var string|null $value
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("value")
@@ -57,4 +50,36 @@ class VariantFieldValue
      * @FakeMockField()
      */
     public $value;
+
+    /**
+     * @return int|null
+     */
+    public function getVariantFieldId(): ?int
+    {
+        return $this->variantFieldId;
+    }
+
+    /**
+     * @param int $variantFieldId
+     */
+    public function setVariantFieldId(int $variantFieldId): void
+    {
+        $this->variantFieldId = $variantFieldId;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getValue(): ?string
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param null|string $value
+     */
+    public function setValue(?string $value): void
+    {
+        $this->value = $value;
+    }
 }

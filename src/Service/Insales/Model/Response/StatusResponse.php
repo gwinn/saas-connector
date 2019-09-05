@@ -28,7 +28,7 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
 class StatusResponse
 {
     /**
-     * @var string $status
+     * @var string|null $status
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("status")

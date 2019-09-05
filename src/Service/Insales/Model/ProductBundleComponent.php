@@ -14,6 +14,7 @@ namespace SaaS\Service\Insales\Model;
 use JMS\Serializer\Annotation as JMS;
 use Er1z\FakeMock\Annotations\FakeMock as FakeMock;
 use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
+use SaaS\Service\Insales\Model\Traits;
 
 /**
  * Class ProductBundleComponent
@@ -28,15 +29,7 @@ use Er1z\FakeMock\Annotations\FakeMockField as FakeMockField;
  */
 class ProductBundleComponent
 {
-    /**
-     * @var int $id
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("id")
-     *
-     * @FakeMockField()
-     */
-    public $id;
+    use Traits\Id;
 
     /**
      * @var int $variantId
@@ -59,7 +52,7 @@ class ProductBundleComponent
     public $productId;
 
     /**
-     * @var bool $free
+     * @var bool|null $free
      *
      * @JMS\Type("boolean")
      * @JMS\SerializedName("free")
@@ -77,4 +70,68 @@ class ProductBundleComponent
      * @FakeMockField()
      */
     public $quantity;
+
+    /**
+     * @return int|null
+     */
+    public function getVariantId(): ?int
+    {
+        return $this->variantId;
+    }
+
+    /**
+     * @param int $variantId
+     */
+    public function setVariantId(int $variantId): void
+    {
+        $this->variantId = $variantId;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getProductId(): ?int
+    {
+        return $this->productId;
+    }
+
+    /**
+     * @param int $productId
+     */
+    public function setProductId(int $productId): void
+    {
+        $this->productId = $productId;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getFree(): ?bool
+    {
+        return $this->free;
+    }
+
+    /**
+     * @param bool|null $free
+     */
+    public function setFree(?bool $free): void
+    {
+        $this->free = $free;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getQuantity(): ?float
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param float $quantity
+     */
+    public function setQuantity(float $quantity): void
+    {
+        $this->quantity = $quantity;
+    }
 }

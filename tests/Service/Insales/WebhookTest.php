@@ -33,13 +33,9 @@ class WebhookTest extends TestCase
         $webhook = new Insales\Model\Webhook();
         $fakeMock->fill($webhook);
 
-        $accountRequest = new Insales\Model\Request\WebhookRequest();
-        $accountRequest->webhook = $webhook;
-
-        $response = $apiClient->webhookCreate($accountRequest);
+        $response = $apiClient->webhookCreate(new Insales\Model\Request\WebhookRequest($webhook));
 
         static::assertResponse($response);
-
         static::assertInstanceOf(Insales\Model\Webhook::class, $response->getResponse());
     }
 
@@ -52,13 +48,9 @@ class WebhookTest extends TestCase
         $webhook = new Insales\Model\Webhook();
         $fakeMock->fill($webhook);
 
-        $accountRequest = new Insales\Model\Request\WebhookRequest();
-        $accountRequest->webhook = $webhook;
-
-        $response = $apiClient->webhookUpdate($accountRequest);
+        $response = $apiClient->webhookUpdate(new Insales\Model\Request\WebhookRequest($webhook));
 
         static::assertResponse($response);
-
         static::assertInstanceOf(Insales\Model\Webhook::class, $response->getResponse());
     }
 
@@ -70,7 +62,6 @@ class WebhookTest extends TestCase
         $response = $apiClient->webhookDelete(1);
 
         static::assertResponse($response);
-
         static::assertEquals('ok', $response->getResponse()->status);
     }
 }
