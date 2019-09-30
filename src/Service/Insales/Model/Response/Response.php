@@ -25,7 +25,13 @@ use SaaS\Service\Insales\Exception\InsalesLimitException;
  */
 class Response extends \SaaS\Model\Response\Response implements ResponseInterface
 {
-    protected function serializeResponse($raw, $className)
+    /**
+     * @param string $raw
+     * @param string $className
+     *
+     * @return array|\JMS\Serializer\scalar|mixed|object|null
+     */
+    protected function serializeResponse(string $raw, string $className)
     {
         if ($raw == '""') {
             return null;

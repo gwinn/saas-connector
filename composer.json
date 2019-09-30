@@ -7,13 +7,18 @@
     "homepage": "http://github.com/gwinn/saas-connector",
     "authors": [
         {
-          "name": "Alex Lushpai",
-          "email": "lushpai@gmail.com",
-          "role": "Developer"
+            "name": "Alex Lushpai",
+            "email": "lushpai@gmail.com",
+            "role": "Developer"
         },
         {
             "name": "Anna Mazepina",
             "email": "putintseva@retailcrm.ru",
+            "role": "Developer"
+        },
+        {
+            "name": "Azgalot",
+            "email": "artahanov@retailcrm.ru",
             "role": "Developer"
         }
     ],
