@@ -268,8 +268,7 @@ class Request
             $result = json_decode($responseBody, true);
 
             throw new MoySkladException(
-                $this->getError($result) .
-                " [errno = $errno, error = $error]",
+                $this->getError($result),
                 $statusCode
             );
         }
