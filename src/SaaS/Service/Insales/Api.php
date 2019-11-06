@@ -1749,6 +1749,33 @@ class Api
     }
 
     /**
+     * Get clients count
+     *
+     * @param int       $perPage        quantity of objects per page
+     * @param \DateTime $updatedSince   set datetime to get only data updated after it
+     * @param int       $fromId         set id to get only data starting from it
+     * @param int       $page           number page
+     * @group client
+     *
+     * @return Response
+     */
+    public function clientsCount($perPage = null, \DateTime $updatedSince = null, $fromId = null, $page = null)
+    {
+        $url = '/admin/clients/count.json';
+
+        $parameters = array(
+            'updated_since' => isset($updatedSince) ? $updatedSince->format('c') : null,
+            'from_id' => $fromId,
+            'per_page' => $perPage <= 250 ? $perPage : 250,
+            'page' => isset($page) ? $page : null,
+        );
+
+        $parameters = array_filter($parameters);
+
+        return $this->client->makeRequest($url, Request::METHOD_GET, $parameters);
+    }
+
+    /**
      * Get client
      *
      * @link    http://api.insales.ru/?doc_format=JSON#client-get-client-json
