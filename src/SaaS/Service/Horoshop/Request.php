@@ -37,7 +37,6 @@ class Request
     const METHOD_DELETE = 'DELETE';
 
     protected $url;
-    protected $onHttps = null;
 
     /**
      * Client constructor.
@@ -85,24 +84,22 @@ class Request
 
         $url = $this->url . $path;
 
-        if (!empty($this->onHttps) && $this->onHttps === true) {
-            $url = str_replace('http://', 'https://', $url);
-        }
-
         if (self::METHOD_GET === $method && count($parameters)) {
             $url .= '?' . http_build_query($parameters, '', '&');
         }
 
         $curlHandler = curl_init();
         curl_setopt($curlHandler, CURLOPT_URL, $url);
-        curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curlHandler, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curlHandler, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($curlHandler, CURLOPT_POSTREDIR, 1);
+        curl_setopt($curlHandler, CURLOPT_UNRESTRICTED_AUTH, true);
         curl_setopt($curlHandler, CURLOPT_FAILONERROR, false);
-        curl_setopt($curlHandler, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($curlHandler, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curlHandler, CURLOPT_SSL_VERIFYHOST, 2);
         curl_setopt($curlHandler, CURLOPT_TIMEOUT, 180);
         curl_setopt($curlHandler, CURLOPT_HEADER, true);
-
+        curl_setopt($curlHandler, CURLOPT_CUSTOMREQUEST, $method);
 
         if (self::METHOD_POST == $method || self::METHOD_PUT == $method) {
             curl_setopt($curlHandler, CURLOPT_POSTFIELDS, json_encode($parameters));
@@ -113,37 +110,12 @@ class Request
             curl_setopt($curlHandler, CURLOPT_POST, true);
         }
 
-        if (self::METHOD_PUT === $method) {
-            curl_setopt($curlHandler, CURLOPT_CUSTOMREQUEST, "PUT");
-        }
-
         $result = curl_exec($curlHandler);
-
-        if ($this->onHttps == true && curl_getinfo($curlHandler, CURLINFO_SSL_VERIFYRESULT) !== 0) {
-            $this->onHttps = false;
-
-            return $this->makeRequest($path, $method, $parameters);
-        }
-
-        $headers = $this->headersToArray($result);
-
-        if (empty($this->onHttps)) {
-            $this->onHttps = array_key_exists('Content-Security-Policy-Report-Only', $headers)
-                && strstr($headers['Content-Security-Policy-Report-Only'], 'https');
-        }
-
-        $statusCode = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
-
-        //Получение тела ответа
-        $response = trim(substr($result, strripos($result, "\n")));
-
         //Получение заголовков ответа
-        preg_match_all("/(.*): (.*)\n/", $result, $items);
-        $responseBody = array_combine($items[1], $items[2]);
-
-        foreach ($responseBody as $key => $item) {
-            $responseBody[$key] = trim($item);
-        }
+        $responseBody = $this->headersToArray($result);
+        $statusCode = curl_getinfo($curlHandler, CURLINFO_HTTP_CODE);
+        //Получение тела ответа
+        $response = isset($responseBody['body']) ? $responseBody['body'] : '';
 
         if ($statusCode == 429) {
             $message = array(
