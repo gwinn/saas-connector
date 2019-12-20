@@ -1437,8 +1437,10 @@ class Api
             'per_page' => $perPage <= 250 ? $perPage : 250,
             'updated_since' => isset($updatedSince) ? $updatedSince->format('c') : null,
             'from_id' => $fromId,
-            'deleted' => $deleted == true ? $deleted : null
+            'deleted' => $deleted == true ? $deleted : null,
+            'q' => isset($filter['q']) ? $filter['q'] : null,
         );
+
         $parameters = array_filter($parameters);
 
         return $this->client->makeRequest($url, Request::METHOD_GET, $parameters);
@@ -1480,8 +1482,10 @@ class Api
             'per_page' => $perPage <= 250 ? $perPage : 250,
             'updated_since' => isset($updatedSince) ? $updatedSince->format('c') : null,
             'from_id' => $fromId,
-            'deleted' => $deleted == true ? $deleted : null
+            'deleted' => $deleted == true ? $deleted : null,
+            'q' => isset($filter['q']) ? $filter['q'] : null,
         );
+
         $parameters = array_filter($parameters);
 
         return $this->client->makeRequest($url, Request::METHOD_GET, $parameters);
@@ -1728,11 +1732,12 @@ class Api
      * @param \DateTime $updatedSince   set datetime to get only data updated after it
      * @param int       $fromId         set id to get only data starting from it
      * @param int       $page           number page
+     * @param string    $type           type clients
      * @group client
      *
      * @return Response
      */
-    public function clientsList($perPage = null, \DateTime $updatedSince = null, $fromId = null, $page = null)
+    public function clientsList($perPage = null, \DateTime $updatedSince = null, $fromId = null, $page = null, $type = null)
     {
         $url = '/admin/clients.json';
 
@@ -1741,6 +1746,7 @@ class Api
             'from_id' => $fromId,
             'per_page' => $perPage <= 250 ? $perPage : 250,
             'page' => isset($page) ? $page : null,
+            'type' => isset($type) ? $type : null,
         );
 
         $parameters = array_filter($parameters);
@@ -1755,11 +1761,12 @@ class Api
      * @param \DateTime $updatedSince   set datetime to get only data updated after it
      * @param int       $fromId         set id to get only data starting from it
      * @param int       $page           number page
+     * @param string    $type           type clients
      * @group client
      *
      * @return Response
      */
-    public function clientsCount($perPage = null, \DateTime $updatedSince = null, $fromId = null, $page = null)
+    public function clientsCount($perPage = null, \DateTime $updatedSince = null, $fromId = null, $page = null, $type = null)
     {
         $url = '/admin/clients/count.json';
 
@@ -1768,6 +1775,7 @@ class Api
             'from_id' => $fromId,
             'per_page' => $perPage <= 250 ? $perPage : 250,
             'page' => isset($page) ? $page : null,
+            'type' => isset($type) ? $type : null,
         );
 
         $parameters = array_filter($parameters);
