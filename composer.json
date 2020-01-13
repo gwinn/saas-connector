@@ -30,7 +30,7 @@
         "ext-json": "*",
         "league/oauth2-client": "1.4.2",
         "doctrine/annotations": "^1.6",
-        "symfony/validator": "^4.3",
+        "symfony/validator": "^4.3|^5.0",
         "guzzlehttp/guzzle": "^6.3",
         "jms/serializer": "^1.14"
     },
