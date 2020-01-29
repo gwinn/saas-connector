@@ -273,6 +273,7 @@ class Api
      *
      * @param mixed $param
      * @param array $data
+     * @param array $expand
      *
      * @access public
      *
@@ -280,7 +281,7 @@ class Api
      *
      * @throws MoySkladException
      */
-    public function createData($param, $data)
+    public function createData($param, $data, $expand = [])
     {
         if (empty($data)) {
             throw new \InvalidArgumentException('The `data` can not be empty');
@@ -321,6 +322,14 @@ class Api
         }
 
         $parameters['data'] = $data;
+
+        if (!empty($expand)) {
+            if (!is_array($expand)) {
+                throw new \InvalidArgumentException('Wrong `expand` type: `expand` must be an "array"');
+            }
+
+            $parameters['expand'] = $expand;
+        }
 
         return $this->client->makeRequest(
             $this->entity[strtolower($type)] .
