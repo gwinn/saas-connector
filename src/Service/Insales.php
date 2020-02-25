@@ -71,11 +71,18 @@ class Insales
         $validator = new ValidatorBuilder();
         $this->validator = $validator->getValidator();
 
-        $this->serializer = SerializerBuilder::create()->setPropertyNamingStrategy(
-            new SerializedNameAnnotationStrategy(
-                new IdenticalPropertyNamingStrategy()
+        $serializer = SerializerBuilder::create()
+            ->setPropertyNamingStrategy(
+                new SerializedNameAnnotationStrategy(
+                    new IdenticalPropertyNamingStrategy()
+                )
             )
-        )->build();
+            ->build()
+        ;
+
+        if ($serializer instanceof Serializer) {
+            $this->serializer = $serializer;
+        }
     }
 
     /**

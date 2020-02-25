@@ -89,10 +89,17 @@ class Client
         $this->url = $new ? self::API_URL_NEW : ($test ? self::API_URL : self::API_URL_TEST);
         $this->client = new GuzzleHttp\Client(self::CONFIG);
 
-        $this->serializer = SerializerBuilder::create()->setPropertyNamingStrategy(
-            new SerializedNameAnnotationStrategy(
-                new IdenticalPropertyNamingStrategy()
+        $serializer = SerializerBuilder::create()
+            ->setPropertyNamingStrategy(
+                new SerializedNameAnnotationStrategy(
+                    new IdenticalPropertyNamingStrategy()
+                )
             )
-        )->build();
+            ->build()
+        ;
+
+        if ($serializer instanceof Serializer) {
+            $this->serializer = $serializer;
+        }
     }
 }
