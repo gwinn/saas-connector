@@ -97,9 +97,7 @@ class Request
 
         if (self::METHOD_GET === $method) {
             if (!in_array($path, $apiJsonMethods)) {
-                if ($version) {
-                    $url = "https://api.iml.ru/{$version}/";
-                } elseif (in_array($path, $apiListMethods)) {
+                if (in_array($path, $apiListMethods)) {
                     $url = 'https://api.iml.ru/list/';
                 } elseif (!in_array($path, $apiListMethods)) {
                     $url = 'https://list.iml.ru/';
@@ -109,6 +107,10 @@ class Request
             }
 
             $path .= '?' . http_build_query($parameters, '', '&');
+        }
+
+        if ($version) {
+            $url = "https://api.iml.ru/{$version}/";
         }
 
         $url = $url . $path;
