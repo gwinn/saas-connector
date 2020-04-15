@@ -73,7 +73,7 @@ class Api {
      *
      * @param array $parameters set of parameters request
      *
-     * @return Responce
+     * @return Response
      */
     public function getOrders(array $parameters = array())
     {
@@ -91,7 +91,7 @@ class Api {
      *
      * @param array $parameters set of parameters request
      *
-     * @return Responce
+     * @return Response
      */
     public function createOrder(array $parameters = array())
     {
@@ -116,11 +116,12 @@ class Api {
     /**
      * Calculate orders
      *
-     * @param array $parameters set of parameters request
+     * @param array  $parameters set of parameters request
+     * @param string $method
      *
-     * @return Responce
+     * @return Response
      */
-    public function calcOrderPrice(array $parameters = array())
+    public function calcOrderPrice(array $parameters = array(), string $method = 'GET')
     {
         if (empty($parameters) ){
             throw new \InvalidArgumentException(
@@ -128,7 +129,7 @@ class Api {
             );
         }
 
-        return $this->client->makeRequest('GetPrice', 'GET', $parameters, 'v5');
+        return $this->client->makeRequest('GetPrice', $method, $parameters, 'v5');
     }
 
     /**
@@ -136,7 +137,7 @@ class Api {
      *
      * @param array $parameters set of parameters request
      *
-     * @return Responce
+     * @return Response
      */
     public function printTicket(array $parameters = array())
     {
@@ -152,7 +153,7 @@ class Api {
     /**
      * Get reference delivery status
      *
-     * @return Responce
+     * @return Response
      */
     public function getListDeliveryStatus()
     {
@@ -162,7 +163,7 @@ class Api {
     /**
      * Get reference order status
      *
-     * @return Responce
+     * @return Response
      */
     public function getListOrderStatus(){
 
@@ -172,7 +173,7 @@ class Api {
     /**
      * Get reference region
      *
-     * @return Responce
+     * @return Response
      */
     public function getListRegion()
     {
@@ -184,7 +185,7 @@ class Api {
      *
      * @param string $regionCode region from list region
      *
-     * @return Responce
+     * @return Response
      */
     public function getListSD($regionCode = null)
     {
@@ -201,7 +202,7 @@ class Api {
     /**
      * Get reference service
      *
-     * @return Responce
+     * @return Response
      */
     public function getListService()
     {
@@ -211,7 +212,7 @@ class Api {
     /**
      * Get resource limit
      *
-     * @return Responce
+     * @return Response
      */
     public function getResourceLimit()
     {
@@ -221,7 +222,7 @@ class Api {
     /**
      * Get location warehouse
      *
-     * @return Responce
+     * @return Response
      */
     public function getLocation()
     {
@@ -231,7 +232,7 @@ class Api {
     /**
      * Get zone delivery
      *
-     * @return Responce
+     * @return Response
      */
     public function getZone()
     {
@@ -241,7 +242,7 @@ class Api {
     /**
      * Get exeption service region
      *
-     * @return Responce
+     * @return Response
      */
     public function getExceptionServiceRegion()
     {
@@ -251,7 +252,7 @@ class Api {
     /**
      * Get post delivery limit
      *
-     * @return Responce
+     * @return Response
      */
     public function getPostDeliveryLimit(){
 
@@ -261,7 +262,7 @@ class Api {
     /**
      * Get location warehouse expanded
      *
-     * @return Responce
+     * @return Response
      */
     public function getLocationExt()
     {
@@ -271,7 +272,7 @@ class Api {
     /**
      * Get list status
      *
-     * @return Responce
+     * @return Response
      */
     public function getStatus()
     {
@@ -281,7 +282,7 @@ class Api {
     /**
      * Get post zone delivery
      *
-     * @return Responce
+     * @return Response
      */
     public function getPostRateZone()
     {
@@ -293,7 +294,7 @@ class Api {
      *
      * @param $index index post (required)
      *
-     * @return Responce
+     * @return Response
      */
     public function getPostCode($index = null)
     {
@@ -309,7 +310,7 @@ class Api {
     /**
      * Get calendar IML
      *
-     * @return Responce
+     * @return Response
      */
     public function getCalendar()
     {
@@ -319,7 +320,7 @@ class Api {
     /**
      * Get All references
      *
-     * @return Responce
+     * @return Response
      */
     public function getAll()
     {
