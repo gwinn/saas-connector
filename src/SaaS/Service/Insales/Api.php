@@ -2899,4 +2899,16 @@ class Api
 
         return $this->client->makeRequest($url, Request::METHOD_PUT, $parameters);
     }
+
+    /**
+     * Get users list
+     *
+     * @return Response
+     */
+    public function usersList()
+    {
+        $url = '/admin/users.json';
+
+        return $this->client->makeRequest($url, Request::METHOD_GET);
+    }
 }
