@@ -13,7 +13,7 @@
 namespace SaaS\Service\Dellin\Model\Response;
 
 use SaaS\Exception\InvalidJsonException;
-use SaaS\Service\Dellin\Exception\DellinApiException;
+use SaaS\Service\Dellin\Exception\DellinApiResponseException;
 
 /**
  * Class Response
@@ -30,7 +30,7 @@ class Response extends \SaaS\Model\Response\Response
     /**
      * {@inheritDoc}
      *
-     * @throws DellinApiException
+     * @throws DellinApiResponseException
      */
     protected function serializeResponse(string $raw, string $className)
     {
@@ -81,7 +81,7 @@ class Response extends \SaaS\Model\Response\Response
             }
 
             if (count($errors) > 0) {
-                throw new DellinApiException($errors);
+                throw new DellinApiResponseException($raw, $errors);
             }
         }
 

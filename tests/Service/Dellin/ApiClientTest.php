@@ -34,7 +34,7 @@ class ApiClientTest extends TestCase
     }
 
     /**
-     * @expectedException \SaaS\Service\Dellin\Exception\DellinApiException
+     * @expectedException \SaaS\Service\Dellin\Exception\DellinApiResponseException
      */
     public function testStringError()
     {
@@ -52,7 +52,7 @@ class ApiClientTest extends TestCase
     }
 
     /**
-     * @expectedException \SaaS\Service\Dellin\Exception\DellinApiException
+     * @expectedException \SaaS\Service\Dellin\Exception\DellinApiResponseException
      */
     public function testMessagesError()
     {
@@ -76,7 +76,7 @@ class ApiClientTest extends TestCase
     }
 
     /**
-     * @expectedException \SaaS\Service\Dellin\Exception\DellinApiException
+     * @expectedException \SaaS\Service\Dellin\Exception\DellinApiResponseException
      */
     public function testPropertiesError()
     {
