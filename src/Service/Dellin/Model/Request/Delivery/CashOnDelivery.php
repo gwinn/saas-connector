@@ -63,7 +63,7 @@ class CashOnDelivery
     /**
      * @var array|Product[]|null
      *
-     * @Serializer\Type("array<SaaS\Service\Dellin\Model\Response\Delivery\Product>")
+     * @Serializer\Type("array<SaaS\Service\Dellin\Model\Request\Delivery\Product>")
      * @Serializer\SerializedName("products")
      */
     public $products;
