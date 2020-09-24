@@ -97,6 +97,7 @@ class Api
         'demand' => 'entity',
         'paymentin' => 'entity',
         'cashin' => 'entity',
+        'prepayment' => 'entity',
         'retailshift' => 'entity',
         'enter' => 'entity',
         'customerorder' => 'entity',
