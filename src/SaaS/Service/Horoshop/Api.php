@@ -35,10 +35,11 @@ class Api
      * @param string $domain   User domain
      * @param string $login    User login
      * @param string $password User password
+     * @param mixed $token     User token
      */
-    public function __construct($domain, $login, $password)
+    public function __construct($domain, $login, $password, $token = null)
     {
-        if (empty($domain) ||empty($login) || empty($password)) {
+        if (empty($domain) || empty($login) || empty($password)) {
             throw new \InvalidArgumentException(
                 "domain & login & password must be not empty"
             );
@@ -46,8 +47,12 @@ class Api
 
         $this->request = new Request($domain);
 
-        $auth = $this->auth($login, $password);
-        $this->token = !empty($auth['response']['token']) ? $auth['response']['token'] : null;
+        if (is_null($token)) {
+            $auth = $this->auth($login, $password);
+            $this->token = !empty($auth['response']['token']) ? $auth['response']['token'] : null;
+        } else {
+            $this->token = $token;
+        }
     }
 
     /**
@@ -58,6 +63,16 @@ class Api
     public function getToken()
     {
         return $this->token;
+    }
+
+    /**
+     * Set request token
+     *
+     * @param string $token Horoshop token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
     }
 
     /**
