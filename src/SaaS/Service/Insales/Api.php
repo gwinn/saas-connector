@@ -81,15 +81,22 @@ class Api
      * Get catalog categories list
      *
      * @link    http://api.insales.ru/?doc_format=JSON#category-get-categories-json
+     * @param   string $updatedSince
+     * @param   int $fromId
      * @group   category
      *
      * @return  Response
      */
-    public function categoriesList()
+    public function categoriesList($updatedSince = null, $fromId = null)
     {
         $url = '/admin/categories.json';
 
-        return $this->client->makeRequest($url, Request::METHOD_GET);
+        $parameters = array(
+            'updated_since' => $updatedSince,
+            'from_id' => $fromId
+        );
+
+        return $this->client->makeRequest($url, Request::METHOD_GET, array_filter($parameters));
     }
 
     /**
