@@ -212,7 +212,7 @@ class Api
      * @param string    $updatedSince   set datetime to get only data updated after it
      * @param int       $fromId         set id to get only data starting from it
      * @param boolean   $deleted        get deleted products //получить удаленные товары
-     * @param boolean   $with_deleted   include deleted products //получить также удаленные товары
+     * @param boolean   $withDeleted    include deleted products //получить также удаленные товары
      * @group product
      *
      * @return Response
@@ -225,7 +225,7 @@ class Api
         $updatedSince = null,
         $fromId = null,
         $deleted = null,
-        $with_deleted = null
+        $withDeleted = null
     ) {
         $url = '/admin/products.json';
 
@@ -237,7 +237,7 @@ class Api
             'updated_since' => $updatedSince,
             'from_id' => $fromId,
             'deleted' => $deleted == true ? $deleted : null,
-            'with_deleted' => $with_deleted == true ? $with_deleted : null
+            'with_deleted' => $withDeleted == true ? $withDeleted : null
         );
 
         $parameters = array_filter($parameters);
