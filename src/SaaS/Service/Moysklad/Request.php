@@ -251,7 +251,10 @@ class Request
 
         if (in_array($method, array(self::METHOD_DELETE))) {
             curl_setopt($curlHandler, CURLOPT_CUSTOMREQUEST, $method);
+        }
 
+        if ($method == self::METHOD_POST && true == strpos($url, 'trash')) {
+            curl_setopt($curlHandler, CURLOPT_POST, true);
         }
 
         $responseBody = curl_exec($curlHandler);
