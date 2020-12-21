@@ -429,6 +429,7 @@ class Api
      *
      * @param string $type
      * @param string $uuid
+     * @param bool $trash
      *
      * @access public
      *
@@ -436,7 +437,7 @@ class Api
      *
      * @throws MoySkladException
      */
-    public function deleteData($type, $uuid)
+    public function deleteData($type, $uuid, $trash = false)
     {
         if (empty($type) || is_null($type)) {
             throw new \InvalidArgumentException('The `type` can not be empty');
@@ -476,10 +477,17 @@ class Api
                 throw new \InvalidArgumentException('Undefined data type');
             }
 
-            return $this->client->makeRequest(
-                sprintf($this->entity[strtolower($type)] . '/' . $type . '/%s', $uuid),
-                Request::METHOD_DELETE
-            );
+            if (true === $trash) {
+                return $this->client->makeRequest(
+                    sprintf($this->entity[strtolower($type)] . '/' . $type . '/%s', $uuid .'/trash'),
+                    Request::METHOD_POST
+                );
+            } else {
+                return $this->client->makeRequest(
+                    sprintf($this->entity[strtolower($type)] . '/' . $type . '/%s', $uuid),
+                    Request::METHOD_DELETE
+                );
+            }
         }
     }
 
