@@ -2928,4 +2928,16 @@ class Api
 
         return $this->client->makeRequest($url, Request::METHOD_GET);
     }
+
+    /**
+     * Get stores list
+     *
+     * @return Response
+     */
+    public function storesList()
+    {
+        $url = '/admin/warehouses.json';
+
+        return $this->client->makeRequest($url, Request::METHOD_GET);
+    }
 }
