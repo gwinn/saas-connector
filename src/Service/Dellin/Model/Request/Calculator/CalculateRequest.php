@@ -142,7 +142,7 @@ class CalculateRequest
      * @var string
      *
      * @Serializer\Type("string")
-     * @Serializer\SerializedName("0x9c2acaea110d75ba48fdc7a83c976269")
+     * @Serializer\SerializedName("freightUID")
      *
      * @FakeMockField(value="0.9")
      */
@@ -210,7 +210,7 @@ class CalculateRequest
      * @var bool
      *
      * @Serializer\Type("boolean")
-     * @Serializer\SerializedName("derivalfixedtimevisit")
+     * @Serializer\SerializedName("derivalFixedTimeVisit")
      *
      * @FakeMockField(value="true")
      */
@@ -220,7 +220,7 @@ class CalculateRequest
      * @var PeriodVisit
      *
      * @Serializer\Type("SaaS\Service\Dellin\Model\Request\Calculator\PeriodVisit")
-     * @Serializer\SerializedName("derivalperiodvisit")
+     * @Serializer\SerializedName("derivalPeriodVisit")
      *
      * @FakeMockField()
      */
@@ -230,7 +230,7 @@ class CalculateRequest
      * @var bool
      *
      * @Serializer\Type("boolean")
-     * @Serializer\SerializedName("arrivalfixedtimevisit")
+     * @Serializer\SerializedName("arrivalFixedTimeVisit")
      *
      * @FakeMockField(value="true")
      */
@@ -240,7 +240,7 @@ class CalculateRequest
      * @var PeriodVisit
      *
      * @Serializer\Type("SaaS\Service\Dellin\Model\Request\Calculator\PeriodVisit")
-     * @Serializer\SerializedName("arrivalperiodvisit")
+     * @Serializer\SerializedName("arrivalPeriodVisit")
      *
      * @FakeMockField()
      */
@@ -252,7 +252,7 @@ class CalculateRequest
     * @var string
     *
     * @Serializer\Type("string")
-    * @Serializer\SerializedName("calculatedate")
+    * @Serializer\SerializedName("calculateDate")
     *
     * @FakeMockField(value="2017-03-21")
     */
@@ -262,7 +262,7 @@ class CalculateRequest
     * @var string
     *
     * @Serializer\Type("string")
-    * @Serializer\SerializedName("calculatedate")
+    * @Serializer\SerializedName("cauid")
     *
     * @FakeMockField(value="00000000-0000-0000-0000-000000000000")
     */
@@ -282,7 +282,7 @@ class CalculateRequest
     * @var int
     *
     * @Serializer\Type("integer")
-    * @Serializer\SerializedName("packages_count")
+    * @Serializer\SerializedName("packagesCount")
     *
     * @FakeMockField(value="3")
     */
@@ -292,7 +292,7 @@ class CalculateRequest
     * @var int
     *
     * @Serializer\Type("integer")
-    * @Serializer\SerializedName("bags_count")
+    * @Serializer\SerializedName("bagsCount")
     *
     * @FakeMockField(value="3")
     */
