@@ -92,7 +92,7 @@ class Member
      * @var DataForReceipt|null
      *
      * @Serializer\Type("SaaS\Service\Dellin\Model\Request\Delivery\DataForReceipt")
-     * @Serializer\SerializedName("counteragent")
+     * @Serializer\SerializedName("dataForReceipt")
      */
     public $dataForReceipt;
 }
