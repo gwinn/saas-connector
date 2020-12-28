@@ -112,7 +112,7 @@ class CalculateResponse
      * @var Time
      *
      * @Serializer\Type("SaaS\Service\Dellin\Model\Response\Calculator\Time")
-     * @Serializer\SerializedName("letter")
+     * @Serializer\SerializedName("time")
      *
      * @FakeMockField()
      */

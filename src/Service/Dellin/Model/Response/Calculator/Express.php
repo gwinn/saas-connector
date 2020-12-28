@@ -103,4 +103,14 @@ class Express
      * @FakeMockField()
      */
     public $notify;
+
+    /**
+     * @var Time
+     *
+     * @Serializer\Type("SaaS\Service\Dellin\Model\Response\Calculator\Time")
+     * @Serializer\SerializedName("time")
+     *
+     * @FakeMockField()
+     */
+    public $time;
 }

@@ -37,4 +37,14 @@ class Letter
      * @FakeMockField(value="300.0")
      */
     public $price;
+
+    /**
+     * @var Time
+     *
+     * @Serializer\Type("SaaS\Service\Dellin\Model\Response\Calculator\Time")
+     * @Serializer\SerializedName("time")
+     *
+     * @FakeMockField()
+     */
+    public $time;
 }
