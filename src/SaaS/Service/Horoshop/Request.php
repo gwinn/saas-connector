@@ -45,7 +45,7 @@ class Request
      */
     public function __construct($domain)
     {
-        $this->url = sprintf('%s/api/', $domain);
+        $this->url = sprintf('%s/api/', rtrim($domain, "/"));
     }
 
     /**
