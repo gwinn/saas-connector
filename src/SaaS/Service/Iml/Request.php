@@ -124,6 +124,10 @@ class Request
             curl_setopt($curlHandler, CURLOPT_POSTFIELDS, json_encode($parameters));
         }
 
+        if (self::METHOD_GET === $method) {
+            curl_setopt($curlHandler, CURLOPT_HTTPHEADER, array('Accept: application/json'));
+        }
+
         curl_setopt($curlHandler, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($curlHandler, CURLOPT_USERPWD, $this->auth);
         curl_setopt($curlHandler, CURLOPT_RETURNTRANSFER, 1);
