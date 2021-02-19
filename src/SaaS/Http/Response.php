@@ -61,7 +61,6 @@ class Response implements \ArrayAccess
                 }
             }
             if (!$response
-                && $this->statusCode != 200
                 && JSON_ERROR_NONE !== ($error = json_last_error())
             ) {
                 throw new InvalidJsonException(
