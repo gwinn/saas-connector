@@ -59,8 +59,12 @@ class Response extends \SaaS\Model\Response\Response
                 case is_array($response['errors']):
                     if (array_keys($response['errors']) === range(0, count($response['errors']) - 1)) {
                         foreach ($response['errors'] as $error) {
-                            foreach ($error['fields'] as $field) {
-                                $errors[$field] = $error['detail'];
+                            if (isset($error['fields'])) {
+                                foreach ($error['fields'] as $field) {
+                                    $errors[$field] = $error['detail'];
+                                }
+                            } elseif (isset($error['detail'])) {
+                                $errors[] = $error['detail'];
                             }
                         }
                     } else {
