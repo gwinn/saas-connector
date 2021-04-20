@@ -16,7 +16,9 @@
         "email": "lushpai@gmail.com"
     },
     "require": {
-        "php": ">=5.3",
+        "php": ">=5.4",
+        "ext-json": "*",
+        "ext-curl": "*",
         "league/oauth2-client": "1.4.2"
     },
     "require-dev": {

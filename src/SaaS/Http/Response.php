@@ -29,6 +29,7 @@ class Response implements \ArrayAccess
 {
     protected $statusCode;
     protected $response;
+    protected $responseBody;
 
     /**
      * Response constructor.
@@ -39,6 +40,7 @@ class Response implements \ArrayAccess
     public function __construct($statusCode, $responseBody = null)
     {
         $this->statusCode = (int) $statusCode;
+        $this->responseBody = $responseBody;
 
         if (!empty($responseBody)) {
             $response = json_decode($responseBody, true);
@@ -91,6 +93,16 @@ class Response implements \ArrayAccess
     public function getResponse()
     {
         return $this->response;
+    }
+
+    /**
+     * Return HTTP response row
+     *
+     * @return mixed
+     */
+    public function getResponseBody()
+    {
+        return $this->responseBody;
     }
 
     /**
