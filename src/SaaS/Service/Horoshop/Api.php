@@ -265,8 +265,7 @@ class Api
             'target_url' => $url,
         );
 
-        //TODO: Какой метод использовать
-        return $this->request->makeRequest($path, Request::METHOD_DELETE, $parameters);
+        return $this->request->makeRequest($path, Request::METHOD_POST, $parameters);
     }
 
     /**

@@ -126,6 +126,11 @@ class Request
             throw new HoroshopLimitException(json_encode($message), $statusCode);
         }
 
+        // При успешной отписке от вебхука Хорошоп возвращает код 410
+        if (410 === $statusCode && false !== strpos($response, 'OK')) {
+            $statusCode = 200;
+        }
+
         $errno = curl_errno($curlHandler);
         $error = curl_error($curlHandler);
 
