@@ -246,10 +246,11 @@ class Api
     /**
      * Delete webhook
      *
-     * @param string $id идентификатор подписки полученный в функции hooks/subscribe
+     * @param string $id  идентификатор подписки полученный в функции hooks/subscribe
      * @param string $url ссылка по которой необходимо отправить данные при срабатывании события
      *
      * @return Response
+     * @throws \SaaS\Exception\HoroshopLimitException
      */
     public function deleteWebhook($id, $url)
     {
@@ -265,8 +266,12 @@ class Api
             'target_url' => $url,
         );
 
-        //TODO: Какой метод использовать
-        return $this->request->makeRequest($path, Request::METHOD_DELETE, $parameters);
+        return $this->request->makeRequest(
+            $path,
+            Request::METHOD_DELETE,
+            $parameters,
+            array('content-type' => 'application/json')
+        );
     }
 
     /**

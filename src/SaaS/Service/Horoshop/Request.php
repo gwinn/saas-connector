@@ -54,6 +54,7 @@ class Request
      * @param string $path       request url
      * @param string $method     (default: 'GET')
      * @param array  $parameters (default: array())
+     * @param array  $context    (default: array())
      *
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      *
@@ -63,7 +64,7 @@ class Request
      *
      * @return Response
      */
-    public function makeRequest($path, $method, array $parameters = array())
+    public function makeRequest($path, $method, array $parameters = array(), array $context = array())
     {
         $allowedMethods = array(
             self::METHOD_GET,
@@ -101,7 +102,11 @@ class Request
         curl_setopt($curlHandler, CURLOPT_HEADER, true);
         curl_setopt($curlHandler, CURLOPT_CUSTOMREQUEST, $method);
 
-        if (self::METHOD_POST == $method || self::METHOD_PUT == $method) {
+        if (
+            self::METHOD_POST === $method ||
+            self::METHOD_PUT === $method ||
+            (isset($context['content-type']) && 'application/json' === $context['content-type'])
+        ) {
             curl_setopt($curlHandler, CURLOPT_POSTFIELDS, json_encode($parameters));
             curl_setopt($curlHandler, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
         }
