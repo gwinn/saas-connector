@@ -13,6 +13,7 @@
 namespace SaaS\Service\Dellin\Model\Response;
 
 use SaaS\Exception\InvalidJsonException;
+use SaaS\Service\Dellin\Exception\DellinApiFailureException;
 use SaaS\Service\Dellin\Exception\DellinApiResponseException;
 
 /**
@@ -37,14 +38,7 @@ class Response extends \SaaS\Model\Response\Response
         $response = json_decode($raw, true);
 
         if (JSON_ERROR_NONE !== json_last_error()) {
-            throw new InvalidJsonException(
-                sprintf(
-                    'Error json: %s | %s (raw: %s)',
-                    $className,
-                    json_last_error_msg(),
-                    $raw
-                )
-            );
+            throw new DellinApiFailureException('Failed to decode response', $this);
         }
 
         if (isset($response['errors'])) {
