@@ -48,7 +48,7 @@ class Response implements \ArrayAccess
             if ($this->statusCode >= 400 && $this->statusCode < 500) {
                 if (is_array($response)) {
                     foreach ($response as $key =>  $value) {
-                        $message[] =  (is_array($value) ? implode(', ', $value) : $value);
+                        $message[] =  "$key: " . (is_array($value) ? implode(', ', $value) : $value);
                     }
                     throw new InvalidArgumentException(
                         implode(' ', $message),
