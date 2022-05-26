@@ -32,12 +32,13 @@ class Api
     /**
      * Client constructor.
      *
-     * @param string $domain   User domain
-     * @param string $login    User login
-     * @param string $password User password
-     * @param mixed $token     User token
+     * @param string $domain        User domain
+     * @param string $login         User login
+     * @param string $password      User password
+     * @param mixed $token          User token
+     * @param array $proxySettings  Proxy settings for requests
      */
-    public function __construct($domain, $login, $password, $token = null)
+    public function __construct($domain, $login, $password, $token = null, $proxySettings = [])
     {
         if (empty($domain) || empty($login) || empty($password)) {
             throw new \InvalidArgumentException(
@@ -45,7 +46,7 @@ class Api
             );
         }
 
-        $this->request = new Request($domain);
+        $this->request = new Request($domain, $proxySettings);
 
         if (is_null($token)) {
             $auth = $this->auth($login, $password);

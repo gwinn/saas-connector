@@ -37,15 +37,18 @@ class Request
     const METHOD_DELETE = 'DELETE';
 
     protected $url;
+    protected $proxySettings;
 
     /**
      * Client constructor.
      *
-     * @param string $domain Domain client
+     * @param string $domain        Domain client
+     * @param array  $proxySettings Proxy settings
      */
-    public function __construct($domain)
+    public function __construct($domain, $proxySettings = [])
     {
         $this->url = sprintf('%s/api/', rtrim($domain, "/"));
+        $this->proxySettings = $proxySettings;
     }
 
     /**
@@ -100,6 +103,11 @@ class Request
         curl_setopt($curlHandler, CURLOPT_TIMEOUT, 180);
         curl_setopt($curlHandler, CURLOPT_HEADER, true);
         curl_setopt($curlHandler, CURLOPT_CUSTOMREQUEST, $method);
+
+        if (!empty($this->proxySettings)) {
+            curl_setopt($curlHandler, CURLOPT_PROXYTYPE, $this->proxySettings['type']);
+            curl_setopt($curlHandler, CURLOPT_PROXY, $this->proxySettings['proxy']);
+        }
 
         if (self::METHOD_POST == $method || self::METHOD_PUT == $method) {
             curl_setopt($curlHandler, CURLOPT_POSTFIELDS, json_encode($parameters));
