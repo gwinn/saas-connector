@@ -48,7 +48,8 @@ class Api
         'packs',
         'cashiers',
         'positions',
-        'audit'
+        'audit',
+        'events'
     );
 
     /**
