@@ -277,6 +277,8 @@ class Client
      * @return Response
      *
      * @throws DellinApiException
+     *
+     * @deprecated
      */
     public function calculate(Model\Request\Calculator\CalculateRequest $request): Response
     {
@@ -289,6 +291,31 @@ class Client
             '/v1/public/calculator.json',
             $body,
             Model\Response\Calculator\CalculateResponse::class
+        );
+    }
+
+    /**
+     * @link https://dev.dellin.ru/api/calculation/calculator/#_header8
+     *
+     * @group calculator
+     *
+     * @param Model\Request\Calculator\CalculateRequestV2 $request
+     *
+     * @return Response
+     *
+     * @throws DellinApiException
+     */
+    public function calculateV2(Model\Request\Calculator\CalculateRequestV2 $request): Response
+    {
+        $body = json_encode(array_merge($this->getDefaultParameters(true), $this->serializer->toArray($request)));
+        if (false === $body) {
+            throw new DellinApiException([json_last_error_msg()]);
+        }
+
+        return $this->doRequest(
+            '/v2/calculator.json',
+            $body,
+            Model\Response\Calculator\V2\CalculateResponse::class
         );
     }
 
