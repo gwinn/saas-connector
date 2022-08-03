@@ -10,7 +10,6 @@ use SaaS\Service\Dellin\Model\Response\Calculator\Express;
 use SaaS\Service\Dellin\Model\Response\Calculator\InsuranceComponents;
 use SaaS\Service\Dellin\Model\Response\Calculator\Intercity;
 use SaaS\Service\Dellin\Model\Response\Calculator\Letter;
-use SaaS\Service\Dellin\Model\Response\Calculator\OrderDates;
 use SaaS\Service\Dellin\Model\Response\Calculator\Small;
 
 /**
@@ -79,7 +78,7 @@ class Data
      *
      * @var OrderDates
      *
-     * @Serializer\Type("SaaS\Service\Dellin\Model\Response\Calculator\OrderDates")
+     * @Serializer\Type("SaaS\Service\Dellin\Model\Response\Calculator\V2\OrderDates")
      * @Serializer\SerializedName("orderDates")
      *
      * @FakeMockField()
