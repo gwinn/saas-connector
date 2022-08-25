@@ -15,6 +15,7 @@ namespace SaaS\Service\Moysklad;
 
 use SaaS\Exception\CurlException;
 use SaaS\Exception\MoySkladException;
+use SaaS\Http\BaseResponse;
 use SaaS\Http\Response;
 use SaaS\Http\ResponseText;
 
@@ -162,7 +163,7 @@ class Request
      *
      * @access public
      *
-     * @return Response|ResponseText
+     * @return BaseResponse
      */
     public function makeRequest($url, $method = 'GET', $parameters = array())
     {
@@ -274,15 +275,11 @@ class Request
         curl_close($curlHandler);
         $this->resetHeaders();
 
-        if ($downloadImage) {
-            return new ResponseText($statusCode, $responseBody);
-        }
-
         if ($statusCode >= 400) {
             $result = json_decode($responseBody, true);
 
             throw new MoySkladException(
-                $this->getError($result),
+                $this->getError(json_last_error() ? $responseBody : $result),
                 $statusCode
             );
         }
@@ -300,6 +297,10 @@ class Request
 
         if ($errno) {
             throw new CurlException($error, $errno);
+        }
+
+        if ($downloadImage) {
+            return new ResponseText($statusCode, $responseBody);
         }
 
         return new Response($statusCode, $responseBody);
