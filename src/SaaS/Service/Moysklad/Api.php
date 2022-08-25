@@ -14,6 +14,7 @@
 namespace SaaS\Service\Moysklad;
 
 use SaaS\Http\Response;
+use SaaS\Http\ResponseText;
 use SaaS\Exception\MoySkladException;
 
 /**
@@ -490,6 +491,30 @@ class Api
                 );
             }
         }
+    }
+
+    /**
+     * Get image.
+     *
+     * @param string $uuid
+     *
+     * @throws \InvalidArgumentException
+     * @throws MoySkladException
+     *
+     * @access public
+     *
+     * @return ResponseText
+     */
+    public function getImage($uuid)
+    {
+        $this->checkUuid($uuid);
+
+        $uri = sprintf('download/%s', $uuid);
+
+        return $this->client->makeRequest(
+            $uri,
+            Request::METHOD_GET
+        );
     }
 
     /**
