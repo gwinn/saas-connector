@@ -41,8 +41,8 @@ class Api
         'week',
         'month',
         'syncid'
-
     );
+
     const REQUEST_ATTRIBUTES_SECOND = array(
         'accounts',
         'contactpersons',
@@ -50,7 +50,12 @@ class Api
         'cashiers',
         'positions',
         'audit',
-        'events'
+        'events',
+        'new'
+    );
+
+    const DOCUMENT_DATA_KEY = array(
+        'customerOrder'
     );
 
     /**
@@ -424,6 +429,54 @@ class Api
                 $parameters
             );
         }
+    }
+
+    /**
+     * Get entity template.
+     *
+     * @param array $type
+     * @param array $data
+     *
+     * @return Response
+     * @throws MoySkladException
+     */
+    public function getDocumentTemplate(array $type, array $data): Response
+    {
+        if (empty($type)) {
+            throw new \InvalidArgumentException('The `type` can not be empty');
+        }
+
+        if (empty($data)) {
+            throw new \InvalidArgumentException('The `data` can not be empty');
+        }
+
+        if (!in_array(array_key_first($data), self::DOCUMENT_DATA_KEY)) {
+            throw new \InvalidArgumentException('Wrong `data`: `data` must contain a valid key');
+        }
+
+        $parameters['data'] = $data;
+
+        if (!is_string($type[0])) {
+            throw new \InvalidArgumentException('Wrong `type`: `type` must be a "string"');
+        }
+
+        if (empty($this->entity[strtolower($type[0])])) {
+            throw new \InvalidArgumentException('Undefined data type');
+        }
+
+        if (empty($type[1])) {
+            throw new \InvalidArgumentException('Not found second attribute');
+        }
+
+        if (!in_array($type[1], self::REQUEST_ATTRIBUTES_SECOND)) {
+            throw new \InvalidArgumentException(sprintf('Wrong attribute: `%s`', $type[1]));
+        }
+
+        return $this->client->makeRequest(
+            sprintf($this->entity[strtolower($type[0])] . '/' . implode('/', $type)),
+            Request::METHOD_PUT,
+            $parameters
+        );
     }
 
     /**
