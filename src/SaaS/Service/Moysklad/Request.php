@@ -34,30 +34,45 @@ class Request
     /**
      * URL from JsonAPI
      */
-    const URL = 'https://online.moysklad.ru/api/remap/';
+    public const URL = 'https://online.moysklad.ru/api/remap/';
 
     /**
-     * Version from JsonAPI
+     * Version from JsonAPI 1.1
      */
-    const VERSION = '1.1';
+    public const VERSION_1_1 = '1.1';
+
+    /**
+     * Version from JsonAPI 1.2
+     */
+    public const VERSION_1_2 = '1.2';
+
+    /**
+     * Allowed JsonAPI Versions
+     */
+    public const ALLOWED_VERSIONS = [
+        self::VERSION_1_1,
+        self::VERSION_1_2,
+    ];
+
+    protected static $apiVersion = self::VERSION_1_1;
 
     /**
      * Methods
      */
-    const METHOD_GET = 'GET';
-    const METHOD_POST = 'POST';
-    const METHOD_PUT = 'PUT';
-    const METHOD_DELETE = 'DELETE';
+    public const METHOD_GET = 'GET';
+    public const METHOD_POST = 'POST';
+    public const METHOD_PUT = 'PUT';
+    public const METHOD_DELETE = 'DELETE';
 
     /**
      * Filters
      */
-    const FILTER_OPERANDS = array('=', '>', '<', '>=', '<=', '!=', '~', '~=', '=~');
+    public const FILTER_OPERANDS = array('=', '>', '<', '>=', '<=', '!=', '~', '~=', '=~');
 
     /**
      * Restrictions
      */
-    const MAX_DATA_VALUE = 10 * 1024 * 1024;
+    public const MAX_DATA_VALUE = 10 * 1024 * 1024;
 
     /**
      * Login access to API
@@ -151,6 +166,25 @@ class Request
     }
 
     /**
+     * Change api version
+     *
+     * @throw InvalidArgumentException
+     */
+    public function setApiVersion(string $apiVersion): void
+    {
+        if (!in_array($apiVersion, self::ALLOWED_VERSIONS)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Passed api version %s is not valid',
+                    $apiVersion,
+                )
+            );
+        }
+
+        self::$apiVersion = $apiVersion;
+    }
+
+    /**
      * Execution of the request
      *
      * @param string $url
@@ -180,7 +214,7 @@ class Request
             );
         }
 
-        $curlUrl = self::URL . self::VERSION . '/' . $url;
+        $curlUrl = self::URL . self::$apiVersion . '/' . $url;
 
         if ($method === self::METHOD_GET && count($parameters)) {
             $curlUrl .= $this->httpBuildQuery($parameters);
