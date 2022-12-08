@@ -153,6 +153,17 @@ class Api
     }
 
     /**
+     * Change request api version
+     *
+     * @throw InvalidArgumentException
+     */
+    public function setRequestApiVersion(string $apiVersion): void
+    {
+        $this->client->setApiVersion($apiVersion);
+    }
+
+
+    /**
      * Getter
      *
      * @param string $property
