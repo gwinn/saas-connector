@@ -134,7 +134,8 @@ class Api
         'stock' => 'report',
         'sales' => 'report',
         'bundle' => 'entity',
-        'audit' => 'audit'
+        'audit' => 'audit',
+        'saleschannel' => 'entity'
     );
 
     /**
