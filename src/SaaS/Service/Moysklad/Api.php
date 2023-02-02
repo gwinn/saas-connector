@@ -55,7 +55,8 @@ class Api
     );
 
     const DOCUMENT_DATA_KEY = array(
-        'customerOrder'
+        'customerOrder',
+        'demand',
     );
 
     /**
