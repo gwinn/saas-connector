@@ -26,12 +26,12 @@ use JMS\Serializer\Annotation as Serializer;
  *
  * @FakeMock()
  */
-class Member
+class OrdersMember
 {
     /**
-     * @var string|null
+     * @var Opf|null
      *
-     * @Serializer\Type("string")
+     * @Serializer\Type("SaaS\Service\Dellin\Model\Response\Order\Opf")
      * @Serializer\SerializedName("opf")
      */
     public $opf;

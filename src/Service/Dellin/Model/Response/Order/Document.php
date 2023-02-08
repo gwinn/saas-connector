@@ -79,9 +79,9 @@ class Document
     public $state;
 
     /**
-     * @var Member
+     * @var DocumentsMember
      *
-     * @Serializer\Type("SaaS\Service\Dellin\Model\Response\Order\Member")
+     * @Serializer\Type("SaaS\Service\Dellin\Model\Response\Order\DocumentsMember")
      * @Serializer\SerializedName("sender")
      *
      * @FakeMockField()
@@ -89,9 +89,9 @@ class Document
     public $sender;
 
     /**
-     * @var Member
+     * @var DocumentsMember
      *
-     * @Serializer\Type("SaaS\Service\Dellin\Model\Response\Order\Member")
+     * @Serializer\Type("SaaS\Service\Dellin\Model\Response\Order\DocumentsMember")
      * @Serializer\SerializedName("receiver")
      *
      * @FakeMockField()
@@ -99,9 +99,9 @@ class Document
     public $receiver;
 
     /**
-     * @var Member
+     * @var DocumentsMember
      *
-     * @Serializer\Type("SaaS\Service\Dellin\Model\Response\Order\Member")
+     * @Serializer\Type("SaaS\Service\Dellin\Model\Response\Order\DocumentsMember")
      * @Serializer\SerializedName("payer")
      *
      * @FakeMockField()
