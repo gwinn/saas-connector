@@ -115,9 +115,9 @@ class Order
     public $arrival;
 
     /**
-     * @var Member
+     * @var OrdersMember
      *
-     * @Serializer\Type("SaaS\Service\Dellin\Model\Response\Order\Member")
+     * @Serializer\Type("SaaS\Service\Dellin\Model\Response\Order\OrdersMember")
      * @Serializer\SerializedName("sender")
      *
      * @FakeMockField()
@@ -125,9 +125,9 @@ class Order
     public $sender;
 
     /**
-     * @var Member
+     * @var OrdersMember
      *
-     * @Serializer\Type("SaaS\Service\Dellin\Model\Response\Order\Member")
+     * @Serializer\Type("SaaS\Service\Dellin\Model\Response\Order\OrdersMember")
      * @Serializer\SerializedName("receiver")
      *
      * @FakeMockField()
@@ -135,9 +135,9 @@ class Order
     public $receiver;
 
     /**
-     * @var Member
+     * @var OrdersMember
      *
-     * @Serializer\Type("SaaS\Service\Dellin\Model\Response\Order\Member")
+     * @Serializer\Type("SaaS\Service\Dellin\Model\Response\Order\OrdersMember")
      * @Serializer\SerializedName("payer")
      *
      * @FakeMockField()
