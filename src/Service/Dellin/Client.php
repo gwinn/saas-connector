@@ -1081,6 +1081,60 @@ class Client
         );
     }
 
+    /**
+     * @link https://dev.dellin.ru/api/order/check/
+     *
+     * @group orders
+     *
+     * @param int $orderId
+     *
+     * @return Response
+     *
+     * @throws DellinApiException
+     */
+    public function getChangeAvailable(int $orderId): Response
+    {
+        $parameters = [
+            'orderID' => $orderId,
+        ];
+
+        $body = json_encode(array_merge($this->getDefaultParameters(true), $parameters));
+        if (false === $body) {
+            throw new DellinApiException([json_last_error_msg()]);
+        }
+
+        return $this->doRequest(
+            '/v3/orders/change_available.json',
+            $body,
+            Model\Response\Order\ChangeAvailableResponse::class
+        );
+    }
+
+    /**
+     * @link https://dev.dellin.ru/api/order/cancel/
+     *
+     * @group orders
+     *
+     * @param Model\Request\Order\CancelPickupRequest $request
+     *
+     * @return Response
+     *
+     * @throws DellinApiException
+     */
+    public function cancelPickup(Model\Request\Order\CancelPickupRequest $request): Response
+    {
+        $body = json_encode(array_merge($this->getDefaultParameters(true), $this->serializer->toArray($request)));
+        if (false === $body) {
+            throw new DellinApiException([json_last_error_msg()]);
+        }
+
+        return $this->doRequest(
+            '/v3/orders/cancel_pickup.json',
+            $body,
+            Model\Response\Order\CancelPickupResponse::class
+        );
+    }
+
     protected function getDefaultParameters(bool $useSession = false): array
     {
         $parameters = [
