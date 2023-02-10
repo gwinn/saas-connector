@@ -35,10 +35,12 @@ class ChangeInfo
     public $displayName;
 
     /**
-     * @var string
+     * https://dev.dellin.ru/api/order/check/
      *
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("info")
+     * Данный параметр есть только у response.data.payer, но в
+     * документации тип указан как string, однако API возвращает
+     * пустой объект
+     * В своем модуле это значение мы не используем
      */
-    public $info;
+    // public $info;
 }
