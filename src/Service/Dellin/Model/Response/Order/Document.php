@@ -29,9 +29,9 @@ use JMS\Serializer\Annotation as Serializer;
 class Document
 {
     /**
-     * @var int
+     * @var string
      *
-     * @Serializer\Type("integer")
+     * @Serializer\Type("string")
      * @Serializer\SerializedName("id")
      *
      * @FakeMockField(value="39513109")
