@@ -13,6 +13,7 @@
 namespace SaaS\Service\Insales;
 
 use SaaS\Exception\InsalesApiException;
+use SaaS\Exception\InsalesLimitException;
 use SaaS\Http\Response;
 
 /**
@@ -193,12 +194,16 @@ class Api
      * @group   product
      *
      * @return Response
+     * @throws InsalesLimitException
      */
-    public function productsCount()
+    public function productsCount($updatedSince = null)
     {
         $url = '/admin/products/count.json';
+        $parameters = [
+            'updated_since' => $updatedSince,
+        ];
 
-        return $this->client->makeRequest($url, Request::METHOD_GET);
+        return $this->client->makeRequest($url, Request::METHOD_GET, $parameters);
     }
 
     /**
@@ -2078,6 +2083,19 @@ class Api
         $url = sprintf('/admin/delivery_variants/%s.json', $deliveryId);
 
         return $this->client->makeRequest($url, Request::METHOD_DELETE);
+    }
+
+    /**
+     * @link    https://api.insales.ru/#pricekind-get-price-kinds-json
+     *
+     * @return Response
+     * @throws InsalesLimitException
+     */
+    public function priceKindsList()
+    {
+        $url = '/admin/price_kinds.json';
+
+        return $this->client->makeRequest($url, Request::METHOD_GET);
     }
 
     /**
