@@ -190,6 +190,89 @@ class ApiTest extends TestCase
         static::checkResponse($response);
     }
 
+
+
+    /**
+     * Test successfull Api client order delete
+     *
+     * @group courierist
+     *
+     * @return void
+     */
+    public function testOrderDelete()
+    {
+        $parameters = array(
+            array(
+                'comment' => 'Выполнить быстро!',
+                'locations' => array(
+                    array(
+                        'address' => 'Новый Арбат 2, Москва',
+                        'delivery_date' => '2016-05-11',
+                        'delivery_from' => '18:00',
+                        'delivery_to' => '20:00',
+                        'comment' => 'Test',
+                        'external_id' => 'MY14124',
+                        'contact' => array(
+                            'name' => 'офис 1',
+                            'phone' =>'',
+                            'note' =>'',
+                            'type' => '1'
+                        ),
+                        'assignments' => array(
+                            array(
+                                'name' => 'test owners patience',
+                                'price' => '1000'
+                            ),
+                            array(
+                                'name' => 'praise owners humility',
+                                'type' => '2',
+                                'price' => '1000'
+                            ),
+                        )
+                    ),
+                    array(
+                        'address' => 'Красная площадь, Москва',
+                        'latitude' => '55.822470175511',
+                        'longitude' => '37.46910618045',
+                        'delivery_date' => '2016-05-12',
+                        'delivery_from' => '18:00',
+                        'delivery_to' => '20:00',
+                        'external_id' => '555',
+                        'contact' => array(
+                            'name' => 'Клиент 1',
+                            'phone' => '9995551122',
+                            'note' => 'злой',
+                            'type' => '2'
+                        )
+                    )
+                ),
+                'shipment' => array(
+                    array(
+                        'weight' => '1',
+                        'length' => '10'
+                    ),
+                    array(
+                        'name' => 'Кирпичи',
+                        'article' => 'а111',
+                        'price' => '100',
+                        'weight' => '1',
+                        'length' => '10',
+                        'value' => '100',
+                        'unit' => '2'
+                    ),
+                )
+            )
+        );
+
+        $client = static::getCourieristApiClient();
+        $createResponse = $client->orderCreate($parameters);
+        $createResponseBody = $createResponse->getResponse();
+        $this->testId = $createResponseBody['orders'][0]['id'];
+        static::checkResponse($createResponse);
+        $deleteResponse = $client->orderDelete($this->testId);
+        static::checkResponse($deleteResponse);
+    }
+
     /**
      * Test successfull Api client init
      *

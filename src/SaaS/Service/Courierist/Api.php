@@ -123,6 +123,30 @@ class Api {
     }
 
     /**
+     * Set orders delete
+     *
+     * @param string $id id order
+     *
+     * @return Response
+     */
+    public function orderDelete($id)
+    {
+        $token = $this->getToken();
+
+        if (empty($token)) {
+            throw new \InvalidArgumentException("Access token must be not empty");
+        }
+
+        if (empty($id)) {
+            throw new \InvalidArgumentException("Id order must be not empty");
+        }
+
+        $path = sprintf('order/cancel/%s', $id);
+
+        return $this->request->makeRequest($token, $path, 'POST');
+    }
+
+    /**
      * Set order status
      *
      * @param string $id          id order
@@ -177,7 +201,7 @@ class Api {
 
     /**
      * Get all orders
-     *
+     * @deprecated
      * @return Response
      */
     public function ordersAll()
