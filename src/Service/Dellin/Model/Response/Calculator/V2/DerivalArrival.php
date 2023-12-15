@@ -108,4 +108,14 @@ class DerivalArrival
      * @Serializer\SerializedName("terminals")
      */
     public $terminals;
+
+    /**
+     * Информация о стоимости погрузо-разгрузочных работ
+     *
+     * @var CostsCalculation
+     *
+     * @Serializer\Type("SaaS\Service\Dellin\Model\Response\Calculator\V2\CostsCalculation")
+     * @Serializer\SerializedName("handling")
+     */
+    public $handling;
 }
