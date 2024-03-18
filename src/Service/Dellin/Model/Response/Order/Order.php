@@ -359,4 +359,12 @@ class Order
      * @Serializer\SerializedName("documentsReturnDate")
      */
     public $documentsReturnDate;
+
+    /**
+     * @var bool
+     *
+     * @Serializer\Type("boolean")
+     * @Serializer\SerializedName("withWebOrder")
+     */
+    public $withWebOrder;
 }
