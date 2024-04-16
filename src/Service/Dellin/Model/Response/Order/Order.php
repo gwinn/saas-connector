@@ -95,6 +95,30 @@ class Order
     public $stateDate;
 
     /**
+     * @var boolean
+     *
+     * @Serializer\Type("boolean")
+     * @Serializer\SerializedName("returnState")
+     */
+    public $returnState;
+
+    /**
+     * @var string
+     *
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("returnReason")
+     */
+    public $returnReason;
+
+    /**
+     * @var string
+     *
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("returnDate")
+     */
+    public $returnDate;
+
+    /**
      * @var DerivalArrival
      *
      * @Serializer\Type("SaaS\Service\Dellin\Model\Response\Order\DerivalArrival")
