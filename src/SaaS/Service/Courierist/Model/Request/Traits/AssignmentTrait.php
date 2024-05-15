@@ -1,16 +1,8 @@
 <?php
 
-namespace SaaS\Service\Courierist\Model\Request\OrderCost;
+namespace SaaS\Service\Courierist\Model\Request\Traits;
 
-use JMS\Serializer\Annotation as JMS;
-
-/**
- * Class Assignment
- *
- * @category Models
- *
- */
-class Assignment
+trait AssignmentTrait
 {
     /**
      * Наложенный платеж

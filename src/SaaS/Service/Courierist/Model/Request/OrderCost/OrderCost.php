@@ -2,6 +2,9 @@
 
 namespace SaaS\Service\Courierist\Model\Request\OrderCost;
 
+use SaaS\Service\Courierist\Model\Request\OrderCost\Location;
+use SaaS\Service\Courierist\Model\Request\OrderCost\Shipment;
+
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -17,7 +20,7 @@ class OrderCost
      *
      * @var Location[]
      *
-     * @JSM\Type("array<Gwinn\SaaS\Service\Courierist\OrderData\Location>")
+     * @JSM\Type("array<SaaS\Service\Courierist\Model\Request\OrderCost\Location>")
      * @JMS\SerializedName("locations")
      */
     public $locations;
@@ -27,7 +30,7 @@ class OrderCost
      *
      * @var Shipment[]
      *
-     * @JSM\Type("array<Gwinn\SaaS\Service\Courierist\OrderData\Shipment>")
+     * @JSM\Type("array<SaaS\Service\Courierist\Model\Request\OrderCost\Shipment>")
      * @JMS\SerializedName("shipment")
      */
     public $shipment;

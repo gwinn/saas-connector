@@ -226,7 +226,7 @@ class Api {
      */
     public function getLocation()
     {
-        return $this->client->makeRequest('Location', 'GET');
+        return $this->client->makeRequest('LocationTrait', 'GET');
     }
 
     /**

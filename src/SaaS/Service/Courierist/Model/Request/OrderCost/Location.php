@@ -2,82 +2,25 @@
 
 namespace SaaS\Service\Courierist\Model\Request\OrderCost;
 
+use SaaS\Service\Courierist\Model\Request\OrderCost\Assignment;
+use SaaS\Service\Courierist\Model\Request\Traits\LocationTrait;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * Class Location
+ * Class LocationTrait
  *
  * @category Models
  *
  */
 class Location
 {
-    /**
-     * Адрес
-     *
-     * @var string
-     *
-     * @JSM\Type("string")
-     * @JMS\SerializedName("address")
-     */
-    public $address;
-
-    /**
-     * Широта
-     *
-     * @var double
-     *
-     * @JSM\Type("double")
-     * @JMS\SerializedName("latitude")
-     */
-    public $latitude;
-
-    /**
-     * Долгота
-     *
-     * @var double
-     *
-     * @JSM\Type("double")
-     * @JMS\SerializedName("longtitude")
-     */
-    public $longtitude;
-
-    /**
-     * Дата доставки (формат YYYY-MM-DD)
-     *
-     * @var string
-     *
-     * @JSM\Type("string")
-     * @JMS\SerializedName("delivery_date")
-     */
-    public $deliveryDate;
-
-    /**
-     * Время доставки от (формат HH:MM)
-     *
-     * @var string
-     *
-     * @JSM\Type("string")
-     * @JMS\SerializedName("delivery_from")
-     */
-    public $deliveryFrom;
-
-    /**
-     * Время доставки до (формат HH:MM)
-     *
-     * @var string
-     *
-     * @JSM\Type("string")
-     * @JMS\SerializedName("delivery_to")
-     */
-    public $deliveryTo;
-
+    use LocationTrait;
     /**
      * Массив поручений
      *
      * @var Assignment[]
      *
-     * @JSM\Type("array<Gwinn\SaaS\Service\Courierist\OrderData\Assignment>")
+     * @JSM\Type("array<SaaS\Service\Courierist\Model\Request\OrderCost\Assignment>")
      * @JMS\SerializedName("assignments")
      */
     public $assignments;
