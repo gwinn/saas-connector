@@ -8,12 +8,12 @@ use SaaS\Service\Courierist\Model\Request\OrderCost\Shipment;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * Class OrderCost
+ * Class OrderCostRequest
  *
  * @category Models
  *
  */
-class OrderCost
+class OrderCostRequest
 {
     /**
      * Массив из адресов забора и доставки

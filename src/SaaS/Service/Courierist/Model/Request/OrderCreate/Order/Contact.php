@@ -1,6 +1,6 @@
 <?php
 
-namespace SaaS\Service\Courierist\Model\Request\Order;
+namespace SaaS\Service\Courierist\Model\Request\OrderCreate\Order;
 
 use JMS\Serializer\Annotation as JMS;
 
@@ -33,7 +33,7 @@ class Contact
     public $phone;
 
     /**
-     * Видимый email адрес
+     * Валидный email адрес
      *
      * @var string
      *
@@ -43,7 +43,7 @@ class Contact
     public $email;
 
     /**
-     * Примечание
+     * Примечание или телефон в любом формате
      *
      * @var string
      *

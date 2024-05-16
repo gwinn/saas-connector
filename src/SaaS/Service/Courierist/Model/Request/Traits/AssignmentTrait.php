@@ -17,6 +17,9 @@ trait AssignmentTrait
     /**
      * Тип поручения
      *
+     * 1 - получить деньги (по умолчанию)
+     * 2 - отдать деньги
+     *
      * @var integer
      *
      * @JSM\Type("integer")

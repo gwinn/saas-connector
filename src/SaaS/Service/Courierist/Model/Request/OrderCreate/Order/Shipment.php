@@ -1,6 +1,6 @@
 <?php
 
-namespace SaaS\Service\Courierist\Model\Request\Order;
+namespace SaaS\Service\Courierist\Model\Request\OrderCreate\Order;
 
 use SaaS\Service\Courierist\Model\Request\Traits\ShipmentTrait;
 

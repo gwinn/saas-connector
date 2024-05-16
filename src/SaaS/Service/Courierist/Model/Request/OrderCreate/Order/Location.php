@@ -1,9 +1,11 @@
 <?php
 
-namespace SaaS\Service\Courierist\Model\Request\Order;
+namespace SaaS\Service\Courierist\Model\Request\OrderCreate\Order;
 
 use JMS\Serializer\Annotation as JMS;
 use SaaS\Service\Courierist\Model\Request\Traits\LocationTrait;
+use SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Contact;
+use SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Assignment;
 
 /**
  * Class LocationTrait
@@ -70,7 +72,7 @@ class Location
      *
      * @var Contact
      *
-     * @JSM\Type("array<SaaS\Service\Courierist\Model\Request\Order\Contact>")
+     * @JSM\Type("SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Contact")
      * @JMS\SerializedName("contact")
      */
     public $contact;
@@ -80,7 +82,7 @@ class Location
      *
      * @var Assignment[]
      *
-     * @JSM\Type("array<SaaS\Service\Courierist\Model\Request\Order\Assignment>")
+     * @JSM\Type("array<SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Assignment>")
      * @JMS\SerializedName("assignments")
      */
     public $assignments;

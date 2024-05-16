@@ -2,9 +2,9 @@
 
 namespace SaaS\Service\Courierist\Model\Request\OrderCost;
 
-use SaaS\Service\Courierist\Model\Request\OrderCost\Assignment;
-use SaaS\Service\Courierist\Model\Request\Traits\LocationTrait;
 use JMS\Serializer\Annotation as JMS;
+use SaaS\Service\Courierist\Model\Request\Traits\LocationTrait;
+use SaaS\Service\Courierist\Model\Request\OrderCost\Assignment;
 
 /**
  * Class LocationTrait

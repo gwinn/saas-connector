@@ -25,6 +25,9 @@ class Assignment
     /**
      * Тип поручения
      *
+     * N=1 - наложенный платеж (по умолчанию)
+     * N=2 - расход
+     *
      * @var integer
      *
      * @JSM\Type("integer")

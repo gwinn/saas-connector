@@ -1,6 +1,6 @@
 <?php
 
-namespace SaaS\Service\Courierist\Model\Response\OrderCostResponse\Order;
+namespace SaaS\Service\Courierist\Model\Response\OrderCost\Order;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -20,4 +20,14 @@ class Order
      * @JMS\SerializedName("price")
      */
     public $price;
+
+    /**
+     * Дата оценки (формат YYYY-MM-DD)
+     *
+     * @var string
+     *
+     * @JSM\Type("string")
+     * @JMS\SerializedName("estimate_at")
+     */
+    public $estimateAt;
 }

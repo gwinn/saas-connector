@@ -1,11 +1,11 @@
 <?php
 
-namespace SaaS\Service\Courierist\Model\Request\Order;
+namespace SaaS\Service\Courierist\Model\Request\OrderCreate\Order;
 
-use SaaS\Service\Courierist\Model\Request\Order\Contact;
-use SaaS\Service\Courierist\Model\Request\Order\Location;
-use SaaS\Service\Courierist\Model\Request\Order\Shipment;
 use JMS\Serializer\Annotation as JMS;
+use SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Shipment;
+use SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Location;
+use SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Contact;
 
 /**
  * Class Order
@@ -28,9 +28,9 @@ class Order
     /**
      * Частичная доставка допустима (true / false или не передается)
      *
-     * @var bool
+     * @var bool|null
      *
-     * @JSM\Type("boolean")
+     * @JSM\Type("boolean|null")
      * @JMS\SerializedName("is_partial_delivering")
      */
     public $isPartialDelivering;
@@ -38,9 +38,9 @@ class Order
     /**
      * Вскрытие заводской упаковки допустимо (true / false или не передается)
      *
-     * @var bool
+     * @var bool|null
      *
-     * @JSM\Type("boolean")
+     * @JSM\Type("boolean|null")
      * @JMS\SerializedName("is_opening_package_allowed")
      */
     public $isOpeningPackageAllowed;
@@ -48,9 +48,9 @@ class Order
     /**
      * Примерка/проверка грузов в заказе допустима (true / false или не передается)
      *
-     * @var bool
+     * @var bool|null
      *
-     * @JSM\Type("boolean")
+     * @JSM\Type("boolean|null")
      * @JMS\SerializedName("is_fitting_allowed")
      */
     public $isFittingAllowed;
@@ -60,7 +60,7 @@ class Order
      *
      * @var Contact
      *
-     * @JSM\Type("array<SaaS\Service\Courierist\Model\Request\Order\Contact>")
+     * @JSM\Type("SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Contact")
      * @JMS\SerializedName("contact")
      */
     public $contact;
@@ -70,17 +70,17 @@ class Order
      *
      * @var Location[]
      *
-     * @JSM\Type("array<SaaS\Service\Courierist\Model\Request\Order\Location>")
+     * @JSM\Type("array<SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Location>")
      * @JMS\SerializedName("locations")
      */
     public $locations;
 
     /**
-     * Массив из адресов забора и доставки
+     * Массив грузов к заказу
      *
      * @var Shipment[]
      *
-     * @JSM\Type("array<SaaS\Service\Courierist\Model\Request\Order\Shipment>")
+     * @JSM\Type("array<SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Shipment>")
      * @JMS\SerializedName("shipment")
      */
     public $shipment;

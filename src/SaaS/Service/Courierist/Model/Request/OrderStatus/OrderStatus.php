@@ -2,6 +2,8 @@
 
 namespace SaaS\Service\Courierist\Model\Request\OrderStatus;
 
+use JMS\Serializer\Annotation as JMS;
+
 /**
  * Class OrderStatus
  *
