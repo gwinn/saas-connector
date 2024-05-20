@@ -105,6 +105,9 @@ class Shipment
     /**
      * Тип единицы измерения товара
      *
+     * Количество (поле unit) = 1
+     * Килограммы (поле weight) = 2
+     *
      * @var int
      *
      * @JSM\Type("integer")

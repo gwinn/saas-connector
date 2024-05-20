@@ -4,6 +4,7 @@ namespace SaaS\Service\Courierist\Model\Response\OrderCreate\Order;
 
 use JMS\Serializer\Annotation as JMS;
 use SaaS\Service\Courierist\Model\Response\Traits\OrderTrait;
+use SaaS\Service\Courierist\Model\Response\OrderCreate\Order\Location;
 
 /**
  * Class Order
@@ -38,9 +39,9 @@ class Order
     /**
      * Время изменения статуса
      *
-     * @var string
+     * @var Location[]
      *
-     * @JSM\Type("string")
+     * @JSM\Type("array<SaaS\Service\Courierist\Model\Response\OrderCreate\Order\Location>")
      * @JMS\SerializedName("locations")
      */
     public $locations;
