@@ -14,12 +14,12 @@ use SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Order;
 class OrderCreateRequest
 {
     /**
-     * Заказ
+     * Заказы
      *
-     * @var Order
+     * @var Order[]
      *
      * @JSM\Type("SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Order")
-     * @JMS\SerializedName("order")
+     * @JMS\SerializedName("orders")
      */
-    public $order;
+    public $orders;
 }
