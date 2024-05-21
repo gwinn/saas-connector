@@ -12,7 +12,7 @@ class OrderStatusResponse
      *
      * @var Order
      *
-     * @JSM\Type("SaaS\Service\Courierist\Model\Response\OrderStatus\Order\Order")
+     * @JMS\Type("SaaS\Service\Courierist\Model\Response\OrderStatus\Order\Order")
      * @JMS\SerializedName("order")
      */
     public $order;

@@ -15,7 +15,7 @@ trait OrderTrait
      *
      * @var int
      *
-     * @JSM\Type("integer")
+     * @JMS\Type("integer")
      * @JMS\SerializedName("order")
      */
     public $id;
@@ -25,7 +25,7 @@ trait OrderTrait
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("code")
      */
     public $code;
@@ -35,7 +35,7 @@ trait OrderTrait
      *
      * @var float
      *
-     * @JSM\Type("float")
+     * @JMS\Type("float")
      * @JMS\SerializedName("price")
      */
     public $price;
@@ -45,7 +45,7 @@ trait OrderTrait
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("created_at")
      */
     public $createdAt;
@@ -55,7 +55,7 @@ trait OrderTrait
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("estimate_at")
      */
     public $estimateAt;
@@ -65,7 +65,7 @@ trait OrderTrait
      *
      * @var int
      *
-     * @JSM\Type("integer")
+     * @JMS\Type("integer")
      * @JMS\SerializedName("status")
      */
     public $status;

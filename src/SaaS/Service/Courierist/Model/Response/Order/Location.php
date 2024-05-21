@@ -23,7 +23,7 @@ class Location
      *
      * @var int|null
      *
-     * @JSM\Type("integer|null")
+     * @JMS\Type("integer|null")
      * @JMS\SerializedName("task_id")
      */
     public $taskId;
@@ -33,7 +33,7 @@ class Location
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("trackingLink")
      */
     public $trackingLink;
@@ -43,7 +43,7 @@ class Location
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("reason")
      */
     public $reason;
@@ -53,7 +53,7 @@ class Location
      *
      * @var Picking[]
      *
-     * @JSM\Type("array<SaaS\Service\Courierist\Model\Response\Order\Picking>")
+     * @JMS\Type("array<SaaS\Service\Courierist\Model\Response\Order\Picking>")
      * @JMS\SerializedName("pickings")
      */
     public $pickings;
@@ -63,7 +63,7 @@ class Location
      *
      * @var array
      *
-     * @JSM\Type("array")
+     * @JMS\Type("array")
      * @JMS\SerializedName("deliveries")
      */
     public $deliveries;
@@ -73,7 +73,7 @@ class Location
      *
      * @var Assignment[]
      *
-     * @JSM\Type("array<SaaS\Service\Courierist\Model\Response\Order\Assignment>")
+     * @JMS\Type("array<SaaS\Service\Courierist\Model\Response\Order\Assignment>")
      * @JMS\SerializedName("assignments")
      */
     public $assignments;
@@ -83,7 +83,7 @@ class Location
      *
      * @var Service[]
      *
-     * @JSM\Type("array<SaaS\Service\Courierist\Model\Response\Order\Service>")
+     * @JMS\Type("array<SaaS\Service\Courierist\Model\Response\Order\Service>")
      * @JMS\SerializedName("services")
      */
     public $services;

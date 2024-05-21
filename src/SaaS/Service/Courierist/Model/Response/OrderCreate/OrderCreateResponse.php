@@ -17,7 +17,7 @@ class OrderCreateResponse
      *
      * @var Order[]
      *
-     * @JSM\Type("array<SaaS\Service\Courierist\Model\Response\OrderCreate\Order\Order>")
+     * @JMS\Type("array<SaaS\Service\Courierist\Model\Response\OrderCreate\Order\Order>")
      * @JMS\SerializedName("order")
      */
     public $order;

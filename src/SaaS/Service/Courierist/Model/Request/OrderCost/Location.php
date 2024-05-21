@@ -20,7 +20,7 @@ class Location
      *
      * @var Assignment[]
      *
-     * @JSM\Type("array<SaaS\Service\Courierist\Model\Request\OrderCost\Assignment>")
+     * @JMS\Type("array<SaaS\Service\Courierist\Model\Request\OrderCost\Assignment>")
      * @JMS\SerializedName("assignments")
      */
     public $assignments;

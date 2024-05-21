@@ -21,7 +21,7 @@ class Location
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("comment")
      */
     public $comment;
@@ -31,7 +31,7 @@ class Location
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("external_id")
      */
     public $externalId;
@@ -41,7 +41,7 @@ class Location
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("pin")
      */
     public $pin;
@@ -52,7 +52,7 @@ class Location
      *
      * @var string|array<string>
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string|array<string>")
      * @JMS\SerializedName("otp")
      */
     public $otp;
@@ -62,7 +62,7 @@ class Location
      *
      * @var float
      *
-     * @JSM\Type("float")
+     * @JMS\Type("float")
      * @JMS\SerializedName("prepayment")
      */
     public $prepayment;
@@ -72,7 +72,7 @@ class Location
      *
      * @var Contact
      *
-     * @JSM\Type("SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Contact")
+     * @JMS\Type("SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Contact")
      * @JMS\SerializedName("contact")
      */
     public $contact;
@@ -82,7 +82,7 @@ class Location
      *
      * @var Assignment[]
      *
-     * @JSM\Type("array<SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Assignment>")
+     * @JMS\Type("array<SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Assignment>")
      * @JMS\SerializedName("assignments")
      */
     public $assignments;

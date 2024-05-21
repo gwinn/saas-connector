@@ -18,7 +18,7 @@ class OrderDeleteResponse
      *
      * @var Order
      *
-     * @JSM\Type("SaaS\Service\Courierist\Model\Request\OrderDelete\Order\Order")
+     * @JMS\Type("SaaS\Service\Courierist\Model\Request\OrderDelete\Order\Order")
      * @JMS\SerializedName("order")
      */
     public $order;

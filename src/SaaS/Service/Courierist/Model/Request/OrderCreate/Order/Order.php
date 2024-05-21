@@ -20,7 +20,7 @@ class Order
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("comment")
      */
     public $comment;
@@ -30,7 +30,7 @@ class Order
      *
      * @var bool|null
      *
-     * @JSM\Type("boolean|null")
+     * @JMS\Type("boolean|null")
      * @JMS\SerializedName("is_partial_delivering")
      */
     public $isPartialDelivering;
@@ -40,7 +40,7 @@ class Order
      *
      * @var bool|null
      *
-     * @JSM\Type("boolean|null")
+     * @JMS\Type("boolean|null")
      * @JMS\SerializedName("is_opening_package_allowed")
      */
     public $isOpeningPackageAllowed;
@@ -50,7 +50,7 @@ class Order
      *
      * @var bool|null
      *
-     * @JSM\Type("boolean|null")
+     * @JMS\Type("boolean|null")
      * @JMS\SerializedName("is_fitting_allowed")
      */
     public $isFittingAllowed;
@@ -60,7 +60,7 @@ class Order
      *
      * @var Contact
      *
-     * @JSM\Type("SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Contact")
+     * @JMS\Type("SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Contact")
      * @JMS\SerializedName("contact")
      */
     public $contact;
@@ -70,7 +70,7 @@ class Order
      *
      * @var Location[]
      *
-     * @JSM\Type("array<SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Location>")
+     * @JMS\Type("array<SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Location>")
      * @JMS\SerializedName("locations")
      */
     public $locations;
@@ -80,7 +80,7 @@ class Order
      *
      * @var Shipment[]
      *
-     * @JSM\Type("array<SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Shipment>")
+     * @JMS\Type("array<SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Shipment>")
      * @JMS\SerializedName("shipment")
      */
     public $shipment;
@@ -91,7 +91,7 @@ class Order
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("debug")
      */
     public $debug;

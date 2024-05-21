@@ -21,7 +21,7 @@ class Order
      *
      * @var int
      *
-     * @JSM\Type("integer")
+     * @JMS\Type("integer")
      * @JMS\SerializedName("pod")
      */
     public $pod;
@@ -31,7 +31,7 @@ class Order
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("status_at")
      */
     public $statusAt;
@@ -41,7 +41,7 @@ class Order
      *
      * @var Location[]
      *
-     * @JSM\Type("array<SaaS\Service\Courierist\Model\Response\OrderCreate\Order\Location>")
+     * @JMS\Type("array<SaaS\Service\Courierist\Model\Response\OrderCreate\Order\Location>")
      * @JMS\SerializedName("locations")
      */
     public $locations;

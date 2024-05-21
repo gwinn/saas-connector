@@ -18,7 +18,7 @@ class AuthResponse
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("access_token")
      */
     public $accessToken;

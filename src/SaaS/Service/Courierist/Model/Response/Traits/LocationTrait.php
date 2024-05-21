@@ -15,7 +15,7 @@ trait LocationTrait
      *
      * @var int
      *
-     * @JSM\Type("integer")
+     * @JMS\Type("integer")
      * @JMS\SerializedName("id")
      */
     public $id;
@@ -25,7 +25,7 @@ trait LocationTrait
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("address")
      */
     public $address;
@@ -35,7 +35,7 @@ trait LocationTrait
      *
      * @var string|null
      *
-     * @JSM\Type("string|null")
+     * @JMS\Type("string|null")
      * @JMS\SerializedName("external_id")
      */
     public $externalId;
@@ -45,7 +45,7 @@ trait LocationTrait
      *
      * @var int
      *
-     * @JSM\Type("integer")
+     * @JMS\Type("integer")
      * @JMS\SerializedName("status")
      */
     public $status;

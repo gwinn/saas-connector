@@ -17,7 +17,7 @@ class Contact
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("name")
      */
     public $name;
@@ -27,7 +27,7 @@ class Contact
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("phone")
      */
     public $phone;
@@ -37,7 +37,7 @@ class Contact
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("email")
      */
     public $email;
@@ -47,7 +47,7 @@ class Contact
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("note")
      */
     public $note;
@@ -59,7 +59,7 @@ class Contact
      *
      * @var integer
      *
-     * @JSM\Type("integer")
+     * @JMS\Type("integer")
      * @JMS\SerializedName("type")
      */
     public $type;

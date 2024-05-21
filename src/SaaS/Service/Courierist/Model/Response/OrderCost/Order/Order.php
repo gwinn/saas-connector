@@ -16,7 +16,7 @@ class Order
      *
      * @var float
      *
-     * @JSM\Type("float")
+     * @JMS\Type("float")
      * @JMS\SerializedName("price")
      */
     public $price;
@@ -26,8 +26,18 @@ class Order
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("estimate_at")
      */
     public $estimateAt;
+
+    /**
+     * Интервалы доставки
+     *
+     * @var array
+     *
+     * @JMS\Type("array")
+     * @JMS\SerializedName("delivery_intervals")
+     */
+    public $deliveryIntervals;
 }

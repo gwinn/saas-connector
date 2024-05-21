@@ -17,7 +17,7 @@ class Assignment
      *
      * @var int
      *
-     * @JSM\Type("integer")
+     * @JMS\Type("integer")
      * @JMS\SerializedName("id")
      */
     public $id;
@@ -27,7 +27,7 @@ class Assignment
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("name")
      */
     public $name;
@@ -37,7 +37,7 @@ class Assignment
      *
      * @var int
      *
-     * @JSM\Type("integer")
+     * @JMS\Type("integer")
      * @JMS\SerializedName("status")
      */
     public $status;
@@ -47,7 +47,7 @@ class Assignment
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("statusLabel")
      */
     public $statusLabel;

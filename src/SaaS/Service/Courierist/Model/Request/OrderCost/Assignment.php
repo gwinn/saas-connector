@@ -17,7 +17,7 @@ class Assignment
      *
      * @var float
      *
-     * @JSM\Type("float")
+     * @JMS\Type("float")
      * @JMS\SerializedName("price")
      */
     public $price;
@@ -30,7 +30,7 @@ class Assignment
      *
      * @var integer
      *
-     * @JSM\Type("integer")
+     * @JMS\Type("integer")
      * @JMS\SerializedName("type")
      */
     public $type;

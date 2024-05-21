@@ -17,7 +17,7 @@ class Service
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("description")
      */
     public $description;
@@ -27,7 +27,7 @@ class Service
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("price")
      */
     public $price;

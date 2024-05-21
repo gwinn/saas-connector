@@ -3,6 +3,7 @@
 namespace SaaS\Service\Courierist\Model\Request\OrderCreate\Order;
 
 use SaaS\Service\Courierist\Model\Request\Traits\AssignmentTrait;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Class Assignment
@@ -18,7 +19,7 @@ class Assignment
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("name")
      */
     public $name;
@@ -28,7 +29,7 @@ class Assignment
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("comment")
      */
     public $comment;
@@ -39,7 +40,7 @@ class Assignment
      *
      * @var float
      *
-     * @JSM\Type("float")
+     * @JMS\Type("float")
      * @JMS\SerializedName("required_min_sum")
      */
     public $requiredMinSum;
@@ -50,7 +51,7 @@ class Assignment
      *
      * @var bool
      *
-     * @JSM\Type("boolean")
+     * @JMS\Type("boolean")
      * @JMS\SerializedName("is_required_on_cancel")
      */
     public $isRequiredOnCancel;
@@ -64,7 +65,7 @@ class Assignment
      *
      * @var float
      *
-     * @JSM\Type("float")
+     * @JMS\Type("float")
      * @JMS\SerializedName("tax_rate")
      */
     public $taxRate;

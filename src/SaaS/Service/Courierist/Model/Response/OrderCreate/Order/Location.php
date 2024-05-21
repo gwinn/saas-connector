@@ -20,7 +20,7 @@ class Location
      *
      * @var int|null
      *
-     * @JSM\Type("integer|null")
+     * @JMS\Type("integer|null")
      * @JMS\SerializedName("task_id")
      */
     public $taskId;
@@ -30,7 +30,7 @@ class Location
      *
      * @var string|null
      *
-     * @JSM\Type("string|null")
+     * @JMS\Type("string|null")
      * @JMS\SerializedName("address_place")
      */
     public $addressPlace;
@@ -40,7 +40,7 @@ class Location
      *
      * @var int|null
      *
-     * @JSM\Type("integer|null")
+     * @JMS\Type("integer|null")
      * @JMS\SerializedName("address_type_id")
      */
     public $addressTypeId;
@@ -50,7 +50,7 @@ class Location
      *
      * @var string
      *
-     * @JSM\Type("string|null")
+     * @JMS\Type("string|null")
      * @JMS\SerializedName("address_details")
      */
     public $addressDetails;
@@ -60,7 +60,7 @@ class Location
      *
      * @var int
      *
-     * @JSM\Type("integer")
+     * @JMS\Type("integer")
      * @JMS\SerializedName("contact_id")
      */
     public $contactId;
@@ -70,7 +70,7 @@ class Location
      *
      * @var string
      *
-     * @JSM\Type("integer")
+     * @JMS\Type("integer")
      * @JMS\SerializedName("delivery_from")
      */
     public $deliveryFrom;
@@ -80,7 +80,7 @@ class Location
      *
      * @var int
      *
-     * @JSM\Type("integer")
+     * @JMS\Type("integer")
      * @JMS\SerializedName("delivery_to")
      */
     public $deliveryTo;
@@ -90,7 +90,7 @@ class Location
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("trackingLink")
      */
     public $trackingLink;
@@ -100,7 +100,7 @@ class Location
      *
      * @var string|null
      *
-     * @JSM\Type("string|null")
+     * @JMS\Type("string|null")
      * @JMS\SerializedName("reason")
      */
     public $reason;
@@ -110,7 +110,7 @@ class Location
      *
      * @var string|null
      *
-     * @JSM\Type("string|null")
+     * @JMS\Type("string|null")
      * @JMS\SerializedName("comment")
      */
     public $comment;
@@ -120,7 +120,7 @@ class Location
      *
      * @var int
      *
-     * @JSM\Type("integer")
+     * @JMS\Type("integer")
      * @JMS\SerializedName("income")
      */
     public $income;
@@ -133,7 +133,7 @@ class Location
      *
      * @var int|null
      *
-     * @JSM\Type("integer|null")
+     * @JMS\Type("integer|null")
      * @JMS\SerializedName("payment_type")
      */
     public $paymentType;
@@ -143,7 +143,7 @@ class Location
      *
      * @var int
      *
-     * @JSM\Type("integer")
+     * @JMS\Type("integer")
      * @JMS\SerializedName("prepayment")
      */
     public $prepayment;
@@ -153,7 +153,7 @@ class Location
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("delivery_date")
      */
     public $deliveryDate;

@@ -20,7 +20,7 @@ class OrderCostRequest
      *
      * @var Location[]
      *
-     * @JSM\Type("array<SaaS\Service\Courierist\Model\Request\OrderCost\Location>")
+     * @JMS\Type("array<SaaS\Service\Courierist\Model\Request\OrderCost\Location>")
      * @JMS\SerializedName("locations")
      */
     public $locations;
@@ -30,7 +30,7 @@ class OrderCostRequest
      *
      * @var Shipment[]
      *
-     * @JSM\Type("array<SaaS\Service\Courierist\Model\Request\OrderCost\Shipment>")
+     * @JMS\Type("array<SaaS\Service\Courierist\Model\Request\OrderCost\Shipment>")
      * @JMS\SerializedName("shipment")
      */
     public $shipment;

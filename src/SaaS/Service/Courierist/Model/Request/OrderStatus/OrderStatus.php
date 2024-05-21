@@ -17,7 +17,7 @@ class OrderStatus
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("status")
      */
     public $status;
@@ -27,7 +27,7 @@ class OrderStatus
      *
      * @var bool
      *
-     * @JSM\Type("boolean")
+     * @JMS\Type("boolean")
      * @JMS\SerializedName("is_manual_processing")
      */
     public $isManualProcessing;

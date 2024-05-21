@@ -12,7 +12,7 @@ trait LocationTrait
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("address")
      */
     public $address;
@@ -22,7 +22,7 @@ trait LocationTrait
      *
      * @var float
      *
-     * @JSM\Type("float")
+     * @JMS\Type("float")
      * @JMS\SerializedName("latitude")
      */
     public $latitude;
@@ -32,7 +32,7 @@ trait LocationTrait
      *
      * @var float
      *
-     * @JSM\Type("float")
+     * @JMS\Type("float")
      * @JMS\SerializedName("longtitude")
      */
     public $longtitude;
@@ -42,7 +42,7 @@ trait LocationTrait
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("delivery_date")
      */
     public $deliveryDate;
@@ -52,7 +52,7 @@ trait LocationTrait
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("delivery_from")
      */
     public $deliveryFrom;
@@ -62,7 +62,7 @@ trait LocationTrait
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("delivery_to")
      */
     public $deliveryTo;

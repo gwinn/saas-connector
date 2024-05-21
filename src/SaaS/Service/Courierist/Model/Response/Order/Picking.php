@@ -17,7 +17,7 @@ class Picking
      *
      * @var int
      *
-     * @JSM\Type("integer")
+     * @JMS\Type("integer")
      * @JMS\SerializedName("id")
      */
     public $id;
@@ -27,7 +27,7 @@ class Picking
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("article")
      */
     public $article;
@@ -37,7 +37,7 @@ class Picking
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("name")
      */
     public $name;
@@ -47,7 +47,7 @@ class Picking
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("status")
      */
     public $status;
@@ -57,7 +57,7 @@ class Picking
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("statusLabel")
      */
     public $statusLabel;
@@ -67,7 +67,7 @@ class Picking
      *
      * @var int
      *
-     * @JSM\Type("integer")
+     * @JMS\Type("integer")
      * @JMS\SerializedName("value")
      */
     public $value;
@@ -77,7 +77,7 @@ class Picking
      *
      * @var int
      *
-     * @JSM\Type("integer")
+     * @JMS\Type("integer")
      * @JMS\SerializedName("weight")
      */
     public $weight;
@@ -87,7 +87,7 @@ class Picking
      *
      * @var int
      *
-     * @JSM\Type("integer")
+     * @JMS\Type("integer")
      * @JMS\SerializedName("length")
      */
     public $length;

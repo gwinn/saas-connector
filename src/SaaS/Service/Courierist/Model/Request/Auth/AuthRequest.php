@@ -17,7 +17,7 @@ class AuthRequest
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("login")
      */
     public $login;
@@ -27,7 +27,7 @@ class AuthRequest
      *
      * @var string
      *
-     * @JSM\Type("string")
+     * @JMS\Type("string")
      * @JMS\SerializedName("password")
      */
     public $password;

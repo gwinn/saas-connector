@@ -21,7 +21,7 @@ class Order
      *
      * @var Location[]
      *
-     * @JSM\Type("SaaS\Service\Courierist\Model\Response\OrderDelete\Order\Location")
+     * @JMS\Type("SaaS\Service\Courierist\Model\Response\OrderDelete\Order\Location")
      * @JMS\SerializedName("locations")
      */
     public $locations;

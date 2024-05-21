@@ -12,7 +12,7 @@ trait ShipmentTrait
      *
      * @var float
      *
-     * @JSM\Type("float")
+     * @JMS\Type("float")
      * @JMS\SerializedName("price")
      */
     public $price;
@@ -22,7 +22,7 @@ trait ShipmentTrait
      *
      * @var float
      *
-     * @JSM\Type("float")
+     * @JMS\Type("float")
      * @JMS\SerializedName("weight")
      */
     public $weight;
@@ -32,7 +32,7 @@ trait ShipmentTrait
      *
      * @var float
      *
-     * @JSM\Type("float")
+     * @JMS\Type("float")
      * @JMS\SerializedName("length")
      */
     public $length;
@@ -42,7 +42,7 @@ trait ShipmentTrait
      *
      * @var float
      *
-     * @JSM\Type("float")
+     * @JMS\Type("float")
      * @JMS\SerializedName("value")
      */
     public $value;
@@ -52,7 +52,7 @@ trait ShipmentTrait
      *
      * @var integer
      *
-     * @JSM\Type("integer")
+     * @JMS\Type("integer")
      * @JMS\SerializedName("unit")
      */
     public $unit;
@@ -62,7 +62,7 @@ trait ShipmentTrait
      *
      * @var integer
      *
-     * @JSM\Type("integer")
+     * @JMS\Type("integer")
      * @JMS\SerializedName("type_id")
      */
     public $typeId;

@@ -18,7 +18,7 @@ class OrderCostResponse
      *
      * @var Order
      *
-     * @JSM\Type("SaaS\Service\Courierist\Model\Response\OrderCost\Order\Order")
+     * @JMS\Type("SaaS\Service\Courierist\Model\Response\OrderCost\Order\Order")
      * @JMS\SerializedName("order")
      */
     public $order;

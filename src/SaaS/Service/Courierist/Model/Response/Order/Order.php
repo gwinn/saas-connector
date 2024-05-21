@@ -20,7 +20,7 @@ class Order
      *
      * @var Location[]
      *
-     * @JSM\Type("array<SaaS\Service\Courierist\Model\Response\Order\Location>")
+     * @JMS\Type("array<SaaS\Service\Courierist\Model\Response\Order\Location>")
      * @JMS\SerializedName("locations")
      */
     public $locations;
