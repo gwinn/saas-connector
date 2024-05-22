@@ -1,12 +1,12 @@
 <?php
 
-namespace SaaS\Service\Courierist\Model\Response\Order;
+namespace SaaS\Service\Courierist\Model\Response\OrderGet;
 
 use JMS\Serializer\Annotation as JMS;
 use SaaS\Service\Courierist\Model\Response\Traits\LocationTrait;
-use SaaS\Service\Courierist\Model\Response\Order\Picking;
-use SaaS\Service\Courierist\Model\Response\Order\Assignment;
-use SaaS\Service\Courierist\Model\Response\Order\Service;
+use SaaS\Service\Courierist\Model\Response\OrderGet\Picking;
+use SaaS\Service\Courierist\Model\Response\OrderGet\Assignment;
+use SaaS\Service\Courierist\Model\Response\OrderGet\Service;
 
 /**
  * Class Location

@@ -2,7 +2,9 @@
 
 namespace SaaS\Service\Courierist\Model\Response\OrderCreate;
 
+use JMS\Serializer\Annotation as JMS;
 use SaaS\Service\Courierist\Model\Response\OrderCreate\Order\Order;
+use SaaS\Service\Courierist\Model\Response\ResponseModel;
 
 /**
  * Class OrderCreateResponse
@@ -10,7 +12,7 @@ use SaaS\Service\Courierist\Model\Response\OrderCreate\Order\Order;
  * @category Models
  *
  */
-class OrderCreateResponse
+class OrderCreateResponse implements ResponseModel
 {
     /**
      * Заказ
@@ -18,7 +20,7 @@ class OrderCreateResponse
      * @var Order[]
      *
      * @JMS\Type("array<SaaS\Service\Courierist\Model\Response\OrderCreate\Order\Order>")
-     * @JMS\SerializedName("order")
+     * @JMS\SerializedName("orders")
      */
-    public $order;
+    public $orders;
 }

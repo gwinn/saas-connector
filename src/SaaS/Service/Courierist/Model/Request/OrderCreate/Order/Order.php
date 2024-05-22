@@ -6,6 +6,7 @@ use JMS\Serializer\Annotation as JMS;
 use SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Shipment;
 use SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Location;
 use SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Contact;
+use SaaS\Service\Courierist\Model\Request\RequestModel;
 
 /**
  * Class Order
@@ -13,7 +14,7 @@ use SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Contact;
  * @category Models
  *
  */
-class Order
+class Order implements RequestModel
 {
     /**
      * Комментарий к заказу для логистов

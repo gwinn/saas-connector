@@ -3,6 +3,7 @@
 namespace SaaS\Service\Courierist\Model\Response\Auth;
 
 use JMS\Serializer\Annotation as JMS;
+use SaaS\Service\Courierist\Model\Response\ResponseModel;
 
 /**
  * Class AuthResponse
@@ -11,7 +12,7 @@ use JMS\Serializer\Annotation as JMS;
  *
  */
 
-class AuthResponse
+class AuthResponse implements ResponseModel
 {
     /**
      * Access token

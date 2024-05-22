@@ -3,6 +3,7 @@
 namespace SaaS\Service\Courierist\Model\Request\Auth;
 
 use JMS\Serializer\Annotation as JMS;
+use SaaS\Service\Courierist\Model\Request\RequestModel;
 
 /**
  * Class AuthRequest
@@ -10,7 +11,7 @@ use JMS\Serializer\Annotation as JMS;
  * @category Models
  *
  */
-class AuthRequest
+class AuthRequest implements RequestModel
 {
     /**
      * Логин

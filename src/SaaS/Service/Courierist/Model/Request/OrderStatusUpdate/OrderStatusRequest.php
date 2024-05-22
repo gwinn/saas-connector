@@ -1,16 +1,17 @@
 <?php
 
-namespace SaaS\Service\Courierist\Model\Request\OrderStatus;
+namespace SaaS\Service\Courierist\Model\Request\OrderStatusUpdate;
 
 use JMS\Serializer\Annotation as JMS;
+use SaaS\Service\Courierist\Model\Request\RequestModel;
 
 /**
- * Class OrderStatus
+ * Class OrderStatusRequest
  *
  * @category Models
  *
  */
-class OrderStatus
+class OrderStatusRequest implements RequestModel
 {
     /**
      * Статус заказа

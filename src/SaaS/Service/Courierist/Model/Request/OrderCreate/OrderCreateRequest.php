@@ -4,6 +4,7 @@ namespace SaaS\Service\Courierist\Model\Request\OrderCreate;
 
 use JMS\Serializer\Annotation as JMS;
 use SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Order;
+use SaaS\Service\Courierist\Model\Request\RequestModel;
 
 /**
  * Class OrderCreateRequest
@@ -11,7 +12,7 @@ use SaaS\Service\Courierist\Model\Request\OrderCreate\Order\Order;
  * @category Models
  *
  */
-class OrderCreateRequest
+class OrderCreateRequest implements RequestModel
 {
     /**
      * Заказы

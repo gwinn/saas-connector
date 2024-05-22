@@ -1,6 +1,7 @@
 <?php
 
-namespace SaaS\Service\Courierist\Model\Response\Order;
+namespace SaaS\Service\Courierist\Model\Response\OrderGet;
+
 use JMS\Serializer\Annotation as JMS;
 use SaaS\Service\Courierist\Model\Response\OrderDelete\Order\Location;
 use SaaS\Service\Courierist\Model\Response\Traits\OrderTrait;

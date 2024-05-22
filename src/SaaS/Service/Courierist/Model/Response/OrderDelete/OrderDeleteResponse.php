@@ -4,6 +4,7 @@ namespace SaaS\Service\Courierist\Model\Response\OrderDelete;
 
 use JMS\Serializer\Annotation as JMS;
 use SaaS\Service\Courierist\Model\Response\OrderDelete\Order\Order;
+use SaaS\Service\Courierist\Model\Response\ResponseModel;
 
 /**
  * Class OrderDeleteResponse
@@ -11,7 +12,7 @@ use SaaS\Service\Courierist\Model\Response\OrderDelete\Order\Order;
  * @category Models
  *
  */
-class OrderDeleteResponse
+class OrderDeleteResponse implements ResponseModel
 {
     /**
      * Заказ

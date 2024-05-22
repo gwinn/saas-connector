@@ -1,6 +1,6 @@
 <?php
 
-namespace SaaS\Service\Courierist\Model\Response\Order;
+namespace SaaS\Service\Courierist\Model\Response\OrderGet;
 
 use JMS\Serializer\Annotation as JMS;
 

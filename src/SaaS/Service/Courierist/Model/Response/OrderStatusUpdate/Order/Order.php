@@ -1,6 +1,6 @@
 <?php
 
-namespace SaaS\Service\Courierist\Model\Response\OrderStatus\Order;
+namespace SaaS\Service\Courierist\Model\Response\OrderStatusUpdate\Order;
 
 use JMS\Serializer\Annotation as JMS;
 use SaaS\Service\Courierist\Model\Response\Traits\OrderTrait;
